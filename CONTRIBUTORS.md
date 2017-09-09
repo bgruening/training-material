@@ -3,6 +3,7 @@
 The following individuals have contributed to this training material:
 
 * Andreas Richter
+* foo
 * Anton Nekrutenko (@nekrut)
 * Anika Erxleben (@erxleben)
 * Bérénice Batut (@bebatut)
