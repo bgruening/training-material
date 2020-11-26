@@ -1,0 +1,813 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <title>Creating a new tutorial - Creating Interactive Galaxy Tours</title>
+        
+            <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+    ga('create', '' , 'auto');
+    ga('send', 'pageview');
+</script>
+        
+        <link rel="stylesheet" href="/training-material/assets/css/bootstrap.min.css?v=3">
+        <link rel="stylesheet" href="/training-material/assets/css/bootstrap-toc.min.css">
+        <link rel="stylesheet" href="/training-material/assets/css/main.css?v=2">
+        <script src="https://kit.fontawesome.com/67b3f98409.js" crossorigin="anonymous"></script>
+        <link rel="stylesheet" href="/training-material/assets/css/academicons.css">
+        <link rel="stylesheet" href="/training-material/assets/css/syntax_highlighting.css">
+        <link rel="shortcut icon" href="/training-material/favicon.ico" type="image/x-icon" />
+
+        
+        
+        
+        
+        
+        <meta name="description" content="Galaxy is a great solution to train the bioinformatics co..." />
+        <meta property="og:title" content="Galaxy Training: Creating a new tutorial - Creating Interactive Galaxy Tours" />
+        <meta property="og:description" content="Galaxy is a great solution to train the bioinformatics co..." />
+        <meta property="og:image" content="/training-material/assets/images/GTNLogo1000.png" />
+    </head>
+    <body data-spy="scroll" data-target="#toc">
+        
+
+
+
+
+
+
+
+
+
+
+
+<!-- Gitter -->
+
+
+<script>
+  ((window.gitter = {}).chat = {}).options = {
+  room: 'Galaxy-Training-Network/Lobby'
+  };
+</script>
+<script src="https://sidecar.gitter.im/dist/sidecar.v1.js" async defer></script>
+
+<header>
+    <nav class="navbar navbar-expand-lg navbar-dark">
+        <div class="container">
+            <a class="navbar-brand" href="/training-material/">
+                <img src="/training-material/assets/images/GTN-60px.png" height="30" alt="Galaxy Training Network logo">
+                Galaxy Training!
+            </a>
+
+            <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#top-navbar" aria-controls="top-navbar" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="top-navbar">
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link" href="/training-material/topics/contributing" title="Go back to list of tutorials">
+                            <i class="far fa-folder" aria-hidden="true"></i><span class="visually-hidden">topic</span> Contributing to the Galaxy Training Material
+                        </a>
+                    </li>
+
+                    <li class="nav-item dropdown">
+                        <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" aria-expanded="false" title="Language Selector">
+                            <i class="fas fa-language" aria-hidden="true"></i><span class="visually-hidden">language</span> Language
+                        </a>
+                        <div class="dropdown-menu">
+                            
+                            <a class="dropdown-item" href="https://translate.google.com/translate?hl=jp&sl=en&tl=fr&u=https%3A%2F%2Ftraining.galaxyproject.org%2Ftopics%2Fcontributing%2Ftutorials%2Fcreate-new-tutorial-tours%2Ftutorial.html&edit-text=&act=url" title="">
+                                Français
+                            </a>
+                            
+                            <a class="dropdown-item" href="https://translate.google.com/translate?hl=jp&sl=en&tl=ja&u=https%3A%2F%2Ftraining.galaxyproject.org%2Ftopics%2Fcontributing%2Ftutorials%2Fcreate-new-tutorial-tours%2Ftutorial.html&edit-text=&act=url" title="">
+                                日本語
+                            </a>
+                            
+                            <a class="dropdown-item" href="https://translate.google.com/translate?hl=jp&sl=en&tl=es&u=https%3A%2F%2Ftraining.galaxyproject.org%2Ftopics%2Fcontributing%2Ftutorials%2Fcreate-new-tutorial-tours%2Ftutorial.html&edit-text=&act=url" title="">
+                                Español
+                            </a>
+                            
+                            <a class="dropdown-item" href="https://translate.google.com/translate?hl=jp&sl=en&tl=pt&u=https%3A%2F%2Ftraining.galaxyproject.org%2Ftopics%2Fcontributing%2Ftutorials%2Fcreate-new-tutorial-tours%2Ftutorial.html&edit-text=&act=url" title="">
+                                Português
+                            </a>
+                            
+                            <a class="dropdown-item" href="https://translate.google.com/translate?hl=jp&sl=en&tl=ar&u=https%3A%2F%2Ftraining.galaxyproject.org%2Ftopics%2Fcontributing%2Ftutorials%2Fcreate-new-tutorial-tours%2Ftutorial.html&edit-text=&act=url" title="">
+                                العربية
+                            </a>
+                            
+                            <a class="dropdown-item" href="https://translate.google.com/translate?hl=jp&sl=en&tl=&u=https%3A%2F%2Ftraining.galaxyproject.org%2Ftopics%2Fcontributing%2Ftutorials%2Fcreate-new-tutorial-tours%2Ftutorial.html&edit-text=&act=url" title="">
+                                And more!
+                            </a>
+                        </div>
+                    </li>
+
+                    <li class="nav-item dropdown">
+    <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" aria-expanded="false" title="Help">
+        <i class="far fa-question-circle" aria-hidden="true"></i><span class="visually-hidden">help</span> Help
+    </a>
+    <div class="dropdown-menu dropdown-menu-right">
+        <form method="get" action="https://tess.elixir-europe.org/materials">
+            <input type="text" id="search" name="q" value="" style="margin-left: 0.5em;/*! border-radius: 0px; */">
+            <input type="hidden" value="Galaxy Training" name="content_provider">
+            <input type="submit" value="Search on TeSS" style="width: 92%;border-radius: 0px;margin: 0.5em;background: #f47d20;border: 0px;padding: 0.25em;" class="">
+        </form>
+
+        <div class="dropdown-divider"></div>
+        <a class="dropdown-item" href="/training-material/faq" title="Check our FAQ">
+            FAQ
+        </a>
+        <a class="dropdown-item" href="https://help.galaxyproject.org/" title="Discuss on Galaxy Help">
+            Discuss on Galaxy Help
+        </a>
+
+        <div class="dropdown-item">
+            <div>
+                Theme
+            </div>
+
+            <div id="theme-selector" data-toggle="buttons">
+                <label data-value="default" class="btn btn-secondary">
+                    <input type="radio" name="options" id="default" autocomplete="off"> Default
+                </label>
+                <label data-value="night" class="btn btn-secondary">
+                    <input type="radio" name="options" id="night" autocomplete="off"> Night
+                </label>
+                <label data-value="midnight" class="btn btn-secondary">
+                    <input type="radio" name="options" id="midnight" autocomplete="off"> Midnight
+                </label>
+                <label data-value="rainbow" class="btn btn-secondary">
+                    <input type="radio" name="options" id="rainbow" autocomplete="off"> Rainbow
+                </label>
+                <label data-value="halloween" class="btn btn-secondary">
+                    <input type="radio" name="options" id="halloween" autocomplete="off"> 🎃
+                </label>
+            </div>
+
+        </div>
+    </div>
+</li>
+
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="https://github.com/galaxyproject/training-material/edit/master/topics/contributing/tutorials/create-new-tutorial-tours/tutorial.md">
+                            <i class="fab fa-github" aria-hidden="true"></i><span class="visually-hidden">github</span> Edit
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+</header>
+
+<div class="container main-content">
+    <script type="application/ld+json">
+        
+
+
+{
+  "@context": "http://schema.org",
+  "@type": "Course",
+  "accessMode": [
+    "textual",
+    "visual"
+  ],
+  "accessModeSufficient": [
+    "textual",
+    "visual"
+  ],
+  "accessibilityControl": [
+    "fullKeyboardControl",
+    "fullMouseControl"
+  ],
+  "accessibilityFeature": [
+    "alternativeText",
+    "tableOfContents"
+  ],
+  "accessibilitySummary": "Short descriptions are present but long descriptions will be needed for non-visual users",
+  "audience": {
+    "@type": "EducationalAudience",
+    "educationalRole": "students"
+  },
+  "citation": {
+    "@type": "CreativeWork",
+    "name": "Community-Driven Data Analysis Training for Biology",
+    "url": "https://doi.org/10.1016/j.cels.2018.05.012"
+  },
+  "copyrightHolder": {
+    "@type": "Organization",
+    "email": "galaxytrainingnetwork@gmail.com",
+    "name": "Galaxy Training Network",
+    "url": "https://galaxyproject.org/teach/gtn/"
+  },
+  "discussionUrl": "https://gitter.im/Galaxy-Training-Network/Lobby",
+  "headline": "Creating a new tutorial - Creating Interactive Galaxy Tours",
+  "inLanguage": {
+    "@type": "Language",
+    "name": "English",
+    "alternateName": "en"
+  },
+  "interactivityType": "mixed",
+  "isAccessibleForFree": true,
+  "license": "https://github.com/galaxyproject/training-material/blob/master/LICENSE.md",
+  "producer": {
+    "@type": "Organization",
+    "email": "galaxytrainingnetwork@gmail.com",
+    "name": "Galaxy Training Network",
+    "url": "https://galaxyproject.org/teach/gtn/"
+  },
+  "provider": {
+    "@type": "Organization",
+    "email": "galaxytrainingnetwork@gmail.com",
+    "name": "Galaxy Training Network",
+    "url": "https://galaxyproject.org/teach/gtn/"
+  },
+  "sourceOrganization": {
+    "@type": "Organization",
+    "email": "galaxytrainingnetwork@gmail.com",
+    "name": "Galaxy Training Network",
+    "url": "https://galaxyproject.org/teach/gtn/"
+  },
+  "isPartOf": {
+    "@type": "CreativeWork",
+    "name": "Contributing to the Galaxy Training Material",
+    "description": "Galaxy is a great solution to train the bioinformatics concepts: numerous bioinformatics tools are available (more than 7,000 in the ToolShed), it can be used by people without amy computer science skills, it trains to use technology, outlining available resources and efforts that have made them accessible to researchers, it is scalable.<br> In 2016, the Galaxy Training Network decide to set up a new infrastructure for delivering easily Galaxy related training material. The idea was to develop something open and online based on a community effort, as always in Galaxy.",
+    "url": "https://training.galaxyproject.org//training-material/topics/contributing/"
+  },
+  "courseCode": "contributing / create-new-tutorial-tours / hands-on",
+  "learningResourceType": "hands-on tutorial",
+  "name": "Hands-on for 'Creating a new tutorial - Creating Interactive Galaxy Tours' tutorial",
+  "url": "https://training.galaxyproject.org//training-material/topics/contributing/tutorials/create-new-tutorial-tours/tutorial.html",
+  "timeRequired": "PT15M",
+  "description": "The questions this  addresses are:\n - What is a Interactive Galaxy Tour?\n - How can we create an Interactive Tour?\n\n\\nThe objectives are:\n - Creating a Galaxy tour from scratch\n - Deploying and running a tour\n\n",
+  "hasPart": [
+
+  ],
+  "author": [
+    {
+      "@type": "Person",
+      "name": "Bérénice Batut"
+    },
+    {
+      "@type": "Person",
+      "name": "Björn Grüning"
+    },
+    {
+      "@type": "Person",
+      "name": "Saskia Hiltemann"
+    }
+  ],
+  "contributor": [
+    {
+      "@type": "Person",
+      "name": "Bérénice Batut"
+    },
+    {
+      "@type": "Person",
+      "name": "Björn Grüning"
+    },
+    {
+      "@type": "Person",
+      "name": "Saskia Hiltemann"
+    }
+  ],
+  "about": [
+    {
+      "@type": "CreativeWork",
+      "name": "Contributing to the Galaxy Training Material",
+      "description": "Galaxy is a great solution to train the bioinformatics concepts: numerous bioinformatics tools are available (more than 7,000 in the ToolShed), it can be used by people without amy computer science skills, it trains to use technology, outlining available resources and efforts that have made them accessible to researchers, it is scalable.<br> In 2016, the Galaxy Training Network decide to set up a new infrastructure for delivering easily Galaxy related training material. The idea was to develop something open and online based on a community effort, as always in Galaxy.",
+      "url": "https://training.galaxyproject.org//training-material/topics/contributing/"
+    }
+  ]
+}
+    </script>
+
+    <section class="tutorial">
+        <h1 data-toc-skip>Creating a new tutorial - Creating Interactive Galaxy Tours</h1>
+        
+
+        <div class="contributors-line">By: 
+
+<a href="/training-material/hall-of-fame/bebatut/" class="contributor-badge"><img src="https://avatars.githubusercontent.com/bebatut" alt="Bérénice Batut">Bérénice Batut</a>, <a href="/training-material/hall-of-fame/bgruening/" class="contributor-badge"><img src="https://avatars.githubusercontent.com/bgruening" alt="Björn Grüning">Björn Grüning</a>, <a href="/training-material/hall-of-fame/shiltemann/" class="contributor-badge"><img src="https://avatars.githubusercontent.com/shiltemann" alt="Saskia Hiltemann">Saskia Hiltemann</a>
+
+</div>
+
+        <blockquote class="overview">
+            <h3>Overview</h3>
+            <strong><i class="far fa-question-circle" aria-hidden="true"></i><span class="visually-hidden">question</span> Questions</strong>
+            <ul>
+            
+            <li><p>What is a Interactive Galaxy Tour?</p>
+</li>
+            
+            <li><p>How can we create an Interactive Tour?</p>
+</li>
+            
+            </ul>
+
+            <strong><i class="fas fa-bullseye" aria-hidden="true"></i><span class="visually-hidden">objectives</span> Objectives</strong>
+            <ul>
+            
+            <li><p>Creating a Galaxy tour from scratch</p>
+</li>
+            
+            <li><p>Deploying and running a tour</p>
+</li>
+            
+            </ul>
+
+            
+
+            
+            <p><strong><i class="fas fa-hourglass-half" aria-hidden="true"></i><span class="visually-hidden">time</span> Time estimation:</strong> 15 minutes</p>
+            
+
+            
+
+            
+            
+
+            
+            <p id="supporting-materials"><strong><i class="fa fa-external-link" aria-hidden="true"></i> Supporting Materials</strong></p>
+            <ul>
+                <div class="supporting_material">
+                
+                    <li class="btn btn-default supporting_material"><a href="/training-material/topics/contributing/slides/introduction.html" title="Introduction slides">
+                        <i class="fab fa-slideshare" aria-hidden="true"></i><span class="visually-hidden">slides</span> Introduction slides
+                    </a></li>
+                
+
+                
+
+                
+
+                
+
+                
+                    <li class="btn btn-default supporting_material">
+
+    <a href="#" class="btn btn-default dropdown-toggle topic-icon" data-toggle="dropdown" aria-expanded="false" title="Where to run the tutorial">
+        <i class="fas fa-globe" aria-hidden="true"></i><span class="visually-hidden">instances</span> Available on these Galaxies
+    </a>
+    <ul class="dropdown-menu">
+    
+        <li>
+            <a class="dropdown-item" href="https://github.com/galaxyproject/training-material/tree/master/topics/contributing/docker" title="Docker image for this tutorial">
+                <i class="fab fa-docker" aria-hidden="true"></i><span class="visually-hidden">docker_image</span> Docker image
+            </a>
+        </li>
+    
+    
+    </ul>
+
+
+</li>
+                
+                </div>
+            </ul>
+            
+
+            <p><strong> <i class="far fa-calendar" aria-hidden="true"></i><span class="visually-hidden">last_modification</span> Last modification:</strong> Nov 26, 2020 </p>
+        </blockquote>
+
+        <div class="container">
+            <div class="row">
+                <!-- sidebar, which will move to the top on a small screen -->
+                <div class="col-sm-2">
+                    <nav id="toc" data-toggle="toc" class="sticky-top"></nav>
+                </div>
+                <div class="col-sm-10">
+                    <h1 class="no_toc" id="introduction">Introduction</h1>
+
+<p><span class="notranslate">Galaxy</span> is a great solution to train the bioinformatics concepts:</p>
+
+<ul>
+  <li>numerous bioinformatics tools are available (almost 5,000 in the <span class="notranslate">ToolShed</span>)</li>
+  <li>it can be used by people without any computer science skills</li>
+  <li>it trains to use technology, outlining available resources and efforts that have made them accessible to researchers</li>
+  <li>it is scalable</li>
+</ul>
+
+<p>In 2016, the <span class="notranslate">Galaxy</span> Training Network decide to set up a new infrastructure for delivering easily <span class="notranslate">Galaxy</span> related training material. The idea was to develop something open and online based on a community effort, as most of the time in <span class="notranslate">Galaxy</span>.</p>
+
+<p>We take inspiration from <a href="https://software-carpentry.org">Software Carpentry</a>. We collected everything on a GitHub repository: <a href="https://github.com/galaxyproject/training-material">https://github.com/<span class="notranslate">galaxy</span>project/training-material </a>. We decided a structure based on tutorials with hands-on, fitting both for online self-training but also for workshops, grouped in topics. Each tutorial follows the same structure and comes with a technical support to be able to run.</p>
+
+<p>In this tutorial, you will understand how to design and develop a new tutorial fitting in this training material repository. As doing helps to understand, we will develop a small tutorial to explain BLAST with the full infrastructure to be able to run this tutorial anywhere.</p>
+
+<blockquote class="agenda">
+  <h3 id="agenda">Agenda</h3>
+
+  <p>In this tutorial, we will deal with:</p>
+
+<ol id="markdown-toc">
+  <li><a href="#a-galaxy-interactive-tour" id="markdown-toc-a-galaxy-interactive-tour">A <span class="notranslate">Galaxy</span> Interactive Tour</a></li>
+  <li><a href="#creating-a-galaxy-interactive-tour" id="markdown-toc-creating-a-galaxy-interactive-tour">Creating a <span class="notranslate">Galaxy</span> Interactive Tour</a></li>
+</ol>
+
+</blockquote>
+
+<h1 id="a-galaxy-interactive-tour">A <span class="notranslate">Galaxy</span> Interactive Tour</h1>
+
+<p>A <span class="notranslate">Galaxy</span> Interactive Tour is a way to go through an entire analysis, step by step inside <span class="notranslate">Galaxy</span> in an interactive and explorative way. It is a great pedagogic way to run the tutorial directly inside <span class="notranslate">Galaxy</span>.</p>
+
+<figure id="figure-1"><img src="../../../dev/images/galaxy_tour_demo.gif" alt="Demonstration of an Interactive Tour" /><figcaption><span class="figcaption-prefix">Figure 1:</span> Demonstration of an Interactive Tour</figcaption></figure>
+
+<p>A tour is a YAML file like:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>id: <span class="notranslate">galaxy</span>_ui
+name: <span class="notranslate">Galaxy</span> UI
+description: A gentle introduction to the <span class="notranslate">Galaxy</span> User Interface
+title_default: "Welcome to <span class="notranslate">Galaxy</span>"
+
+steps:
+    - title: "Welcome to <span class="notranslate">Galaxy</span>"
+      content: "This short tour will guide you through <span class="notranslate">Galaxy</span>'s user interface.&lt;br&gt;
+                You can navigate with your arrow keys and leave the tour at any time point
+                with 'Escape' or the 'End tour' button."
+      backdrop: true
+
+    - title: "Upload your data"
+      element: ".upload-button"
+      intro: "<span class="notranslate">Galaxy</span> supports many ways to get in your data.&lt;br&gt;
+              Use this button to upload your data."
+      position: "right"
+      postclick:
+        - ".upload-button"
+</code></pre></div></div>
+
+<ul>
+  <li>at the top some metadata related to the Tour:
+    <ul>
+      <li><code class="language-plaintext highlighter-rouge">id</code>: ID of the tour</li>
+      <li><code class="language-plaintext highlighter-rouge">name</code>: name of the tour</li>
+      <li><code class="language-plaintext highlighter-rouge">description</code>: a short description of the tour</li>
+      <li><code class="language-plaintext highlighter-rouge">title_default</code>: a title</li>
+    </ul>
+  </li>
+  <li>
+    <p>several steps corresponding to the different boxes</p>
+
+    <p>Each step is beginning with a dash <code class="language-plaintext highlighter-rouge">-</code> and with possible arguments</p>
+
+    <table>
+      <thead>
+        <tr>
+          <th>Argument</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><code class="language-plaintext highlighter-rouge">title</code></td>
+          <td>Header of each step-container</td>
+        </tr>
+        <tr>
+          <td><code class="language-plaintext highlighter-rouge">content</code></td>
+          <td>Text that is shown to the user</td>
+        </tr>
+        <tr>
+          <td><code class="language-plaintext highlighter-rouge">element</code></td>
+          <td><a href="https://api.jquery.com/category/selectors/">JQuery Selector</a> of the element you want to describe / click</td>
+        </tr>
+        <tr>
+          <td><code class="language-plaintext highlighter-rouge">placement</code></td>
+          <td>Placement of the text box relative to the selected element</td>
+        </tr>
+        <tr>
+          <td><code class="language-plaintext highlighter-rouge">preclick</code> or <code class="language-plaintext highlighter-rouge">postclick</code></td>
+          <td>Elements that receive a click() event before (<code class="language-plaintext highlighter-rouge">preclick</code>) or after (<code class="language-plaintext highlighter-rouge">postclick</code>) the step is shown</td>
+        </tr>
+        <tr>
+          <td><code class="language-plaintext highlighter-rouge">textinsert</code></td>
+          <td>Text to insert if element is a text box (e.g. tool search or upload)</td>
+        </tr>
+        <tr>
+          <td><code class="language-plaintext highlighter-rouge">backdrop</code></td>
+          <td><code class="language-plaintext highlighter-rouge">true/false</code>:  Show a dark backdrop behind the popover and its element, highlighting the current step</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <p><a href="https://bootstraptour.com/api/">Full reference of the properties</a></p>
+  </li>
+</ul>
+
+<p>The YAML file of a tour can be integrated in a <span class="notranslate">Galaxy</span> instance by placing the YAML file in the <code class="language-plaintext highlighter-rouge">config/plugins/tours</code> directory of the <span class="notranslate">Galaxy</span> code and restarting the <span class="notranslate">Galaxy</span> instance</p>
+
+<h1 id="creating-a-galaxy-interactive-tour">Creating a <span class="notranslate">Galaxy</span> Interactive Tour</h1>
+
+<p><a href="https://github.com/TailorDev/galaxy-tourbuilder">A Web browser plugin</a> is available to help the creation and the test (on the fly) of an interactive tour.</p>
+
+<blockquote class="imgur-embed-pub" lang="en" data-id="a/0YVvz"><a href="//imgur.com/a/0YVvz"><span class="notranslate">Galaxy</span> Tour Builder by TailorDev</a></blockquote>
+<script async="" src="//s.imgur.com/min/embed.js" charset="utf-8"></script>
+
+<blockquote class="notranslate hands_on">
+  <h3 id="hands_on-hands-on-install-and-start-the-plugin"><i class="fas fa-pencil-alt" aria-hidden="true"></i><span class="visually-hidden">hands_on</span> Hands-on: Install and start the plugin</h3>
+
+  <ol>
+    <li>Install the plugin using the app store of your web-browser:
+      <ul>
+        <li><a href="https://chrome.google.com/webstore/detail/galaxy-tour-builder/mdfbapknmcpnbmggahhaegehbbbmhmgg">Chrome Web Store</a></li>
+        <li><a href="https://addons.mozilla.org/en-US/firefox/addon/galaxy-tour-builder/">Mozilla Add-ons (Firefox)</a></li>
+        <li><a href="https://addons.opera.com/en/extensions/details/galaxy-tour-builder/">Opera add-ons</a></li>
+      </ul>
+    </li>
+    <li>Load the webpage of any <span class="notranslate">Galaxy</span> instance</li>
+    <li>Start the plugin by clicking on the icon with <span class="notranslate">Galaxy</span> icon close to the address bar</li>
+  </ol>
+</blockquote>
+
+<p>We can now create easily a <span class="notranslate">Galaxy</span> Interactive Tour and test it on the fly.</p>
+
+<blockquote class="notranslate hands_on">
+  <h3 id="hands_on-hands-on-create-a-galaxy-interactive-tour"><i class="fas fa-pencil-alt" aria-hidden="true"></i><span class="visually-hidden">hands_on</span> Hands-on: Create a <span class="notranslate">Galaxy</span> Interactive Tour</h3>
+
+  <ol>
+    <li>Create a <span class="notranslate">Galaxy</span> Interactive Tour for “BLAST” tutorial</li>
+    <li>Test it with the plugin</li>
+    <li>Copy the YAML content and add it to a file</li>
+    <li>Add the file to the <code class="language-plaintext highlighter-rouge">tours</code> directory of the tutorial</li>
+    <li>Test it on a local <span class="notranslate">Galaxy</span> instance</li>
+  </ol>
+</blockquote>
+
+<h1 class="no_toc" id="conclusion">Conclusion</h1>
+
+
+                    
+                    <blockquote class="key_points">
+                        <h3><i class="fas fa-key" aria-hidden="true"></i><span class="visually-hidden">keypoints</span> Key points</h3>
+                        <ul>
+                            
+                            <li><p>The Interactive Tours are a good training object for self-learning at its own speed</p>
+</li>
+                            
+                            <li><p>It is now easy to create an Interactive Tour and test it</p>
+</li>
+                            
+                        </ul>
+                    </blockquote>
+                    
+
+                    
+
+                    
+
+                    <h1>Feedback</h1>
+                    <p class="text-muted">Did you use this material as an instructor? Feel free to give us feedback on <a href="https://github.com/galaxyproject/training-material/issues/1452" target="_blank">how it went</a>.</p>
+
+                    <div id="feedback-button">
+                        <img src="/training-material/shared/images/feedback.png" title="Click to activate" alt="Click here to load Google feedback frame" />
+                    </div>
+                    <div id="feedback-form">
+                    </div>
+                    <script type="text/javascript">
+                        (function (window, document) {
+                            function onDocumentReady(fn) {
+                                if (document.attachEvent ? document.readyState === "complete" : document.readyState !== "loading") {
+                                    fn();
+                                } else {
+                                    document.addEventListener('DOMContentLoaded', fn);
+                                }
+                            }
+
+                            onDocumentReady(function () {
+                                $("#feedback-button").click(function(evt){
+                                    var e = $(evt.target)
+                                    e.hide();
+
+                                    $("#feedback-form").html(`
+                                        <iframe id="feedback-google" class="google-form" src="https://docs.google.com/forms/d/e/1FAIpQLSd4VZptFTQ03kHkMz0JyW9b6_S8geU5KjNE_tLM0dixT3ZQmA/viewform?embedded=true&entry.1235803833=Creating a new tutorial - Creating Interactive Galaxy Tours (Contributing to the Galaxy Training Material)">Loading...</iframe>
+                                    `)
+                                })
+                            });
+                        })(window, document);
+                    </script>
+
+
+
+                    <h1>Citing this Tutorial</h1>
+                    <p>
+                        <ol>
+                            <li id="citation-text">Bérénice Batut, Björn Grüning, Saskia Hiltemann, 2020 <b>Creating a new tutorial - Creating Interactive Galaxy Tours (Galaxy Training Materials)</b>. <a href="/training-material/topics/contributing/tutorials/create-new-tutorial-tours/tutorial.html">/training-material/topics/contributing/tutorials/create-new-tutorial-tours/tutorial.html</a> Online; accessed TODAY
+                            </li>
+                            <li>
+                            Batut et al., 2018 <b>Community-Driven Data Analysis Training for Biology</b> Cell Systems <a href="https://doi.org/10.1016%2Fj.cels.2018.05.012">10.1016/j.cels.2018.05.012</a>
+                            </li>
+                        </ol>
+                    </p>
+
+
+                    <blockquote class="details">
+                      <h3><i class="fa fa-info-circle" aria-hidden="true"></i><span class="visually-hidden">details</span> BibTeX</h3>
+                      <p style="display: none;">
+
+                    <div class="highlighter-rouge"><div class="highlight"><pre class="highlight">
+<code id="citation-code">@misc{contributing-create-new-tutorial-tours,
+    author = "Bérénice Batut and Björn Grüning and Saskia Hiltemann",
+    title = "Creating a new tutorial - Creating Interactive Galaxy Tours (Galaxy Training Materials)",
+    year = "2020",
+    month = "11",
+    day = "26"
+    url = "\url{/training-material/topics/contributing/tutorials/create-new-tutorial-tours/tutorial.html}",
+    note = "[Online; accessed TODAY]"
+}
+@article{Batut_2018,
+        doi = {10.1016/j.cels.2018.05.012},
+        url = {https://doi.org/10.1016%2Fj.cels.2018.05.012},
+        year = 2018,
+        month = {jun},
+        publisher = {Elsevier {BV}},
+        volume = {6},
+        number = {6},
+        pages = {752--758.e1},
+        author = {B{\'{e}}r{\'{e}}nice Batut and Saskia Hiltemann and Andrea Bagnacani and Dannon Baker and Vivek Bhardwaj and Clemens Blank and Anthony Bretaudeau and Loraine Brillet-Gu{\'{e}}guen and Martin {\v{C}}ech and John Chilton and Dave Clements and Olivia Doppelt-Azeroual and Anika Erxleben and Mallory Ann Freeberg and Simon Gladman and Youri Hoogstrate and Hans-Rudolf Hotz and Torsten Houwaart and Pratik Jagtap and Delphine Larivi{\`{e}}re and Gildas Le Corguill{\'{e}} and Thomas Manke and Fabien Mareuil and Fidel Ram{\'{\i}}rez and Devon Ryan and Florian Christoph Sigloch and Nicola Soranzo and Joachim Wolff and Pavankumar Videm and Markus Wolfien and Aisanjiang Wubuli and Dilmurat Yusuf and James Taylor and Rolf Backofen and Anton Nekrutenko and Björn Grüning},
+        title = {Community-Driven Data Analysis Training for Biology},
+        journal = {Cell Systems}
+}</code>
+                    </pre></div></div>
+                    </p>
+                    </blockquote>
+
+
+<script type="text/javascript">
+// update the date on load, or leave fallback of 'today'
+d = new Date();
+document.getElementById("citation-code").innerHTML = document.getElementById("citation-code").innerHTML.replace("TODAY", d.toDateString());
+document.getElementById("citation-text").innerHTML = document.getElementById("citation-text").innerHTML.replace("TODAY", d.toDateString());
+</script>
+
+                </div>
+            </div>
+        </div>
+
+        <h3><i class="far fa-thumbs-up" aria-hidden="true"></i><span class="visually-hidden">congratulations</span> Congratulations on successfully completing this tutorial!</h3>
+
+        
+        <blockquote class="agenda">
+            <h3>Developing GTN training material</h3>
+            This tutorial is part of a series to develop GTN training material, feel free to also look at:
+            
+            <ol>
+            
+                
+                    
+            <li><a href="/training-material/topics/contributing/slides/introduction.html">Overview of the Galaxy Training Material</a></li>
+                    
+                
+            
+                
+                    
+                        
+            <li><a href="/training-material/topics/contributing/tutorials/slides-with-video/tutorial.html">Adding auto-generated video to your slides</a></li>
+                        
+                    
+                
+            
+                
+                    
+                        
+            <li><a href="/training-material/topics/contributing/tutorials/github-command-line-contribution/tutorial.html">Contributing with GitHub via command-line</a></li>
+                        
+                    
+                
+            
+                
+                    
+                        
+            <li><a href="/training-material/topics/contributing/tutorials/github-interface-contribution/tutorial.html">Contributing with GitHub via its interface</a></li>
+                        
+                    
+                
+            
+                
+                    
+                        
+            <li><a href="/training-material/topics/contributing/tutorials/create-new-tutorial/tutorial.html">Creating a new tutorial</a></li>
+                        
+                    
+                
+            
+                
+                    
+                        
+            <li><a href="/training-material/topics/contributing/tutorials/create-new-tutorial-tours/tutorial.html">Creating a new tutorial - Creating Interactive Galaxy Tours</a></li>
+                        
+                    
+                
+            
+                
+                    
+                        
+            <li><a href="/training-material/topics/contributing/tutorials/create-new-tutorial-technical/tutorial.html">Creating a new tutorial - Defining the technical infrastructure</a></li>
+                        
+                    
+                
+            
+                
+                    
+                        
+            <li><a href="/training-material/topics/contributing/tutorials/create-new-tutorial-slides/slides.html">Creating a new tutorial - Slides</a></li>
+                        
+                    
+                
+            
+                
+                    
+                        
+            <li><a href="/training-material/topics/contributing/tutorials/create-new-tutorial-content/tutorial.html">Creating a new tutorial - Writing content in Markdown</a></li>
+                        
+                    
+                
+            
+                
+                    
+                        
+            <li><a href="/training-material/topics/contributing/tutorials/generating-pdf/tutorial.html">Generating PDF artefacts of the website</a></li>
+                        
+                    
+                
+            
+                
+                    
+                        
+            <li><a href="/training-material/topics/contributing/tutorials/create-new-topic/tutorial.html">Including a new topic</a></li>
+                        
+                    
+                
+            
+                
+                    
+                        
+            <li><a href="/training-material/topics/contributing/tutorials/running-jekyll/tutorial.html">Running the Galaxy Training material website locally</a></li>
+                        
+                    
+                
+            
+            </ol>
+        </blockquote>
+        
+
+        
+    </section>
+</div>
+
+
+<footer>
+    <div class="container">
+        <p>
+            This material is the result of a collaborative work. Thanks to the
+            <a href="https://wiki.galaxyproject.org/Teach/GTN">Galaxy Training Network</a>
+            and all the <a href="/training-material/hall-of-fame">contributors</a> (Bérénice Batut, Björn Grüning, Saskia Hiltemann)!
+        </p>
+        <p>
+            Found a typo? Something is wrong in this tutorial? Edit it on
+            <a href="https://github.com/galaxyproject/training-material/tree/master/topics/contributing/tutorials/create-new-tutorial-tours/tutorial.md">GitHub</a>.
+        </p>
+        <p>
+    The content of the tutorials and website is licensed under the <a rel="license" href="https://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0 International License</a>.
+</p>
+    </div>
+</footer>
+
+    </body>
+    <script type="text/javascript" src="/training-material/assets/js/jquery.slim.min.js"></script>
+    <script type="text/javascript" src="/training-material/assets/js/popper.min.js"></script>
+    <script type="text/javascript" src="/training-material/assets/js/bootstrap.min.js?v=3"></script>
+    <script type="text/javascript" src="/training-material/assets/js/details-element-polyfill.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript" src="/training-material/assets/js/bootstrap-toc.min.js"></script>
+    <script type="text/javascript" src="/training-material/assets/js/main.js"></script>
+    <script type="text/javascript" src="/training-material/assets/js/theme.js"></script>
+
+    <script type="text/javascript" src="/training-material/assets/js/clipboard.min.js"></script>
+    <script type="text/javascript">
+    var snippets=document.querySelectorAll('div.highlight');
+    [].forEach.call(snippets,function(snippet){
+        snippet.firstChild.insertAdjacentHTML('beforebegin','<button class="btn btn-light" data-clipboard-snippet><i class="fa fa-copy"></i>&nbsp;Copy</button>');
+    });
+
+    var clipboardSnippets=new ClipboardJS('[data-clipboard-snippet]',{
+        target:function(trigger){return trigger.nextElementSibling;
+    }});
+    </script>
+    
+
+    <script type="text/javascript">
+        if(window.location.hostname === "galaxyproject.github.io") {
+            // Redirect
+            var redirect = "https://training.galaxyproject.org" + window.location.pathname + window.location.search;
+            $('div.container.main-content').prepend("<div class='alert alert-warning'><strong>Note: </strong>This content has a new home at <a href=\"" + redirect + "\">" + redirect + "</a>, which you will be redirected to in 5 seconds.</div>");
+
+            window.setTimeout(function(){
+                window.location.href = redirect;
+            }, 5000)
+
+        }
+    </script>
+</html>

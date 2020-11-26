@@ -1,0 +1,1143 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <title>Species distribution modeling</title>
+        
+            <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+    ga('create', '' , 'auto');
+    ga('send', 'pageview');
+</script>
+        
+        <link rel="stylesheet" href="/training-material/assets/css/bootstrap.min.css?v=3">
+        <link rel="stylesheet" href="/training-material/assets/css/bootstrap-toc.min.css">
+        <link rel="stylesheet" href="/training-material/assets/css/main.css?v=2">
+        <script src="https://kit.fontawesome.com/67b3f98409.js" crossorigin="anonymous"></script>
+        <link rel="stylesheet" href="/training-material/assets/css/academicons.css">
+        <link rel="stylesheet" href="/training-material/assets/css/syntax_highlighting.css">
+        <link rel="shortcut icon" href="/training-material/favicon.ico" type="image/x-icon" />
+
+        
+        
+        
+        
+        
+        <meta name="description" content="Learn to analyse Ecological data through Galaxy." />
+        <meta property="og:title" content="Galaxy Training: Species distribution modeling" />
+        <meta property="og:description" content="Learn to analyse Ecological data through Galaxy." />
+        <meta property="og:image" content="/training-material/assets/images/GTNLogo1000.png" />
+    </head>
+    <body data-spy="scroll" data-target="#toc">
+        
+
+
+
+
+
+
+
+
+
+
+
+<!-- Gitter -->
+
+
+<script>
+  ((window.gitter = {}).chat = {}).options = {
+  room: 'Galaxy-Training-Network/Lobby'
+  };
+</script>
+<script src="https://sidecar.gitter.im/dist/sidecar.v1.js" async defer></script>
+
+<header>
+    <nav class="navbar navbar-expand-lg navbar-dark">
+        <div class="container">
+            <a class="navbar-brand" href="/training-material/">
+                <img src="/training-material/assets/images/GTN-60px.png" height="30" alt="Galaxy Training Network logo">
+                Galaxy Training!
+            </a>
+
+            <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#top-navbar" aria-controls="top-navbar" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="top-navbar">
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link" href="/training-material/topics/ecology" title="Go back to list of tutorials">
+                            <i class="far fa-folder" aria-hidden="true"></i><span class="visually-hidden">topic</span> Ecology
+                        </a>
+                    </li>
+
+                    <li class="nav-item dropdown">
+                        <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" aria-expanded="false" title="Language Selector">
+                            <i class="fas fa-language" aria-hidden="true"></i><span class="visually-hidden">language</span> Language
+                        </a>
+                        <div class="dropdown-menu">
+                            
+                            <a class="dropdown-item" href="https://translate.google.com/translate?hl=jp&sl=en&tl=fr&u=https%3A%2F%2Ftraining.galaxyproject.org%2Ftopics%2Fecology%2Ftutorials%2Fspecies-distribution-modeling%2Ftutorial.html&edit-text=&act=url" title="">
+                                Français
+                            </a>
+                            
+                            <a class="dropdown-item" href="https://translate.google.com/translate?hl=jp&sl=en&tl=ja&u=https%3A%2F%2Ftraining.galaxyproject.org%2Ftopics%2Fecology%2Ftutorials%2Fspecies-distribution-modeling%2Ftutorial.html&edit-text=&act=url" title="">
+                                日本語
+                            </a>
+                            
+                            <a class="dropdown-item" href="https://translate.google.com/translate?hl=jp&sl=en&tl=es&u=https%3A%2F%2Ftraining.galaxyproject.org%2Ftopics%2Fecology%2Ftutorials%2Fspecies-distribution-modeling%2Ftutorial.html&edit-text=&act=url" title="">
+                                Español
+                            </a>
+                            
+                            <a class="dropdown-item" href="https://translate.google.com/translate?hl=jp&sl=en&tl=pt&u=https%3A%2F%2Ftraining.galaxyproject.org%2Ftopics%2Fecology%2Ftutorials%2Fspecies-distribution-modeling%2Ftutorial.html&edit-text=&act=url" title="">
+                                Português
+                            </a>
+                            
+                            <a class="dropdown-item" href="https://translate.google.com/translate?hl=jp&sl=en&tl=ar&u=https%3A%2F%2Ftraining.galaxyproject.org%2Ftopics%2Fecology%2Ftutorials%2Fspecies-distribution-modeling%2Ftutorial.html&edit-text=&act=url" title="">
+                                العربية
+                            </a>
+                            
+                            <a class="dropdown-item" href="https://translate.google.com/translate?hl=jp&sl=en&tl=&u=https%3A%2F%2Ftraining.galaxyproject.org%2Ftopics%2Fecology%2Ftutorials%2Fspecies-distribution-modeling%2Ftutorial.html&edit-text=&act=url" title="">
+                                And more!
+                            </a>
+                        </div>
+                    </li>
+
+                    <li class="nav-item dropdown">
+    <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" aria-expanded="false" title="Help">
+        <i class="far fa-question-circle" aria-hidden="true"></i><span class="visually-hidden">help</span> Help
+    </a>
+    <div class="dropdown-menu dropdown-menu-right">
+        <form method="get" action="https://tess.elixir-europe.org/materials">
+            <input type="text" id="search" name="q" value="" style="margin-left: 0.5em;/*! border-radius: 0px; */">
+            <input type="hidden" value="Galaxy Training" name="content_provider">
+            <input type="submit" value="Search on TeSS" style="width: 92%;border-radius: 0px;margin: 0.5em;background: #f47d20;border: 0px;padding: 0.25em;" class="">
+        </form>
+
+        <div class="dropdown-divider"></div>
+        <a class="dropdown-item" href="/training-material/faq" title="Check our FAQ">
+            FAQ
+        </a>
+        <a class="dropdown-item" href="https://help.galaxyproject.org/" title="Discuss on Galaxy Help">
+            Discuss on Galaxy Help
+        </a>
+
+        <div class="dropdown-item">
+            <div>
+                Theme
+            </div>
+
+            <div id="theme-selector" data-toggle="buttons">
+                <label data-value="default" class="btn btn-secondary">
+                    <input type="radio" name="options" id="default" autocomplete="off"> Default
+                </label>
+                <label data-value="night" class="btn btn-secondary">
+                    <input type="radio" name="options" id="night" autocomplete="off"> Night
+                </label>
+                <label data-value="midnight" class="btn btn-secondary">
+                    <input type="radio" name="options" id="midnight" autocomplete="off"> Midnight
+                </label>
+                <label data-value="rainbow" class="btn btn-secondary">
+                    <input type="radio" name="options" id="rainbow" autocomplete="off"> Rainbow
+                </label>
+                <label data-value="halloween" class="btn btn-secondary">
+                    <input type="radio" name="options" id="halloween" autocomplete="off"> 🎃
+                </label>
+            </div>
+
+        </div>
+    </div>
+</li>
+
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="https://github.com/galaxyproject/training-material/edit/master/topics/ecology/tutorials/species-distribution-modeling/tutorial.md">
+                            <i class="fab fa-github" aria-hidden="true"></i><span class="visually-hidden">github</span> Edit
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+</header>
+
+<div class="container main-content">
+    <script type="application/ld+json">
+        
+
+
+{
+  "@context": "http://schema.org",
+  "@type": "Course",
+  "accessMode": [
+    "textual",
+    "visual"
+  ],
+  "accessModeSufficient": [
+    "textual",
+    "visual"
+  ],
+  "accessibilityControl": [
+    "fullKeyboardControl",
+    "fullMouseControl"
+  ],
+  "accessibilityFeature": [
+    "alternativeText",
+    "tableOfContents"
+  ],
+  "accessibilitySummary": "Short descriptions are present but long descriptions will be needed for non-visual users",
+  "audience": {
+    "@type": "EducationalAudience",
+    "educationalRole": "students"
+  },
+  "citation": {
+    "@type": "CreativeWork",
+    "name": "Community-Driven Data Analysis Training for Biology",
+    "url": "https://doi.org/10.1016/j.cels.2018.05.012"
+  },
+  "copyrightHolder": {
+    "@type": "Organization",
+    "email": "galaxytrainingnetwork@gmail.com",
+    "name": "Galaxy Training Network",
+    "url": "https://galaxyproject.org/teach/gtn/"
+  },
+  "discussionUrl": "https://gitter.im/Galaxy-Training-Network/Lobby",
+  "headline": "Species distribution modeling",
+  "inLanguage": {
+    "@type": "Language",
+    "name": "English",
+    "alternateName": "en"
+  },
+  "interactivityType": "mixed",
+  "isAccessibleForFree": true,
+  "license": "https://github.com/galaxyproject/training-material/blob/master/LICENSE.md",
+  "producer": {
+    "@type": "Organization",
+    "email": "galaxytrainingnetwork@gmail.com",
+    "name": "Galaxy Training Network",
+    "url": "https://galaxyproject.org/teach/gtn/"
+  },
+  "provider": {
+    "@type": "Organization",
+    "email": "galaxytrainingnetwork@gmail.com",
+    "name": "Galaxy Training Network",
+    "url": "https://galaxyproject.org/teach/gtn/"
+  },
+  "sourceOrganization": {
+    "@type": "Organization",
+    "email": "galaxytrainingnetwork@gmail.com",
+    "name": "Galaxy Training Network",
+    "url": "https://galaxyproject.org/teach/gtn/"
+  },
+  "isPartOf": {
+    "@type": "CreativeWork",
+    "name": "Ecology",
+    "description": "Learn to analyse Ecological data through Galaxy.",
+    "url": "https://training.galaxyproject.org//training-material/topics/ecology/"
+  },
+  "courseCode": "ecology / species-distribution-modeling / hands-on",
+  "learningResourceType": "hands-on tutorial",
+  "name": "Hands-on for 'Species distribution modeling' tutorial",
+  "url": "https://training.galaxyproject.org//training-material/topics/ecology/tutorials/species-distribution-modeling/tutorial.html",
+  "timeRequired": "PT1H",
+  "description": "The questions this  addresses are:\n - How to build & evaluate a niche model, visualize and project it ?\n\n\\nThe objectives are:\n - Find and download occurrences data from GBIF\n - Find and download environmental data\n - Process both occurrences and environmental\n - Partition occurrence data\n - Model a theoretical ecological niche and predict species distribution in a future climate scenario by using SDM\n\n",
+  "coursePrerequisites": [
+    {
+      "@type": "CreativeWork",
+      "url": "https://training.galaxyproject.org//training-material/topics/introduction/",
+      "name": "Introduction to Galaxy Analyses",
+      "description": "Introduction to Galaxy Analyses",
+      "provider": {
+        "@type": "Organization",
+        "email": "galaxytrainingnetwork@gmail.com",
+        "name": "Galaxy Training Network",
+        "url": "https://galaxyproject.org/teach/gtn/"
+      }
+    }
+  ],
+  "hasPart": [
+
+  ],
+  "author": [
+    {
+      "@type": "Person",
+      "name": "Elisa Michon"
+    },
+    {
+      "@type": "Person",
+      "name": "Yvan Le Bras"
+    },
+    {
+      "@type": "Person",
+      "name": "Bérénice Batut"
+    }
+  ],
+  "contributor": [
+    {
+      "@type": "Person",
+      "name": "Elisa Michon"
+    },
+    {
+      "@type": "Person",
+      "name": "Yvan Le Bras"
+    },
+    {
+      "@type": "Person",
+      "name": "Bérénice Batut"
+    }
+  ],
+  "about": [
+    {
+      "@type": "CreativeWork",
+      "name": "Ecology",
+      "description": "Learn to analyse Ecological data through Galaxy.",
+      "url": "https://training.galaxyproject.org//training-material/topics/ecology/"
+    },
+    {
+      "@type": "DefinedTerm",
+      "@id": "http://edamontology.org/topic_0610",
+      "inDefinedTermSet": "http://edamontology.org",
+      "termCode": "topic_0610",
+      "url": "https://bioportal.bioontology.org/ontologies/EDAM/?p=classes&conceptid=http%3A%2F%2Fedamontology.org%2Ftopic_0610"
+    }
+  ]
+}
+    </script>
+
+    <section class="tutorial">
+        <h1 data-toc-skip>Species distribution modeling</h1>
+        
+
+        <div class="contributors-line">By: 
+
+<a href="/training-material/hall-of-fame/emichn/" class="contributor-badge"><img src="https://avatars.githubusercontent.com/emichn" alt="Elisa Michon">Elisa Michon</a>, <a href="/training-material/hall-of-fame/yvanlebras/" class="contributor-badge"><img src="https://avatars.githubusercontent.com/yvanlebras" alt="Yvan Le Bras">Yvan Le Bras</a>, <a href="/training-material/hall-of-fame/bebatut/" class="contributor-badge"><img src="https://avatars.githubusercontent.com/bebatut" alt="Bérénice Batut">Bérénice Batut</a>
+
+</div>
+
+        <blockquote class="overview">
+            <h3>Overview</h3>
+            <strong><i class="far fa-question-circle" aria-hidden="true"></i><span class="visually-hidden">question</span> Questions</strong>
+            <ul>
+            
+            <li><p>How to build &amp; evaluate a niche model, visualize and project it ?</p>
+</li>
+            
+            </ul>
+
+            <strong><i class="fas fa-bullseye" aria-hidden="true"></i><span class="visually-hidden">objectives</span> Objectives</strong>
+            <ul>
+            
+            <li><p>Find and download occurrences data from GBIF</p>
+</li>
+            
+            <li><p>Find and download environmental data</p>
+</li>
+            
+            <li><p>Process both occurrences and environmental</p>
+</li>
+            
+            <li><p>Partition occurrence data</p>
+</li>
+            
+            <li><p>Model a theoretical ecological niche and predict species distribution in a future climate scenario by using SDM</p>
+</li>
+            
+            </ul>
+
+            
+            <strong><i class="fas fa-check-circle" aria-hidden="true"></i><span class="visually-hidden">requirements</span> Requirements</strong>
+            <ul>
+            
+    <li>
+    
+        
+        
+        <a href="/training-material/topics/introduction">Introduction to Galaxy Analyses</a>
+        
+    
+    </li>
+
+            
+            </ul>
+            
+
+            
+            <p><strong><i class="fas fa-hourglass-half" aria-hidden="true"></i><span class="visually-hidden">time</span> Time estimation:</strong> 1 hour</p>
+            
+
+            
+
+            
+            
+
+            
+            <p id="supporting-materials"><strong><i class="fa fa-external-link" aria-hidden="true"></i> Supporting Materials</strong></p>
+            <ul>
+                <div class="supporting_material">
+                
+
+                
+
+                
+                    <li class="btn btn-default supporting_material">
+    <a class="topic-icon" href="/training-material/topics/ecology/tutorials/species-distribution-modeling/workflows/" title="Workflows" alt="Species distribution modeling workflows">
+        <i class="fas fa-share-alt" aria-hidden="true"></i><span class="visually-hidden">workflow</span> Workflows
+    </a>
+
+</li>
+                
+
+                
+
+                
+                    <li class="btn btn-default supporting_material">
+
+    <a href="#" class="btn btn-default dropdown-toggle topic-icon" data-toggle="dropdown" aria-expanded="false" title="Where to run the tutorial">
+        <i class="fas fa-globe" aria-hidden="true"></i><span class="visually-hidden">instances</span> Available on these Galaxies
+    </a>
+    <ul class="dropdown-menu">
+    
+        <li>
+            <a class="dropdown-item" href="https://github.com/galaxyproject/training-material/tree/master/topics/ecology/docker" title="Docker image for this tutorial">
+                <i class="fab fa-docker" aria-hidden="true"></i><span class="visually-hidden">docker_image</span> Docker image
+            </a>
+        </li>
+    
+    
+    </ul>
+
+
+</li>
+                
+                </div>
+            </ul>
+            
+
+            <p><strong> <i class="far fa-calendar" aria-hidden="true"></i><span class="visually-hidden">last_modification</span> Last modification:</strong> Nov 26, 2020 </p>
+        </blockquote>
+
+        <div class="container">
+            <div class="row">
+                <!-- sidebar, which will move to the top on a small screen -->
+                <div class="col-sm-2">
+                    <nav id="toc" data-toggle="toc" class="sticky-top"></nav>
+                </div>
+                <div class="col-sm-10">
+                    <h1 class="no_toc" id="introduction">Introduction</h1>
+
+<p>Species Distribution Modeling (SDM) can help understand the distribution of a species depending on its environment. It can also attempt to quantify the impact of climate change on the species habitat, direct conservation efforts and predict invasive species distributions. This is done by associating data of species occurrences (observations) with a set of environmental data (such as temperature and precipitation).</p>
+
+<p>The goal of this tutorial is to model a theoretical ecological niche and predict species distribution in a future climate scenario by using SDM with the Wallace interactive environment on <span class="notranslate">Galaxy</span>. We’ll use the data occurrences of US <em>Chrysemys picta</em> (<a href="https://en.wikipedia.org/wiki/Painted_turtle">Painted turtle</a>) from the North America region.</p>
+
+<blockquote class="agenda">
+  <h3 id="agenda">Agenda</h3>
+
+  <p>In this tutorial, we will deal with:</p>
+
+<ol id="markdown-toc">
+  <li><a href="#step-1-import-data-from-public-databank" id="markdown-toc-step-1-import-data-from-public-databank">Step 1: Import data from public databank</a></li>
+  <li><a href="#step-2-development-and-evaluation-of-sdm-using-wallace" id="markdown-toc-step-2-development-and-evaluation-of-sdm-using-wallace">Step 2: Development and evaluation of SDM using Wallace</a>    <ol>
+      <li><a href="#transmit-occurrence-data-from-galaxy-to-wallace" id="markdown-toc-transmit-occurrence-data-from-galaxy-to-wallace">Transmit occurrence data from <span class="notranslate">Galaxy</span> to Wallace</a></li>
+      <li><a href="#process-occurrence-data" id="markdown-toc-process-occurrence-data">Process occurrence data</a></li>
+      <li><a href="#obtain-environmental-data" id="markdown-toc-obtain-environmental-data">Obtain Environmental Data</a></li>
+      <li><a href="#process-environmental-data" id="markdown-toc-process-environmental-data">Process environmental Data</a></li>
+      <li><a href="#partition-occurrence-data" id="markdown-toc-partition-occurrence-data">Partition Occurrence Data</a></li>
+      <li><a href="#build-and-evaluate-niche-model" id="markdown-toc-build-and-evaluate-niche-model">Build and Evaluate Niche Model</a></li>
+      <li><a href="#visualize-model-results" id="markdown-toc-visualize-model-results">Visualize Model Results</a></li>
+      <li><a href="#project-model" id="markdown-toc-project-model">Project Model</a></li>
+    </ol>
+  </li>
+  <li><a href="#conclusion" id="markdown-toc-conclusion">Conclusion</a></li>
+</ol>
+
+</blockquote>
+
+<h1 id="step-1-import-data-from-public-databank">Step 1: Import data from public databank</h1>
+
+<p>In this study the datasets are all imported from the <a href="https://www.gbif.org/">GBIF</a> databanks. It is also possible to import from <a href="https://www.gbif.org/">bison</a>, <a href="https://www.inaturalist.org/">iNaturalist</a> and others.</p>
+
+<blockquote class="notranslate hands_on">
+  <h3 id="hands_on-hands-on-import-the-data"><i class="fas fa-pencil-alt" aria-hidden="true"></i><span class="visually-hidden">hands_on</span> Hands-on: Import the data</h3>
+  <ol>
+    <li>
+      <p>Create a new history for this tutorial and give it a proper name</p>
+
+      <blockquote class="tip">
+
+        <h3 id="tip-tip-creating-a-new-history"><i class="far fa-lightbulb" aria-hidden="true"></i><span class="visually-hidden">tip</span> Tip: Creating a new history</h3>
+
+        <p>Click the <i class="fas fa-plus" aria-hidden="true"></i><span class="visually-hidden">new-history</span> icon at the top of the history panel</p>
+
+        <p>If the <i class="fas fa-plus" aria-hidden="true"></i><span class="visually-hidden">new-history</span> is missing:</p>
+        <ol>
+          <li>Click on the <i class="fas fa-cog" aria-hidden="true"></i><span class="visually-hidden"><span class="notranslate">galaxy</span>-gear</span> icon (<strong>History options</strong>) on the top of the history panel</li>
+          <li>Select the option <strong>Create New</strong> from the menu</li>
+        </ol>
+      </blockquote>
+
+      <blockquote class="tip">
+
+        <h3 id="tip-tip-renaming-a-history"><i class="far fa-lightbulb" aria-hidden="true"></i><span class="visually-hidden">tip</span> Tip: Renaming a history</h3>
+
+        <ol>
+          <li>Click on <strong>Unnamed history</strong> (or the current name of the history) (<strong>Click to rename history</strong>) at the top of your history panel</li>
+          <li>Type the new name</li>
+          <li>Press <kbd>Enter</kbd></li>
+        </ol>
+      </blockquote>
+    </li>
+    <li><strong>Get species occurrences data</strong> <i class="fas fa-wrench" aria-hidden="true"></i><span class="visually-hidden">tool</span> with the following parameters
+      <ul>
+        <li><em>“Scientific name”</em>: <code class="language-plaintext highlighter-rouge">chrysemys picta</code></li>
+        <li><em>“Data source”</em>: <code class="language-plaintext highlighter-rouge">gbif</code></li>
+        <li><em>“Number of records to return”</em>: <code class="language-plaintext highlighter-rouge">10000</code></li>
+      </ul>
+    </li>
+    <li>Inspect the generated file with the Scratchbook</li>
+  </ol>
+</blockquote>
+
+<p>We have now a tabular file with about 10,001 lines and many columns.</p>
+
+<blockquote class="question">
+  <h3 id="question-questions"><i class="far fa-question-circle" aria-hidden="true"></i><span class="visually-hidden">question</span> Questions</h3>
+  <ol>
+    <li>What do the lines in the files represent?</li>
+    <li>What are the columns 1, 2, 3 and 51 of the generated file?</li>
+  </ol>
+
+  <blockquote class="solution">
+    <h3 id="solution-solution"><i class="far fa-eye" aria-hidden="true"></i><span class="visually-hidden">solution</span> Solution</h3>
+    <ol>
+      <li>Each line represent an observation of Chrysemys picta, with its location, and some other metadata</li>
+      <li>Column 1 is the name, column 2 the longitude of the observation of Chrysemys picta, column 3 the latitude and column 50 the country code of the location</li>
+    </ol>
+  </blockquote>
+</blockquote>
+
+<p>We would to extraction the 4 columns previously cited and keep only occurrence records from US.</p>
+
+<blockquote class="notranslate hands_on">
+  <h3 id="hands_on-hands-on-import-the-data-1"><i class="fas fa-pencil-alt" aria-hidden="true"></i><span class="visually-hidden">hands_on</span> Hands-on: Import the data</h3>
+  <ol>
+    <li><strong>Cut columns</strong> <i class="fas fa-wrench" aria-hidden="true"></i><span class="visually-hidden">tool</span> with the following parameters
+      <ul>
+        <li><em>“Cut columns”</em>: <code class="language-plaintext highlighter-rouge">c1,c2,c3,c51</code></li>
+        <li><em>“Delimited by”</em>: <code class="language-plaintext highlighter-rouge">Tab</code></li>
+        <li><i class="far fa-file" aria-hidden="true"></i><span class="visually-hidden">param-file</span> <em>“From”</em>: output of <strong>Get species occurrences data</strong></li>
+      </ul>
+    </li>
+    <li>Inspect the generated file and check the 4 columns</li>
+    <li><strong>Filter data</strong> <i class="fas fa-wrench" aria-hidden="true"></i><span class="visually-hidden">tool</span> with the following parameters
+      <ul>
+        <li><i class="far fa-file" aria-hidden="true"></i><span class="visually-hidden">param-file</span> <em>“Filter”</em>: output of <strong>Cut columns</strong></li>
+        <li><em>“With following condition”</em>: <code class="language-plaintext highlighter-rouge">c4=='US'</code></li>
+        <li><em>“Number of header lines to skip”</em>: <code class="language-plaintext highlighter-rouge">1</code></li>
+      </ul>
+    </li>
+    <li>
+      <p>Inspect the generated files</p>
+
+      <blockquote class="question">
+        <h3 id="question-question"><i class="far fa-question-circle" aria-hidden="true"></i><span class="visually-hidden">question</span> Question</h3>
+
+        <p>How many occurrences have been conserved?</p>
+
+        <blockquote class="solution">
+          <h3 id="solution-solution-1"><i class="far fa-eye" aria-hidden="true"></i><span class="visually-hidden">solution</span> Solution</h3>
+          <p>64.55% of the occurrences (6,456) are conserved</p>
+        </blockquote>
+      </blockquote>
+    </li>
+    <li><strong>Tabular to CSV</strong> <i class="fas fa-wrench" aria-hidden="true"></i><span class="visually-hidden">tool</span>
+      <ul>
+        <li><i class="far fa-file" aria-hidden="true"></i><span class="visually-hidden">param-file</span> <em>“tabular file”</em>: output of <strong>Filter</strong></li>
+        <li><em>“output csv Separator”</em>: <code class="language-plaintext highlighter-rouge">,</code></li>
+        <li><em>“Header in file”</em>: <code class="language-plaintext highlighter-rouge">Yes</code></li>
+      </ul>
+    </li>
+    <li>Due to an issue related to the actual tabular to csv converter application to GBIF format, each <code class="language-plaintext highlighter-rouge">"</code> sign is triplicated on the resulting file. You need to replace <code class="language-plaintext highlighter-rouge">"""</code> by <code class="language-plaintext highlighter-rouge">"</code> using for example the <strong>Replace</strong> <i class="fas fa-wrench" aria-hidden="true"></i><span class="visually-hidden">tool</span> parts of text tool.</li>
+  </ol>
+</blockquote>
+
+<h1 id="step-2-development-and-evaluation-of-sdm-using-wallace">Step 2: Development and evaluation of SDM using Wallace</h1>
+
+<p><a href="https://wallaceecomod.github.io/">Wallace</a> is a R Shiny app integrated into <span class="notranslate">Galaxy</span>. It provides an interactive environment for the rapid and effective development and evaluation of SDM, including data download, cleaning, partitioning, modeling, visualisation and predictions.</p>
+
+<h2 id="transmit-occurrence-data-from-galaxy-to-wallace">Transmit occurrence data from <span class="notranslate">Galaxy</span> to Wallace</h2>
+
+<p>With this you can either upload file you’ve loaded earlier from <span class="notranslate">Galaxy</span> data or you can download data directly from Wallace. Let’s use the data from your <span class="notranslate">Galaxy</span> history:</p>
+
+<blockquote class="notranslate hands_on">
+  <h3 id="hands_on-hands-on-launch-wallace"><i class="fas fa-pencil-alt" aria-hidden="true"></i><span class="visually-hidden">hands_on</span> Hands-on: Launch Wallace</h3>
+  <ol>
+    <li>Verify your current history is the history containing previous filtered occurences data, then go to https://ecology.use<span class="notranslate">galaxy</span>.eu/root?tool_id=interactive_tool_wallace and click on execute</li>
+    <li>Go to User &gt; Active InteractiveTools, then click on the active InteractiveTool named <code class="language-plaintext highlighter-rouge">Wallace visualisation</code></li>
+    <li>In Wallace
+      <ol>
+        <li>Due to an issue related to last wallace Docker update, a manual fix is proposed waiting for a better solution. You first have to go to the <strong>5 Partition Occs</strong>, selecting <em>“Spatial Partition”</em> then for <em>“Options available”</em> selecting <code class="language-plaintext highlighter-rouge">Checkerboard 2 (k=4)</code> then click on the <strong>Partition</strong> button. This will fix the issue so now you have the <em>“Aggregation Factor”</em> displayed. Sorry for the inconvenience.</li>
+        <li>Go to <strong>1 Occ Data</strong></li>
+        <li>In <strong>Obtain Occurrence Data</strong>
+          <ul>
+            <li><em>“Modules Available”</em>: <code class="language-plaintext highlighter-rouge"><span class="notranslate">Galaxy</span> History User</code></li>
+            <li><em>“Select from your <span class="notranslate">Galaxy</span> History User csv file”</em>: output of <strong>Tabular to CSV</strong></li>
+            <li>Click on <strong>Load Occurrences</strong></li>
+          </ul>
+        </li>
+      </ol>
+    </li>
+  </ol>
+</blockquote>
+
+<p>In the main panel of Wallace, the data will load. They can now be inspected using the map, the table, etc</p>
+
+<p>You now have your occurrence records on Wallace!</p>
+
+<!--
+> ### <i class="far fa-question-circle" aria-hidden="true"></i><span class="visually-hidden">question</span> Questions
+>
+> *TODO: Add a questio<F4>n related to the data there*
+>
+> > ### <i class="far fa-eye" aria-hidden="true"></i><span class="visually-hidden">solution</span> Solution
+> >
+> {: .solution }
+{: .question}
+-->
+
+<h2 id="process-occurrence-data">Process occurrence data</h2>
+
+<p>For the modelling, we need to the choose the occurrences we want to use. There is 4 ways to do it in Wallace in the <strong>2 Process Occ</strong> panel:</p>
+
+<ol>
+  <li>Selecting occurrences on the map by delimiting an interesting geographic area</li>
+  <li>Removing occurrences by ID</li>
+  <li>
+    <p>Delimiting a spacial thin</p>
+
+    <p>This allow to select occurrences by setting a minimum distance (in km) between the different occurrences. For example, by typing 30km, we will get all the occurrences on the map which are at minimum 30km from each other.</p>
+  </li>
+  <li>Considering all the occurrences</li>
+</ol>
+
+<p>We want to work on the data from the US, we will select the occurrences with the 1st option</p>
+
+<blockquote class="notranslate hands_on">
+  <h3 id="hands_on-hands-on-select-interesting-occurrences"><i class="fas fa-pencil-alt" aria-hidden="true"></i><span class="visually-hidden">hands_on</span> Hands-on: Select interesting occurrences</h3>
+  <ol>
+    <li>Go to <strong>2 Process Occ</strong></li>
+    <li>In <strong>Process Occurrence Data</strong>
+      <ul>
+        <li><em>“Modules Available”</em>: ` Select Occurrences On Map`</li>
+      </ul>
+    </li>
+    <li>In the middle panel,
+      <ol>
+        <li>Click on the polygon icon on the map</li>
+        <li>Draw a polygon to delimit the area</li>
+      </ol>
+    </li>
+    <li>On the left panel, click on <strong>Select Occurrences</strong></li>
+  </ol>
+</blockquote>
+
+<h2 id="obtain-environmental-data">Obtain Environmental Data</h2>
+
+<p>We would like now to provide environmental variables, that are considered relevant for biological purposes. The <a href="http://www.worldclim.org/bioclim">Bioclimatic variables</a> consist of such original and derived variables. We will associate them with the occurrence data, using the WorldClim Bioclims module.</p>
+
+<p>This module provides a raster with environmental variables from online sources. The raster is composed of environmental information. Each layer of the raster contains a climatic variable: starting from BIO1 = Annual mean temperature, to BIO19 = Precipitation of Coldest Quarter.</p>
+
+<blockquote class="notranslate hands_on">
+  <h3 id="hands_on-hands-on-obtain-environmental-data"><i class="fas fa-pencil-alt" aria-hidden="true"></i><span class="visually-hidden">hands_on</span> Hands-on: Obtain Environmental Data</h3>
+  <ol>
+    <li>Go to <strong>3 Env Data</strong></li>
+    <li>In <strong>Obtain Environmental Data</strong>
+      <ul>
+        <li>
+          <p><em>“Modules Available”</em>: <code class="language-plaintext highlighter-rouge">WorldClim Bioclims</code></p>
+
+          <blockquote class="comment">
+            <h3 id="comment-using-your-own-raster"><i class="far fa-comment-dots" aria-hidden="true"></i><span class="visually-hidden">comment</span> Using your own raster</h3>
+            <p>If you prefer to load your own raster:</p>
+            <ol>
+              <li>Import it into <span class="notranslate">Galaxy</span> in the GeoTIFF format</li>
+              <li>In <strong>Obtain Environmental Data</strong>
+                <ul>
+                  <li><em>“Modules Available”</em>: <code class="language-plaintext highlighter-rouge"><span class="notranslate">Galaxy</span> History User</code></li>
+                  <li><em>“Select from your <span class="notranslate">Galaxy</span> History User csv file”</em>: imported GeoTIFF file</li>
+                </ul>
+              </li>
+            </ol>
+          </blockquote>
+        </li>
+        <li>
+          <p><em>“Select WorldClim bioclimatic variable resolution”</em>: <code class="language-plaintext highlighter-rouge">10 arcmin</code></p>
+
+          <p>This is the lowest resolution.</p>
+        </li>
+      </ul>
+    </li>
+    <li>Click on the <strong>Load Env Data</strong></li>
+  </ol>
+</blockquote>
+
+<!-- **TODO: comment the output / add a question to explain why the next step** -->
+
+<h2 id="process-environmental-data">Process environmental Data</h2>
+
+<p>Wallace will now associate environmental data and occurrences data to train a model.</p>
+
+<ol>
+  <li>
+    <p>It first creates a buffer zone around the occurrences</p>
+
+    <p>We can choose the size of the buffer zone to control the area we will be working with and on which a map of suitability will be made.</p>
+
+    <p>Several background extent can be used:</p>
+    <ul>
+      <li>Bounding box will define an area where the occurrences centered</li>
+      <li>Minimum convex polygon will make an area considering the repartition of the occurrences</li>
+      <li>Point buffers will use occurrences localities to build a buffer zone around each occurrence</li>
+    </ul>
+  </li>
+  <li>
+    <p>It samples Background Points</p>
+  </li>
+</ol>
+
+<blockquote class="notranslate hands_on">
+  <h3 id="hands_on-hands-on-obtain-environmental-data-1"><i class="fas fa-pencil-alt" aria-hidden="true"></i><span class="visually-hidden">hands_on</span> Hands-on: Obtain Environmental Data</h3>
+  <ol>
+    <li>Go to <strong>4 Process Envs</strong></li>
+    <li>In <strong>Process Environmental Data</strong>
+      <ul>
+        <li><em>“Modules Available”</em>: <code class="language-plaintext highlighter-rouge">Select Study Region</code></li>
+      </ul>
+    </li>
+    <li>In <strong>Step 1: Choose Background Extent</strong>
+      <ul>
+        <li><em>“Background Extents”</em>: <code class="language-plaintext highlighter-rouge">Minimum convex polygon</code></li>
+        <li><em>“Study region buffer distance (degree)”</em>: <code class="language-plaintext highlighter-rouge">1</code></li>
+      </ul>
+    </li>
+    <li>Click on <strong>Select</strong></li>
+    <li>In <strong>Step 2: Sample Background Points</strong>
+      <ul>
+        <li><em>“No. of background points”</em>: <code class="language-plaintext highlighter-rouge">100000</code></li>
+      </ul>
+    </li>
+    <li>Click on <strong>Sample</strong></li>
+  </ol>
+</blockquote>
+
+<!-- **TODO: comment the output / add a question to explain why the next step** -->
+
+<h2 id="partition-occurrence-data">Partition Occurrence Data</h2>
+
+<p>By partitioning data, a dataset is divided into subsets (i.e. bins). A model is then built on each of subsets but one and test it on the last one (assuming that all the groups are independent).</p>
+
+<p>There is 2 possible way to partition data:</p>
+
+<ol>
+  <li><strong>Non-spatial Partition</strong>: a partition used when there is no bias due to space, time or sampling method
+    <ol>
+      <li>Jakknife (k=n): each occurrence in the dataset is considered as equal to a bin. This is usually used when you have a small dataset with no known bias</li>
+      <li>Random k-fold: partition the data randomly in a number of bins set by the user with the option <code class="language-plaintext highlighter-rouge">Number of Folds</code></li>
+    </ol>
+  </li>
+  <li><strong>Spatial Partition</strong>: a partition used when there could be bias due to time, space or sampling method
+    <ol>
+      <li>Block (k=4): the area is divided in four and the different occurrences are put equally into four bins</li>
+      <li>Checkerboard 1 (k=2): two bins are used according to the position of the occurrence on the grid</li>
+      <li>
+        <p>Checkerboard 2 (k=4): four bins are used according to the position of the occurrence on the grid. This require an aggregation factor, which is the size of a second grid put on a first one. For example, with a factor 4, the grids size will be 4x4</p>
+
+        <figure id="figure-1"><img src="../../images/species-distribution-modeling/Checkerboard.png" alt="Checkerboard 2" /><figcaption><span class="figcaption-prefix">Figure 1:</span> Example of checkerboard (k=4) with a factor 4. Source: doi:10.0.4.87/2041-210X.12261</figcaption></figure>
+      </li>
+    </ol>
+  </li>
+</ol>
+
+<p>For both of these techniques the number of occurrences into each bin may vary.</p>
+
+<blockquote class="notranslate hands_on">
+  <h3 id="hands_on-hands-on-partition-occurrence-data"><i class="fas fa-pencil-alt" aria-hidden="true"></i><span class="visually-hidden">hands_on</span> Hands-on: Partition Occurrence Data</h3>
+  <ol>
+    <li>Go to <strong>5 Partition Occs</strong></li>
+    <li>In <strong>Partition Occurrence Data</strong>
+      <ul>
+        <li><em>“Modules Available”</em>: <code class="language-plaintext highlighter-rouge">Spatial Partition</code></li>
+        <li><em>“Options Available:”</em>: <code class="language-plaintext highlighter-rouge">Checkerboard 2 (k=4)</code></li>
+        <li><em>“Aggregation Factor”</em>: <code class="language-plaintext highlighter-rouge">6</code></li>
+      </ul>
+    </li>
+    <li>Click on <strong>Partition</strong></li>
+  </ol>
+</blockquote>
+
+<!-- **TODO: comment the output / add a question to explain why the next step** -->
+
+<h2 id="build-and-evaluate-niche-model">Build and Evaluate Niche Model</h2>
+
+<p>Wallace can build different models using either:</p>
+
+<ol>
+  <li>The presence-only approach BIOCLIM (Module BIOCLIM) (<a class="citation" href="#booth2018">Booth 2018</a>)</li>
+  <li>The presence-background (presence-pseudo absence) algorithm Maxent (Module Maxent)</li>
+</ol>
+
+<p>To evaluate these models, Wallace computes the performance on a hold-out dataset (data not used for training) and provide evaluation metrics as the AUC (Area Under the Curve) mean. As a rule of thumb, an AUC of 0.75 and above is considered good, and closer to 1 is better.</p>
+
+<blockquote class="notranslate hands_on">
+  <h3 id="hands_on-hands-on-build-and-evaluate-the-niche-model"><i class="fas fa-pencil-alt" aria-hidden="true"></i><span class="visually-hidden">hands_on</span> Hands-on: Build and evaluate the niche model</h3>
+  <ol>
+    <li>Go to <strong>6 Model</strong></li>
+    <li>In <strong>Build and Evaluate Niche Model</strong>
+      <ul>
+        <li><em>“Modules Available”</em>: <code class="language-plaintext highlighter-rouge">BIOCLIM</code></li>
+      </ul>
+    </li>
+    <li>Click on <strong>Run</strong></li>
+  </ol>
+</blockquote>
+
+<!-- **TODO: comment the output / add a question to explain why the next step** -->
+
+<h2 id="visualize-model-results">Visualize Model Results</h2>
+
+<p>We would like now to visualize the model of the theoretical niche. First we will make a chart to simulate an ecological niche:</p>
+<ul>
+  <li>X-axis: temperature</li>
+  <li>Y-axis: the annual precipitation</li>
+</ul>
+
+<blockquote class="notranslate hands_on">
+  <h3 id="hands_on-hands-on-visualize-model-results"><i class="fas fa-pencil-alt" aria-hidden="true"></i><span class="visually-hidden">hands_on</span> Hands-on: Visualize Model Results</h3>
+  <ol>
+    <li>Go to <strong>7 Visualize</strong></li>
+    <li>In <strong>Visualize Model Results</strong>
+      <ul>
+        <li><em>“Modules Available”</em>: <code class="language-plaintext highlighter-rouge">BIOCLIM Envelope Plots</code></li>
+        <li><em>“Axis 1”</em>: <code class="language-plaintext highlighter-rouge">1</code></li>
+        <li><em>“Axis 1”</em>: <code class="language-plaintext highlighter-rouge">12</code></li>
+        <li><em>“Set threshold”</em>: <code class="language-plaintext highlighter-rouge">0.75</code></li>
+      </ul>
+    </li>
+  </ol>
+</blockquote>
+
+<p><img src="../../images/species-distribution-modeling/bioclim_enveloppe_plots.png" alt="temperature vs annual precipitation" /></p>
+
+<p>The optimum environmental parameters for this species (represented in green) is between 5°C and 15°C (on the graph, values are x10) with an annual precipitation between approximately 700mm and 1250mm.</p>
+
+<p>To visualize the suitability on the map, we can use the map prediction module.</p>
+
+<blockquote class="notranslate hands_on">
+  <h3 id="hands_on-hands-on-visualize-model-results-1"><i class="fas fa-pencil-alt" aria-hidden="true"></i><span class="visually-hidden">hands_on</span> Hands-on: Visualize Model Results</h3>
+  <ol>
+    <li>In <strong>Visualize Model Results</strong>
+      <ul>
+        <li><em>“Modules Available”</em>: <code class="language-plaintext highlighter-rouge">Map Prediction</code></li>
+        <li>
+          <p><em>“Set threshold”</em>: <code class="language-plaintext highlighter-rouge">No threshold</code></p>
+
+          <p>It will display a gradient of predicted presence or use. If you prefer a map with the predicted presence and predicted absence, select <code class="language-plaintext highlighter-rouge">minimum training presence</code>.</p>
+        </li>
+      </ul>
+    </li>
+    <li>Click on <strong>Plot</strong></li>
+  </ol>
+</blockquote>
+
+<p><img src="../../images/species-distribution-modeling/map_prediction.png" alt="map prediction" /></p>
+
+<!-- **TODO: comment the output / add a question to explain why the next step** -->
+
+<h2 id="project-model">Project Model</h2>
+
+<p>Wallace can use the trained model to predict possible species distributions in a different area, outside of the sampled one. Here, we will try it for the Canada.</p>
+
+<blockquote class="notranslate hands_on">
+  <h3 id="hands_on-hands-on-visualize-model-results-2"><i class="fas fa-pencil-alt" aria-hidden="true"></i><span class="visually-hidden">hands_on</span> Hands-on: Visualize Model Results</h3>
+  <ol>
+    <li>Go to <strong>8 Project</strong></li>
+    <li>In <strong>Project Model</strong>
+      <ul>
+        <li><em>“Modules Available”</em>: <code class="language-plaintext highlighter-rouge">Project to New Extent</code></li>
+      </ul>
+    </li>
+    <li>In the middle panel,
+      <ol>
+        <li>Click on the polygon icon on the map</li>
+        <li>Draw a polygon around a part of Canada</li>
+      </ol>
+    </li>
+    <li>In <strong>Project Model</strong>
+      <ul>
+        <li><em>“Set threshold”</em>: <code class="language-plaintext highlighter-rouge">Minimum Training Presence</code></li>
+      </ul>
+    </li>
+    <li>Click on <strong>Project</strong></li>
+  </ol>
+</blockquote>
+
+<p>We can also predict not only for a different area, but also different timing and climate. The <a href="https://en.wikipedia.org/wiki/General_circulation_model#Atmospheric_and_oceanic_models">Global Circulation Model (GCM)</a> are used here to predict atmospheric fluctuation and then study climate change. Each model is different and use parameters like ocean atmosphere and others. The prediction need also a RCP scenario, a scenarios about the amount of greenhouse gases emitted in the near future. This scenario may have different predicted presence models.</p>
+
+<p>We would like to predict the presence of Chrysemys Picta in Canada in 2050, given the model <a href="http://www.cesm.ucar.edu/models/ccsm4.0/">CCSM4</a>, a US model based on earth circulation, and a RCP value of 2.6 <!--(**TODO: what does that represent?**)--></p>
+
+<blockquote class="notranslate hands_on">
+  <h3 id="hands_on-hands-on-visualize-model-results-with-a-26-rcp"><i class="fas fa-pencil-alt" aria-hidden="true"></i><span class="visually-hidden">hands_on</span> Hands-on: Visualize Model Results with a 2.6 RCP</h3>
+  <ol>
+    <li>In <strong>Project Model</strong>
+      <ul>
+        <li><em>“Modules Available”</em>: <code class="language-plaintext highlighter-rouge">Project to New Time</code></li>
+        <li><em>“Select time period”</em>: <code class="language-plaintext highlighter-rouge">2050</code></li>
+        <li><em>“Select global circulation model”</em>: <code class="language-plaintext highlighter-rouge">CCSM4</code></li>
+        <li><em>“Select RCP”</em>: <code class="language-plaintext highlighter-rouge">2.6</code></li>
+        <li><em>“Select threshold”</em>: <code class="language-plaintext highlighter-rouge">Minimum Training Presence</code></li>
+      </ul>
+    </li>
+    <li>Click on <strong>Project</strong></li>
+  </ol>
+</blockquote>
+
+<p><img src="../../images/species-distribution-modeling/GCM_CCSM4_RCP_2.6.png" alt="CCM4 with a 2.6 RCP" /></p>
+
+<p>We would like now to compare the prediction for RCP value of 8.5 <!--(**TODO: what does that represent?**)-->.</p>
+
+<blockquote class="notranslate hands_on">
+  <h3 id="hands_on-hands-on-visualize-model-results-with-a-85-rcp"><i class="fas fa-pencil-alt" aria-hidden="true"></i><span class="visually-hidden">hands_on</span> Hands-on: Visualize Model Results with a 8.5 RCP</h3>
+  <ol>
+    <li>In <strong>Project Model</strong>
+      <ul>
+        <li><em>“Modules Available”</em>: <code class="language-plaintext highlighter-rouge">Project to New Time</code></li>
+        <li><em>“Select time period”</em>: <code class="language-plaintext highlighter-rouge">2050</code></li>
+        <li><em>“Select global circulation model”</em>: <code class="language-plaintext highlighter-rouge">CCSM4</code></li>
+        <li><em>“Select RCP”</em>: <code class="language-plaintext highlighter-rouge">8.5</code></li>
+        <li><em>“Select threshold”</em>: <code class="language-plaintext highlighter-rouge">Minimum Training Presence</code></li>
+      </ul>
+    </li>
+    <li>Click on <strong>Project</strong></li>
+  </ol>
+</blockquote>
+
+<p><img src="../../images/species-distribution-modeling/GCM_CCSM4_RPC_8.5.png" alt="CCM4 with a 8.5 RCP" /></p>
+
+<!-- **TODO: comment the output / add a question to compare the 2 predictions**
+
+
+**TODO: add a section on how to save / download** -->
+
+<h1 id="conclusion">Conclusion</h1>
+
+<p>Following this tutorial, we have been able here to load a dataset of occurrences used in the shiny app Wallace and model the repartition of <em>Chrysemys picta</em> (Painted turtle) with the Species Distribution Modeling (SDM) method. It allowed us to visualize it’s ecological niche and how climate change can influence it’s future repartition on North America. The project saved can help for future similar studies.</p>
+
+<blockquote class="details">
+  <h3 id="details-some-useful-references"><i class="fas fa-info-circle" aria-hidden="true"></i><span class="visually-hidden">details</span> Some useful references</h3>
+
+  <ul>
+    <li>Predicting species distributions for conservation decisions (<a class="citation" href="#guisan2013">Guisan <i>et al.</i> 2013</a>).</li>
+    <li>BIOCLIM: the first species distribution modelling package, its early applications and relevance to most current MAXENT studies. Diversity and Distributions (<a class="citation" href="#booth2018">Booth 2018</a>).</li>
+    <li>ENMeval: An R package for conducting spatially independent evaluations and estimating optimal model complexity for MAXENT ecological niche models. (<a class="citation" href="#muscarella2014">Muscarella <i>et al.</i> 2014</a>).</li>
+  </ul>
+
+  <p><a href="http://www.ipcc-data.org/guidelines/pages/gcm_guide.html">Here</a> for informations on Global Circulation Model(GCM), how it’s done what is taken in consideration and more.</p>
+</blockquote>
+
+
+
+                    
+                    <blockquote class="key_points">
+                        <h3><i class="fas fa-key" aria-hidden="true"></i><span class="visually-hidden">keypoints</span> Key points</h3>
+                        <ul>
+                            
+                            <li><p>Use ‘classical’ Galaxy tools in combination with Interactive tools</p>
+</li>
+                            
+                            <li><p>Identify general steps of a species distribution modeling aproach</p>
+</li>
+                            
+                        </ul>
+                    </blockquote>
+                    
+
+                    
+                    <h1 data-toc-skip>Useful literature</h1>
+                    <p>Further information, including links to documentation and original publications, regarding the tools, analysis techniques and the interpretation of results described in this tutorial can be found <a href="/training-material/topics/ecology#references">here</a>.</p>
+                    
+
+                    
+                    <h1 id="bibliography">References</h1>
+                    <ol class="bibliography"><li><span id="guisan2013">Guisan, A., R. Tingley, J. B. Baumgartner, I. Naujokaitis-Lewis, P. R. Sutcliffe <i>et al.</i>, 2013 <b>Predicting species distributions for conservation decisions</b>. Ecology letters 16: 1424–1435.</span>
+    
+    
+    
+
+</li>
+<li><span id="muscarella2014">Muscarella, R., P. J. Galante, M. Soley-Guardia, R. A. Boria, J. M. Kass <i>et al.</i>, 2014 <b>ENM eval: An R package for conducting spatially independent evaluations and estimating optimal model complexity for Maxent ecological niche models</b>. Methods in Ecology and Evolution 5: 1198–1205.</span>
+    
+    
+    
+
+</li>
+<li><span id="booth2018">Booth, T., 2018 <b>BIOCLIM–the first species distribution modelling package</b>.</span>
+    
+    
+    
+
+</li></ol>
+                    
+
+                    <h1>Feedback</h1>
+                    <p class="text-muted">Did you use this material as an instructor? Feel free to give us feedback on <a href="https://github.com/galaxyproject/training-material/issues/1452" target="_blank">how it went</a>.</p>
+
+                    <div id="feedback-button">
+                        <img src="/training-material/shared/images/feedback.png" title="Click to activate" alt="Click here to load Google feedback frame" />
+                    </div>
+                    <div id="feedback-form">
+                    </div>
+                    <script type="text/javascript">
+                        (function (window, document) {
+                            function onDocumentReady(fn) {
+                                if (document.attachEvent ? document.readyState === "complete" : document.readyState !== "loading") {
+                                    fn();
+                                } else {
+                                    document.addEventListener('DOMContentLoaded', fn);
+                                }
+                            }
+
+                            onDocumentReady(function () {
+                                $("#feedback-button").click(function(evt){
+                                    var e = $(evt.target)
+                                    e.hide();
+
+                                    $("#feedback-form").html(`
+                                        <iframe id="feedback-google" class="google-form" src="https://docs.google.com/forms/d/e/1FAIpQLSd4VZptFTQ03kHkMz0JyW9b6_S8geU5KjNE_tLM0dixT3ZQmA/viewform?embedded=true&entry.1235803833=Species distribution modeling (Ecology)">Loading...</iframe>
+                                    `)
+                                })
+                            });
+                        })(window, document);
+                    </script>
+
+
+
+                    <h1>Citing this Tutorial</h1>
+                    <p>
+                        <ol>
+                            <li id="citation-text">Elisa Michon, Yvan Le Bras, Bérénice Batut, 2020 <b>Species distribution modeling (Galaxy Training Materials)</b>. <a href="/training-material/topics/ecology/tutorials/species-distribution-modeling/tutorial.html">/training-material/topics/ecology/tutorials/species-distribution-modeling/tutorial.html</a> Online; accessed TODAY
+                            </li>
+                            <li>
+                            Batut et al., 2018 <b>Community-Driven Data Analysis Training for Biology</b> Cell Systems <a href="https://doi.org/10.1016%2Fj.cels.2018.05.012">10.1016/j.cels.2018.05.012</a>
+                            </li>
+                        </ol>
+                    </p>
+
+
+                    <blockquote class="details">
+                      <h3><i class="fa fa-info-circle" aria-hidden="true"></i><span class="visually-hidden">details</span> BibTeX</h3>
+                      <p style="display: none;">
+
+                    <div class="highlighter-rouge"><div class="highlight"><pre class="highlight">
+<code id="citation-code">@misc{ecology-species-distribution-modeling,
+    author = "Elisa Michon and Yvan Le Bras and Bérénice Batut",
+    title = "Species distribution modeling (Galaxy Training Materials)",
+    year = "2020",
+    month = "11",
+    day = "26"
+    url = "\url{/training-material/topics/ecology/tutorials/species-distribution-modeling/tutorial.html}",
+    note = "[Online; accessed TODAY]"
+}
+@article{Batut_2018,
+        doi = {10.1016/j.cels.2018.05.012},
+        url = {https://doi.org/10.1016%2Fj.cels.2018.05.012},
+        year = 2018,
+        month = {jun},
+        publisher = {Elsevier {BV}},
+        volume = {6},
+        number = {6},
+        pages = {752--758.e1},
+        author = {B{\'{e}}r{\'{e}}nice Batut and Saskia Hiltemann and Andrea Bagnacani and Dannon Baker and Vivek Bhardwaj and Clemens Blank and Anthony Bretaudeau and Loraine Brillet-Gu{\'{e}}guen and Martin {\v{C}}ech and John Chilton and Dave Clements and Olivia Doppelt-Azeroual and Anika Erxleben and Mallory Ann Freeberg and Simon Gladman and Youri Hoogstrate and Hans-Rudolf Hotz and Torsten Houwaart and Pratik Jagtap and Delphine Larivi{\`{e}}re and Gildas Le Corguill{\'{e}} and Thomas Manke and Fabien Mareuil and Fidel Ram{\'{\i}}rez and Devon Ryan and Florian Christoph Sigloch and Nicola Soranzo and Joachim Wolff and Pavankumar Videm and Markus Wolfien and Aisanjiang Wubuli and Dilmurat Yusuf and James Taylor and Rolf Backofen and Anton Nekrutenko and Björn Grüning},
+        title = {Community-Driven Data Analysis Training for Biology},
+        journal = {Cell Systems}
+}</code>
+                    </pre></div></div>
+                    </p>
+                    </blockquote>
+
+
+<script type="text/javascript">
+// update the date on load, or leave fallback of 'today'
+d = new Date();
+document.getElementById("citation-code").innerHTML = document.getElementById("citation-code").innerHTML.replace("TODAY", d.toDateString());
+document.getElementById("citation-text").innerHTML = document.getElementById("citation-text").innerHTML.replace("TODAY", d.toDateString());
+</script>
+
+                </div>
+            </div>
+        </div>
+
+        <h3><i class="far fa-thumbs-up" aria-hidden="true"></i><span class="visually-hidden">congratulations</span> Congratulations on successfully completing this tutorial!</h3>
+
+        
+
+        
+    </section>
+</div>
+
+
+<footer>
+    <div class="container">
+        <p>
+            This material is the result of a collaborative work. Thanks to the
+            <a href="https://wiki.galaxyproject.org/Teach/GTN">Galaxy Training Network</a>
+            and all the <a href="/training-material/hall-of-fame">contributors</a> (Elisa Michon, Yvan Le Bras, Bérénice Batut)!
+        </p>
+        <p>
+            Found a typo? Something is wrong in this tutorial? Edit it on
+            <a href="https://github.com/galaxyproject/training-material/tree/master/topics/ecology/tutorials/species-distribution-modeling/tutorial.md">GitHub</a>.
+        </p>
+        <p>
+    The content of the tutorials and website is licensed under the <a rel="license" href="https://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0 International License</a>.
+</p>
+    </div>
+</footer>
+
+    </body>
+    <script type="text/javascript" src="/training-material/assets/js/jquery.slim.min.js"></script>
+    <script type="text/javascript" src="/training-material/assets/js/popper.min.js"></script>
+    <script type="text/javascript" src="/training-material/assets/js/bootstrap.min.js?v=3"></script>
+    <script type="text/javascript" src="/training-material/assets/js/details-element-polyfill.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript" src="/training-material/assets/js/bootstrap-toc.min.js"></script>
+    <script type="text/javascript" src="/training-material/assets/js/main.js"></script>
+    <script type="text/javascript" src="/training-material/assets/js/theme.js"></script>
+
+    <script type="text/javascript" src="/training-material/assets/js/clipboard.min.js"></script>
+    <script type="text/javascript">
+    var snippets=document.querySelectorAll('div.highlight');
+    [].forEach.call(snippets,function(snippet){
+        snippet.firstChild.insertAdjacentHTML('beforebegin','<button class="btn btn-light" data-clipboard-snippet><i class="fa fa-copy"></i>&nbsp;Copy</button>');
+    });
+
+    var clipboardSnippets=new ClipboardJS('[data-clipboard-snippet]',{
+        target:function(trigger){return trigger.nextElementSibling;
+    }});
+    </script>
+    
+
+    <script type="text/javascript">
+        if(window.location.hostname === "galaxyproject.github.io") {
+            // Redirect
+            var redirect = "https://training.galaxyproject.org" + window.location.pathname + window.location.search;
+            $('div.container.main-content').prepend("<div class='alert alert-warning'><strong>Note: </strong>This content has a new home at <a href=\"" + redirect + "\">" + redirect + "</a>, which you will be redirected to in 5 seconds.</div>");
+
+            window.setTimeout(function(){
+                window.location.href = redirect;
+            }, 5000)
+
+        }
+    </script>
+</html>

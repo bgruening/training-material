@@ -1,0 +1,1103 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <title>Introduction to Genome Assembly</title>
+        
+            <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+    ga('create', '' , 'auto');
+    ga('send', 'pageview');
+</script>
+        
+        <link rel="stylesheet" href="/training-material/assets/css/bootstrap.min.css?v=3">
+        <link rel="stylesheet" href="/training-material/assets/css/bootstrap-toc.min.css">
+        <link rel="stylesheet" href="/training-material/assets/css/main.css?v=2">
+        <script src="https://kit.fontawesome.com/67b3f98409.js" crossorigin="anonymous"></script>
+        <link rel="stylesheet" href="/training-material/assets/css/academicons.css">
+        <link rel="stylesheet" href="/training-material/assets/css/syntax_highlighting.css">
+        <link rel="shortcut icon" href="/training-material/favicon.ico" type="image/x-icon" />
+
+        
+        
+        
+        
+        
+        <meta name="description" content="DNA sequence data has become an indispensable tool for Mo..." />
+        <meta property="og:title" content="Galaxy Training: Introduction to Genome Assembly" />
+        <meta property="og:description" content="DNA sequence data has become an indispensable tool for Mo..." />
+        <meta property="og:image" content="/training-material/assets/images/GTNLogo1000.png" />
+    </head>
+    <body data-spy="scroll" data-target="#toc">
+        
+
+
+
+
+
+
+
+
+
+
+
+<!-- Gitter -->
+
+
+<script>
+  ((window.gitter = {}).chat = {}).options = {
+  room: 'Galaxy-Training-Network/Lobby'
+  };
+</script>
+<script src="https://sidecar.gitter.im/dist/sidecar.v1.js" async defer></script>
+
+<header>
+    <nav class="navbar navbar-expand-lg navbar-dark">
+        <div class="container">
+            <a class="navbar-brand" href="/training-material/">
+                <img src="/training-material/assets/images/GTN-60px.png" height="30" alt="Galaxy Training Network logo">
+                Galaxy Training!
+            </a>
+
+            <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#top-navbar" aria-controls="top-navbar" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="top-navbar">
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link" href="/training-material/topics/assembly" title="Go back to list of tutorials">
+                            <i class="far fa-folder" aria-hidden="true"></i><span class="visually-hidden">topic</span> Assembly
+                        </a>
+                    </li>
+
+                    <li class="nav-item dropdown">
+                        <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" aria-expanded="false" title="Language Selector">
+                            <i class="fas fa-language" aria-hidden="true"></i><span class="visually-hidden">language</span> Language
+                        </a>
+                        <div class="dropdown-menu">
+                            
+                            <a class="dropdown-item" href="https://translate.google.com/translate?hl=jp&sl=en&tl=fr&u=https%3A%2F%2Ftraining.galaxyproject.org%2Ftopics%2Fassembly%2Ftutorials%2Fgeneral-introduction%2Ftutorial.html&edit-text=&act=url" title="">
+                                Français
+                            </a>
+                            
+                            <a class="dropdown-item" href="https://translate.google.com/translate?hl=jp&sl=en&tl=ja&u=https%3A%2F%2Ftraining.galaxyproject.org%2Ftopics%2Fassembly%2Ftutorials%2Fgeneral-introduction%2Ftutorial.html&edit-text=&act=url" title="">
+                                日本語
+                            </a>
+                            
+                            <a class="dropdown-item" href="https://translate.google.com/translate?hl=jp&sl=en&tl=es&u=https%3A%2F%2Ftraining.galaxyproject.org%2Ftopics%2Fassembly%2Ftutorials%2Fgeneral-introduction%2Ftutorial.html&edit-text=&act=url" title="">
+                                Español
+                            </a>
+                            
+                            <a class="dropdown-item" href="https://translate.google.com/translate?hl=jp&sl=en&tl=pt&u=https%3A%2F%2Ftraining.galaxyproject.org%2Ftopics%2Fassembly%2Ftutorials%2Fgeneral-introduction%2Ftutorial.html&edit-text=&act=url" title="">
+                                Português
+                            </a>
+                            
+                            <a class="dropdown-item" href="https://translate.google.com/translate?hl=jp&sl=en&tl=ar&u=https%3A%2F%2Ftraining.galaxyproject.org%2Ftopics%2Fassembly%2Ftutorials%2Fgeneral-introduction%2Ftutorial.html&edit-text=&act=url" title="">
+                                العربية
+                            </a>
+                            
+                            <a class="dropdown-item" href="https://translate.google.com/translate?hl=jp&sl=en&tl=&u=https%3A%2F%2Ftraining.galaxyproject.org%2Ftopics%2Fassembly%2Ftutorials%2Fgeneral-introduction%2Ftutorial.html&edit-text=&act=url" title="">
+                                And more!
+                            </a>
+                        </div>
+                    </li>
+
+                    <li class="nav-item dropdown">
+    <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" aria-expanded="false" title="Help">
+        <i class="far fa-question-circle" aria-hidden="true"></i><span class="visually-hidden">help</span> Help
+    </a>
+    <div class="dropdown-menu dropdown-menu-right">
+        <form method="get" action="https://tess.elixir-europe.org/materials">
+            <input type="text" id="search" name="q" value="" style="margin-left: 0.5em;/*! border-radius: 0px; */">
+            <input type="hidden" value="Galaxy Training" name="content_provider">
+            <input type="submit" value="Search on TeSS" style="width: 92%;border-radius: 0px;margin: 0.5em;background: #f47d20;border: 0px;padding: 0.25em;" class="">
+        </form>
+
+        <div class="dropdown-divider"></div>
+        <a class="dropdown-item" href="/training-material/faq" title="Check our FAQ">
+            FAQ
+        </a>
+        <a class="dropdown-item" href="https://help.galaxyproject.org/" title="Discuss on Galaxy Help">
+            Discuss on Galaxy Help
+        </a>
+
+        <div class="dropdown-item">
+            <div>
+                Theme
+            </div>
+
+            <div id="theme-selector" data-toggle="buttons">
+                <label data-value="default" class="btn btn-secondary">
+                    <input type="radio" name="options" id="default" autocomplete="off"> Default
+                </label>
+                <label data-value="night" class="btn btn-secondary">
+                    <input type="radio" name="options" id="night" autocomplete="off"> Night
+                </label>
+                <label data-value="midnight" class="btn btn-secondary">
+                    <input type="radio" name="options" id="midnight" autocomplete="off"> Midnight
+                </label>
+                <label data-value="rainbow" class="btn btn-secondary">
+                    <input type="radio" name="options" id="rainbow" autocomplete="off"> Rainbow
+                </label>
+                <label data-value="halloween" class="btn btn-secondary">
+                    <input type="radio" name="options" id="halloween" autocomplete="off"> 🎃
+                </label>
+            </div>
+
+        </div>
+    </div>
+</li>
+
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="https://github.com/galaxyproject/training-material/edit/master/topics/assembly/tutorials/general-introduction/tutorial.md">
+                            <i class="fab fa-github" aria-hidden="true"></i><span class="visually-hidden">github</span> Edit
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+</header>
+
+<div class="container main-content">
+    <script type="application/ld+json">
+        
+
+
+{
+  "@context": "http://schema.org",
+  "@type": "Course",
+  "accessMode": [
+    "textual",
+    "visual"
+  ],
+  "accessModeSufficient": [
+    "textual",
+    "visual"
+  ],
+  "accessibilityControl": [
+    "fullKeyboardControl",
+    "fullMouseControl"
+  ],
+  "accessibilityFeature": [
+    "alternativeText",
+    "tableOfContents"
+  ],
+  "accessibilitySummary": "Short descriptions are present but long descriptions will be needed for non-visual users",
+  "audience": {
+    "@type": "EducationalAudience",
+    "educationalRole": "students"
+  },
+  "citation": {
+    "@type": "CreativeWork",
+    "name": "Community-Driven Data Analysis Training for Biology",
+    "url": "https://doi.org/10.1016/j.cels.2018.05.012"
+  },
+  "copyrightHolder": {
+    "@type": "Organization",
+    "email": "galaxytrainingnetwork@gmail.com",
+    "name": "Galaxy Training Network",
+    "url": "https://galaxyproject.org/teach/gtn/"
+  },
+  "discussionUrl": "https://gitter.im/Galaxy-Training-Network/Lobby",
+  "headline": "Introduction to Genome Assembly",
+  "inLanguage": {
+    "@type": "Language",
+    "name": "English",
+    "alternateName": "en"
+  },
+  "interactivityType": "mixed",
+  "isAccessibleForFree": true,
+  "license": "https://github.com/galaxyproject/training-material/blob/master/LICENSE.md",
+  "producer": {
+    "@type": "Organization",
+    "email": "galaxytrainingnetwork@gmail.com",
+    "name": "Galaxy Training Network",
+    "url": "https://galaxyproject.org/teach/gtn/"
+  },
+  "provider": {
+    "@type": "Organization",
+    "email": "galaxytrainingnetwork@gmail.com",
+    "name": "Galaxy Training Network",
+    "url": "https://galaxyproject.org/teach/gtn/"
+  },
+  "sourceOrganization": {
+    "@type": "Organization",
+    "email": "galaxytrainingnetwork@gmail.com",
+    "name": "Galaxy Training Network",
+    "url": "https://galaxyproject.org/teach/gtn/"
+  },
+  "isPartOf": {
+    "@type": "CreativeWork",
+    "name": "Assembly",
+    "description": "DNA sequence data has become an indispensable tool for Molecular Biology & Evolutionary Biology. Study in these fields now require a genome sequence to work from. We call this a 'Reference Sequence.' We need to build a reference for each species. We do this by Genome Assembly. De novo Genome Assembly is the process of reconstructing the original DNA sequence from the fragment reads alone.",
+    "url": "https://training.galaxyproject.org//training-material/topics/assembly/"
+  },
+  "courseCode": "assembly / general-introduction / hands-on",
+  "learningResourceType": "hands-on tutorial",
+  "name": "Hands-on for 'Introduction to Genome Assembly' tutorial",
+  "url": "https://training.galaxyproject.org//training-material/topics/assembly/tutorials/general-introduction/tutorial.html",
+  "timeRequired": "PT30M",
+  "description": "The questions this  addresses are:\n - How do we perform a very basic genome assembly from short read data?\n\n\\nThe objectives are:\n - assemble some paired end reads using Velvet\n - examine the output of the assembly.\n\n",
+  "coursePrerequisites": [
+    {
+      "@type": "CreativeWork",
+      "url": "https://training.galaxyproject.org//training-material/topics/introduction/",
+      "name": "Introduction to Galaxy Analyses",
+      "description": "Introduction to Galaxy Analyses",
+      "provider": {
+        "@type": "Organization",
+        "email": "galaxytrainingnetwork@gmail.com",
+        "name": "Galaxy Training Network",
+        "url": "https://galaxyproject.org/teach/gtn/"
+      }
+    },
+    {
+      "@type": "Course",
+      "url": "https://training.galaxyproject.org//training-material/topics/sequence-analysis/tutorials/quality-control/slides.html",
+      "name": "Quality Control",
+      "description": "Slides for 'Quality Control' tutorial",
+      "learningResourceType": "slides",
+      "interactivityType": "expositive",
+      "provider": {
+        "@type": "Organization",
+        "email": "galaxytrainingnetwork@gmail.com",
+        "name": "Galaxy Training Network",
+        "url": "https://galaxyproject.org/teach/gtn/"
+      }
+    },
+    {
+      "@type": "Course",
+      "url": "https://training.galaxyproject.org//training-material/topics/sequence-analysis/tutorials/quality-control/tutorial.html",
+      "name": "Quality Control",
+      "description": "Hands-on for 'Quality Control' tutorial",
+      "learningResourceType": "hands-on tutorial",
+      "interactivityType": "expositive",
+      "provider": {
+        "@type": "Organization",
+        "email": "galaxytrainingnetwork@gmail.com",
+        "name": "Galaxy Training Network",
+        "url": "https://galaxyproject.org/teach/gtn/"
+      }
+    }
+  ],
+  "hasPart": [
+
+  ],
+  "author": [
+    {
+      "@type": "Person",
+      "name": "Simon Gladman"
+    }
+  ],
+  "contributor": [
+    {
+      "@type": "Person",
+      "name": "Simon Gladman"
+    }
+  ],
+  "about": [
+    {
+      "@type": "CreativeWork",
+      "name": "Assembly",
+      "description": "DNA sequence data has become an indispensable tool for Molecular Biology & Evolutionary Biology. Study in these fields now require a genome sequence to work from. We call this a 'Reference Sequence.' We need to build a reference for each species. We do this by Genome Assembly. De novo Genome Assembly is the process of reconstructing the original DNA sequence from the fragment reads alone.",
+      "url": "https://training.galaxyproject.org//training-material/topics/assembly/"
+    }
+  ]
+}
+    </script>
+
+    <section class="tutorial">
+        <h1 data-toc-skip>Introduction to Genome Assembly</h1>
+        
+
+        <div class="contributors-line">By: 
+
+<a href="/training-material/hall-of-fame/slugger70/" class="contributor-badge"><img src="https://avatars.githubusercontent.com/slugger70" alt="Simon Gladman">Simon Gladman</a>
+
+</div>
+
+        <blockquote class="overview">
+            <h3>Overview</h3>
+            <strong><i class="far fa-question-circle" aria-hidden="true"></i><span class="visually-hidden">question</span> Questions</strong>
+            <ul>
+            
+            <li><p>How do we perform a very basic genome assembly from short read data?</p>
+</li>
+            
+            </ul>
+
+            <strong><i class="fas fa-bullseye" aria-hidden="true"></i><span class="visually-hidden">objectives</span> Objectives</strong>
+            <ul>
+            
+            <li><p>assemble some paired end reads using Velvet</p>
+</li>
+            
+            <li><p>examine the output of the assembly.</p>
+</li>
+            
+            </ul>
+
+            
+            <strong><i class="fas fa-check-circle" aria-hidden="true"></i><span class="visually-hidden">requirements</span> Requirements</strong>
+            <ul>
+            
+    <li>
+    
+        
+        
+        <a href="/training-material/topics/introduction">Introduction to Galaxy Analyses</a>
+        
+    
+    </li>
+
+    <li>
+    
+        
+        
+        <a href="/training-material/topics/sequence-analysis">Sequence analysis</a>
+        
+            <ul>
+                
+                    
+                        
+                    
+                        
+                            
+                            <li> Quality Control:
+                            
+                                <a href="/training-material/topics/sequence-analysis/tutorials/quality-control/slides.html"><i class="fab fa-slideshare" aria-hidden="true"></i><span class="visually-hidden">slides</span> slides</a>
+                                
+                            
+                            
+                                
+                                    - <a href="/training-material/topics/sequence-analysis/tutorials/quality-control/tutorial.html"><i class="fas fa-laptop" aria-hidden="true"></i><span class="visually-hidden">tutorial</span> hands-on</a>
+                                
+                            
+                            </li>
+                        
+                    
+                
+            </ul>
+        
+    
+    </li>
+
+            
+            </ul>
+            
+
+            
+            <p><strong><i class="fas fa-hourglass-half" aria-hidden="true"></i><span class="visually-hidden">time</span> Time estimation:</strong> 30 minutes</p>
+            
+
+            
+
+            
+            
+
+            
+            <p id="supporting-materials"><strong><i class="fa fa-external-link" aria-hidden="true"></i> Supporting Materials</strong></p>
+            <ul>
+                <div class="supporting_material">
+                
+                    <li class="btn btn-default"><a href="/training-material/topics/assembly/tutorials/general-introduction/slides.html" title="Slides for this tutorial">
+                        <i class="fab fa-slideshare" aria-hidden="true"></i><span class="visually-hidden">slides</span> Slides
+                    </a></li>
+                
+
+                
+                    <li class="btn btn-default supporting_material">
+<a class="topic-icon" href="https://doi.org/10.5281/zenodo.582600">
+    <i class="far fa-copy" aria-hidden="true"></i><span class="visually-hidden">zenodo_link</span> Datasets
+</a>
+
+</li>
+                
+
+                
+                    <li class="btn btn-default supporting_material">
+    <a class="topic-icon" href="/training-material/topics/assembly/tutorials/general-introduction/workflows/" title="Workflows" alt="Introduction to Genome Assembly workflows">
+        <i class="fas fa-share-alt" aria-hidden="true"></i><span class="visually-hidden">workflow</span> Workflows
+    </a>
+
+</li>
+                
+
+                
+                    <li class="btn btn-default supporting_material">
+<a class="topic-icon" href="https://github.com/galaxyproject/training-material/tree/master/topics/assembly/tutorials/general-introduction/tours/">
+    <i class="fas fa-magic" aria-hidden="true"></i><span class="visually-hidden">interactive_tour</span> Tours
+</a>
+
+</li>
+                
+
+                
+                    <li class="btn btn-default supporting_material">
+
+    <a href="#" class="btn btn-default dropdown-toggle topic-icon" data-toggle="dropdown" aria-expanded="false" title="Where to run the tutorial">
+        <i class="fas fa-globe" aria-hidden="true"></i><span class="visually-hidden">instances</span> Available on these Galaxies
+    </a>
+    <ul class="dropdown-menu">
+    
+        <li>
+            <a class="dropdown-item" href="https://github.com/galaxyproject/training-material/tree/master/topics/assembly/docker" title="Docker image for this tutorial">
+                <i class="fab fa-docker" aria-hidden="true"></i><span class="visually-hidden">docker_image</span> Docker image
+            </a>
+        </li>
+    
+    
+    </ul>
+
+
+</li>
+                
+                </div>
+            </ul>
+            
+
+            <p><strong> <i class="far fa-calendar" aria-hidden="true"></i><span class="visually-hidden">last_modification</span> Last modification:</strong> Nov 26, 2020 </p>
+        </blockquote>
+
+        <div class="container">
+            <div class="row">
+                <!-- sidebar, which will move to the top on a small screen -->
+                <div class="col-sm-2">
+                    <nav id="toc" data-toggle="toc" class="sticky-top"></nav>
+                </div>
+                <div class="col-sm-10">
+                    <h1 class="no_toc" id="genome-assembly-with-velvet-background">Genome assembly with Velvet: Background</h1>
+
+<p>Velvet is one of a number of <em>de novo</em> assemblers that use short read sets as input (<em>e.g.</em> Illumina <span class="notranslate">Reads</span>). The assembly method is based on the manipulation of de Bruijn graphs, via the removal of errors and the simplication of repeated regions.</p>
+
+<blockquote class="comment">
+  <h3 id="comment-comment"><i class="far fa-comment-dots" aria-hidden="true"></i><span class="visually-hidden">comment</span> Comment</h3>
+
+  <p>For information about Velvet, you can check its (nice) <a href="https://en.wikipedia.org/wiki/Velvet_assembler">Wikipedia page</a>.</p>
+</blockquote>
+
+<p>For this tutorial, we have a set of <span class="notranslate">reads</span> from an imaginary <em>Staphylococcus aureus</em> bacterium with a miniature genome (197,394 bp). Our mutant strain read set was sequenced with the whole genome shotgun method, using an Illumina <span class="notranslate">DNA</span> sequencing instrument. From these <span class="notranslate">reads</span>, we would like to rebuild our imaginary <em>Staphylococcus aureus</em> bacterium via a <em>de novo</em> assembly of a short read set using the Velvet assembler.</p>
+
+<p>We also have a sequence for a reference genome that we will use later in the tutorial.</p>
+
+<blockquote class="agenda">
+  <h3 id="agenda">Agenda</h3>
+
+  <p>In this tutorial, we will deal with:</p>
+
+<ol id="markdown-toc">
+  <li><a href="#get-the-data" id="markdown-toc-get-the-data">Get the data</a></li>
+  <li><a href="#evaluate-the-input-reads" id="markdown-toc-evaluate-the-input-reads">Evaluate the input <span class="notranslate">reads</span></a></li>
+  <li><a href="#assemble-reads-with-velvet" id="markdown-toc-assemble-reads-with-velvet">Assemble <span class="notranslate">reads</span> with Velvet</a></li>
+  <li><a href="#collect-some-statistics-on-the-contigs" id="markdown-toc-collect-some-statistics-on-the-contigs">Collect some statistics on the contigs</a></li>
+  <li><a href="#discussion" id="markdown-toc-discussion">Discussion</a></li>
+</ol>
+
+</blockquote>
+
+<h1 id="get-the-data">Get the data</h1>
+
+<p>We will now import the data that we will use for the tutorial.</p>
+
+<blockquote class="notranslate hands_on">
+  <h3 id="hands_on-hands-on-getting-the-data"><i class="fas fa-pencil-alt" aria-hidden="true"></i><span class="visually-hidden">hands_on</span> Hands-on: Getting the data</h3>
+
+  <ol>
+    <li>
+      <p>Create and name a new history for this tutorial.</p>
+
+      <blockquote class="tip">
+
+        <h3 id="tip-tip-creating-a-new-history"><i class="far fa-lightbulb" aria-hidden="true"></i><span class="visually-hidden">tip</span> Tip: Creating a new history</h3>
+
+        <p>Click the <i class="fas fa-plus" aria-hidden="true"></i><span class="visually-hidden">new-history</span> icon at the top of the history panel</p>
+
+        <p>If the <i class="fas fa-plus" aria-hidden="true"></i><span class="visually-hidden">new-history</span> is missing:</p>
+        <ol>
+          <li>Click on the <i class="fas fa-cog" aria-hidden="true"></i><span class="visually-hidden"><span class="notranslate">galaxy</span>-gear</span> icon (<strong>History options</strong>) on the top of the history panel</li>
+          <li>Select the option <strong>Create New</strong> from the menu</li>
+        </ol>
+      </blockquote>
+    </li>
+    <li>
+      <p>Import from <a href="https://doi.org/10.5281/zenodo.582600">Zenodo</a> or from the data library the files:</p>
+
+      <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>https://zenodo.org/record/582600/files/mutant_R1.fastq
+https://zenodo.org/record/582600/files/mutant_R2.fastq
+https://zenodo.org/record/582600/files/wildtype.fna
+</code></pre></div>      </div>
+
+      <blockquote class="tip">
+        <h3 id="tip-tip-importing-data-via-links"><i class="far fa-lightbulb" aria-hidden="true"></i><span class="visually-hidden">tip</span> Tip: Importing data via links</h3>
+
+        <ul>
+          <li>Copy the link location (Right-click on the filename then “Copy Link Address”)</li>
+          <li>Open the <span class="notranslate">Galaxy</span> Upload Manager</li>
+          <li>Select <strong>Paste/Fetch Data</strong></li>
+          <li>Paste the link into the text field</li>
+          <li>For the read files, change the data-type to <strong>fastqsanger</strong></li>
+          <li>Press <strong>Start</strong></li>
+        </ul>
+      </blockquote>
+    </li>
+    <li>
+      <p>Change the name of the files to <code class="language-plaintext highlighter-rouge">mutant_R1</code>, <code class="language-plaintext highlighter-rouge">mutant_R2</code> and <code class="language-plaintext highlighter-rouge">wildtype.fna</code>.</p>
+
+      <p>As a default, <span class="notranslate">Galaxy</span> uses the link as the name of the new dataset. It also does not link the dataset to a database or a reference genome.</p>
+
+      <blockquote class="tip">
+
+        <h3 id="tip-tip-renaming-a-dataset"><i class="far fa-lightbulb" aria-hidden="true"></i><span class="visually-hidden">tip</span> Tip: Renaming a dataset</h3>
+        <ul>
+          <li>Click on the <i class="fas fa-pencil-alt" aria-hidden="true"></i><span class="visually-hidden"><span class="notranslate">galaxy</span>-pencil</span> <strong>pencil icon</strong> for the dataset to edit its attributes</li>
+          <li>In the central panel, change the <strong>Name</strong> field</li>
+          <li>Click the <strong>Save</strong> button</li>
+        </ul>
+      </blockquote>
+    </li>
+    <li>
+      <p>Inspect the content of a file.</p>
+
+      <blockquote class="tip">
+        <h3 id="tip-tip-inspecting-the-content-of-a-dataset"><i class="far fa-lightbulb" aria-hidden="true"></i><span class="visually-hidden">tip</span> Tip: Inspecting the content of a dataset</h3>
+
+        <ul>
+          <li>Click on the <i class="far fa-eye" aria-hidden="true"></i><span class="visually-hidden"><span class="notranslate">galaxy</span>-eye</span> (eye) icon next to the relevant history entry</li>
+          <li>View the content of the file in the central panel</li>
+        </ul>
+      </blockquote>
+
+      <blockquote class="question">
+        <h3 id="question-questions"><i class="far fa-question-circle" aria-hidden="true"></i><span class="visually-hidden">question</span> Questions</h3>
+
+        <ol>
+          <li>What are four key features of a FASTQ file?</li>
+          <li>What is the main difference between a FASTQ and a FASTA file?</li>
+        </ol>
+
+        <blockquote class="solution">
+          <h3 id="solution-solution"><i class="far fa-eye" aria-hidden="true"></i><span class="visually-hidden">solution</span> Solution</h3>
+          <ol>
+            <li>Each sequence in a FASTQ file is represented by 4 lines: 1st line is the id, 2nd line is the sequence, 3rd line is not used, and 4th line is the quality of sequencing per nucleotide</li>
+            <li>In a FASTQ file, not only are the sequences present, but information about the quality of sequencing is also included.</li>
+          </ol>
+        </blockquote>
+      </blockquote>
+    </li>
+  </ol>
+
+</blockquote>
+
+<p>The <span class="notranslate">reads</span> have been sequenced from an imaginary <em>Staphylococcus aureus</em> bacterium using an Illumina <span class="notranslate">DNA</span> sequencing instrument. We obtained the 2 files we imported (<code class="language-plaintext highlighter-rouge">mutant_R1</code> and <code class="language-plaintext highlighter-rouge">mutant_R2</code>)</p>
+
+<blockquote class="question">
+  <h3 id="question-question"><i class="far fa-question-circle" aria-hidden="true"></i><span class="visually-hidden">question</span> Question</h3>
+
+  <p>Why do we have 2 files here if we only sequenced the bacteria once?</p>
+
+  <blockquote class="solution">
+    <h3 id="solution-solution-1"><i class="far fa-eye" aria-hidden="true"></i><span class="visually-hidden">solution</span> Solution</h3>
+    <ol>
+      <li>The bacteria has been sequenced using paired-end sequencing. The first file corresponds to forward <span class="notranslate">reads</span> and the second file to reverse <span class="notranslate">reads</span>.</li>
+    </ol>
+  </blockquote>
+</blockquote>
+
+<h1 id="evaluate-the-input-reads">Evaluate the input <span class="notranslate">reads</span></h1>
+
+<p>Before doing any assembly, the first questions you should ask about your input <span class="notranslate">reads</span> include:</p>
+
+<ul>
+  <li>What is the coverage of my genome?</li>
+  <li>How good is my read set?</li>
+  <li>Do I need to ask for a new sequencing run?</li>
+  <li>Is it suitable for the analysis I need to do?</li>
+</ul>
+
+<p>We will evaluate the input <span class="notranslate">reads</span> using the FastQC tool. This tool runs a standard series of tests on your read set and returns a relatively easy-to-interpret report. We will use it to evaluate the quality of our FASTQ files and combine the results with MultiQC.</p>
+
+<blockquote class="notranslate hands_on">
+  <h3 id="hands_on-hands-on-fastqc-on-a-fastq-file"><i class="fas fa-pencil-alt" aria-hidden="true"></i><span class="visually-hidden">hands_on</span> Hands-on: FastQC on a fastq file</h3>
+
+  <ol>
+    <li><strong>FastQC</strong> <i class="fas fa-wrench" aria-hidden="true"></i><span class="visually-hidden">tool</span> with the following parameters
+      <ul>
+        <li>“Short read data from your current history” to (<strong>Multiple datasets</strong>) <code class="language-plaintext highlighter-rouge">mutant_R1.fastq</code> and <code class="language-plaintext highlighter-rouge">mutant_R2.fastq</code></li>
+      </ul>
+    </li>
+    <li><strong>MultiQC</strong> <i class="fas fa-wrench" aria-hidden="true"></i><span class="visually-hidden">tool</span> with the following parameters
+      <ul>
+        <li>“Software name” to <code class="language-plaintext highlighter-rouge">FastQC</code></li>
+        <li>“Result file” to the raw data files generated by FastQC</li>
+      </ul>
+    </li>
+  </ol>
+
+</blockquote>
+
+<p>MultiQC generates a webpage combining reports for FastQC on both datasets. It includes these graphs and tables:</p>
+
+<ul>
+  <li>
+    <p>General statistics</p>
+
+    <p>This is important in setting maximum k-mer size for an assembly.</p>
+
+    <blockquote class="comment">
+      <h3 id="comment-getting-the-length-of-sequences"><i class="far fa-comment-dots" aria-hidden="true"></i><span class="visually-hidden">comment</span> Getting the length of sequences</h3>
+
+      <ul>
+        <li>Click on <strong>Configure Columns</strong></li>
+        <li>Check <strong>Length</strong></li>
+        <li>Close the window</li>
+      </ul>
+    </blockquote>
+
+    <blockquote class="question">
+      <h3 id="question-questions-1"><i class="far fa-question-circle" aria-hidden="true"></i><span class="visually-hidden">question</span> Questions</h3>
+
+      <ol>
+        <li>How long are the sequences?</li>
+        <li>What is the average coverage of the genome, given our imaginary <em>Staphylococcus aureus</em> bacterium has a genome of 197,394 bp?</li>
+      </ol>
+
+      <blockquote class="solution">
+        <h3 id="solution-solution-2"><i class="far fa-eye" aria-hidden="true"></i><span class="visually-hidden">solution</span> Solution</h3>
+        <ol>
+          <li>The sequences are 150 bp long</li>
+          <li>We have 2 x 12,480 sequences of 150 bp, so the average genome coverage is: 2 * 12480 * 150 / 197394, or approximately 19 X coverage.</li>
+        </ol>
+      </blockquote>
+    </blockquote>
+  </li>
+  <li>
+    <p>Sequence Quality Histograms</p>
+
+    <p>Dips in quality near the beginning, middle or end of the <span class="notranslate">reads</span> may determine the trimming/cleanup methods and parameters to be used, or may indicate technical problems with the sequencing process/machine run.</p>
+
+    <figure id="figure-1"><img src="../../images/fastqc_per_base_sequence_quality_plot.png" alt="Sequence Quality Histograms with the mean quality value across each base position in the read" /><figcaption><span class="figcaption-prefix">Figure 1:</span> The mean quality value across each base position in the read</figcaption></figure>
+
+    <blockquote class="question">
+      <h3 id="question-questions-2"><i class="far fa-question-circle" aria-hidden="true"></i><span class="visually-hidden">question</span> Questions</h3>
+
+      <ol>
+        <li>What does the y-axis represent?</li>
+        <li>Why is the quality score decreasing across the length of the <span class="notranslate">reads</span>?</li>
+      </ol>
+
+      <blockquote class="solution">
+        <h3 id="solution-solution-3"><i class="far fa-eye" aria-hidden="true"></i><span class="visually-hidden">solution</span> Solution</h3>
+        <ol>
+          <li>The y-axis represents the quality score for each base (an estimate of the error during sequencing).</li>
+          <li>The quality score is decreasing accross the length of the <span class="notranslate">reads</span> because the sequencing become less and less reliable at the end of the <span class="notranslate">reads</span>.</li>
+        </ol>
+      </blockquote>
+    </blockquote>
+  </li>
+  <li>
+    <p>Per Sequence GC Content</p>
+
+    <p>High GC organisms tend not to assemble well and may have an uneven read coverage distribution.</p>
+  </li>
+  <li>
+    <p>Per Base N Content</p>
+
+    <p>The presence of large numbers of Ns in <span class="notranslate">reads</span> may point to a poor quality sequencing run. You will need to trim these <span class="notranslate">reads</span> to remove Ns.</p>
+  </li>
+  <li>
+    <p>k-mer content</p>
+
+    <p>The presence of highly recurring k-mers may point to contamination of <span class="notranslate">reads</span> with barcodes or adapter sequences.</p>
+  </li>
+</ul>
+
+<blockquote class="comment">
+  <h3 id="comment-comment-1"><i class="far fa-comment-dots" aria-hidden="true"></i><span class="visually-hidden">comment</span> Comment</h3>
+
+  <p>For a fuller discussion of FastQC outputs and warnings, see the <a href="https://www.bioinformatics.babraham.ac.uk/projects/fastqc/">FastQC website link</a>, including the section on each of the output <a href="https://www.bioinformatics.babraham.ac.uk/projects/fastqc/Help/3%20Analysis%20Modules/">reports</a>, and examples of <a href="https://www.bioinformatics.babraham.ac.uk/projects/fastqc/good_sequence_short_fastqc.html">“good”</a> and <a href="https://www.bioinformatics.babraham.ac.uk/projects/fastqc/bad_sequence_fastqc.html">“bad”</a> Illumina data.</p>
+</blockquote>
+
+<p>We won’t be doing anything to these data to clean it up as there isn’t much need. Therefore we will get on with the assembly!</p>
+
+<h1 id="assemble-reads-with-velvet">Assemble <span class="notranslate">reads</span> with Velvet</h1>
+
+<p>Now, we want to assemble our <span class="notranslate">reads</span> to find the sequence of our imaginary <em>Staphylococcus aureus</em> bacterium. We will perform a <em>de novo</em> assembly of the <span class="notranslate">reads</span> into long contiguous sequences using the Velvet short read assembler.</p>
+
+<p>The first step of the assembler is to build a de Bruijn graph. For that, it will break our <span class="notranslate">reads</span> into k-mers, <em>i.e.</em> fragments of length <em>k</em>. Velvet requires the user to input a value of <em>k</em> (k-mer size) for the assembly process. Small k-mers will give greater connectivity, but large k-mers will give better specificity.</p>
+
+<blockquote class="notranslate hands_on">
+  <h3 id="hands_on-hands-on-assemble-the-reads"><i class="fas fa-pencil-alt" aria-hidden="true"></i><span class="visually-hidden">hands_on</span> Hands-on: Assemble the <span class="notranslate">reads</span></h3>
+
+  <ol>
+    <li><strong>FASTQ interlacer</strong> <i class="fas fa-wrench" aria-hidden="true"></i><span class="visually-hidden">tool</span> with the following parameters
+      <ul>
+        <li>“Type of paired-end datasets” to <code class="language-plaintext highlighter-rouge">2 separate datasets</code></li>
+        <li>“Left-hand mates” to <code class="language-plaintext highlighter-rouge">mutant_R1.fastq</code></li>
+        <li>“Right-hand mates” to <code class="language-plaintext highlighter-rouge">mutant_R2.fastq</code></li>
+      </ul>
+
+      <p>Currently our paired-end <span class="notranslate">reads</span> are in 2 files (one with the forward <span class="notranslate">reads</span> and one with the reverse <span class="notranslate">reads</span>), but Velvet requires only one file, where each read is next to its mate read. In other words, if the <span class="notranslate">reads</span> are indexed from 0, then <span class="notranslate">reads</span> 0 and 1 are paired, 2 and 3, 4 and 5, etc. Before doing the assembly <em>per se</em>, we need to prepare the files by combining them.</p>
+    </li>
+    <li><strong>velveth</strong> <i class="fas fa-wrench" aria-hidden="true"></i><span class="visually-hidden">tool</span> with the following parameters
+      <ul>
+        <li>“Hash Length” to <code class="language-plaintext highlighter-rouge">29</code></li>
+        <li>“Input Files”: click on <code class="language-plaintext highlighter-rouge">Insert Input Files</code></li>
+        <li>“file format” to <code class="language-plaintext highlighter-rouge">fastq</code></li>
+        <li>“read type” to <code class="language-plaintext highlighter-rouge">shortPaired <span class="notranslate">reads</span></code></li>
+        <li>“Dataset” to the pairs output of <strong>FASTQ interlacer</strong></li>
+      </ul>
+
+      <p>The tool takes our <span class="notranslate">reads</span> and break them into k-mers.</p>
+    </li>
+    <li><strong>velvetg</strong> <i class="fas fa-wrench" aria-hidden="true"></i><span class="visually-hidden">tool</span> with the following parameters
+      <ul>
+        <li>“Velvet Dataset” to the output of <strong>velveth</strong></li>
+        <li>“Using Paired <span class="notranslate">Reads</span>” to <code class="language-plaintext highlighter-rouge">Yes</code></li>
+      </ul>
+
+      <p>This last tool actually does the assembly.</p>
+    </li>
+  </ol>
+</blockquote>
+
+<p>Two files are generated:</p>
+
+<ul>
+  <li>
+    <p>A “Contigs” file</p>
+
+    <p>This file contains the sequences of the contigs longer than 2k. In the header of each contig, a bit of information is added:</p>
+    <ul>
+      <li>the k-mer length (called “length”): For the value of k chosen in the assembly, a measure of how many k-mers overlap (by 1 bp each overlap) to give this length</li>
+      <li>the k-mer coverage (called “coverage”): For the value of k chosen in the assembly, a measure of how many k-mers overlap each base position (in the assembly).</li>
+    </ul>
+
+    <p><img src="../../images/image10.png" alt="Contigs output" /></p>
+  </li>
+  <li>
+    <p>A “Stats” file</p>
+
+    <p>This is a tabular file giving for each contig the k-mer lengths, k-mer coverages and other measures.</p>
+
+    <p><img src="../../images/image11.png" alt="Contigs stats output" /></p>
+  </li>
+</ul>
+
+<h1 id="collect-some-statistics-on-the-contigs">Collect some statistics on the contigs</h1>
+
+<blockquote class="question">
+  <h3 id="question-question-1"><i class="far fa-question-circle" aria-hidden="true"></i><span class="visually-hidden">question</span> Question</h3>
+
+  <ol>
+    <li>How many contigs have been built?</li>
+    <li>What is the mean, min and max length of the contigs?</li>
+  </ol>
+
+  <blockquote class="solution">
+    <h3 id="solution-solution-4"><i class="far fa-eye" aria-hidden="true"></i><span class="visually-hidden">solution</span> Solution</h3>
+    <ol>
+      <li>190</li>
+      <li>To compute this information, we can use the Datamash tool on the 2nd columns (length). Be careful with the first line, the header. As a result, we obtain: 597.82 as mean, 1 as min and 12904 as max. It would mean that the smallest contig has a length of 1 bp, even smaller than k. The length on the 2nd column corresponds to length of the contig in k-mers. This means that the smallest contig has a length of 1k = 29. So to obtain the real length, we need to add k-1 to the length. We then obtain a mean contig length of 625.82 bp, a min contig of 29 bp and a max contig of 12,932 bp.</li>
+    </ol>
+  </blockquote>
+</blockquote>
+
+<p>This table is limitted, but we will now collect more basic statistics on our assembly.</p>
+
+<blockquote class="notranslate hands_on">
+  <h3 id="hands_on-hands-on-collect-fasta-statistics-on-our-contigs"><i class="fas fa-pencil-alt" aria-hidden="true"></i><span class="visually-hidden">hands_on</span> Hands-on: Collect fasta statistics on our contigs</h3>
+
+  <ol>
+    <li><strong>Quast</strong> <i class="fas fa-wrench" aria-hidden="true"></i><span class="visually-hidden">tool</span> with
+      <ul>
+        <li>“Contigs/scaffolds output file” to the output of <strong>velvetg</strong></li>
+        <li>“Type of assembly” to <code class="language-plaintext highlighter-rouge">Genome</code></li>
+        <li>“Use a reference genome?” to <code class="language-plaintext highlighter-rouge">Yes</code></li>
+        <li>“Reference genome” to <code class="language-plaintext highlighter-rouge">wildtype.fna</code></li>
+        <li>“Type of organism” to <code class="language-plaintext highlighter-rouge">Prokaryotes</code></li>
+        <li>“Lower Threshold” to <code class="language-plaintext highlighter-rouge">500</code></li>
+        <li>“Comma-separated list of contig length thresholds” to <code class="language-plaintext highlighter-rouge">0,1000</code></li>
+      </ul>
+    </li>
+  </ol>
+</blockquote>
+
+<p>This tool generates 5 output files, but we will focus on the HTML report and the Icarus viewer.</p>
+
+<blockquote class="question">
+  <h3 id="question-question-2"><i class="far fa-question-circle" aria-hidden="true"></i><span class="visually-hidden">question</span> Question</h3>
+
+  <ol>
+    <li>What is represented in the Icarus viewer?</li>
+  </ol>
+
+  <blockquote class="solution">
+    <h3 id="solution-solution-5"><i class="far fa-eye" aria-hidden="true"></i><span class="visually-hidden">solution</span> Solution</h3>
+    <ol>
+      <li>Icarus is a novel genome visualizer for accurate assessment and analysis of genomic draft assemblies. It draws contigs ordered from longest to shortest, highlights N50, N75 (NG50, NG75) and long contigs larger than a user-specified threshold</li>
+    </ol>
+  </blockquote>
+</blockquote>
+
+<p>The HTML report reports many statistics computed by QUAST to assess the quality of the assembly:</p>
+
+<ul>
+  <li>Statistics about the quality of the assembly when compared to the reference (fraction of the genome, duplication ratio, etc)</li>
+  <li>
+    <p>Misassembly statistics, including the number of misassemblies</p>
+
+    <p>A misassembly is a position in the contigs (breakpoints) that satisfy one of the following criteria:</p>
+    <ul>
+      <li>the left flanking sequence aligns over 1 kbp away from the right flanking sequence on the reference;</li>
+      <li>flanking sequences overlap on more than 1 kbp</li>
+      <li>flanking sequences align to different strands or different chromosomes</li>
+    </ul>
+  </li>
+  <li>Unaligned regions in the assembly</li>
+  <li>Mismatches compared to the reference genomes</li>
+  <li>Statistics about the assembly <em>per se</em>, such as the number of contigs and the length of the largest contig</li>
+</ul>
+
+<blockquote class="question">
+  <h3 id="question-question-3"><i class="far fa-question-circle" aria-hidden="true"></i><span class="visually-hidden">question</span> Question</h3>
+
+  <ol>
+    <li>How many contigs have been constructed?</li>
+    <li>Which proportion of the reference genome do they represent?</li>
+    <li>How many misassemblies have been found?</li>
+    <li>Has the assembly introduced mismatches and indels?</li>
+    <li>What are N50 and L50?</li>
+    <li>Is there a bias in GC percentage induced by the assembly?</li>
+  </ol>
+
+  <blockquote class="solution">
+    <h3 id="solution-solution-6"><i class="far fa-eye" aria-hidden="true"></i><span class="visually-hidden">solution</span> Solution</h3>
+    <ol>
+      <li>190 contigs have been constructed, but only 47 have a length &gt; 500 bp.</li>
+      <li>The contigs represents 87.965% of the reference genome.</li>
+      <li>1 misassembly has been found: it corresponds to a relocation, <em>i.e.</em> a misassembly event (breakpoint) where the left flanking sequence aligns over 1 kbp away from the right flanking sequence on the reference genome.</li>
+      <li>8.06 mismatches per 100 kbp and 4.03 indels per 100 kbp are found.</li>
+      <li>N50 is the length for which the collection of all contigs of that length or longer covers at least half an assembly. In other words, if contigs were ordered from small to large, half of all the nucleotides will be in contigs this size or larger. And L50 is the number of contigs equal to or longer than N50: L50 is the minimal number of contigs that cover half the assembly.</li>
+      <li>The GC % in the assembly is 33.64%, really similar to the one of the reference genome (33.43%).</li>
+    </ol>
+  </blockquote>
+</blockquote>
+
+<h1 id="discussion">Discussion</h1>
+
+<blockquote class="notranslate hands_on">
+  <h3 id="hands_on-optional-hands-on-rerun-for-values-k-ranging-from-31-to-101"><i class="fas fa-pencil-alt" aria-hidden="true"></i><span class="visually-hidden">hands_on</span> (Optional) Hands-on: Rerun for values <em>k</em> ranging from 31 to 101</h3>
+
+  <ol>
+    <li><strong>velveth</strong> <i class="fas fa-wrench" aria-hidden="true"></i><span class="visually-hidden">tool</span> with the same parameters as before except
+      <ul>
+        <li>“Hash Length” to a value between 31 and 101</li>
+      </ul>
+    </li>
+    <li><strong>velvetg</strong> <i class="fas fa-wrench" aria-hidden="true"></i><span class="visually-hidden">tool</span> with the same parameters as before</li>
+    <li><strong>Quast</strong> <i class="fas fa-wrench" aria-hidden="true"></i><span class="visually-hidden">tool</span> with the same parameters as before</li>
+  </ol>
+</blockquote>
+
+<p>We have completed an assembly on this data set for a number of k values ranging from 29 to 101. A few of the assembly metrics appear below.</p>
+
+<figure id="figure-2"><img src="../../images/number_of_contigs.png" alt="contigs" /><figcaption><span class="figcaption-prefix">Figure 2:</span> Number of contigs in the assembly for various k-mer sizes</figcaption></figure>
+
+<figure id="figure-3"><img src="../../images/largest_contig.png" alt="largest_contig" /><figcaption><span class="figcaption-prefix">Figure 3:</span> Largest contig in each of the assemblies by k-mer size</figcaption></figure>
+
+<figure id="figure-4"><img src="../../images/total_bp.png" alt="total_bp" /><figcaption><span class="figcaption-prefix">Figure 4:</span> Total number of base pairs in all the contigs for each assembly by k-mer size</figcaption></figure>
+
+<figure id="figure-5"><img src="../../images/n50.png" alt="n50" /><figcaption><span class="figcaption-prefix">Figure 5:</span> N50 metric for each of the assemblies by k-mer size</figcaption></figure>
+
+<blockquote class="question">
+  <h3 id="question-questions-3"><i class="far fa-question-circle" aria-hidden="true"></i><span class="visually-hidden">question</span> Questions</h3>
+
+  <ol>
+    <li>Are there any distinct features in the charts?</li>
+    <li>Does it look like one assembly might be better than some of the others?</li>
+  </ol>
+
+</blockquote>
+
+<p>The reasons for these patterns will be discussed in detail in the De Bruijn graph assembly slides and tutorial.</p>
+
+
+                    
+                    <blockquote class="key_points">
+                        <h3><i class="fas fa-key" aria-hidden="true"></i><span class="visually-hidden">keypoints</span> Key points</h3>
+                        <ul>
+                            
+                            <li><p>We assembled some Illumina fastq reads into contigs using a short read assembler called Velvet</p>
+</li>
+                            
+                            <li><p>We showed what effect one of the key assembly parameters, the k-mer size, has on the assembly</p>
+</li>
+                            
+                            <li><p>It looks as though there are some exploitable patterns in the metric data vs the k-mer size.</p>
+</li>
+                            
+                        </ul>
+                    </blockquote>
+                    
+
+                    
+
+                    
+
+                    <h1>Feedback</h1>
+                    <p class="text-muted">Did you use this material as an instructor? Feel free to give us feedback on <a href="https://github.com/galaxyproject/training-material/issues/1452" target="_blank">how it went</a>.</p>
+
+                    <div id="feedback-button">
+                        <img src="/training-material/shared/images/feedback.png" title="Click to activate" alt="Click here to load Google feedback frame" />
+                    </div>
+                    <div id="feedback-form">
+                    </div>
+                    <script type="text/javascript">
+                        (function (window, document) {
+                            function onDocumentReady(fn) {
+                                if (document.attachEvent ? document.readyState === "complete" : document.readyState !== "loading") {
+                                    fn();
+                                } else {
+                                    document.addEventListener('DOMContentLoaded', fn);
+                                }
+                            }
+
+                            onDocumentReady(function () {
+                                $("#feedback-button").click(function(evt){
+                                    var e = $(evt.target)
+                                    e.hide();
+
+                                    $("#feedback-form").html(`
+                                        <iframe id="feedback-google" class="google-form" src="https://docs.google.com/forms/d/e/1FAIpQLSd4VZptFTQ03kHkMz0JyW9b6_S8geU5KjNE_tLM0dixT3ZQmA/viewform?embedded=true&entry.1235803833=Introduction to Genome Assembly (Assembly)">Loading...</iframe>
+                                    `)
+                                })
+                            });
+                        })(window, document);
+                    </script>
+
+
+
+                    <h1>Citing this Tutorial</h1>
+                    <p>
+                        <ol>
+                            <li id="citation-text">Simon Gladman, 2020 <b>Introduction to Genome Assembly (Galaxy Training Materials)</b>. <a href="/training-material/topics/assembly/tutorials/general-introduction/tutorial.html">/training-material/topics/assembly/tutorials/general-introduction/tutorial.html</a> Online; accessed TODAY
+                            </li>
+                            <li>
+                            Batut et al., 2018 <b>Community-Driven Data Analysis Training for Biology</b> Cell Systems <a href="https://doi.org/10.1016%2Fj.cels.2018.05.012">10.1016/j.cels.2018.05.012</a>
+                            </li>
+                        </ol>
+                    </p>
+
+
+                    <blockquote class="details">
+                      <h3><i class="fa fa-info-circle" aria-hidden="true"></i><span class="visually-hidden">details</span> BibTeX</h3>
+                      <p style="display: none;">
+
+                    <div class="highlighter-rouge"><div class="highlight"><pre class="highlight">
+<code id="citation-code">@misc{assembly-general-introduction,
+    author = "Simon Gladman",
+    title = "Introduction to Genome Assembly (Galaxy Training Materials)",
+    year = "2020",
+    month = "11",
+    day = "26"
+    url = "\url{/training-material/topics/assembly/tutorials/general-introduction/tutorial.html}",
+    note = "[Online; accessed TODAY]"
+}
+@article{Batut_2018,
+        doi = {10.1016/j.cels.2018.05.012},
+        url = {https://doi.org/10.1016%2Fj.cels.2018.05.012},
+        year = 2018,
+        month = {jun},
+        publisher = {Elsevier {BV}},
+        volume = {6},
+        number = {6},
+        pages = {752--758.e1},
+        author = {B{\'{e}}r{\'{e}}nice Batut and Saskia Hiltemann and Andrea Bagnacani and Dannon Baker and Vivek Bhardwaj and Clemens Blank and Anthony Bretaudeau and Loraine Brillet-Gu{\'{e}}guen and Martin {\v{C}}ech and John Chilton and Dave Clements and Olivia Doppelt-Azeroual and Anika Erxleben and Mallory Ann Freeberg and Simon Gladman and Youri Hoogstrate and Hans-Rudolf Hotz and Torsten Houwaart and Pratik Jagtap and Delphine Larivi{\`{e}}re and Gildas Le Corguill{\'{e}} and Thomas Manke and Fabien Mareuil and Fidel Ram{\'{\i}}rez and Devon Ryan and Florian Christoph Sigloch and Nicola Soranzo and Joachim Wolff and Pavankumar Videm and Markus Wolfien and Aisanjiang Wubuli and Dilmurat Yusuf and James Taylor and Rolf Backofen and Anton Nekrutenko and Björn Grüning},
+        title = {Community-Driven Data Analysis Training for Biology},
+        journal = {Cell Systems}
+}</code>
+                    </pre></div></div>
+                    </p>
+                    </blockquote>
+
+
+<script type="text/javascript">
+// update the date on load, or leave fallback of 'today'
+d = new Date();
+document.getElementById("citation-code").innerHTML = document.getElementById("citation-code").innerHTML.replace("TODAY", d.toDateString());
+document.getElementById("citation-text").innerHTML = document.getElementById("citation-text").innerHTML.replace("TODAY", d.toDateString());
+</script>
+
+                </div>
+            </div>
+        </div>
+
+        <h3><i class="far fa-thumbs-up" aria-hidden="true"></i><span class="visually-hidden">congratulations</span> Congratulations on successfully completing this tutorial!</h3>
+
+        
+
+        
+    </section>
+</div>
+
+
+<footer>
+    <div class="container">
+        <p>
+            This material is the result of a collaborative work. Thanks to the
+            <a href="https://wiki.galaxyproject.org/Teach/GTN">Galaxy Training Network</a>
+            and all the <a href="/training-material/hall-of-fame">contributors</a> (Simon Gladman)!
+        </p>
+        <p>
+            Found a typo? Something is wrong in this tutorial? Edit it on
+            <a href="https://github.com/galaxyproject/training-material/tree/master/topics/assembly/tutorials/general-introduction/tutorial.md">GitHub</a>.
+        </p>
+        <p>
+    The content of the tutorials and website is licensed under the <a rel="license" href="https://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0 International License</a>.
+</p>
+    </div>
+</footer>
+
+    </body>
+    <script type="text/javascript" src="/training-material/assets/js/jquery.slim.min.js"></script>
+    <script type="text/javascript" src="/training-material/assets/js/popper.min.js"></script>
+    <script type="text/javascript" src="/training-material/assets/js/bootstrap.min.js?v=3"></script>
+    <script type="text/javascript" src="/training-material/assets/js/details-element-polyfill.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript" src="/training-material/assets/js/bootstrap-toc.min.js"></script>
+    <script type="text/javascript" src="/training-material/assets/js/main.js"></script>
+    <script type="text/javascript" src="/training-material/assets/js/theme.js"></script>
+
+    <script type="text/javascript" src="/training-material/assets/js/clipboard.min.js"></script>
+    <script type="text/javascript">
+    var snippets=document.querySelectorAll('div.highlight');
+    [].forEach.call(snippets,function(snippet){
+        snippet.firstChild.insertAdjacentHTML('beforebegin','<button class="btn btn-light" data-clipboard-snippet><i class="fa fa-copy"></i>&nbsp;Copy</button>');
+    });
+
+    var clipboardSnippets=new ClipboardJS('[data-clipboard-snippet]',{
+        target:function(trigger){return trigger.nextElementSibling;
+    }});
+    </script>
+    
+
+    <script type="text/javascript">
+        if(window.location.hostname === "galaxyproject.github.io") {
+            // Redirect
+            var redirect = "https://training.galaxyproject.org" + window.location.pathname + window.location.search;
+            $('div.container.main-content').prepend("<div class='alert alert-warning'><strong>Note: </strong>This content has a new home at <a href=\"" + redirect + "\">" + redirect + "</a>, which you will be redirected to in 5 seconds.</div>");
+
+            window.setTimeout(function(){
+                window.location.href = redirect;
+            }, 5000)
+
+        }
+    </script>
+</html>

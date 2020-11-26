@@ -1,0 +1,1164 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <title>Analyse HeLa fluorescence siRNA screen</title>
+        
+            <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+    ga('create', '' , 'auto');
+    ga('send', 'pageview');
+</script>
+        
+        <link rel="stylesheet" href="/training-material/assets/css/bootstrap.min.css?v=3">
+        <link rel="stylesheet" href="/training-material/assets/css/bootstrap-toc.min.css">
+        <link rel="stylesheet" href="/training-material/assets/css/main.css?v=2">
+        <script src="https://kit.fontawesome.com/67b3f98409.js" crossorigin="anonymous"></script>
+        <link rel="stylesheet" href="/training-material/assets/css/academicons.css">
+        <link rel="stylesheet" href="/training-material/assets/css/syntax_highlighting.css">
+        <link rel="shortcut icon" href="/training-material/favicon.ico" type="image/x-icon" />
+
+        
+        
+        
+        
+        
+        <meta name="description" content="Image analysis using Galaxy" />
+        <meta property="og:title" content="Galaxy Training: Analyse HeLa fluorescence siRNA screen" />
+        <meta property="og:description" content="Image analysis using Galaxy" />
+        <meta property="og:image" content="/training-material/assets/images/GTNLogo1000.png" />
+    </head>
+    <body data-spy="scroll" data-target="#toc">
+        
+
+
+
+
+
+
+
+
+
+
+
+<!-- Gitter -->
+
+
+<script>
+  ((window.gitter = {}).chat = {}).options = {
+  room: 'Galaxy-Training-Network/Lobby'
+  };
+</script>
+<script src="https://sidecar.gitter.im/dist/sidecar.v1.js" async defer></script>
+
+<header>
+    <nav class="navbar navbar-expand-lg navbar-dark">
+        <div class="container">
+            <a class="navbar-brand" href="/training-material/">
+                <img src="/training-material/assets/images/GTN-60px.png" height="30" alt="Galaxy Training Network logo">
+                Galaxy Training!
+            </a>
+
+            <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#top-navbar" aria-controls="top-navbar" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="top-navbar">
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link" href="/training-material/topics/imaging" title="Go back to list of tutorials">
+                            <i class="far fa-folder" aria-hidden="true"></i><span class="visually-hidden">topic</span> Imaging
+                        </a>
+                    </li>
+
+                    <li class="nav-item dropdown">
+                        <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" aria-expanded="false" title="Language Selector">
+                            <i class="fas fa-language" aria-hidden="true"></i><span class="visually-hidden">language</span> Language
+                        </a>
+                        <div class="dropdown-menu">
+                            
+                            <a class="dropdown-item" href="https://translate.google.com/translate?hl=jp&sl=en&tl=fr&u=https%3A%2F%2Ftraining.galaxyproject.org%2Ftopics%2Fimaging%2Ftutorials%2Fhela-screen-analysis%2Ftutorial.html&edit-text=&act=url" title="">
+                                Français
+                            </a>
+                            
+                            <a class="dropdown-item" href="https://translate.google.com/translate?hl=jp&sl=en&tl=ja&u=https%3A%2F%2Ftraining.galaxyproject.org%2Ftopics%2Fimaging%2Ftutorials%2Fhela-screen-analysis%2Ftutorial.html&edit-text=&act=url" title="">
+                                日本語
+                            </a>
+                            
+                            <a class="dropdown-item" href="https://translate.google.com/translate?hl=jp&sl=en&tl=es&u=https%3A%2F%2Ftraining.galaxyproject.org%2Ftopics%2Fimaging%2Ftutorials%2Fhela-screen-analysis%2Ftutorial.html&edit-text=&act=url" title="">
+                                Español
+                            </a>
+                            
+                            <a class="dropdown-item" href="https://translate.google.com/translate?hl=jp&sl=en&tl=pt&u=https%3A%2F%2Ftraining.galaxyproject.org%2Ftopics%2Fimaging%2Ftutorials%2Fhela-screen-analysis%2Ftutorial.html&edit-text=&act=url" title="">
+                                Português
+                            </a>
+                            
+                            <a class="dropdown-item" href="https://translate.google.com/translate?hl=jp&sl=en&tl=ar&u=https%3A%2F%2Ftraining.galaxyproject.org%2Ftopics%2Fimaging%2Ftutorials%2Fhela-screen-analysis%2Ftutorial.html&edit-text=&act=url" title="">
+                                العربية
+                            </a>
+                            
+                            <a class="dropdown-item" href="https://translate.google.com/translate?hl=jp&sl=en&tl=&u=https%3A%2F%2Ftraining.galaxyproject.org%2Ftopics%2Fimaging%2Ftutorials%2Fhela-screen-analysis%2Ftutorial.html&edit-text=&act=url" title="">
+                                And more!
+                            </a>
+                        </div>
+                    </li>
+
+                    <li class="nav-item dropdown">
+    <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" aria-expanded="false" title="Help">
+        <i class="far fa-question-circle" aria-hidden="true"></i><span class="visually-hidden">help</span> Help
+    </a>
+    <div class="dropdown-menu dropdown-menu-right">
+        <form method="get" action="https://tess.elixir-europe.org/materials">
+            <input type="text" id="search" name="q" value="" style="margin-left: 0.5em;/*! border-radius: 0px; */">
+            <input type="hidden" value="Galaxy Training" name="content_provider">
+            <input type="submit" value="Search on TeSS" style="width: 92%;border-radius: 0px;margin: 0.5em;background: #f47d20;border: 0px;padding: 0.25em;" class="">
+        </form>
+
+        <div class="dropdown-divider"></div>
+        <a class="dropdown-item" href="/training-material/faq" title="Check our FAQ">
+            FAQ
+        </a>
+        <a class="dropdown-item" href="https://help.galaxyproject.org/" title="Discuss on Galaxy Help">
+            Discuss on Galaxy Help
+        </a>
+
+        <div class="dropdown-item">
+            <div>
+                Theme
+            </div>
+
+            <div id="theme-selector" data-toggle="buttons">
+                <label data-value="default" class="btn btn-secondary">
+                    <input type="radio" name="options" id="default" autocomplete="off"> Default
+                </label>
+                <label data-value="night" class="btn btn-secondary">
+                    <input type="radio" name="options" id="night" autocomplete="off"> Night
+                </label>
+                <label data-value="midnight" class="btn btn-secondary">
+                    <input type="radio" name="options" id="midnight" autocomplete="off"> Midnight
+                </label>
+                <label data-value="rainbow" class="btn btn-secondary">
+                    <input type="radio" name="options" id="rainbow" autocomplete="off"> Rainbow
+                </label>
+                <label data-value="halloween" class="btn btn-secondary">
+                    <input type="radio" name="options" id="halloween" autocomplete="off"> 🎃
+                </label>
+            </div>
+
+        </div>
+    </div>
+</li>
+
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="https://github.com/galaxyproject/training-material/edit/master/topics/imaging/tutorials/hela-screen-analysis/tutorial.md">
+                            <i class="fab fa-github" aria-hidden="true"></i><span class="visually-hidden">github</span> Edit
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+</header>
+
+<div class="container main-content">
+    <script type="application/ld+json">
+        
+
+
+{
+  "@context": "http://schema.org",
+  "@type": "Course",
+  "accessMode": [
+    "textual",
+    "visual"
+  ],
+  "accessModeSufficient": [
+    "textual",
+    "visual"
+  ],
+  "accessibilityControl": [
+    "fullKeyboardControl",
+    "fullMouseControl"
+  ],
+  "accessibilityFeature": [
+    "alternativeText",
+    "tableOfContents"
+  ],
+  "accessibilitySummary": "Short descriptions are present but long descriptions will be needed for non-visual users",
+  "audience": {
+    "@type": "EducationalAudience",
+    "educationalRole": "students"
+  },
+  "citation": {
+    "@type": "CreativeWork",
+    "name": "Community-Driven Data Analysis Training for Biology",
+    "url": "https://doi.org/10.1016/j.cels.2018.05.012"
+  },
+  "copyrightHolder": {
+    "@type": "Organization",
+    "email": "galaxytrainingnetwork@gmail.com",
+    "name": "Galaxy Training Network",
+    "url": "https://galaxyproject.org/teach/gtn/"
+  },
+  "discussionUrl": "https://gitter.im/Galaxy-Training-Network/Lobby",
+  "headline": "Analyse HeLa fluorescence siRNA screen",
+  "inLanguage": {
+    "@type": "Language",
+    "name": "English",
+    "alternateName": "en"
+  },
+  "interactivityType": "mixed",
+  "isAccessibleForFree": true,
+  "license": "https://github.com/galaxyproject/training-material/blob/master/LICENSE.md",
+  "producer": {
+    "@type": "Organization",
+    "email": "galaxytrainingnetwork@gmail.com",
+    "name": "Galaxy Training Network",
+    "url": "https://galaxyproject.org/teach/gtn/"
+  },
+  "provider": {
+    "@type": "Organization",
+    "email": "galaxytrainingnetwork@gmail.com",
+    "name": "Galaxy Training Network",
+    "url": "https://galaxyproject.org/teach/gtn/"
+  },
+  "sourceOrganization": {
+    "@type": "Organization",
+    "email": "galaxytrainingnetwork@gmail.com",
+    "name": "Galaxy Training Network",
+    "url": "https://galaxyproject.org/teach/gtn/"
+  },
+  "isPartOf": {
+    "@type": "CreativeWork",
+    "name": "Imaging",
+    "description": "Image analysis using Galaxy",
+    "url": "https://training.galaxyproject.org//training-material/topics/imaging/"
+  },
+  "courseCode": "imaging / hela-screen-analysis / hands-on",
+  "learningResourceType": "hands-on tutorial",
+  "name": "Hands-on for 'Analyse HeLa fluorescence siRNA screen' tutorial",
+  "url": "https://training.galaxyproject.org//training-material/topics/imaging/tutorials/hela-screen-analysis/tutorial.html",
+  "timeRequired": "PT1H",
+  "description": "The questions this  addresses are:\n - How do I analyze a HeLa fluorescence siRNA screen?\n - How do I segment cell nuclei?\n - How do I extract features from segmentations?\n - How do I filter segmentations by morphological features?\n - How do I apply a feature extraction workflow to a screen?\n - How do I visualize feature extraction results?\n\n\\nThe objectives are:\n - How to segment cell nuclei in Galaxy.\n - How to extract features from segmentations in Galaxy.\n - How to filter segmentations by morphological features in Galaxy.\n - How to extract features from an imaging screen in Galaxy.\n - How to analyse extracted features from an imaging screen in Galaxy.\n\n",
+  "coursePrerequisites": [
+    {
+      "@type": "CreativeWork",
+      "url": "https://training.galaxyproject.org//training-material/topics/introduction/",
+      "name": "Introduction to Galaxy Analyses",
+      "description": "Introduction to Galaxy Analyses",
+      "provider": {
+        "@type": "Organization",
+        "email": "galaxytrainingnetwork@gmail.com",
+        "name": "Galaxy Training Network",
+        "url": "https://galaxyproject.org/teach/gtn/"
+      }
+    },
+    {
+      "@type": "Course",
+      "url": "https://training.galaxyproject.org//training-material/topics/imaging/tutorials/imaging-introduction/tutorial.html",
+      "name": "Introduction to image analysis using Galaxy",
+      "description": "Hands-on for 'Introduction to image analysis using Galaxy' tutorial",
+      "learningResourceType": "hands-on tutorial",
+      "interactivityType": "expositive",
+      "provider": {
+        "@type": "Organization",
+        "email": "galaxytrainingnetwork@gmail.com",
+        "name": "Galaxy Training Network",
+        "url": "https://galaxyproject.org/teach/gtn/"
+      }
+    }
+  ],
+  "hasPart": [
+
+  ],
+  "author": [
+    {
+      "@type": "Person",
+      "name": "Thomas Wollmann"
+    }
+  ],
+  "contributor": [
+    {
+      "@type": "Person",
+      "name": "Thomas Wollmann"
+    }
+  ],
+  "about": [
+    {
+      "@type": "CreativeWork",
+      "name": "Imaging",
+      "description": "Image analysis using Galaxy",
+      "url": "https://training.galaxyproject.org//training-material/topics/imaging/"
+    }
+  ],
+  "skillLevel": "Intermediate"
+}
+    </script>
+
+    <section class="tutorial">
+        <h1 data-toc-skip>Analyse HeLa fluorescence siRNA screen</h1>
+        
+
+        <div class="contributors-line">By: 
+
+<a href="/training-material/hall-of-fame/thomaswollmann/" class="contributor-badge"><img src="https://avatars.githubusercontent.com/thomaswollmann" alt="Thomas Wollmann">Thomas Wollmann</a>
+
+</div>
+
+        <blockquote class="overview">
+            <h3>Overview</h3>
+            <strong><i class="far fa-question-circle" aria-hidden="true"></i><span class="visually-hidden">question</span> Questions</strong>
+            <ul>
+            
+            <li><p>How do I analyze a HeLa fluorescence siRNA screen?</p>
+</li>
+            
+            <li><p>How do I segment cell nuclei?</p>
+</li>
+            
+            <li><p>How do I extract features from segmentations?</p>
+</li>
+            
+            <li><p>How do I filter segmentations by morphological features?</p>
+</li>
+            
+            <li><p>How do I apply a feature extraction workflow to a screen?</p>
+</li>
+            
+            <li><p>How do I visualize feature extraction results?</p>
+</li>
+            
+            </ul>
+
+            <strong><i class="fas fa-bullseye" aria-hidden="true"></i><span class="visually-hidden">objectives</span> Objectives</strong>
+            <ul>
+            
+            <li><p>How to segment cell nuclei in Galaxy.</p>
+</li>
+            
+            <li><p>How to extract features from segmentations in Galaxy.</p>
+</li>
+            
+            <li><p>How to filter segmentations by morphological features in Galaxy.</p>
+</li>
+            
+            <li><p>How to extract features from an imaging screen in Galaxy.</p>
+</li>
+            
+            <li><p>How to analyse extracted features from an imaging screen in Galaxy.</p>
+</li>
+            
+            </ul>
+
+            
+            <strong><i class="fas fa-check-circle" aria-hidden="true"></i><span class="visually-hidden">requirements</span> Requirements</strong>
+            <ul>
+            
+    <li>
+    
+        
+        
+        <a href="/training-material/topics/introduction">Introduction to Galaxy Analyses</a>
+        
+    
+    </li>
+
+            
+    <li>
+    
+        
+        
+        <a href="/training-material/topics/imaging">Imaging</a>
+        
+            <ul>
+                
+                    
+                        
+                    
+                        
+                            
+                            <li> Introduction to image analysis using Galaxy:
+                            
+                            
+                                
+                                     <a href="/training-material/topics/imaging/tutorials/imaging-introduction/tutorial.html"><i class="fas fa-laptop" aria-hidden="true"></i><span class="visually-hidden">tutorial</span> hands-on</a>
+                                
+                            
+                            </li>
+                        
+                    
+                        
+                    
+                
+            </ul>
+        
+    
+    </li>
+
+            </ul>
+            
+
+            
+            <p><strong><i class="fas fa-hourglass-half" aria-hidden="true"></i><span class="visually-hidden">time</span> Time estimation:</strong> 1 hour</p>
+            
+
+            
+            <p><strong><i class="fas fa-graduation-cap" aria-hidden="true"></i><span class="visually-hidden">level</span> Level: </strong>
+             Intermediate 
+<span class="level intermediate" title="Intermediate Tutorial">
+  <i class="fas fa-graduation-cap" aria-hidden="true"></i><span class="visually-hidden">level</span> <i class="fas fa-graduation-cap" aria-hidden="true"></i><span class="visually-hidden">level</span> <i class="fas fa-graduation-cap" aria-hidden="true"></i><span class="visually-hidden">level</span>
+</span>
+
+</p>
+            
+
+            
+            
+
+            
+            <p id="supporting-materials"><strong><i class="fa fa-external-link" aria-hidden="true"></i> Supporting Materials</strong></p>
+            <ul>
+                <div class="supporting_material">
+                
+
+                
+                    <li class="btn btn-default supporting_material">
+<a class="topic-icon" href="https://zenodo.org/record/3362976">
+    <i class="far fa-copy" aria-hidden="true"></i><span class="visually-hidden">zenodo_link</span> Datasets
+</a>
+
+</li>
+                
+
+                
+                    <li class="btn btn-default supporting_material">
+    <a class="topic-icon" href="/training-material/topics/imaging/tutorials/hela-screen-analysis/workflows/" title="Workflows" alt="Analyse HeLa fluorescence siRNA screen workflows">
+        <i class="fas fa-share-alt" aria-hidden="true"></i><span class="visually-hidden">workflow</span> Workflows
+    </a>
+
+</li>
+                
+
+                
+
+                
+                    <li class="btn btn-default supporting_material">
+
+    <a href="#" class="btn btn-default dropdown-toggle topic-icon" data-toggle="dropdown" aria-expanded="false" title="Where to run the tutorial">
+        <i class="fas fa-globe" aria-hidden="true"></i><span class="visually-hidden">instances</span> Available on these Galaxies
+    </a>
+    <ul class="dropdown-menu">
+    
+        <li>
+            <a class="dropdown-item" href="https://github.com/galaxyproject/training-material/tree/master/topics/imaging/docker" title="Docker image for this tutorial">
+                <i class="fab fa-docker" aria-hidden="true"></i><span class="visually-hidden">docker_image</span> Docker image
+            </a>
+        </li>
+    
+    
+    </ul>
+
+
+</li>
+                
+                </div>
+            </ul>
+            
+
+            <p><strong> <i class="far fa-calendar" aria-hidden="true"></i><span class="visually-hidden">last_modification</span> Last modification:</strong> Nov 26, 2020 </p>
+        </blockquote>
+
+        <div class="container">
+            <div class="row">
+                <!-- sidebar, which will move to the top on a small screen -->
+                <div class="col-sm-2">
+                    <nav id="toc" data-toggle="toc" class="sticky-top"></nav>
+                </div>
+                <div class="col-sm-10">
+                    <h1 class="no_toc" id="introduction">Introduction</h1>
+
+<p>This tutorial shows how to segment and extract features from cell nuclei <span class="notranslate">Galaxy</span> for image analysis. As example use case, this tutorial shows you how to compare the phenotypes of PLK1 threated cells in comparison to a control. The data used in this tutorial is available at <a href="https://zenodo.org/record/3362976">Zenodo</a>.</p>
+
+<p><span class="notranslate">RNA</span> interference (<span class="notranslate">RNA</span>i) is used in the example use case for silencing genes by way of m<span class="notranslate">RNA</span> degradation. Gene knockdown by this method is achieved by introducing small double-stranded interfering <span class="notranslate">RNA</span>s (si<span class="notranslate">RNA</span>) into the cytoplasm. Small interfering <span class="notranslate">RNA</span>s can originate from inside the cell or can be exogenously introduced into the cell. Once introduced into the cell, exogenous si<span class="notranslate">RNA</span>s are processed by the <span class="notranslate">RNA</span>-induced silencing complex (RISC).The si<span class="notranslate">RNA</span> is complementary to the target m<span class="notranslate">RNA</span> to be silenced, and the RISC uses the si<span class="notranslate">RNA</span> as a template for locating the target m<span class="notranslate">RNA</span>. After the RISC localizes to the target m<span class="notranslate">RNA</span>, the <span class="notranslate">RNA</span> is cleaved by a ribonuclease. <span class="notranslate">RNA</span>i is widely used as a laboratory technique for genetic functional analysis. <span class="notranslate">RNA</span>i in organisms such as C. elegans and Drosophila melanogaster provides a quick and inexpensive means of investigating gene function. Insights gained from experimental <span class="notranslate">RNA</span>i use may be useful in identifying potential therapeutic targets, drug development, or other applications. <span class="notranslate">RNA</span> interference is a very useful research tool, allowing investigators to carry out large genetic screens in an effort to identify targets for further research related to a particular pathway, drug, or phenotype.</p>
+
+<p>The example used in this tutorial deals with PLK1 knocked down cells. PLK1 is an early trigger for G2/M transition. PLK1 supports the functional maturation of the centrosome in late G2/early prophase and establishment of the bipolar spindle. PLK1 is being studied as a target for cancer drugs. Many colon and lung cancers are caused by K-RAS mutations. These cancers are dependent on PLK1.</p>
+
+<blockquote class="agenda">
+  <h3 id="agenda">Agenda</h3>
+
+  <p>In this tutorial, we will deal with:</p>
+
+<ol id="markdown-toc">
+  <li><a href="#getting-data" id="markdown-toc-getting-data">Getting data</a></li>
+  <li><a href="#create-feature-extraction-workflow" id="markdown-toc-create-feature-extraction-workflow">Create feature extraction <span class="notranslate">workflow</span></a></li>
+  <li><a href="#apply-workflow-to-screen" id="markdown-toc-apply-workflow-to-screen">Apply <span class="notranslate">workflow</span> to screen</a></li>
+  <li><a href="#plot-feature-extraction-results" id="markdown-toc-plot-feature-extraction-results">Plot feature extraction results</a></li>
+</ol>
+
+</blockquote>
+
+<h1 id="getting-data">Getting data</h1>
+
+<p>The dataset required for this tutorial contains a screen of DAPI stained HeLa nuclei (<a href="https://zenodo.org/record/3360236">more information</a>). We will use a sample image from this dataset for training basic image processing skills in <span class="notranslate">Galaxy</span>.</p>
+
+<blockquote class="notranslate hands_on">
+  <h3 id="hands_on-hands-on-data-upload"><i class="fas fa-pencil-alt" aria-hidden="true"></i><span class="visually-hidden">hands_on</span> Hands-on: Data upload</h3>
+
+  <ol>
+    <li>
+      <p>If you are logged in, create a new history for this tutorial</p>
+
+      <blockquote class="tip">
+
+        <h3 id="tip-tip-creating-a-new-history"><i class="far fa-lightbulb" aria-hidden="true"></i><span class="visually-hidden">tip</span> Tip: Creating a new history</h3>
+
+        <p>Click the <i class="fas fa-plus" aria-hidden="true"></i><span class="visually-hidden">new-history</span> icon at the top of the history panel</p>
+
+        <p>If the <i class="fas fa-plus" aria-hidden="true"></i><span class="visually-hidden">new-history</span> is missing:</p>
+        <ol>
+          <li>Click on the <i class="fas fa-cog" aria-hidden="true"></i><span class="visually-hidden"><span class="notranslate">galaxy</span>-gear</span> icon (<strong>History options</strong>) on the top of the history panel</li>
+          <li>Select the option <strong>Create New</strong> from the menu</li>
+        </ol>
+      </blockquote>
+    </li>
+    <li>Import <i class="fas fa-upload" aria-hidden="true"></i><span class="visually-hidden"><span class="notranslate">galaxy</span>-upload</span> the following dataset from <a href="https://zenodo.org/record/3362976">Zenodo</a> or from the data library (ask your instructor).
+      <ul>
+        <li><strong>Important:</strong> Choose the type of data as <code class="language-plaintext highlighter-rouge">zip</code>.</li>
+      </ul>
+
+      <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>https://zenodo.org/record/3362976/files/B2.zip
+</code></pre></div>      </div>
+
+      <blockquote class="tip">
+
+        <h3 id="tip-tip-importing-data-via-links"><i class="far fa-lightbulb" aria-hidden="true"></i><span class="visually-hidden">tip</span> Tip: Importing data via links</h3>
+
+        <ul>
+          <li>Copy the link location</li>
+          <li>
+            <p>Open the <span class="notranslate">Galaxy</span> Upload Manager (<i class="fas fa-upload" aria-hidden="true"></i><span class="visually-hidden"><span class="notranslate">galaxy</span>-upload</span> on the top-right of the tool panel)</p>
+          </li>
+          <li>Select <strong>Paste/Fetch Data</strong></li>
+          <li>
+            <p>Paste the link into the text field</p>
+          </li>
+          <li>
+            <p>Press <strong>Start</strong></p>
+          </li>
+          <li><strong>Close</strong> the window</li>
+        </ul>
+
+        <p>By default, <span class="notranslate">Galaxy</span> uses the URL as the name, so rename the files with a more useful name.</p>
+
+      </blockquote>
+
+      <blockquote class="tip">
+
+        <h3 id="tip-tip-importing-data-from-a-data-library"><i class="far fa-lightbulb" aria-hidden="true"></i><span class="visually-hidden">tip</span> Tip: Importing data from a data library</h3>
+
+        <p>As an alte<span class="notranslate">rna</span>tive to uploading the data from a URL or your computer, the files may also have been made available from a <em>shared data library</em>:</p>
+
+        <ul>
+          <li>
+            <p>Go into <strong>Shared data</strong> (top panel) then <strong>Data libraries</strong></p>
+          </li>
+          <li>
+            <p>Find the correct folder (ask your instructor)</p>
+          </li>
+          <li>Select the desired files</li>
+          <li>Click on the <strong>To History</strong> button near the top and select <strong>as Datasets</strong> from the dropdown menu</li>
+          <li>In the pop-up window, select the history you want to import the files to (or create a new one)</li>
+          <li>Click on <strong>Import</strong></li>
+        </ul>
+      </blockquote>
+    </li>
+    <li><strong>Unzip file</strong> <i class="fas fa-wrench" aria-hidden="true"></i><span class="visually-hidden">tool</span> with the following parameters:
+      <ul>
+        <li><i class="far fa-file" aria-hidden="true"></i><span class="visually-hidden">param-file</span> <em>“input_file”</em>: <code class="language-plaintext highlighter-rouge">Zipped </code> input file</li>
+        <li><em>“Extract single file”</em>: <code class="language-plaintext highlighter-rouge">Single file</code></li>
+        <li><em>“Filepath”</em>: <code class="language-plaintext highlighter-rouge">B2--W00026--P00001--Z00000--T00000--dapi.tif</code></li>
+      </ul>
+    </li>
+    <li>
+      <p>Rename <i class="fas fa-pencil-alt" aria-hidden="true"></i><span class="visually-hidden"><span class="notranslate">galaxy</span>-pencil</span> the dataset to <code class="language-plaintext highlighter-rouge">testinput.tif</code></p>
+
+      <blockquote class="tip">
+
+        <h3 id="tip-tip-renaming-a-dataset"><i class="far fa-lightbulb" aria-hidden="true"></i><span class="visually-hidden">tip</span> Tip: Renaming a dataset</h3>
+        <ul>
+          <li>Click on the <i class="fas fa-pencil-alt" aria-hidden="true"></i><span class="visually-hidden"><span class="notranslate">galaxy</span>-pencil</span> <strong>pencil icon</strong> for the dataset to edit its attributes</li>
+          <li>In the central panel, change the <strong>Name</strong> field</li>
+          <li>Click the <strong>Save</strong> button</li>
+        </ul>
+      </blockquote>
+    </li>
+    <li><strong>Unzip file</strong> <i class="fas fa-wrench" aria-hidden="true"></i><span class="visually-hidden">tool</span> with the following parameters:
+      <ul>
+        <li><i class="far fa-file" aria-hidden="true"></i><span class="visually-hidden">param-file</span> <em>“input_file”</em>: <code class="language-plaintext highlighter-rouge">Zipped </code> input file</li>
+        <li><em>“Extract single file”</em>: <code class="language-plaintext highlighter-rouge">All files</code></li>
+      </ul>
+    </li>
+    <li>Rename <i class="fas fa-pencil-alt" aria-hidden="true"></i><span class="visually-hidden"><span class="notranslate">galaxy</span>-pencil</span> the resulting collection to <code class="language-plaintext highlighter-rouge">control</code>
+      <blockquote class="tip">
+
+        <h3 id="tip-tip-renaming-a-collection"><i class="far fa-lightbulb" aria-hidden="true"></i><span class="visually-hidden">tip</span> Tip: Renaming a collection</h3>
+
+        <ol>
+          <li>Click on the collection</li>
+          <li>Click on the name of the collection at the top</li>
+          <li>Change the name</li>
+          <li>Press <kbd>Enter</kbd></li>
+        </ol>
+      </blockquote>
+    </li>
+    <li>Import <i class="fas fa-upload" aria-hidden="true"></i><span class="visually-hidden"><span class="notranslate">galaxy</span>-upload</span> the following dataset from <a href="https://zenodo.org/record/3362976">Zenodo</a> or from the data library (ask your instructor).
+      <ul>
+        <li><strong>Important:</strong> Choose the type of data as <code class="language-plaintext highlighter-rouge">zip</code>.
+          <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>https://zenodo.org/record/3362976/files/B3.zip
+</code></pre></div>          </div>
+        </li>
+      </ul>
+
+      <blockquote class="tip">
+
+        <h3 id="tip-tip-importing-data-via-links-1"><i class="far fa-lightbulb" aria-hidden="true"></i><span class="visually-hidden">tip</span> Tip: Importing data via links</h3>
+
+        <ul>
+          <li>Copy the link location</li>
+          <li>
+            <p>Open the <span class="notranslate">Galaxy</span> Upload Manager (<i class="fas fa-upload" aria-hidden="true"></i><span class="visually-hidden"><span class="notranslate">galaxy</span>-upload</span> on the top-right of the tool panel)</p>
+          </li>
+          <li>Select <strong>Paste/Fetch Data</strong></li>
+          <li>
+            <p>Paste the link into the text field</p>
+          </li>
+          <li>
+            <p>Press <strong>Start</strong></p>
+          </li>
+          <li><strong>Close</strong> the window</li>
+        </ul>
+
+        <p>By default, <span class="notranslate">Galaxy</span> uses the URL as the name, so rename the files with a more useful name.</p>
+
+      </blockquote>
+
+      <blockquote class="tip">
+
+        <h3 id="tip-tip-importing-data-from-a-data-library-1"><i class="far fa-lightbulb" aria-hidden="true"></i><span class="visually-hidden">tip</span> Tip: Importing data from a data library</h3>
+
+        <p>As an alte<span class="notranslate">rna</span>tive to uploading the data from a URL or your computer, the files may also have been made available from a <em>shared data library</em>:</p>
+
+        <ul>
+          <li>
+            <p>Go into <strong>Shared data</strong> (top panel) then <strong>Data libraries</strong></p>
+          </li>
+          <li>
+            <p>Find the correct folder (ask your instructor)</p>
+          </li>
+          <li>Select the desired files</li>
+          <li>Click on the <strong>To History</strong> button near the top and select <strong>as Datasets</strong> from the dropdown menu</li>
+          <li>In the pop-up window, select the history you want to import the files to (or create a new one)</li>
+          <li>Click on <strong>Import</strong></li>
+        </ul>
+      </blockquote>
+    </li>
+    <li><strong>Unzip</strong> <i class="fas fa-wrench" aria-hidden="true"></i><span class="visually-hidden">tool</span> to extract the zipped screen:
+      <ul>
+        <li><i class="far fa-file" aria-hidden="true"></i><span class="visually-hidden">param-file</span> <em>“input_file”</em>: <code class="language-plaintext highlighter-rouge">Zipped </code> input file</li>
+        <li><em>“Extract single file”</em>: <code class="language-plaintext highlighter-rouge">All files</code></li>
+      </ul>
+    </li>
+    <li>Rename <i class="fas fa-pencil-alt" aria-hidden="true"></i><span class="visually-hidden"><span class="notranslate">galaxy</span>-pencil</span> the collection to <code class="language-plaintext highlighter-rouge">PLK1</code></li>
+    <li>Upload <i class="fas fa-upload" aria-hidden="true"></i><span class="visually-hidden"><span class="notranslate">galaxy</span>-upload</span> the following segmentation filter rules as a new pasted file (format: <code class="language-plaintext highlighter-rouge">tabular</code>):
+      <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>	area	eccentricity
+min	500	0.
+max	100000	0.5
+</code></pre></div>      </div>
+      <blockquote class="tip">
+
+        <h3 id="tip-tip-creating-a-new-file"><i class="far fa-lightbulb" aria-hidden="true"></i><span class="visually-hidden">tip</span> Tip: Creating a new file</h3>
+
+        <ul>
+          <li>Open the <span class="notranslate">Galaxy</span> Upload Manager</li>
+          <li>Select <strong>Paste/Fetch Data</strong></li>
+          <li>
+            <p>Paste the file contents into the text field</p>
+          </li>
+          <li>
+            <p>Change <strong>Type</strong> from “Auto-detect” to <code class="language-plaintext highlighter-rouge">tabular</code></p>
+          </li>
+          <li>Press <strong>Start</strong> and <strong>Close</strong> the window</li>
+        </ul>
+      </blockquote>
+    </li>
+    <li>
+      <p>Rename <i class="fas fa-pencil-alt" aria-hidden="true"></i><span class="visually-hidden"><span class="notranslate">galaxy</span>-pencil</span> dataset to <code class="language-plaintext highlighter-rouge">rules</code></p>
+
+      <blockquote class="tip">
+
+        <h3 id="tip-tip-renaming-a-dataset-1"><i class="far fa-lightbulb" aria-hidden="true"></i><span class="visually-hidden">tip</span> Tip: Renaming a dataset</h3>
+        <ul>
+          <li>Click on the <i class="fas fa-pencil-alt" aria-hidden="true"></i><span class="visually-hidden"><span class="notranslate">galaxy</span>-pencil</span> <strong>pencil icon</strong> for the dataset to edit its attributes</li>
+          <li>In the central panel, change the <strong>Name</strong> field</li>
+          <li>Click the <strong>Save</strong> button</li>
+        </ul>
+      </blockquote>
+    </li>
+  </ol>
+
+</blockquote>
+
+<h1 id="create-feature-extraction-workflow">Create feature extraction <span class="notranslate">workflow</span></h1>
+<p>First, we will create and test a <span class="notranslate">workflow</span> which extracts mean DAPI intensity, area, and major axis length of cell nuclei from an image.</p>
+
+<blockquote class="notranslate hands_on">
+  <h3 id="hands_on-hands-on-create-feature-extraction-workflow"><i class="fas fa-pencil-alt" aria-hidden="true"></i><span class="visually-hidden">hands_on</span> Hands-on: Create feature extraction <span class="notranslate">workflow</span></h3>
+
+  <ol>
+    <li><strong>Filter Image</strong> <i class="fas fa-wrench" aria-hidden="true"></i><span class="visually-hidden">tool</span> with the following parameters to smooth the image:
+      <ul>
+        <li><em>“Image type”</em>: <code class="language-plaintext highlighter-rouge">Gaussian Blur</code></li>
+        <li><em>“Radius/Sigma”</em>: <code class="language-plaintext highlighter-rouge">3</code></li>
+        <li><i class="far fa-file" aria-hidden="true"></i><span class="visually-hidden">param-file</span> <em>“Source file”</em>: <code class="language-plaintext highlighter-rouge">testinput.tif</code> file</li>
+      </ul>
+    </li>
+    <li><strong>Auto Threshold</strong> <i class="fas fa-wrench" aria-hidden="true"></i><span class="visually-hidden">tool</span> with the following parameters to segment the image:
+      <ul>
+        <li><i class="far fa-file" aria-hidden="true"></i><span class="visually-hidden">param-file</span> <em>“Source file”</em>: output of <strong>Filter image</strong> <i class="fas fa-wrench" aria-hidden="true"></i><span class="visually-hidden">tool</span></li>
+        <li><em>“Threshold Algorithm”</em>: <code class="language-plaintext highlighter-rouge">Otsu</code></li>
+        <li><em>“Dark Background”</em>: <code class="language-plaintext highlighter-rouge">Yes</code></li>
+      </ul>
+    </li>
+    <li><strong>Split objects</strong> <i class="fas fa-wrench" aria-hidden="true"></i><span class="visually-hidden">tool</span> with the following parameters to split touching objects:
+      <ul>
+        <li><i class="far fa-file" aria-hidden="true"></i><span class="visually-hidden">param-file</span> <em>“Source file”</em>: output of <strong>Auto Threshold</strong> <i class="fas fa-wrench" aria-hidden="true"></i><span class="visually-hidden">tool</span></li>
+        <li><em>“Minimum distance between two objects.”</em>: <code class="language-plaintext highlighter-rouge">20</code></li>
+      </ul>
+    </li>
+    <li><strong>2D Feature Extraction</strong> <i class="fas fa-wrench" aria-hidden="true"></i><span class="visually-hidden">tool</span> with the following parameters to extract features from the segmented objects:
+      <ul>
+        <li><i class="far fa-file" aria-hidden="true"></i><span class="visually-hidden">param-file</span> <em>“Label file”</em>: output of <strong>Split objects</strong> <i class="fas fa-wrench" aria-hidden="true"></i><span class="visually-hidden">tool</span></li>
+        <li><em>“Use original image to compute additional features.”</em>: <code class="language-plaintext highlighter-rouge">No original image</code></li>
+        <li><em>“Select features to compute”</em>: <code class="language-plaintext highlighter-rouge">Select features</code></li>
+        <li><em>“Available features”</em>:
+          <ul>
+            <li><i class="far fa-check-square" aria-hidden="true"></i><span class="visually-hidden">param-check</span> <code class="language-plaintext highlighter-rouge">Add label id of label image</code></li>
+            <li><i class="far fa-check-square" aria-hidden="true"></i><span class="visually-hidden">param-check</span> <code class="language-plaintext highlighter-rouge">Area</code></li>
+            <li><i class="far fa-check-square" aria-hidden="true"></i><span class="visually-hidden">param-check</span> <code class="language-plaintext highlighter-rouge">Eccentricity</code></li>
+            <li><i class="far fa-check-square" aria-hidden="true"></i><span class="visually-hidden">param-check</span> <code class="language-plaintext highlighter-rouge">Major Axis Length</code></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+    <li><strong>Filter segmentation</strong> <i class="fas fa-wrench" aria-hidden="true"></i><span class="visually-hidden">tool</span> with the following parameters to filter the label map from 3. with the extracted features and a set of rules:
+      <ul>
+        <li><i class="far fa-file" aria-hidden="true"></i><span class="visually-hidden">param-file</span> <em>“Source file”</em>: output of <strong>Split objects</strong> <i class="fas fa-wrench" aria-hidden="true"></i><span class="visually-hidden">tool</span></li>
+        <li><i class="far fa-file" aria-hidden="true"></i><span class="visually-hidden">param-file</span> <em>“Feature file”</em>: output of <strong>2D Feature Extraction</strong> <i class="fas fa-wrench" aria-hidden="true"></i><span class="visually-hidden">tool</span></li>
+        <li><i class="far fa-file" aria-hidden="true"></i><span class="visually-hidden">param-file</span> <em>“Rules file”</em>: rules file</li>
+      </ul>
+    </li>
+    <li><strong>2D Feature Extraction</strong> <i class="fas fa-wrench" aria-hidden="true"></i><span class="visually-hidden">tool</span> with the following parameters to extract features the final readout from the segmented objects:
+      <ul>
+        <li><i class="far fa-file" aria-hidden="true"></i><span class="visually-hidden">param-file</span> <em>“Label file”</em>: output of <strong>Filter segmentation</strong> <i class="fas fa-wrench" aria-hidden="true"></i><span class="visually-hidden">tool</span></li>
+        <li><em>“Use original image to compute additional features.”</em>: <code class="language-plaintext highlighter-rouge">Use original image</code></li>
+        <li><i class="far fa-file" aria-hidden="true"></i><span class="visually-hidden">param-file</span> <em>“Original image file”</em>: <code class="language-plaintext highlighter-rouge">testinput.tif</code> file</li>
+        <li><em>“Select features to compute”</em>: <code class="language-plaintext highlighter-rouge">Select features</code></li>
+        <li><em>“Available features”</em>:
+          <ul>
+            <li><i class="far fa-check-square" aria-hidden="true"></i><span class="visually-hidden">param-check</span> <code class="language-plaintext highlighter-rouge">Mean Intensity</code></li>
+            <li><i class="far fa-check-square" aria-hidden="true"></i><span class="visually-hidden">param-check</span> <code class="language-plaintext highlighter-rouge">Area</code></li>
+            <li><i class="far fa-check-square" aria-hidden="true"></i><span class="visually-hidden">param-check</span> <code class="language-plaintext highlighter-rouge">Major Axis Length</code></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+    <li>Now we can extract the <span class="notranslate">workflow</span> for batch processing
+      <ul>
+        <li>Name it “feature_extraction”.</li>
+      </ul>
+
+      <blockquote class="tip">
+
+        <h3 id="tip-tip-extracting-a-workflow-from-history"><i class="far fa-lightbulb" aria-hidden="true"></i><span class="visually-hidden">tip</span> Tip: Extracting a <span class="notranslate">workflow</span> from history</h3>
+
+        <ol>
+          <li>Remove any failed or unwanted jobs from your history.</li>
+          <li>Click on <strong>History options</strong> (gear icon <i class="fas fa-cog" aria-hidden="true"></i><span class="visually-hidden"><span class="notranslate">galaxy</span>-gear</span>) at the top of your history panel.</li>
+          <li>Select <strong>Extract <span class="notranslate">workflow</span></strong></li>
+          <li>Check the steps, enter a name for your <span class="notranslate">workflow</span>, and press the <strong>Create <span class="notranslate">Workflow</span></strong> button.</li>
+        </ol>
+
+      </blockquote>
+    </li>
+    <li>Edit the <span class="notranslate">workflow</span> you just created
+      <ul>
+        <li>Name the inputs <code class="language-plaintext highlighter-rouge">input image</code> and <code class="language-plaintext highlighter-rouge">filter rules</code>.</li>
+        <li>Mark the results of steps 5 and 6 as outputs (by clicking on the asterisk next to the output name).</li>
+      </ul>
+    </li>
+  </ol>
+
+</blockquote>
+
+<p>The resulting <span class="notranslate">workflow</span> should look something like this:</p>
+
+<figure id="figure-1"><img src="../../images/hela-screen-analysis/feature_extraction_workflow.png" alt="feature extraction workflow" /><figcaption><span class="figcaption-prefix">Figure 1:</span> Feature extraction sub<span class="notranslate">workflow</span>.</figcaption></figure>
+
+<h1 id="apply-workflow-to-screen">Apply <span class="notranslate">workflow</span> to screen</h1>
+
+<p>Now we want to apply our extracted <span class="notranslate">workflow</span> to <code class="language-plaintext highlighter-rouge">original data</code> and merge the results. For this purpose, we create a <span class="notranslate">workflow</span> which uses the previously created <span class="notranslate">workflow</span> as sub<span class="notranslate">workflow</span>.</p>
+
+<blockquote class="notranslate hands_on">
+  <h3 id="hands_on-hands-on-create-screen-analysis-workflow"><i class="fas fa-pencil-alt" aria-hidden="true"></i><span class="visually-hidden">hands_on</span> Hands-on: Create screen analysis <span class="notranslate">workflow</span></h3>
+
+  <ol>
+    <li>
+      <p>Create a new <span class="notranslate">workflow</span> in the <span class="notranslate">workflow</span> editor.</p>
+
+      <blockquote class="tip">
+
+        <h3 id="tip-tip-creating-a-new-workflow"><i class="far fa-lightbulb" aria-hidden="true"></i><span class="visually-hidden">tip</span> Tip: Creating a new <span class="notranslate">workflow</span></h3>
+
+        <ol>
+          <li>Click <strong><span class="notranslate">Workflow</span></strong> on the top bar</li>
+          <li>Click the new <span class="notranslate">workflow</span> <i class="fas fa-plus" aria-hidden="true"></i><span class="visually-hidden"><span class="notranslate">galaxy</span>-wf-new</span> button</li>
+          <li>Give it a clear and memorable name</li>
+          <li>Clicking <strong>Save</strong> will take you directly into the <span class="notranslate">workflow</span> editor for that <span class="notranslate">workflow</span></li>
+        </ol>
+      </blockquote>
+    </li>
+    <li>Add a <strong>Input dataset collection</strong> node and name it <code class="language-plaintext highlighter-rouge">input images</code></li>
+    <li>Add a <strong>Input dataset</strong> node and name it <code class="language-plaintext highlighter-rouge">rules</code></li>
+    <li>Add the <strong>feature_extraction</strong> <span class="notranslate">workflow</span> as node.
+      <ul>
+        <li><i class="far fa-file" aria-hidden="true"></i><span class="visually-hidden">param-file</span> <em>“input image”</em>: <code class="language-plaintext highlighter-rouge">input images</code> output of <strong>Input dataset collection</strong> <i class="fas fa-wrench" aria-hidden="true"></i><span class="visually-hidden">tool</span></li>
+        <li><i class="far fa-file" aria-hidden="true"></i><span class="visually-hidden">param-file</span> <em>“filter rules”</em>: <code class="language-plaintext highlighter-rouge">rules</code> output of <strong>Input dataset</strong> <i class="fas fa-wrench" aria-hidden="true"></i><span class="visually-hidden">tool</span></li>
+      </ul>
+    </li>
+    <li>Add a <strong>Collapse Collection</strong> <i class="fas fa-wrench" aria-hidden="true"></i><span class="visually-hidden">tool</span> node.
+      <ul>
+        <li><i class="far fa-file" aria-hidden="true"></i><span class="visually-hidden">param-file</span> <em>“Collection of files to collapse into single dataset”</em>: output of <strong>feature_extraction</strong> <span class="notranslate">workflow</span></li>
+        <li><em>“Keep one header line”</em>: <code class="language-plaintext highlighter-rouge">Yes</code></li>
+        <li><em>“Append File name”</em>: <code class="language-plaintext highlighter-rouge">No</code></li>
+        <li>Mark the tool output as <span class="notranslate">workflow</span> output</li>
+      </ul>
+    </li>
+    <li>Save your <span class="notranslate">workflow</span> and name it <code class="language-plaintext highlighter-rouge">analyze_screen</code></li>
+  </ol>
+</blockquote>
+
+<p>The resulting <span class="notranslate">workflow</span> should look something like this:</p>
+
+<figure id="figure-2"><img src="../../images/hela-screen-analysis/analyze_screen_workflow.png" alt="screen analysis workflow" /><figcaption><span class="figcaption-prefix">Figure 2:</span> Full screen analysis <span class="notranslate">workflow</span>.</figcaption></figure>
+
+<blockquote class="notranslate hands_on">
+  <h3 id="hands_on-hands-on-run-screen-analysis-workflow"><i class="fas fa-pencil-alt" aria-hidden="true"></i><span class="visually-hidden">hands_on</span> Hands-on: Run screen analysis <span class="notranslate">workflow</span></h3>
+
+  <ol>
+    <li>
+      <p>Run the screen analysis <span class="notranslate">workflow</span> <i class="fas fa-share-alt" aria-hidden="true"></i><span class="visually-hidden"><span class="notranslate">workflow</span></span> on the <code class="language-plaintext highlighter-rouge">control</code> screen and the <code class="language-plaintext highlighter-rouge">rules</code> file</p>
+
+      <blockquote class="tip">
+
+        <h3 id="tip-tip-running-a-workflow"><i class="far fa-lightbulb" aria-hidden="true"></i><span class="visually-hidden">tip</span> Tip: Running a <span class="notranslate">workflow</span></h3>
+        <ul>
+          <li>Click on <em><span class="notranslate">Workflow</span></em> on the top menu bar of <span class="notranslate">Galaxy</span>. You will see a list of all your workflows.</li>
+          <li>Click on the <i class="fas fa-play" aria-hidden="true"></i><span class="visually-hidden"><span class="notranslate">workflow</span>-run</span> (<em>Run <span class="notranslate">workflow</span></em>) button next to your <span class="notranslate">workflow</span></li>
+          <li>Configure the <span class="notranslate">workflow</span> as needed</li>
+          <li>Click the <strong>Run <span class="notranslate">Workflow</span></strong> button at the top-right of the screen</li>
+          <li>You may have to refresh your history to see the queued jobs</li>
+        </ul>
+      </blockquote>
+    </li>
+    <li>
+      <p>Run the screen analysis <span class="notranslate">workflow</span> <i class="fas fa-share-alt" aria-hidden="true"></i><span class="visually-hidden"><span class="notranslate">workflow</span></span> on the <code class="language-plaintext highlighter-rouge">PLK1</code> screen and the <code class="language-plaintext highlighter-rouge">rules</code> file</p>
+    </li>
+  </ol>
+
+</blockquote>
+
+<h1 id="plot-feature-extraction-results">Plot feature extraction results</h1>
+
+<p>Finally, we want to plot the results for better interpretation.</p>
+
+<blockquote class="notranslate hands_on">
+  <h3 id="hands_on-hands-on-plot-feature-extraction-results"><i class="fas fa-pencil-alt" aria-hidden="true"></i><span class="visually-hidden">hands_on</span> Hands-on: Plot feature extraction results</h3>
+
+  <ol>
+    <li>Click on the <code class="language-plaintext highlighter-rouge">Visualize this data</code> <i class="fas fa-chart-bar" aria-hidden="true"></i><span class="visually-hidden"><span class="notranslate">galaxy</span>-barchart</span> icon of the <strong>Collapse Collection</strong> <i class="fas fa-wrench" aria-hidden="true"></i><span class="visually-hidden">tool</span> results.</li>
+    <li>Run <code class="language-plaintext highlighter-rouge">Box plot</code> with the following parameters:
+      <ul>
+        <li><em>“Provide a title”</em>: <code class="language-plaintext highlighter-rouge">Screen features</code></li>
+        <li><em>“X-Axis label”</em>:</li>
+        <li><em>“Y-Axis label”</em>:</li>
+        <li><em>“1: Data series”</em>:
+          <ul>
+            <li><em>“Provide a label”</em>: <code class="language-plaintext highlighter-rouge">Mean intensity</code></li>
+            <li><em>“Observations”</em>: <code class="language-plaintext highlighter-rouge">Column 1</code></li>
+          </ul>
+        </li>
+        <li><em>“2: Data series”</em>:
+          <ul>
+            <li><em>“Provide a label”</em>: <code class="language-plaintext highlighter-rouge">Area</code></li>
+            <li><em>“Observations”</em>: <code class="language-plaintext highlighter-rouge">Column 2</code></li>
+          </ul>
+        </li>
+        <li><em>“3: Data series”</em>:
+          <ul>
+            <li><em>“Provide a label”</em>: <code class="language-plaintext highlighter-rouge">Major axis length</code></li>
+            <li><em>“Observations”</em>: <code class="language-plaintext highlighter-rouge">Column 3</code></li>
+          </ul>
+        </li>
+      </ul>
+
+      <blockquote class="question">
+        <h3 id="question-questions"><i class="far fa-question-circle" aria-hidden="true"></i><span class="visually-hidden">question</span> Questions</h3>
+
+        <p>Plot the feature distribution of PLK1 and control. What differences do you observe between the screens?</p>
+
+        <blockquote class="solution">
+          <h3 id="solution-solution"><i class="far fa-eye" aria-hidden="true"></i><span class="visually-hidden">solution</span> Solution</h3>
+          <p>The phenotype of PLK1 threated cells show a higher mean intensity and a shorter major axis in comparison to the control.</p>
+        </blockquote>
+      </blockquote>
+    </li>
+  </ol>
+</blockquote>
+
+<p>One of the resulting plots should look something like this:</p>
+
+<p><img src="../../images/hela-screen-analysis/result_boxplot.png" alt="feature extraction results box plot" width="100%" /></p>
+
+<h1 class="no_toc" id="conclusion">Conclusion</h1>
+
+<p>In this exercise you imported images into <span class="notranslate">Galaxy</span>, segmented cell nuclei, filtered segmentations by morphological features, extracted features from segmentations, scaled your <span class="notranslate">workflow</span> to a whole screen, and plotted the feature extraction results using <span class="notranslate">Galaxy</span>.</p>
+
+
+                    
+                    <blockquote class="key_points">
+                        <h3><i class="fas fa-key" aria-hidden="true"></i><span class="visually-hidden">keypoints</span> Key points</h3>
+                        <ul>
+                            
+                            <li><p>Galaxy workflows can be used to scale image analysis pipelines to whole screens.</p>
+</li>
+                            
+                            <li><p>Segmented objects can be filtered using the <strong>Filter segmentation</strong> tool.</p>
+</li>
+                            
+                            <li><p>Galaxy charts can be used to compare features extracted from screens showing cells with different treatments.</p>
+</li>
+                            
+                        </ul>
+                    </blockquote>
+                    
+
+                    
+                    <h1 data-toc-skip>Useful literature</h1>
+                    <p>Further information, including links to documentation and original publications, regarding the tools, analysis techniques and the interpretation of results described in this tutorial can be found <a href="/training-material/topics/imaging#references">here</a>.</p>
+                    
+
+                    
+
+                    <h1>Feedback</h1>
+                    <p class="text-muted">Did you use this material as an instructor? Feel free to give us feedback on <a href="https://github.com/galaxyproject/training-material/issues/1452" target="_blank">how it went</a>.</p>
+
+                    <div id="feedback-button">
+                        <img src="/training-material/shared/images/feedback.png" title="Click to activate" alt="Click here to load Google feedback frame" />
+                    </div>
+                    <div id="feedback-form">
+                    </div>
+                    <script type="text/javascript">
+                        (function (window, document) {
+                            function onDocumentReady(fn) {
+                                if (document.attachEvent ? document.readyState === "complete" : document.readyState !== "loading") {
+                                    fn();
+                                } else {
+                                    document.addEventListener('DOMContentLoaded', fn);
+                                }
+                            }
+
+                            onDocumentReady(function () {
+                                $("#feedback-button").click(function(evt){
+                                    var e = $(evt.target)
+                                    e.hide();
+
+                                    $("#feedback-form").html(`
+                                        <iframe id="feedback-google" class="google-form" src="https://docs.google.com/forms/d/e/1FAIpQLSd4VZptFTQ03kHkMz0JyW9b6_S8geU5KjNE_tLM0dixT3ZQmA/viewform?embedded=true&entry.1235803833=Analyse HeLa fluorescence siRNA screen (Imaging)">Loading...</iframe>
+                                    `)
+                                })
+                            });
+                        })(window, document);
+                    </script>
+
+
+
+                    <h1>Citing this Tutorial</h1>
+                    <p>
+                        <ol>
+                            <li id="citation-text">Thomas Wollmann, 2020 <b>Analyse HeLa fluorescence siRNA screen (Galaxy Training Materials)</b>. <a href="/training-material/topics/imaging/tutorials/hela-screen-analysis/tutorial.html">/training-material/topics/imaging/tutorials/hela-screen-analysis/tutorial.html</a> Online; accessed TODAY
+                            </li>
+                            <li>
+                            Batut et al., 2018 <b>Community-Driven Data Analysis Training for Biology</b> Cell Systems <a href="https://doi.org/10.1016%2Fj.cels.2018.05.012">10.1016/j.cels.2018.05.012</a>
+                            </li>
+                        </ol>
+                    </p>
+
+
+                    <blockquote class="details">
+                      <h3><i class="fa fa-info-circle" aria-hidden="true"></i><span class="visually-hidden">details</span> BibTeX</h3>
+                      <p style="display: none;">
+
+                    <div class="highlighter-rouge"><div class="highlight"><pre class="highlight">
+<code id="citation-code">@misc{imaging-hela-screen-analysis,
+    author = "Thomas Wollmann",
+    title = "Analyse HeLa fluorescence siRNA screen (Galaxy Training Materials)",
+    year = "2020",
+    month = "11",
+    day = "26"
+    url = "\url{/training-material/topics/imaging/tutorials/hela-screen-analysis/tutorial.html}",
+    note = "[Online; accessed TODAY]"
+}
+@article{Batut_2018,
+        doi = {10.1016/j.cels.2018.05.012},
+        url = {https://doi.org/10.1016%2Fj.cels.2018.05.012},
+        year = 2018,
+        month = {jun},
+        publisher = {Elsevier {BV}},
+        volume = {6},
+        number = {6},
+        pages = {752--758.e1},
+        author = {B{\'{e}}r{\'{e}}nice Batut and Saskia Hiltemann and Andrea Bagnacani and Dannon Baker and Vivek Bhardwaj and Clemens Blank and Anthony Bretaudeau and Loraine Brillet-Gu{\'{e}}guen and Martin {\v{C}}ech and John Chilton and Dave Clements and Olivia Doppelt-Azeroual and Anika Erxleben and Mallory Ann Freeberg and Simon Gladman and Youri Hoogstrate and Hans-Rudolf Hotz and Torsten Houwaart and Pratik Jagtap and Delphine Larivi{\`{e}}re and Gildas Le Corguill{\'{e}} and Thomas Manke and Fabien Mareuil and Fidel Ram{\'{\i}}rez and Devon Ryan and Florian Christoph Sigloch and Nicola Soranzo and Joachim Wolff and Pavankumar Videm and Markus Wolfien and Aisanjiang Wubuli and Dilmurat Yusuf and James Taylor and Rolf Backofen and Anton Nekrutenko and Björn Grüning},
+        title = {Community-Driven Data Analysis Training for Biology},
+        journal = {Cell Systems}
+}</code>
+                    </pre></div></div>
+                    </p>
+                    </blockquote>
+
+
+<script type="text/javascript">
+// update the date on load, or leave fallback of 'today'
+d = new Date();
+document.getElementById("citation-code").innerHTML = document.getElementById("citation-code").innerHTML.replace("TODAY", d.toDateString());
+document.getElementById("citation-text").innerHTML = document.getElementById("citation-text").innerHTML.replace("TODAY", d.toDateString());
+</script>
+
+                </div>
+            </div>
+        </div>
+
+        <h3><i class="far fa-thumbs-up" aria-hidden="true"></i><span class="visually-hidden">congratulations</span> Congratulations on successfully completing this tutorial!</h3>
+
+        
+
+        
+        <blockquote class="agenda follow-up">
+            <strong class="follow-up"><i class="fas fa-graduation-cap" aria-hidden="true"></i><span class="visually-hidden">curriculum</span> Do you want to extend your knowledge? Follow one of our recommended follow-up trainings:</strong>
+            <ul>
+                
+    <li>
+    
+        
+        
+        <a href="/training-material/topics/statistics">Statistics and machine learning</a>
+        
+            <ul>
+                
+                    
+                        
+                    
+                        
+                            
+                            <li> Basics of machine learning:
+                            
+                            
+                                
+                                     <a href="/training-material/topics/statistics/tutorials/machinelearning/tutorial.html"><i class="fas fa-laptop" aria-hidden="true"></i><span class="visually-hidden">tutorial</span> hands-on</a>
+                                
+                            
+                            </li>
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                
+            </ul>
+        
+    
+    </li>
+
+            </ul>
+        </blockquote>
+        
+    </section>
+</div>
+
+
+<footer>
+    <div class="container">
+        <p>
+            This material is the result of a collaborative work. Thanks to the
+            <a href="https://wiki.galaxyproject.org/Teach/GTN">Galaxy Training Network</a>
+            and all the <a href="/training-material/hall-of-fame">contributors</a> (Thomas Wollmann)!
+        </p>
+        <p>
+            Found a typo? Something is wrong in this tutorial? Edit it on
+            <a href="https://github.com/galaxyproject/training-material/tree/master/topics/imaging/tutorials/hela-screen-analysis/tutorial.md">GitHub</a>.
+        </p>
+        <p>
+    The content of the tutorials and website is licensed under the <a rel="license" href="https://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0 International License</a>.
+</p>
+    </div>
+</footer>
+
+    </body>
+    <script type="text/javascript" src="/training-material/assets/js/jquery.slim.min.js"></script>
+    <script type="text/javascript" src="/training-material/assets/js/popper.min.js"></script>
+    <script type="text/javascript" src="/training-material/assets/js/bootstrap.min.js?v=3"></script>
+    <script type="text/javascript" src="/training-material/assets/js/details-element-polyfill.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript" src="/training-material/assets/js/bootstrap-toc.min.js"></script>
+    <script type="text/javascript" src="/training-material/assets/js/main.js"></script>
+    <script type="text/javascript" src="/training-material/assets/js/theme.js"></script>
+
+    <script type="text/javascript" src="/training-material/assets/js/clipboard.min.js"></script>
+    <script type="text/javascript">
+    var snippets=document.querySelectorAll('div.highlight');
+    [].forEach.call(snippets,function(snippet){
+        snippet.firstChild.insertAdjacentHTML('beforebegin','<button class="btn btn-light" data-clipboard-snippet><i class="fa fa-copy"></i>&nbsp;Copy</button>');
+    });
+
+    var clipboardSnippets=new ClipboardJS('[data-clipboard-snippet]',{
+        target:function(trigger){return trigger.nextElementSibling;
+    }});
+    </script>
+    
+
+    <script type="text/javascript">
+        if(window.location.hostname === "galaxyproject.github.io") {
+            // Redirect
+            var redirect = "https://training.galaxyproject.org" + window.location.pathname + window.location.search;
+            $('div.container.main-content').prepend("<div class='alert alert-warning'><strong>Note: </strong>This content has a new home at <a href=\"" + redirect + "\">" + redirect + "</a>, which you will be redirected to in 5 seconds.</div>");
+
+            window.setTimeout(function(){
+                window.location.href = redirect;
+            }, 5000)
+
+        }
+    </script>
+</html>

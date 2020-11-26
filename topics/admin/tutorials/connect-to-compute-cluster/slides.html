@@ -1,0 +1,586 @@
+<!DOCTYPE html>
+<html>
+
+
+
+
+
+
+
+
+
+  <head>
+    <meta charset="utf-8">
+    <title>Connecting Galaxy to a compute cluster</title>
+    
+        <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+    ga('create', '' , 'auto');
+    ga('send', 'pageview');
+</script>
+    
+    <link rel="stylesheet" href="/training-material/assets/css/slides.css">
+    <script src="https://kit.fontawesome.com/67b3f98409.js" crossorigin="anonymous"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="shortcut icon" href="/training-material/favicon.ico" type="image/x-icon" />
+
+    
+    
+    
+    
+    <meta name="description" content="Resources related to configuration and maintenance of Gal..." />
+    <meta property="og:title" content="Galaxy Training: Connecting Galaxy to a compute cluster" />
+    <meta property="og:description" content="Resources related to configuration and maintenance of Gal..." />
+    <meta property="og:image" content="/training-material/assets/images/GTNLogo1000.png" />
+    <script type="application/ld+json">
+      
+
+
+{
+  "@context": "http://schema.org",
+  "@type": "Course",
+  "accessMode": [
+    "textual",
+    "visual"
+  ],
+  "accessModeSufficient": [
+    "textual",
+    "visual"
+  ],
+  "accessibilityControl": [
+    "fullKeyboardControl",
+    "fullMouseControl"
+  ],
+  "accessibilityFeature": [
+    "alternativeText",
+    "tableOfContents"
+  ],
+  "accessibilitySummary": "Short descriptions are present but long descriptions will be needed for non-visual users",
+  "audience": {
+    "@type": "EducationalAudience",
+    "educationalRole": "students"
+  },
+  "citation": {
+    "@type": "CreativeWork",
+    "name": "Community-Driven Data Analysis Training for Biology",
+    "url": "https://doi.org/10.1016/j.cels.2018.05.012"
+  },
+  "copyrightHolder": {
+    "@type": "Organization",
+    "email": "galaxytrainingnetwork@gmail.com",
+    "name": "Galaxy Training Network",
+    "url": "https://galaxyproject.org/teach/gtn/"
+  },
+  "discussionUrl": "https://gitter.im/Galaxy-Training-Network/Lobby",
+  "headline": "Connecting Galaxy to a compute cluster",
+  "inLanguage": {
+    "@type": "Language",
+    "name": "English",
+    "alternateName": "en"
+  },
+  "interactivityType": "mixed",
+  "isAccessibleForFree": true,
+  "license": "https://github.com/galaxyproject/training-material/blob/master/LICENSE.md",
+  "producer": {
+    "@type": "Organization",
+    "email": "galaxytrainingnetwork@gmail.com",
+    "name": "Galaxy Training Network",
+    "url": "https://galaxyproject.org/teach/gtn/"
+  },
+  "provider": {
+    "@type": "Organization",
+    "email": "galaxytrainingnetwork@gmail.com",
+    "name": "Galaxy Training Network",
+    "url": "https://galaxyproject.org/teach/gtn/"
+  },
+  "sourceOrganization": {
+    "@type": "Organization",
+    "email": "galaxytrainingnetwork@gmail.com",
+    "name": "Galaxy Training Network",
+    "url": "https://galaxyproject.org/teach/gtn/"
+  },
+  "isPartOf": {
+    "@type": "CreativeWork",
+    "name": "Galaxy Server administration",
+    "description": "Resources related to configuration and maintenance of Galaxy servers",
+    "url": "https://training.galaxyproject.org//training-material/topics/admin/"
+  },
+  "courseCode": "admin / connect-to-compute-cluster / slides",
+  "learningResourceType": "slides",
+  "name": "Slides for 'Connecting Galaxy to a compute cluster' tutorial",
+  "url": "https://training.galaxyproject.org//training-material/topics/admin/tutorials/connect-to-compute-cluster/slides.html",
+  "keywords": "features",
+  "description": "The questions this  addresses are:\n - How to connect Galaxy to a compute cluster?\n - How can I configure job dependent resources, like cores, memory for my DRM?\n\n\\nThe objectives are:\n - Understand all components of the Galaxy job running stack\n - Understand how the `job_conf.xml` file controls Galaxy's jobs subsystem\n - Know how to map tools to job destinations\n - The various ways in which tools can be mapped to destinations, both statically and dynamically\n\n",
+  "hasPart": [
+
+  ],
+  "author": [
+    {
+      "@type": "Person",
+      "name": "Nate Coraor"
+    },
+    {
+      "@type": "Person",
+      "name": "Björn Grüning"
+    },
+    {
+      "@type": "Person",
+      "name": "Nicola Soranzo"
+    },
+    {
+      "@type": "Person",
+      "name": "Helena Rasche"
+    }
+  ],
+  "contributor": [
+    {
+      "@type": "Person",
+      "name": "Nate Coraor"
+    },
+    {
+      "@type": "Person",
+      "name": "Björn Grüning"
+    },
+    {
+      "@type": "Person",
+      "name": "Nicola Soranzo"
+    },
+    {
+      "@type": "Person",
+      "name": "Helena Rasche"
+    }
+  ],
+  "about": [
+    {
+      "@type": "CreativeWork",
+      "name": "Galaxy Server administration",
+      "description": "Resources related to configuration and maintenance of Galaxy servers",
+      "url": "https://training.galaxyproject.org//training-material/topics/admin/"
+    }
+  ]
+}
+    </script>
+    <script type="text/javascript" src="/training-material/assets/js/jquery.slim.min.js"></script>
+  </head>
+  <body>
+    <textarea id="source">
+name: inverse
+layout: true
+class: center, middle, inverse
+
+<div class="my-header"><span>
+<a href="/training-material/topics/admin" title="Return to topic page" ><i class="fa fa-level-up" aria-hidden="true"></i></a>
+
+<a class="nav-link" href="https://github.com/galaxyproject/training-material/edit/master/topics/admin/tutorials/connect-to-compute-cluster/slides.html"><i class="fa fa-pencil" aria-hidden="true"></i></a>
+
+</span></div>
+
+<div class="my-footer"><span>
+
+<img src="/training-material/assets/images/GTN-60px.png" alt="Galaxy Training Network" style="height: 40px;"/>
+
+</span></div>
+
+---
+
+# Connecting Galaxy to a compute cluster
+
+
+
+.footnote[Tip: press `P` to view the presenter notes]
+
+???
+Presenter notes contain extra information which might be useful if you
+intend to use these slides for teaching.
+
+Press `P` again to switch presenter notes off
+
+Press `C` to create a new window where the same presentation will be displayed.
+This window is linked to the main window. Changing slides on one will cause the
+slide to change on the other. Useful when presenting.
+
+---
+
+
+
+
+
+### &lt;i class=&quot;far fa-question-circle&quot; aria-hidden=&quot;true&quot;&gt;&lt;/i&gt;&lt;span class=&quot;visually-hidden&quot;&gt;question&lt;/span&gt; Questions
+
+
+- How to connect Galaxy to a compute cluster?
+
+- How can I configure job dependent resources, like cores, memory for my DRM?
+
+
+---
+
+
+### &lt;i class=&quot;fas fa-bullseye&quot; aria-hidden=&quot;true&quot;&gt;&lt;/i&gt;&lt;span class=&quot;visually-hidden&quot;&gt;objectives&lt;/span&gt; Objectives
+
+
+- Understand all components of the Galaxy job running stack
+
+- Understand how the `job_conf.xml` file controls Galaxy's jobs subsystem
+
+- Know how to map tools to job destinations
+
+- The various ways in which tools can be mapped to destinations, both statically and dynamically
+
+
+---
+
+
+# Galaxy Job Configuration
+
+- Configured in `config/job_conf.xml`
+- XML format with macro support
+- Major components:
+  - **Plugins**: distributed resource manager (DRM) modules to load
+  - **Handlers**: job handler processes managing the lifecycle of jobs
+  - **Destinations**: where to send jobs, and what parameters to run those jobs with
+  - **Tool** to destination/handler mappings
+  - **Resource** selection mappings: give users job execution options on the tool form
+  - **Limits**: job runtime limits, e.g. the max number of concurrent jobs
+
+---
+
+# Why cluster?
+
+Running jobs on the Galaxy server negatively impacts Galaxy UI performance
+
+Even adding one other host helps
+
+Can restart Galaxy without interrupting jobs
+
+---
+
+# Plugins
+
+Correspond to job runner plugins in [lib/galaxy/jobs/runners](https://github.com/galaxyproject/galaxy/tree/dev/lib/galaxy/jobs/runners)
+
+.left[Plugins for:]
+- local
+- Slurm (DRMAA subclass)
+- DRMAA: SGE, PBS Pro, LSF, Torque
+- HTCondor
+- Torque: Using the `pbs_python` library
+- Pulsar: Galaxy's own remote job management system
+- Command Line Interface (CLI) via SSH
+- Kubernetes
+- Go-Docker
+- Chronos
+
+---
+
+# Cluster library stack (DRMAA)
+
+![Cluster library stack](../../images/cluster_lib_stack.png)
+
+---
+
+# Handlers
+
+Define which Galaxy processes are job handlers
+
+- `id` attribute should match the `--server-name` param value of a process
+- Dedicated handlers can be reserved, e.g. for small, high throughput jobs
+- The list of plugins that are loaded by a job handler can be limited using `&lt;plugin&gt;` subelements (e.g. when the DRMAA plugin needs to be loaded with different library paths)
+- Not defined in `job_conf.xml` when using *job handler mules*
+
+---
+
+# Destinations
+
+Define *how* jobs should be run
+
+- Which plugin?
+- In a Docker container? Which one?
+- **DRM params** (queue, cores, memory, walltime)?
+- Environment (variables e.g. `$PATH`, source an env file, run a command)?
+
+---
+
+# The default job configuration
+
+.left[`config/job_conf.xml.sample_basic`:]
+```xml
+&lt;?xml version=&quot;1.0&quot;?&gt;
+&lt;job_conf&gt;
+    &lt;plugins&gt;
+        &lt;plugin id=&quot;local&quot; type=&quot;runner&quot; load=&quot;galaxy.jobs.runners.local:LocalJobRunner&quot; workers=&quot;4&quot;/&gt;
+    &lt;/plugins&gt;
+    &lt;handlers&gt;
+        &lt;handler id=&quot;main&quot;/&gt;
+    &lt;/handlers&gt;
+    &lt;destinations&gt;
+        &lt;destination id=&quot;local&quot; runner=&quot;local&quot;/&gt;
+    &lt;/destinations&gt;
+&lt;/job_conf&gt;
+```
+---
+
+# Job Config - Tags
+
+Both destinations and handlers can be grouped by **tags**
+
+- Allows random selection from multiple resources
+- Allows concurrency limits at the destination group level
+---
+
+# Job Environment
+
+`&lt;env&gt;` tag in destinations: configure the job exec environment
+
+| tag syntax | function |
+| ---- | ---- |
+| `&lt;env id=&quot;NAME&quot;&gt;VALUE&lt;/env&gt;` | Set `$NAME` to `VALUE` |
+| `&lt;env file=&quot;/path/to/file&quot; /&gt;` | Source shell file at `/path/to/file` |
+| `&lt;env exec=&quot;CMD&quot; /&gt;` | Execute `CMD` |
+
+Source and command execution will be handled on the remote destination, don't need to work on the Galaxy server
+
+---
+
+# Limits
+
+Available limits
+
+- Walltime (if not available with your DRM)
+- Output size (if *any* tool output grows larger than this limit)
+- Concurrency: Number of &quot;active&quot; (queued or running) jobs
+
+---
+
+# Concurrency Limits
+
+Available limits
+
+- Number of active jobs per registered user
+- Number of active jobs per unregistered user
+- Number of active jobs per registered user in a specified destination or destination tag
+- Number of total active jobs in a specified destination or destination tag
+
+---
+
+# Shared Filesystem
+
+Most job plugins require a **shared filesystem** between the Galaxy server and compute.
+
+The exception is **Pulsar**. More on this in *Using heterogeneous compute resources*
+
+---
+
+# Shared Filesystem
+
+Our simple example works because of two important principles:
+
+1. Some things are located *at the same path* on Galaxy server and node(s)
+  - Galaxy application (`/srv/galaxy/server`)
+  - Tool dependencies
+2. Some things *are the same* on Galaxy server and node(s)
+  - Job working directory
+  - Input and output datasets
+
+The first can be worked around with symlinks or Pulsar embedded (later)
+
+The second can be worked around with Pulsar REST/MQ (with a performance/throughput penalty)
+
+---
+
+# Multiprocessing
+
+Some tools can greatly improve performance by using multiple cores
+
+Galaxy automatically sets `$GALAXY_SLOTS` to the CPU/core count you specify when submitting, for example, 4:
+- Slurm: `sbatch --ntasks=4`
+- SGE: `qsub -pe threads 4`
+- Torque/PBS Pro: `qsub -l nodes=1:ppn=4`
+- Condor: `request_cpus: 4`
+
+Tool configs: Consume `\${GALAXY_SLOTS:-4}`
+
+---
+
+# Memory requirements
+
+For **Slurm only**, Galaxy will set `$GALAXY_MEMORY_MB` and `$GALAXY_MEMORY_MB_PER_SLOT` as integers.
+
+**Other DRMs:** Please PR the [appropriate code](https://github.com/galaxyproject/galaxy/blob/dev/lib/galaxy/jobs/runners/util/job_script/MEMORY_STATEMENT.sh).
+
+For Java tools, be sure to set `-Xmx`, e.g.:
+
+```xml
+&lt;destination id=&quot;foo&quot; ...&gt;
+    &lt;env id=&quot;_JAVA_OPTIONS&quot;&gt;-Xmx4096m&lt;/env&gt;
+&lt;/destination&gt;
+```
+
+---
+
+# Run jobs as the &quot;real&quot; user
+
+If your Galaxy users == System users:
+- Submit jobs to cluster as the actual user
+- Configurable callout scripts before/after job to change ownership
+- Probably requires limited sudo for Galaxy user
+
+See: [Cluster documentation](https://wiki.galaxyproject.org/Admin/Config/Performance/Cluster)
+
+
+---
+
+## Job Config - Mapping Tools to Destinations
+
+Problem: Tool A uses single core, Tool B uses multiple
+- Both submit to the same cluster
+- Need different submit parameters (`--ntasks=1` vs. `--ntasks=4` in Slurm)
+
+---
+
+## Job Config - Mapping Tools to Destinations
+
+Solution:
+```xml
+    &lt;destinations default=&quot;single&quot;&gt;
+        &lt;destination id=&quot;single&quot; runner=&quot;slurm&quot; /&gt;
+        &lt;destination id=&quot;multi&quot; runner=&quot;slurm&quot;&gt;
+            &lt;param id=&quot;nativeSpecification&quot;&gt;--ntasks=4&lt;/param&gt;
+        &lt;/destination&gt;
+    &lt;tools&gt;
+        &lt;tool id=&quot;hisat2&quot; destination=&quot;multi&quot;/&gt;
+    &lt;/tools&gt;
+```
+
+---
+
+# The Dynamic Job Runner
+
+For when basic tool-to-destination mapping isn't enough
+
+---
+
+## The Dynamic Job Runner
+
+A special built-in job runner plugin
+
+Map jobs to destinations on more than just tool IDs
+
+.left[Two types:]
+- Dynamic Tool Destinations
+- Python function
+
+See: [Dynamic Destination Mapping](https://docs.galaxyproject.org/en/master/admin/jobs.html#dynamic-destination-mapping)
+
+---
+
+## Dynamic Tool Destinations
+
+.left[Configurable mappings without programming:]
+- YAML format config file `tool_destinations.yml`
+- Map based on tool ID plus:
+  - Input dataset size(s)
+  - Input dataset number of records
+  - User
+- Maps to static destinations defined in job config
+
+---
+
+## Arbitrary Python Functions
+
+.left[Programmable mappings:]
+- Written as Python function in `lib/galaxy/jobs/rules/`
+- Map based on:
+  - Tool ID
+  - User email or username
+  - Inputs
+  - Tool Parameters
+  - Defined &quot;helper&quot; functions based on DB contents
+  - Anything else discoverable
+    - Cluster queue depth?
+    - ...?
+- Can dynamically modify destinations in job config (i.e. `sbatch` params)
+
+---
+
+## Tool Dependency Resolution
+
+- Galaxy can resolve dependencies using Conda, Singularity, Docker, and other systems like Modules
+- You can read more about this in the [Galaxy Tool Management with Ephemeris slides](../tool-management/slides.html)
+
+
+
+
+---
+### &lt;i class=&quot;fas fa-key&quot; aria-hidden=&quot;true&quot;&gt;&lt;/i&gt;&lt;span class=&quot;visually-hidden&quot;&gt;keypoints&lt;/span&gt; Key points
+
+
+- Galaxy supports a variety of different DRMs.
+
+- Dynamic Tool Destinations are a convenient way to map
+
+- Job resource parameters can allow you to give your users control over job resource requirements, if they are knowledgeable about the tools and compute resources available to them.
+
+
+
+
+
+
+
+---
+
+## Thank you!
+
+This material is the result of a collaborative work. Thanks to the [Galaxy Training Network](https://wiki.galaxyproject.org/Teach/GTN) and all the contributors!
+
+
+<div class="contributors-line">
+
+
+<a href="/training-material/hall-of-fame/natefoo/" class="contributor-badge"><img src="https://avatars.githubusercontent.com/natefoo" alt="Nate Coraor">Nate Coraor</a>, <a href="/training-material/hall-of-fame/bgruening/" class="contributor-badge"><img src="https://avatars.githubusercontent.com/bgruening" alt="Björn Grüning">Björn Grüning</a>, <a href="/training-material/hall-of-fame/nsoranzo/" class="contributor-badge"><img src="https://avatars.githubusercontent.com/nsoranzo" alt="Nicola Soranzo">Nicola Soranzo</a>, <a href="/training-material/hall-of-fame/hexylena/" class="contributor-badge"><img src="https://avatars.githubusercontent.com/hexylena" alt="Helena Rasche">Helena Rasche</a>
+
+
+</div>
+
+
+
+<img src="/training-material/assets/images/GTN.png" alt="Galaxy Training Network" style="height: 100px;"/>
+
+
+This material is licensed under the <a rel="license" href="https://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0 International License</a>.
+
+
+    </textarea>
+	<script src="/training-material/assets/js/remark-latest.min.js" type="text/javascript"></script>
+    <script type="text/javascript" src="/training-material/assets/js/theme.js"></script>
+    <script type="text/javascript" src="/training-material/assets/js/clipboard.min.js"></script>
+    <script type="text/javascript">
+      var slideshow = remark.create({navigation: {scroll: false,}});
+      var hljs = remark.highlighter.engine;
+      var snippets = document.querySelectorAll('code.remark-code');
+        [].forEach.call(snippets,function(snippet){
+          snippet.firstChild.insertAdjacentHTML('beforebegin','<button class="btn btn-light" data-clipboard-snippet><i class="fa fa-copy"></i>&nbsp;Copy</button>');
+        });
+      var clipboardSnippets=new ClipboardJS('[data-clipboard-snippet]',{
+        target:function(trigger){return trigger.parentElement;
+      }});
+    </script>
+
+    <script type="text/javascript">
+        if(window.location.hostname === "galaxyproject.github.io") {
+            // Redirect
+            var redirect = "https://training.galaxyproject.org" + window.location.pathname + window.location.search;
+            $('body').prepend("<div style='text-align: center'><strong>Note: </strong>This content has a new home at <a href=\"" + redirect + "\">" + redirect + "</a>, which you will be redirected to in 5 seconds.</div>");
+
+            window.setTimeout(function(){
+                window.location.href = redirect;
+            }, 5000)
+
+        }
+    </script>
+
+  </body>
+</html>

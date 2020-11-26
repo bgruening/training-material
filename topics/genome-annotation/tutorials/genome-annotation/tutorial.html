@@ -1,0 +1,849 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <title>Genome Annotation</title>
+        
+            <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+    ga('create', '' , 'auto');
+    ga('send', 'pageview');
+</script>
+        
+        <link rel="stylesheet" href="/training-material/assets/css/bootstrap.min.css?v=3">
+        <link rel="stylesheet" href="/training-material/assets/css/bootstrap-toc.min.css">
+        <link rel="stylesheet" href="/training-material/assets/css/main.css?v=2">
+        <script src="https://kit.fontawesome.com/67b3f98409.js" crossorigin="anonymous"></script>
+        <link rel="stylesheet" href="/training-material/assets/css/academicons.css">
+        <link rel="stylesheet" href="/training-material/assets/css/syntax_highlighting.css">
+        <link rel="shortcut icon" href="/training-material/favicon.ico" type="image/x-icon" />
+
+        
+        
+        
+        
+        
+        <meta name="description" content="Genome annotation is a multi-level process that includes ..." />
+        <meta property="og:title" content="Galaxy Training: Genome Annotation" />
+        <meta property="og:description" content="Genome annotation is a multi-level process that includes ..." />
+        <meta property="og:image" content="/training-material/assets/images/GTNLogo1000.png" />
+    </head>
+    <body data-spy="scroll" data-target="#toc">
+        
+
+
+
+
+
+
+
+
+
+
+
+<!-- Gitter -->
+
+
+<script>
+  ((window.gitter = {}).chat = {}).options = {
+  room: 'galaxy-genome-annotation/Lobby'
+  };
+</script>
+<script src="https://sidecar.gitter.im/dist/sidecar.v1.js" async defer></script>
+
+<header>
+    <nav class="navbar navbar-expand-lg navbar-dark">
+        <div class="container">
+            <a class="navbar-brand" href="/training-material/">
+                <img src="/training-material/assets/images/GTN-60px.png" height="30" alt="Galaxy Training Network logo">
+                Galaxy Training!
+            </a>
+
+            <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#top-navbar" aria-controls="top-navbar" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="top-navbar">
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link" href="/training-material/topics/genome-annotation" title="Go back to list of tutorials">
+                            <i class="far fa-folder" aria-hidden="true"></i><span class="visually-hidden">topic</span> Genome Annotation
+                        </a>
+                    </li>
+
+                    <li class="nav-item dropdown">
+                        <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" aria-expanded="false" title="Language Selector">
+                            <i class="fas fa-language" aria-hidden="true"></i><span class="visually-hidden">language</span> Language
+                        </a>
+                        <div class="dropdown-menu">
+                            
+                            <a class="dropdown-item" href="https://translate.google.com/translate?hl=jp&sl=en&tl=fr&u=https%3A%2F%2Ftraining.galaxyproject.org%2Ftopics%2Fgenome-annotation%2Ftutorials%2Fgenome-annotation%2Ftutorial.html&edit-text=&act=url" title="">
+                                Français
+                            </a>
+                            
+                            <a class="dropdown-item" href="https://translate.google.com/translate?hl=jp&sl=en&tl=ja&u=https%3A%2F%2Ftraining.galaxyproject.org%2Ftopics%2Fgenome-annotation%2Ftutorials%2Fgenome-annotation%2Ftutorial.html&edit-text=&act=url" title="">
+                                日本語
+                            </a>
+                            
+                            <a class="dropdown-item" href="https://translate.google.com/translate?hl=jp&sl=en&tl=es&u=https%3A%2F%2Ftraining.galaxyproject.org%2Ftopics%2Fgenome-annotation%2Ftutorials%2Fgenome-annotation%2Ftutorial.html&edit-text=&act=url" title="">
+                                Español
+                            </a>
+                            
+                            <a class="dropdown-item" href="https://translate.google.com/translate?hl=jp&sl=en&tl=pt&u=https%3A%2F%2Ftraining.galaxyproject.org%2Ftopics%2Fgenome-annotation%2Ftutorials%2Fgenome-annotation%2Ftutorial.html&edit-text=&act=url" title="">
+                                Português
+                            </a>
+                            
+                            <a class="dropdown-item" href="https://translate.google.com/translate?hl=jp&sl=en&tl=ar&u=https%3A%2F%2Ftraining.galaxyproject.org%2Ftopics%2Fgenome-annotation%2Ftutorials%2Fgenome-annotation%2Ftutorial.html&edit-text=&act=url" title="">
+                                العربية
+                            </a>
+                            
+                            <a class="dropdown-item" href="https://translate.google.com/translate?hl=jp&sl=en&tl=&u=https%3A%2F%2Ftraining.galaxyproject.org%2Ftopics%2Fgenome-annotation%2Ftutorials%2Fgenome-annotation%2Ftutorial.html&edit-text=&act=url" title="">
+                                And more!
+                            </a>
+                        </div>
+                    </li>
+
+                    <li class="nav-item dropdown">
+    <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" aria-expanded="false" title="Help">
+        <i class="far fa-question-circle" aria-hidden="true"></i><span class="visually-hidden">help</span> Help
+    </a>
+    <div class="dropdown-menu dropdown-menu-right">
+        <form method="get" action="https://tess.elixir-europe.org/materials">
+            <input type="text" id="search" name="q" value="" style="margin-left: 0.5em;/*! border-radius: 0px; */">
+            <input type="hidden" value="Galaxy Training" name="content_provider">
+            <input type="submit" value="Search on TeSS" style="width: 92%;border-radius: 0px;margin: 0.5em;background: #f47d20;border: 0px;padding: 0.25em;" class="">
+        </form>
+
+        <div class="dropdown-divider"></div>
+        <a class="dropdown-item" href="/training-material/faq" title="Check our FAQ">
+            FAQ
+        </a>
+        <a class="dropdown-item" href="https://help.galaxyproject.org/" title="Discuss on Galaxy Help">
+            Discuss on Galaxy Help
+        </a>
+
+        <div class="dropdown-item">
+            <div>
+                Theme
+            </div>
+
+            <div id="theme-selector" data-toggle="buttons">
+                <label data-value="default" class="btn btn-secondary">
+                    <input type="radio" name="options" id="default" autocomplete="off"> Default
+                </label>
+                <label data-value="night" class="btn btn-secondary">
+                    <input type="radio" name="options" id="night" autocomplete="off"> Night
+                </label>
+                <label data-value="midnight" class="btn btn-secondary">
+                    <input type="radio" name="options" id="midnight" autocomplete="off"> Midnight
+                </label>
+                <label data-value="rainbow" class="btn btn-secondary">
+                    <input type="radio" name="options" id="rainbow" autocomplete="off"> Rainbow
+                </label>
+                <label data-value="halloween" class="btn btn-secondary">
+                    <input type="radio" name="options" id="halloween" autocomplete="off"> 🎃
+                </label>
+            </div>
+
+        </div>
+    </div>
+</li>
+
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="https://github.com/galaxyproject/training-material/edit/master/topics/genome-annotation/tutorials/genome-annotation/tutorial.md">
+                            <i class="fab fa-github" aria-hidden="true"></i><span class="visually-hidden">github</span> Edit
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+</header>
+
+<div class="container main-content">
+    <script type="application/ld+json">
+        
+
+
+{
+  "@context": "http://schema.org",
+  "@type": "Course",
+  "accessMode": [
+    "textual",
+    "visual"
+  ],
+  "accessModeSufficient": [
+    "textual",
+    "visual"
+  ],
+  "accessibilityControl": [
+    "fullKeyboardControl",
+    "fullMouseControl"
+  ],
+  "accessibilityFeature": [
+    "alternativeText",
+    "tableOfContents"
+  ],
+  "accessibilitySummary": "Short descriptions are present but long descriptions will be needed for non-visual users",
+  "audience": {
+    "@type": "EducationalAudience",
+    "educationalRole": "students"
+  },
+  "citation": {
+    "@type": "CreativeWork",
+    "name": "Community-Driven Data Analysis Training for Biology",
+    "url": "https://doi.org/10.1016/j.cels.2018.05.012"
+  },
+  "copyrightHolder": {
+    "@type": "Organization",
+    "email": "galaxytrainingnetwork@gmail.com",
+    "name": "Galaxy Training Network",
+    "url": "https://galaxyproject.org/teach/gtn/"
+  },
+  "discussionUrl": "https://gitter.im/Galaxy-Training-Network/Lobby",
+  "headline": "Genome Annotation",
+  "inLanguage": {
+    "@type": "Language",
+    "name": "English",
+    "alternateName": "en"
+  },
+  "interactivityType": "mixed",
+  "isAccessibleForFree": true,
+  "license": "https://github.com/galaxyproject/training-material/blob/master/LICENSE.md",
+  "producer": {
+    "@type": "Organization",
+    "email": "galaxytrainingnetwork@gmail.com",
+    "name": "Galaxy Training Network",
+    "url": "https://galaxyproject.org/teach/gtn/"
+  },
+  "provider": {
+    "@type": "Organization",
+    "email": "galaxytrainingnetwork@gmail.com",
+    "name": "Galaxy Training Network",
+    "url": "https://galaxyproject.org/teach/gtn/"
+  },
+  "sourceOrganization": {
+    "@type": "Organization",
+    "email": "galaxytrainingnetwork@gmail.com",
+    "name": "Galaxy Training Network",
+    "url": "https://galaxyproject.org/teach/gtn/"
+  },
+  "isPartOf": {
+    "@type": "CreativeWork",
+    "name": "Genome Annotation",
+    "description": "Genome annotation is a multi-level process that includes prediction of protein-coding\ngenes, as well as other functional genome units such as structural RNAs, tRNAs,\nsmall RNAs, pseudogenes, control regions, direct and inverted repeats, insertion\nsequences, transposons and other mobile elements.\n",
+    "url": "https://training.galaxyproject.org//training-material/topics/genome-annotation/"
+  },
+  "courseCode": "genome-annotation / genome-annotation / hands-on",
+  "learningResourceType": "hands-on tutorial",
+  "name": "Hands-on for 'Genome Annotation' tutorial",
+  "url": "https://training.galaxyproject.org//training-material/topics/genome-annotation/tutorials/genome-annotation/tutorial.html",
+  "timeRequired": "PT2H",
+  "keywords": "prokaryote",
+  "description": "",
+  "coursePrerequisites": [
+    {
+      "@type": "CreativeWork",
+      "url": "https://training.galaxyproject.org//training-material/topics/introduction/",
+      "name": "Introduction to Galaxy Analyses",
+      "description": "Introduction to Galaxy Analyses",
+      "provider": {
+        "@type": "Organization",
+        "email": "galaxytrainingnetwork@gmail.com",
+        "name": "Galaxy Training Network",
+        "url": "https://galaxyproject.org/teach/gtn/"
+      }
+    }
+  ],
+  "hasPart": [
+
+  ],
+  "author": [
+    {
+      "@type": "Person",
+      "name": "Anika Erxleben"
+    },
+    {
+      "@type": "Person",
+      "name": "Björn Grüning"
+    }
+  ],
+  "contributor": [
+    {
+      "@type": "Person",
+      "name": "Anika Erxleben"
+    },
+    {
+      "@type": "Person",
+      "name": "Björn Grüning"
+    }
+  ],
+  "about": [
+    {
+      "@type": "CreativeWork",
+      "name": "Genome Annotation",
+      "description": "Genome annotation is a multi-level process that includes prediction of protein-coding\ngenes, as well as other functional genome units such as structural RNAs, tRNAs,\nsmall RNAs, pseudogenes, control regions, direct and inverted repeats, insertion\nsequences, transposons and other mobile elements.\n",
+      "url": "https://training.galaxyproject.org//training-material/topics/genome-annotation/"
+    }
+  ]
+}
+    </script>
+
+    <section class="tutorial">
+        <h1 data-toc-skip>Genome Annotation</h1>
+        
+        <div class="alert alert-warning" role="alert">
+            <h4 class="alert-heading">Under Development!</h4>
+            <p>This tutorial is not in its final state. The content may change a lot in the next months.
+            Because of this status, it is also not listed in the topic pages.</p>
+        </div>
+        
+
+        <div class="contributors-line">By: 
+
+<a href="/training-material/hall-of-fame/erxleben/" class="contributor-badge"><img src="https://avatars.githubusercontent.com/erxleben" alt="Anika Erxleben">Anika Erxleben</a>, <a href="/training-material/hall-of-fame/bgruening/" class="contributor-badge"><img src="https://avatars.githubusercontent.com/bgruening" alt="Björn Grüning">Björn Grüning</a>
+
+</div>
+
+        <blockquote class="overview">
+            <h3>Overview</h3>
+            <strong><i class="far fa-question-circle" aria-hidden="true"></i><span class="visually-hidden">question</span> Questions</strong>
+            <ul>
+            
+            </ul>
+
+            <strong><i class="fas fa-bullseye" aria-hidden="true"></i><span class="visually-hidden">objectives</span> Objectives</strong>
+            <ul>
+            
+            </ul>
+
+            
+            <strong><i class="fas fa-check-circle" aria-hidden="true"></i><span class="visually-hidden">requirements</span> Requirements</strong>
+            <ul>
+            
+    <li>
+    
+        
+        
+        <a href="/training-material/topics/introduction">Introduction to Galaxy Analyses</a>
+        
+    
+    </li>
+
+            
+            </ul>
+            
+
+            
+            <p><strong><i class="fas fa-hourglass-half" aria-hidden="true"></i><span class="visually-hidden">time</span> Time estimation:</strong> 2 hours</p>
+            
+
+            
+
+            
+            
+
+            
+            <p id="supporting-materials"><strong><i class="fa fa-external-link" aria-hidden="true"></i> Supporting Materials</strong></p>
+            <ul>
+                <div class="supporting_material">
+                
+                    <li class="btn btn-default supporting_material"><a href="/training-material/topics/genome-annotation/slides/introduction.html" title="Introduction slides">
+                        <i class="fab fa-slideshare" aria-hidden="true"></i><span class="visually-hidden">slides</span> Introduction slides
+                    </a></li>
+                
+
+                
+
+                
+
+                
+
+                
+                    <li class="btn btn-default supporting_material">
+
+    <a href="#" class="btn btn-default dropdown-toggle topic-icon" data-toggle="dropdown" aria-expanded="false" title="Where to run the tutorial">
+        <i class="fas fa-globe" aria-hidden="true"></i><span class="visually-hidden">instances</span> Available on these Galaxies
+    </a>
+    <ul class="dropdown-menu">
+    
+        <li>
+            <a class="dropdown-item" href="https://github.com/galaxyproject/training-material/tree/master/topics/genome-annotation/docker" title="Docker image for this tutorial">
+                <i class="fab fa-docker" aria-hidden="true"></i><span class="visually-hidden">docker_image</span> Docker image
+            </a>
+        </li>
+    
+    
+    </ul>
+
+
+</li>
+                
+                </div>
+            </ul>
+            
+
+            <p><strong> <i class="far fa-calendar" aria-hidden="true"></i><span class="visually-hidden">last_modification</span> Last modification:</strong> Nov 26, 2020 </p>
+        </blockquote>
+
+        <div class="container">
+            <div class="row">
+                <!-- sidebar, which will move to the top on a small screen -->
+                <div class="col-sm-2">
+                    <nav id="toc" data-toggle="toc" class="sticky-top"></nav>
+                </div>
+                <div class="col-sm-10">
+                    <h1 class="no_toc" id="introduction">Introduction</h1>
+
+<p>Genome annotation is the process of attaching biological information to sequences.
+It consists of three main steps:</p>
+
+<ul>
+  <li>identifying portions of the genome that do not code for proteins</li>
+  <li>identifying elements on the genome, a process called gene prediction, and</li>
+  <li>attaching biological information to these elements.</li>
+</ul>
+
+<blockquote class="agenda">
+  <h3 id="agenda">Agenda</h3>
+
+  <p>In this tutorial, we will deal with:</p>
+
+<ol id="markdown-toc">
+  <li><a href="#introduction-into-file-formats" id="markdown-toc-introduction-into-file-formats">Introduction into File Formats</a></li>
+  <li><a href="#structural-annotation" id="markdown-toc-structural-annotation">Structural Annotation</a>    <ol>
+      <li><a href="#sequence-features" id="markdown-toc-sequence-features">Sequence Features</a></li>
+      <li><a href="#gene-prediction" id="markdown-toc-gene-prediction">Gene Prediction</a></li>
+    </ol>
+  </li>
+  <li><a href="#functional-annotation" id="markdown-toc-functional-annotation">Functional Annotation</a>    <ol>
+      <li><a href="#similarity-searches-blast" id="markdown-toc-similarity-searches-blast">Similarity Searches (BLAST)</a></li>
+      <li><a href="#more-similarity-search-tools-in-galaxy" id="markdown-toc-more-similarity-search-tools-in-galaxy">More Similarity Search Tools in <span class="notranslate">Galaxy</span></a></li>
+      <li><a href="#identification-of-gene-clusters" id="markdown-toc-identification-of-gene-clusters">Identification of Gene Clusters</a></li>
+    </ol>
+  </li>
+</ol>
+
+</blockquote>
+
+<h1 id="introduction-into-file-formats">Introduction into File Formats</h1>
+
+<p><strong>FASTA</strong></p>
+
+<p><span class="notranslate">DNA</span> and protein sequences are written in FASTA format where you have in the first line a “&gt;” followed by the description. In the second line the sequence starts.</p>
+
+<p><img src="../../images/fasta_format.png" alt="FASTA file" /></p>
+
+<p><strong>GFF3</strong></p>
+
+<p>The general feature format (gene-finding format, generic feature format, GFF) is a file format used for describing genes and other features of <span class="notranslate">DNA</span>, <span class="notranslate">RNA</span> and protein sequences.</p>
+
+<p><img src="../../images/gff3_format.png" alt="GFF3 overview" width="70%" /></p>
+
+<p><strong>GENBANK</strong></p>
+
+<p>The genbank sequence format is a rich format for storing sequences and associated annotations.</p>
+
+<p><img src="../../images/gb_full.png" alt="genbank file" /></p>
+
+<h1 id="structural-annotation">Structural Annotation</h1>
+
+<p>For the genome annotation we use a piece of the <em>Aspergillus fumigatus</em> <a href="https://zenodo.org/record/1250793/files/Aspergillus_sequence.fasta">genome sequence</a> as input file.</p>
+
+<h2 id="sequence-features">Sequence Features</h2>
+
+<p>First we want to get some general information about our sequence.</p>
+
+<blockquote class="notranslate hands_on">
+  <h3 id="hands_on-hands-on-sequence-composition"><i class="fas fa-pencil-alt" aria-hidden="true"></i><span class="visually-hidden">hands_on</span> Hands-on: Sequence composition</h3>
+
+  <ol>
+    <li>Count the number of bases in your sequence (<strong>compute sequence length</strong>)</li>
+    <li>Check for sequence composition and GC content (<strong>geecee</strong>).</li>
+    <li>Plot the sequence composition as bar chart.</li>
+  </ol>
+
+  <p><img src="../../images/barchart_sequencecomposition.png" alt="Bar chart output of the sequence" width="30%" /></p>
+
+</blockquote>
+
+<h2 id="gene-prediction">Gene Prediction</h2>
+
+<p>At first you need to identify those structures of the genome which code for proteins. This step of annotation is called “structural annotation”. It contains the identification and location of open reading frames (ORFs), identification of gene structures and coding regions, and the location of regulatory motifs. <span class="notranslate">Galaxy</span> contains several tools for the structural annotation. Tools for gene prediction are <strong>Augustus</strong> (for eukaryotes and prokaryotes) and <strong>glimmer3</strong> (only for prokaryotes).</p>
+
+<blockquote class="notranslate hands_on">
+  <h3 id="hands_on-hands-on-gene-prediction"><i class="fas fa-pencil-alt" aria-hidden="true"></i><span class="visually-hidden">hands_on</span> Hands-on: Gene prediction</h3>
+
+  <p>We use <strong>Augustus</strong> for gene prediction.</p>
+  <ol>
+    <li>Use the genome sequence (FASTA file) as input.</li>
+    <li>Choose the right <em>model organism</em>, <em>gff</em> format output.</li>
+    <li>Select all possible output options.</li>
+  </ol>
+
+  <p><img src="../../images/augustus.png" alt="augustus" /></p>
+
+  <p>Augustus will provide three output files: <em>gff3</em>, <em>coding sequences</em> (CDS) and <em>protein sequences</em>.</p>
+
+  <blockquote class="question">
+    <h3 id="question-question"><i class="far fa-question-circle" aria-hidden="true"></i><span class="visually-hidden">question</span> Question</h3>
+
+    <p>How many genes are predicted?</p>
+
+    <blockquote class="solution">
+      <h3 id="solution-solution"><i class="far fa-eye" aria-hidden="true"></i><span class="visually-hidden">solution</span> Solution</h3>
+      <p>Check the output: <a href="../../images/augustus_out.png">augustus_output</a></p>
+    </blockquote>
+  </blockquote>
+
+</blockquote>
+
+<blockquote class="notranslate hands_on">
+  <h3 id="hands_on-hands-on-trna-and-tmrna-prediction"><i class="fas fa-pencil-alt" aria-hidden="true"></i><span class="visually-hidden">hands_on</span> Hands-on: t<span class="notranslate">RNA</span> and tm<span class="notranslate">RNA</span> Prediction</h3>
+
+  <p>Use <strong>Aragorn</strong> for t<span class="notranslate">RNA</span> and tm<span class="notranslate">RNA</span> prediction.</p>
+  <ol>
+    <li>As input file use the <em>Aspergillus</em> genome sequence. You can choose the genetic code (e.g. bacteria).</li>
+    <li>
+      <p>Select the topology of your genome (circular or linear).</p>
+
+      <blockquote class="question">
+        <h3 id="question-question-1"><i class="far fa-question-circle" aria-hidden="true"></i><span class="visually-hidden">question</span> Question</h3>
+
+        <p>Are there t<span class="notranslate">RNA</span>s or tm<span class="notranslate">RNA</span>s in the sequence?</p>
+
+      </blockquote>
+    </li>
+  </ol>
+
+</blockquote>
+
+<blockquote class="details">
+  <h3 id="details-aragorn-in-depth"><i class="fas fa-info-circle" aria-hidden="true"></i><span class="visually-hidden">details</span> Aragorn in depth</h3>
+
+  <p>read more about <strong>Aragorn</strong> <a href="https://nar.oxfordjournals.org/content/32/1/11.full.pdf+html">here</a>.</p>
+</blockquote>
+
+<h1 id="functional-annotation">Functional Annotation</h1>
+
+<h2 id="similarity-searches-blast">Similarity Searches (BLAST)</h2>
+
+<p>Functional gene annotation means the description of the biochemical and biological function of proteins. Possible analyses to annotate genes can be for example:</p>
+
+<ul>
+  <li>similarity searches</li>
+  <li>gene cluster prediction for secondary metabolites</li>
+  <li>identification of transmembrane domains in protein sequences</li>
+  <li>finding gene ontology terms</li>
+  <li>pathway information</li>
+</ul>
+
+<p>For similarity searches we use <em>NCBI BLAST+ blastp</em> to find similar proteins in a protein database.</p>
+
+<blockquote class="notranslate hands_on">
+  <h3 id="hands_on-hands-on--similarity-search"><i class="fas fa-pencil-alt" aria-hidden="true"></i><span class="visually-hidden">hands_on</span> Hands-on:  Similarity search</h3>
+
+  <ol>
+    <li><i class="fas fa-wrench" aria-hidden="true"></i><span class="visually-hidden">tool</span> As input file, select the protein sequences from Augustus.</li>
+    <li>Choose the protein BLAST database <em>SwissProt</em> and the output format <em>xml</em>.</li>
+  </ol>
+
+  <p><img src="../../images/blastP.png" alt="blastp tool interface and parameters" width="70%" /></p>
+
+  <ol>
+    <li>
+      <p>Parsing the xml output (<strong>Parse blast XML output</strong>) results in changing the format style into tabular.</p>
+
+      <blockquote class="question">
+        <h3 id="question-questions"><i class="far fa-question-circle" aria-hidden="true"></i><span class="visually-hidden">question</span> Questions</h3>
+
+        <p>What information do you see in the BLAST output?</p>
+
+      </blockquote>
+    </li>
+  </ol>
+
+  <p>From BLAST search results we want to get only the best hit for each protein.</p>
+  <ol>
+    <li>
+      <p><i class="fas fa-wrench" aria-hidden="true"></i><span class="visually-hidden">tool</span> Therefore apply the tool <strong>BLAST top hit descriptions</strong> with <em>number of descriptions =1</em> on the xml output file.</p>
+
+      <blockquote class="question">
+        <h3 id="question-question-2"><i class="far fa-question-circle" aria-hidden="true"></i><span class="visually-hidden">question</span> Question</h3>
+
+        <p>For how many proteins we do not get a BLAST hit?</p>
+
+      </blockquote>
+    </li>
+    <li>
+      <p><i class="fas fa-wrench" aria-hidden="true"></i><span class="visually-hidden">tool</span> Choose the tool <strong>Select lines that match an <span class="notranslate">expression</span></strong> and enter the following information: <em>Select lines from</em> [select the BLAST top hit descriptions result file]; <em>that</em> [not matching]; <em>the pattern</em> [gi].</p>
+
+      <p><img src="../../images/selectlines.png" alt="Select lines that match an expression tool interface and parameters" width="50%" /></p>
+
+      <blockquote class="comment">
+        <h3 id="comment-results-file"><i class="far fa-comment-dots" aria-hidden="true"></i><span class="visually-hidden">comment</span> Results file</h3>
+        <p>The result file will contain all proteins which do not have an entry in the second column and therefore have no similar protein in the SwissProt database.</p>
+      </blockquote>
+
+      <blockquote class="comment">
+        <h3 id="comment-obtaining-unannotated-proteins-for-analysis"><i class="far fa-comment-dots" aria-hidden="true"></i><span class="visually-hidden">comment</span> Obtaining unannotated proteins for analysis</h3>
+        <p>For functional description of those proteins we want to search for motifs or domains which may classify them more. To get a protein sequence FASTA file with only the not annotated proteins, use the tool <strong>Filter sequences by ID from a tabular file</strong> and select for <em>Sequence file to filter on the identifiers</em> [Augustus protein sequences] and for <em>Tabular file containing sequence identifiers</em> the protein file with not annotated sequences. The output file is a FASTA file with only those sequences without description.</p>
+      </blockquote>
+    </li>
+  </ol>
+
+</blockquote>
+
+<p>This file will be the input for more detailed analysis:</p>
+
+<ul>
+  <li>
+    <p><strong>Interproscan</strong> is a functional prediction tool. Select all applications and run it on your protein file.</p>
+  </li>
+  <li>
+    <p><strong>WolfPSort</strong> predicts eukaryote protein subcellular localization. Filter the result file for the best ranked localization hit. Use <strong>Filter data on any column using simple <span class="notranslate">expression</span>s</strong> with <em>c4==1</em>. The parameter c4==1 means: filter and keep all results where in column 4 is a “1”.</p>
+  </li>
+  <li>
+    <p><strong>TMHMM</strong> finds transmembrane domains in protein sequences. The number of amino acids in transmembrane helices should be &gt;18. This information can be found in column 3. Filter the result file <em>c3&gt;17.99</em>.</p>
+  </li>
+  <li>
+    <p><strong>BLAST2GO</strong> maps BLAST results to GO annotation terms.</p>
+  </li>
+</ul>
+
+<h3 id="blast-programs">BLAST Programs</h3>
+
+<p><img src="../../images/blastprograms.png" alt="BLAST programs" /></p>
+
+<p><img src="../../images/blast_database.png" alt="BLAST databases" /></p>
+
+<blockquote class="details">
+  <h3 id="details-organism-not-available-in-a-blast-database"><i class="fas fa-info-circle" aria-hidden="true"></i><span class="visually-hidden">details</span> Organism not available in a BLAST database</h3>
+
+  <p>If you have an organism which is not available in a BLAST database, you can use its genome sequence in FASTA file for BLAST searches “sequence file against sequence file”. If you need to search in these sequences on a regularly basis, you can create a own BLAST database from the sequences of the organism. The advantage of having a own database for your organism is the duration of the BLAST search which speeds up a lot.</p>
+</blockquote>
+
+<p><strong>NCBI BLAST+ makeblastdb</strong> creates a BLAST database from your own FASTA sequence file. Molecule type of input is protein or nucleotide.</p>
+
+<blockquote class="details">
+  <h3 id="details-further-reading-about-blast-tools-in-galaxy"><i class="fas fa-info-circle" aria-hidden="true"></i><span class="visually-hidden">details</span> Further Reading about BLAST Tools in <span class="notranslate">Galaxy</span></h3>
+
+  <p>Cock et al. (2015): <a href="http://biorxiv.org/content/early/2015/05/04/014043.full-text.pdf+html">NCBI BLAST+ integrated into <span class="notranslate">Galaxy</span></a></p>
+
+  <p>Cock et al. (2013): <a href="https://peerj.com/articles/167/"><span class="notranslate">Galaxy</span> tools and workflows for sequence analysis with applications in molecular plant pathology</a></p>
+</blockquote>
+
+<h2 id="more-similarity-search-tools-in-galaxy">More Similarity Search Tools in <span class="notranslate">Galaxy</span></h2>
+
+<ul>
+  <li><strong>VSEARCH</strong>: For processing metagenomic sequences, including searching, clustering, chimera detection, dereplication, sorting, masking and shuffling. VSEARCH stands for vectorized search, as the tool takes advantage of parallelism in the form of SIMD vectorization as well as multiple th<span class="notranslate">reads</span> to perform accurate alignments at high speed. VSEARCH uses an optimal global aligner (full dynamic programming Needleman-Wunsch), in contrast to USEARCH which by default uses a heuristic seed and extend aligner. This results in more accurate alignments and overall improved sensitivity (recall) with VSEARCH, especially for alignments with gaps.</li>
+</ul>
+
+<blockquote class="details">
+  <h3 id="details-vsearch-in-depth"><i class="fas fa-info-circle" aria-hidden="true"></i><span class="visually-hidden">details</span> <code class="language-plaintext highlighter-rouge">vsearch</code> in depth</h3>
+
+  <p>Documentation for vsearch see <a href="https://github.com/torognes/vsearch">here</a>.</p>
+</blockquote>
+
+<ul>
+  <li><strong>Diamond</strong>: Diamond is a high-throughput program for aligning a file of short <span class="notranslate">reads</span> against a protein reference database such as NR, at 20,000 times the speed of Blastx, with high sensitivity.</li>
+</ul>
+
+<blockquote class="details">
+  <h3 id="details-diamond-in-depth"><i class="fas fa-info-circle" aria-hidden="true"></i><span class="visually-hidden">details</span> Diamond in depth</h3>
+
+  <p><a href="https://www.nature.com/nmeth/journal/v12/n1/abs/nmeth.3176.html">Buchfink et al. (2015): Fast and sensitive protein alignment using Diamond.</a></p>
+</blockquote>
+
+<ul>
+  <li><strong>Kraken</strong>: Kraken BLAST is a highly scalable, extremely fast, commercial, parallelized implementation of the NCBI BLAST application.</li>
+</ul>
+
+<h2 id="identification-of-gene-clusters">Identification of Gene Clusters</h2>
+
+<p>For identification of gene clusters, <strong>antiSMASH</strong> is used. The tool uses genbank file as input files and predicts gene clusters. Output files are a html visualization and the gene cluster proteins.</p>
+
+<blockquote class="notranslate hands_on">
+  <h3 id="hands_on-hands-on-antismash-analysis"><i class="fas fa-pencil-alt" aria-hidden="true"></i><span class="visually-hidden">hands_on</span> Hands-on: antiSMASH analysis</h3>
+
+  <p><i class="fas fa-wrench" aria-hidden="true"></i><span class="visually-hidden">tool</span> Import this <a href="../../input_data/Streptomyces_coelicolor_part.genbank">dataset</a> into your <span class="notranslate">Galaxy</span> history and run <strong>antiSMASH</strong> to detect gene clusters. The genbank file contains a part of the <em>Streptomyces coelicolor</em> genome sequence.</p>
+
+</blockquote>
+
+<blockquote class="question">
+  <h3 id="question-questions-1"><i class="far fa-question-circle" aria-hidden="true"></i><span class="visually-hidden">question</span> Questions</h3>
+
+  <p>Which gene clusters are identified?</p>
+
+</blockquote>
+
+<p>When you have a whole genome <strong>antiSMASH</strong> analysis, your result may look like this:</p>
+
+<p><img src="../../images/antismash_full.png" alt="The result of antiSMASH" width="80%" /></p>
+
+<p>At the end, you can extract a reproducible <span class="notranslate">workflow</span> out of your history. The <span class="notranslate">workflow</span> should look like this:</p>
+
+<p><img src="../../images/work_flow_Screenshot_from_2015-06-23_09-33-23.png" alt="GenomeAnnotation Workflow" /></p>
+
+
+                    
+
+                    
+
+                    
+
+                    <h1>Feedback</h1>
+                    <p class="text-muted">Did you use this material as an instructor? Feel free to give us feedback on <a href="https://github.com/galaxyproject/training-material/issues/1452" target="_blank">how it went</a>.</p>
+
+                    <div id="feedback-button">
+                        <img src="/training-material/shared/images/feedback.png" title="Click to activate" alt="Click here to load Google feedback frame" />
+                    </div>
+                    <div id="feedback-form">
+                    </div>
+                    <script type="text/javascript">
+                        (function (window, document) {
+                            function onDocumentReady(fn) {
+                                if (document.attachEvent ? document.readyState === "complete" : document.readyState !== "loading") {
+                                    fn();
+                                } else {
+                                    document.addEventListener('DOMContentLoaded', fn);
+                                }
+                            }
+
+                            onDocumentReady(function () {
+                                $("#feedback-button").click(function(evt){
+                                    var e = $(evt.target)
+                                    e.hide();
+
+                                    $("#feedback-form").html(`
+                                        <iframe id="feedback-google" class="google-form" src="https://docs.google.com/forms/d/e/1FAIpQLSd4VZptFTQ03kHkMz0JyW9b6_S8geU5KjNE_tLM0dixT3ZQmA/viewform?embedded=true&entry.1235803833=Genome Annotation (Genome Annotation)">Loading...</iframe>
+                                    `)
+                                })
+                            });
+                        })(window, document);
+                    </script>
+
+
+
+                    <h1>Citing this Tutorial</h1>
+                    <p>
+                        <ol>
+                            <li id="citation-text">Anika Erxleben, Björn Grüning, 2020 <b>Genome Annotation (Galaxy Training Materials)</b>. <a href="/training-material/topics/genome-annotation/tutorials/genome-annotation/tutorial.html">/training-material/topics/genome-annotation/tutorials/genome-annotation/tutorial.html</a> Online; accessed TODAY
+                            </li>
+                            <li>
+                            Batut et al., 2018 <b>Community-Driven Data Analysis Training for Biology</b> Cell Systems <a href="https://doi.org/10.1016%2Fj.cels.2018.05.012">10.1016/j.cels.2018.05.012</a>
+                            </li>
+                        </ol>
+                    </p>
+
+
+                    <blockquote class="details">
+                      <h3><i class="fa fa-info-circle" aria-hidden="true"></i><span class="visually-hidden">details</span> BibTeX</h3>
+                      <p style="display: none;">
+
+                    <div class="highlighter-rouge"><div class="highlight"><pre class="highlight">
+<code id="citation-code">@misc{genome-annotation-genome-annotation,
+    author = "Anika Erxleben and Björn Grüning",
+    title = "Genome Annotation (Galaxy Training Materials)",
+    year = "2020",
+    month = "11",
+    day = "26"
+    url = "\url{/training-material/topics/genome-annotation/tutorials/genome-annotation/tutorial.html}",
+    note = "[Online; accessed TODAY]"
+}
+@article{Batut_2018,
+        doi = {10.1016/j.cels.2018.05.012},
+        url = {https://doi.org/10.1016%2Fj.cels.2018.05.012},
+        year = 2018,
+        month = {jun},
+        publisher = {Elsevier {BV}},
+        volume = {6},
+        number = {6},
+        pages = {752--758.e1},
+        author = {B{\'{e}}r{\'{e}}nice Batut and Saskia Hiltemann and Andrea Bagnacani and Dannon Baker and Vivek Bhardwaj and Clemens Blank and Anthony Bretaudeau and Loraine Brillet-Gu{\'{e}}guen and Martin {\v{C}}ech and John Chilton and Dave Clements and Olivia Doppelt-Azeroual and Anika Erxleben and Mallory Ann Freeberg and Simon Gladman and Youri Hoogstrate and Hans-Rudolf Hotz and Torsten Houwaart and Pratik Jagtap and Delphine Larivi{\`{e}}re and Gildas Le Corguill{\'{e}} and Thomas Manke and Fabien Mareuil and Fidel Ram{\'{\i}}rez and Devon Ryan and Florian Christoph Sigloch and Nicola Soranzo and Joachim Wolff and Pavankumar Videm and Markus Wolfien and Aisanjiang Wubuli and Dilmurat Yusuf and James Taylor and Rolf Backofen and Anton Nekrutenko and Björn Grüning},
+        title = {Community-Driven Data Analysis Training for Biology},
+        journal = {Cell Systems}
+}</code>
+                    </pre></div></div>
+                    </p>
+                    </blockquote>
+
+
+<script type="text/javascript">
+// update the date on load, or leave fallback of 'today'
+d = new Date();
+document.getElementById("citation-code").innerHTML = document.getElementById("citation-code").innerHTML.replace("TODAY", d.toDateString());
+document.getElementById("citation-text").innerHTML = document.getElementById("citation-text").innerHTML.replace("TODAY", d.toDateString());
+</script>
+
+                </div>
+            </div>
+        </div>
+
+        <h3><i class="far fa-thumbs-up" aria-hidden="true"></i><span class="visually-hidden">congratulations</span> Congratulations on successfully completing this tutorial!</h3>
+
+        
+
+        
+    </section>
+</div>
+
+
+<footer>
+    <div class="container">
+        <p>
+            This material is the result of a collaborative work. Thanks to the
+            <a href="https://wiki.galaxyproject.org/Teach/GTN">Galaxy Training Network</a>
+            and all the <a href="/training-material/hall-of-fame">contributors</a> (Anika Erxleben, Björn Grüning)!
+        </p>
+        <p>
+            Found a typo? Something is wrong in this tutorial? Edit it on
+            <a href="https://github.com/galaxyproject/training-material/tree/master/topics/genome-annotation/tutorials/genome-annotation/tutorial.md">GitHub</a>.
+        </p>
+        <p>
+    The content of the tutorials and website is licensed under the <a rel="license" href="https://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0 International License</a>.
+</p>
+    </div>
+</footer>
+
+    </body>
+    <script type="text/javascript" src="/training-material/assets/js/jquery.slim.min.js"></script>
+    <script type="text/javascript" src="/training-material/assets/js/popper.min.js"></script>
+    <script type="text/javascript" src="/training-material/assets/js/bootstrap.min.js?v=3"></script>
+    <script type="text/javascript" src="/training-material/assets/js/details-element-polyfill.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript" src="/training-material/assets/js/bootstrap-toc.min.js"></script>
+    <script type="text/javascript" src="/training-material/assets/js/main.js"></script>
+    <script type="text/javascript" src="/training-material/assets/js/theme.js"></script>
+
+    <script type="text/javascript" src="/training-material/assets/js/clipboard.min.js"></script>
+    <script type="text/javascript">
+    var snippets=document.querySelectorAll('div.highlight');
+    [].forEach.call(snippets,function(snippet){
+        snippet.firstChild.insertAdjacentHTML('beforebegin','<button class="btn btn-light" data-clipboard-snippet><i class="fa fa-copy"></i>&nbsp;Copy</button>');
+    });
+
+    var clipboardSnippets=new ClipboardJS('[data-clipboard-snippet]',{
+        target:function(trigger){return trigger.nextElementSibling;
+    }});
+    </script>
+    
+
+    <script type="text/javascript">
+        if(window.location.hostname === "galaxyproject.github.io") {
+            // Redirect
+            var redirect = "https://training.galaxyproject.org" + window.location.pathname + window.location.search;
+            $('div.container.main-content').prepend("<div class='alert alert-warning'><strong>Note: </strong>This content has a new home at <a href=\"" + redirect + "\">" + redirect + "</a>, which you will be redirected to in 5 seconds.</div>");
+
+            window.setTimeout(function(){
+                window.location.href = redirect;
+            }, 5000)
+
+        }
+    </script>
+</html>

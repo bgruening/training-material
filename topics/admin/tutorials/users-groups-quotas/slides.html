@@ -1,0 +1,527 @@
+<!DOCTYPE html>
+<html>
+
+
+
+
+
+
+
+
+
+  <head>
+    <meta charset="utf-8">
+    <title>User, Group and Quota managment</title>
+    
+        <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+    ga('create', '' , 'auto');
+    ga('send', 'pageview');
+</script>
+    
+    <link rel="stylesheet" href="/training-material/assets/css/slides.css">
+    <script src="https://kit.fontawesome.com/67b3f98409.js" crossorigin="anonymous"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="shortcut icon" href="/training-material/favicon.ico" type="image/x-icon" />
+
+    
+    
+    
+    
+    <meta name="description" content="Resources related to configuration and maintenance of Gal..." />
+    <meta property="og:title" content="Galaxy Training: User, Group and Quota managment" />
+    <meta property="og:description" content="Resources related to configuration and maintenance of Gal..." />
+    <meta property="og:image" content="/training-material/assets/images/GTNLogo1000.png" />
+    <script type="application/ld+json">
+      
+
+
+{
+  "@context": "http://schema.org",
+  "@type": "Course",
+  "accessMode": [
+    "textual",
+    "visual"
+  ],
+  "accessModeSufficient": [
+    "textual",
+    "visual"
+  ],
+  "accessibilityControl": [
+    "fullKeyboardControl",
+    "fullMouseControl"
+  ],
+  "accessibilityFeature": [
+    "alternativeText",
+    "tableOfContents"
+  ],
+  "accessibilitySummary": "Short descriptions are present but long descriptions will be needed for non-visual users",
+  "audience": {
+    "@type": "EducationalAudience",
+    "educationalRole": "students"
+  },
+  "citation": {
+    "@type": "CreativeWork",
+    "name": "Community-Driven Data Analysis Training for Biology",
+    "url": "https://doi.org/10.1016/j.cels.2018.05.012"
+  },
+  "copyrightHolder": {
+    "@type": "Organization",
+    "email": "galaxytrainingnetwork@gmail.com",
+    "name": "Galaxy Training Network",
+    "url": "https://galaxyproject.org/teach/gtn/"
+  },
+  "discussionUrl": "https://gitter.im/Galaxy-Training-Network/Lobby",
+  "headline": "User, Group and Quota managment",
+  "inLanguage": {
+    "@type": "Language",
+    "name": "English",
+    "alternateName": "en"
+  },
+  "interactivityType": "mixed",
+  "isAccessibleForFree": true,
+  "license": "https://github.com/galaxyproject/training-material/blob/master/LICENSE.md",
+  "producer": {
+    "@type": "Organization",
+    "email": "galaxytrainingnetwork@gmail.com",
+    "name": "Galaxy Training Network",
+    "url": "https://galaxyproject.org/teach/gtn/"
+  },
+  "provider": {
+    "@type": "Organization",
+    "email": "galaxytrainingnetwork@gmail.com",
+    "name": "Galaxy Training Network",
+    "url": "https://galaxyproject.org/teach/gtn/"
+  },
+  "sourceOrganization": {
+    "@type": "Organization",
+    "email": "galaxytrainingnetwork@gmail.com",
+    "name": "Galaxy Training Network",
+    "url": "https://galaxyproject.org/teach/gtn/"
+  },
+  "isPartOf": {
+    "@type": "CreativeWork",
+    "name": "Galaxy Server administration",
+    "description": "Resources related to configuration and maintenance of Galaxy servers",
+    "url": "https://training.galaxyproject.org//training-material/topics/admin/"
+  },
+  "courseCode": "admin / users-groups-quotas / slides",
+  "learningResourceType": "slides",
+  "name": "Slides for 'User, Group and Quota managment' tutorial",
+  "url": "https://training.galaxyproject.org//training-material/topics/admin/tutorials/users-groups-quotas/slides.html",
+  "timeRequired": "PT1H",
+  "description": "The questions this  addresses are:\n - How does Galaxy manage users and groups?\n - How can I assign Quotas to specific users/groups?\n\n\\nThe objectives are:\n - Learn the Galaxy user/group management and assign Quotas.\n - Understand the Role Based Access Control (RBAC) of Galaxy.\n\n",
+  "hasPart": [
+
+  ],
+  "author": [
+    {
+      "@type": "Person",
+      "name": "Nate Coraor"
+    },
+    {
+      "@type": "Person",
+      "name": "Björn Grüning"
+    }
+  ],
+  "contributor": [
+    {
+      "@type": "Person",
+      "name": "Nate Coraor"
+    },
+    {
+      "@type": "Person",
+      "name": "Björn Grüning"
+    }
+  ],
+  "about": [
+    {
+      "@type": "CreativeWork",
+      "name": "Galaxy Server administration",
+      "description": "Resources related to configuration and maintenance of Galaxy servers",
+      "url": "https://training.galaxyproject.org//training-material/topics/admin/"
+    }
+  ]
+}
+    </script>
+    <script type="text/javascript" src="/training-material/assets/js/jquery.slim.min.js"></script>
+  </head>
+  <body>
+    <textarea id="source">
+name: inverse
+layout: true
+class: center, middle, inverse
+
+<div class="my-header"><span>
+<a href="/training-material/topics/admin" title="Return to topic page" ><i class="fa fa-level-up" aria-hidden="true"></i></a>
+
+<a class="nav-link" href="https://github.com/galaxyproject/training-material/edit/master/topics/admin/tutorials/users-groups-quotas/slides.html"><i class="fa fa-pencil" aria-hidden="true"></i></a>
+
+</span></div>
+
+<div class="my-footer"><span>
+
+<img src="/training-material/assets/images/GTN-60px.png" alt="Galaxy Training Network" style="height: 40px;"/>
+
+</span></div>
+
+---
+
+# User, Group and Quota managment
+
+
+
+.footnote[Tip: press `P` to view the presenter notes]
+
+???
+Presenter notes contain extra information which might be useful if you
+intend to use these slides for teaching.
+
+Press `P` again to switch presenter notes off
+
+Press `C` to create a new window where the same presentation will be displayed.
+This window is linked to the main window. Changing slides on one will cause the
+slide to change on the other. Useful when presenting.
+
+---
+
+
+
+
+
+### &lt;i class=&quot;far fa-question-circle&quot; aria-hidden=&quot;true&quot;&gt;&lt;/i&gt;&lt;span class=&quot;visually-hidden&quot;&gt;question&lt;/span&gt; Questions
+
+
+- How does Galaxy manage users and groups?
+
+- How can I assign Quotas to specific users/groups?
+
+
+---
+
+
+### &lt;i class=&quot;fas fa-bullseye&quot; aria-hidden=&quot;true&quot;&gt;&lt;/i&gt;&lt;span class=&quot;visually-hidden&quot;&gt;objectives&lt;/span&gt; Objectives
+
+
+- Learn the Galaxy user/group management and assign Quotas.
+
+- Understand the Role Based Access Control (RBAC) of Galaxy.
+
+
+---
+
+
+# Users, Groups, Quotas
+
+.footnote[\#usegalaxy / @galaxyproject]
+
+---
+class: left
+
+## Overview
+
+This section will cover handling of users, groups and quotas for Galaxy. We will look at the following in particular:
+* User Activation and Control
+* User Passwords and Session Policies
+* Setting Admin users and admin control of users
+* User Privacy
+* Roles and Groups
+* Setting permissions on Libraries and Datasets
+* Quotas
+* Introduction to alternate authentication
+
+???
+
+- Lots of different topics, but everything is related to users and permissions
+- As an admin you have lots of control over this
+- Most configuration in galaxy.yml file
+
+---
+## User Control
+
+option | description
+---- | ----
+`require_login` | Prevent anonymous access.
+`show_welcome_with_login` | Show welcome page next to login page.
+`allow_user_creation` | Allow user registration. When False, admins must create users; often coupled with `require_login`.
+`allow_user_dataset_purge` | Users can purge (permanently delete) their datasets.
+`api_allow_run_as` | List of email addresses of API users who can make calls on behalf of other users.
+`expose_dataset_path` | Users to see the full path of datasets via the &quot;View Details&quot; option in the history.
+
+.footnote[.center[options in `galaxy.yml`]]
+
+???
+
+These options let you control anonymous access, if users can register
+themselves or an admin needs to create them, and what sort of responsibility they have
+
+---
+class: left
+
+## User Activation
+
+Require verification that a user's email is real. You must enable SMTP first.
+
+option | description
+---- | ----
+`user_activation_on` | Require users to click link in email before running jobs.
+`activation_grace_period` | Time (hours) that a user can 'explore' Galaxy before activation lockout.
+`inactivity_box_content` | Message provided to non-activated users.
+`blacklist_file` | Defines domains in XXX.YYY format that will be rejected as user emails.
+
+Exercise:
+  - Enable User activation
+  - Register a new user (second email / email+1@example.com)
+  - Upload a Dataset
+
+.footnote[.center[options in `galaxy.yml`]]
+
+???
+
+- Whenever a user registers, user activation settings control how this process goes
+- If you want require activation, let them explore first, or blacklist certain email domains
+
+---
+## Password &amp; Session Policies
+
+option | description
+---- | ----
+`password_expiration_period` | Days before requiring a user to change password. ([NIST recommends not requiring password changes.](https://en.wikipedia.org/wiki/Password_policy#NIST_guidelines))
+`session_duration` | Minutes before invaliding a user's session, requiring re-login.
+
+.footnote[.center[options in `galaxy.yml`]]
+
+???
+
+- Some options are related to IT security policies
+
+---
+class: left
+
+## Admin Control
+
+option | description
+---- | ----
+`admin_users` | Comma-separated list of admin users' emails.
+`allow_user_deletion` | Admins can delete users.
+`allow_user_impersonation` | Admins can become other users. Great for debugging / user assistance.
+`master_api_key` | Admin super-key allows many API admin actions without having a real admin user.
+
+Exercise:
+ - Enable user impersonation
+ - Log in as admin and become other user
+ - View existing and create Histories and Datasets.
+
+.footnote[.center[options in `galaxy.yml`]]
+
+???
+
+- You used `admin_users` in the basic admin training to define an admin email address
+- User impersonation is a very commonly used feature, allowing admins to debug issues in their users' histories
+- A master api key can be set but there are some caveats, as it isn't tied to a user account.
+
+---
+class: left
+
+## User Privacy
+
+option | description
+---- | ----
+`expose_user_name` | Users can view other registered usernames.
+`expose_user_email` | Users can view other registered emails.
+`new_user_dataset_access_role_default_private` | Newly created datasets are private to the creating user.
+
+.footnote[.center[options in `galaxy.yml`]]
+
+???
+
+- These options control if the username/email is shown as a dropdown in the history sharing dialogue.
+- The `new_user_dataset_access_role_default_private` is important, by default when users share-by-link, all datasets are public. When you set this option, datasets are private, even thoughthe history is shared via link. Users complain when it doesn't work, and have to be educated to click the appropriate buttons.
+
+---
+class: left
+
+## Roles and Groups
+
+#### Role Based Access Control (RBAC)
+
+**Admin** can:
+* create roles (each user automatically has their own 'private' role)
+* create groups
+* assign roles to groups
+* assign users to groups
+* assign groups to roles
+* assign users to roles
+* assign permission sets to roles
+* assign permission sets to groups
+
+???
+
+- Galaxy uses RBAC for permissions in many places. Roles can be creaed, and assigned permissions. Roles and groups behave similarly, grouping users together and granting permisisons.
+
+---
+
+class: left
+## Dataset Roles
+
+
+.left-column50[
+**manage permissions**
+* Users who have associated role on a dataset can manage the roles associated it.
+
+**access**
+* Users having associated role can use/view/download a dataset for analysis. Users must have every role associated with a dataset in order to access it
+
+**new_user_dataset_access_role_default_private** (`galaxy.yml`)
+* When this is set, datasets are private by default.
+]
+
+.right-column50[.middle[.image-90[
+![User_roles](../../images/dataset_roles.png)
+]]]
+---
+
+## Library Roles
+
+
+.left-column50[
+* **modify library item**: Users having associated role can modify this library item
+* **access library**: Restrict access to this library to only users having associated role
+* **add library item**: Users having associated role can add library items to this library item
+* **manage library permissions**: Users having associated role can manage roles associated with permissions on this library item
+]
+.left-column50[.image-90[
+![Library_roles](../../images/Library_roles.png)
+]]
+
+---
+class: left
+## Role Demo
+
+* We will now demonstrate creation of Groups and Roles.
+* We will show how restricting access to a Dataset prevents usage or download.
+
+---
+class: left, reduce90
+## Quotas
+
+Used to control user disk usage.
+
+option | description
+---- | ----
+`enable_quotas` | Enable enforcement of quotas.  Quotas can be set from the Admin interface (under Data).
+
+Must create quotas in admin interface before any quota will be enforced, otherwise 'unlimited'
+
+Amounts:
+ - Examples: &quot;10000MB&quot;, &quot;99 gb&quot;, &quot;0.2T&quot;, &quot;unlimited&quot;
+ - = / + / -
+
+Default for user class:
+ - None (No)
+ - Unregistered Users
+ - Registered Users
+
+or associated with Groups or Users
+
+.footnote[.center[options in `galaxy.yml`]]
+
+???
+
+- You can enable quotas in your galaxy.yml file
+- When the user has more data than their quotum permits, they are prevented from starting new jobs.
+- many sites setup a &quot;quote increase request&quot; form, to let users request increases for specific, temporary projects
+
+---
+class: left
+## Quota Details
+
+- Quotas can be set for Users, or all users of a Group
+- But it is not a &quot;group quota&quot;
+- The quota is applied to individual users
+
+Storage
+
+- Quotas are stored in the DB tables `galaxy_user`, `galaxy_group`, and `quota`
+
+---
+class: left
+## Quota Automation
+
+- There is currently no quota automation.
+- Some individuals have written their own quota automation but it is quite ugly ([usegalaxy-eu/quota-sync](https://github.com/usegalaxy-eu/quota-sync))
+- Could be nicer with a lot of work
+- Quotas are like group/user management: not managed by files, only within UI/API
+
+
+
+
+---
+### &lt;i class=&quot;fas fa-key&quot; aria-hidden=&quot;true&quot;&gt;&lt;/i&gt;&lt;span class=&quot;visually-hidden&quot;&gt;keypoints&lt;/span&gt; Key points
+
+
+- Galaxy has a powerful user and group managment system that can be utilized for Quota management.
+
+
+
+
+
+
+
+---
+
+## Thank you!
+
+This material is the result of a collaborative work. Thanks to the [Galaxy Training Network](https://wiki.galaxyproject.org/Teach/GTN) and all the contributors!
+
+
+<div class="contributors-line">
+
+
+<a href="/training-material/hall-of-fame/natefoo/" class="contributor-badge"><img src="https://avatars.githubusercontent.com/natefoo" alt="Nate Coraor">Nate Coraor</a>, <a href="/training-material/hall-of-fame/bgruening/" class="contributor-badge"><img src="https://avatars.githubusercontent.com/bgruening" alt="Björn Grüning">Björn Grüning</a>
+
+
+</div>
+
+
+
+<img src="/training-material/assets/images/GTN.png" alt="Galaxy Training Network" style="height: 100px;"/>
+
+
+This material is licensed under the <a rel="license" href="https://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0 International License</a>.
+
+
+    </textarea>
+	<script src="/training-material/assets/js/remark-latest.min.js" type="text/javascript"></script>
+    <script type="text/javascript" src="/training-material/assets/js/theme.js"></script>
+    <script type="text/javascript" src="/training-material/assets/js/clipboard.min.js"></script>
+    <script type="text/javascript">
+      var slideshow = remark.create({navigation: {scroll: false,}});
+      var hljs = remark.highlighter.engine;
+      var snippets = document.querySelectorAll('code.remark-code');
+        [].forEach.call(snippets,function(snippet){
+          snippet.firstChild.insertAdjacentHTML('beforebegin','<button class="btn btn-light" data-clipboard-snippet><i class="fa fa-copy"></i>&nbsp;Copy</button>');
+        });
+      var clipboardSnippets=new ClipboardJS('[data-clipboard-snippet]',{
+        target:function(trigger){return trigger.parentElement;
+      }});
+    </script>
+
+    <script type="text/javascript">
+        if(window.location.hostname === "galaxyproject.github.io") {
+            // Redirect
+            var redirect = "https://training.galaxyproject.org" + window.location.pathname + window.location.search;
+            $('body').prepend("<div style='text-align: center'><strong>Note: </strong>This content has a new home at <a href=\"" + redirect + "\">" + redirect + "</a>, which you will be redirected to in 5 seconds.</div>");
+
+            window.setTimeout(function(){
+                window.location.href = redirect;
+            }, 5000)
+
+        }
+    </script>
+
+  </body>
+</html>

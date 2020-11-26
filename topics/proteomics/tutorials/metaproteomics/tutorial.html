@@ -1,0 +1,1649 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <title>Metaproteomics tutorial</title>
+        
+            <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+    ga('create', '' , 'auto');
+    ga('send', 'pageview');
+</script>
+        
+        <link rel="stylesheet" href="/training-material/assets/css/bootstrap.min.css?v=3">
+        <link rel="stylesheet" href="/training-material/assets/css/bootstrap-toc.min.css">
+        <link rel="stylesheet" href="/training-material/assets/css/main.css?v=2">
+        <script src="https://kit.fontawesome.com/67b3f98409.js" crossorigin="anonymous"></script>
+        <link rel="stylesheet" href="/training-material/assets/css/academicons.css">
+        <link rel="stylesheet" href="/training-material/assets/css/syntax_highlighting.css">
+        <link rel="shortcut icon" href="/training-material/favicon.ico" type="image/x-icon" />
+
+        
+        
+        
+        
+        
+        <meta name="description" content="Training material for proteomics workflows in Galaxy" />
+        <meta property="og:title" content="Galaxy Training: Metaproteomics tutorial" />
+        <meta property="og:description" content="Training material for proteomics workflows in Galaxy" />
+        <meta property="og:image" content="/training-material/assets/images/GTNLogo1000.png" />
+    </head>
+    <body data-spy="scroll" data-target="#toc">
+        
+
+
+
+
+
+
+
+
+
+
+
+<!-- Gitter -->
+
+
+<script>
+  ((window.gitter = {}).chat = {}).options = {
+  room: 'Galaxy-Training-Network/Lobby'
+  };
+</script>
+<script src="https://sidecar.gitter.im/dist/sidecar.v1.js" async defer></script>
+
+<header>
+    <nav class="navbar navbar-expand-lg navbar-dark">
+        <div class="container">
+            <a class="navbar-brand" href="/training-material/">
+                <img src="/training-material/assets/images/GTN-60px.png" height="30" alt="Galaxy Training Network logo">
+                Galaxy Training!
+            </a>
+
+            <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#top-navbar" aria-controls="top-navbar" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="top-navbar">
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link" href="/training-material/topics/proteomics" title="Go back to list of tutorials">
+                            <i class="far fa-folder" aria-hidden="true"></i><span class="visually-hidden">topic</span> Proteomics
+                        </a>
+                    </li>
+
+                    <li class="nav-item dropdown">
+                        <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" aria-expanded="false" title="Language Selector">
+                            <i class="fas fa-language" aria-hidden="true"></i><span class="visually-hidden">language</span> Language
+                        </a>
+                        <div class="dropdown-menu">
+                            
+                            <a class="dropdown-item" href="https://translate.google.com/translate?hl=jp&sl=en&tl=fr&u=https%3A%2F%2Ftraining.galaxyproject.org%2Ftopics%2Fproteomics%2Ftutorials%2Fmetaproteomics%2Ftutorial.html&edit-text=&act=url" title="">
+                                Français
+                            </a>
+                            
+                            <a class="dropdown-item" href="https://translate.google.com/translate?hl=jp&sl=en&tl=ja&u=https%3A%2F%2Ftraining.galaxyproject.org%2Ftopics%2Fproteomics%2Ftutorials%2Fmetaproteomics%2Ftutorial.html&edit-text=&act=url" title="">
+                                日本語
+                            </a>
+                            
+                            <a class="dropdown-item" href="https://translate.google.com/translate?hl=jp&sl=en&tl=es&u=https%3A%2F%2Ftraining.galaxyproject.org%2Ftopics%2Fproteomics%2Ftutorials%2Fmetaproteomics%2Ftutorial.html&edit-text=&act=url" title="">
+                                Español
+                            </a>
+                            
+                            <a class="dropdown-item" href="https://translate.google.com/translate?hl=jp&sl=en&tl=pt&u=https%3A%2F%2Ftraining.galaxyproject.org%2Ftopics%2Fproteomics%2Ftutorials%2Fmetaproteomics%2Ftutorial.html&edit-text=&act=url" title="">
+                                Português
+                            </a>
+                            
+                            <a class="dropdown-item" href="https://translate.google.com/translate?hl=jp&sl=en&tl=ar&u=https%3A%2F%2Ftraining.galaxyproject.org%2Ftopics%2Fproteomics%2Ftutorials%2Fmetaproteomics%2Ftutorial.html&edit-text=&act=url" title="">
+                                العربية
+                            </a>
+                            
+                            <a class="dropdown-item" href="https://translate.google.com/translate?hl=jp&sl=en&tl=&u=https%3A%2F%2Ftraining.galaxyproject.org%2Ftopics%2Fproteomics%2Ftutorials%2Fmetaproteomics%2Ftutorial.html&edit-text=&act=url" title="">
+                                And more!
+                            </a>
+                        </div>
+                    </li>
+
+                    <li class="nav-item dropdown">
+    <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" aria-expanded="false" title="Help">
+        <i class="far fa-question-circle" aria-hidden="true"></i><span class="visually-hidden">help</span> Help
+    </a>
+    <div class="dropdown-menu dropdown-menu-right">
+        <form method="get" action="https://tess.elixir-europe.org/materials">
+            <input type="text" id="search" name="q" value="" style="margin-left: 0.5em;/*! border-radius: 0px; */">
+            <input type="hidden" value="Galaxy Training" name="content_provider">
+            <input type="submit" value="Search on TeSS" style="width: 92%;border-radius: 0px;margin: 0.5em;background: #f47d20;border: 0px;padding: 0.25em;" class="">
+        </form>
+
+        <div class="dropdown-divider"></div>
+        <a class="dropdown-item" href="/training-material/faq" title="Check our FAQ">
+            FAQ
+        </a>
+        <a class="dropdown-item" href="https://help.galaxyproject.org/" title="Discuss on Galaxy Help">
+            Discuss on Galaxy Help
+        </a>
+
+        <div class="dropdown-item">
+            <div>
+                Theme
+            </div>
+
+            <div id="theme-selector" data-toggle="buttons">
+                <label data-value="default" class="btn btn-secondary">
+                    <input type="radio" name="options" id="default" autocomplete="off"> Default
+                </label>
+                <label data-value="night" class="btn btn-secondary">
+                    <input type="radio" name="options" id="night" autocomplete="off"> Night
+                </label>
+                <label data-value="midnight" class="btn btn-secondary">
+                    <input type="radio" name="options" id="midnight" autocomplete="off"> Midnight
+                </label>
+                <label data-value="rainbow" class="btn btn-secondary">
+                    <input type="radio" name="options" id="rainbow" autocomplete="off"> Rainbow
+                </label>
+                <label data-value="halloween" class="btn btn-secondary">
+                    <input type="radio" name="options" id="halloween" autocomplete="off"> 🎃
+                </label>
+            </div>
+
+        </div>
+    </div>
+</li>
+
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="https://github.com/galaxyproject/training-material/edit/master/topics/proteomics/tutorials/metaproteomics/tutorial.md">
+                            <i class="fab fa-github" aria-hidden="true"></i><span class="visually-hidden">github</span> Edit
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+</header>
+
+<div class="container main-content">
+    <script type="application/ld+json">
+        
+
+
+{
+  "@context": "http://schema.org",
+  "@type": "Course",
+  "accessMode": [
+    "textual",
+    "visual"
+  ],
+  "accessModeSufficient": [
+    "textual",
+    "visual"
+  ],
+  "accessibilityControl": [
+    "fullKeyboardControl",
+    "fullMouseControl"
+  ],
+  "accessibilityFeature": [
+    "alternativeText",
+    "tableOfContents"
+  ],
+  "accessibilitySummary": "Short descriptions are present but long descriptions will be needed for non-visual users",
+  "audience": {
+    "@type": "EducationalAudience",
+    "educationalRole": "students"
+  },
+  "citation": {
+    "@type": "CreativeWork",
+    "name": "Community-Driven Data Analysis Training for Biology",
+    "url": "https://doi.org/10.1016/j.cels.2018.05.012"
+  },
+  "copyrightHolder": {
+    "@type": "Organization",
+    "email": "galaxytrainingnetwork@gmail.com",
+    "name": "Galaxy Training Network",
+    "url": "https://galaxyproject.org/teach/gtn/"
+  },
+  "discussionUrl": "https://gitter.im/Galaxy-Training-Network/Lobby",
+  "headline": "Metaproteomics tutorial",
+  "inLanguage": {
+    "@type": "Language",
+    "name": "English",
+    "alternateName": "en"
+  },
+  "interactivityType": "mixed",
+  "isAccessibleForFree": true,
+  "license": "https://github.com/galaxyproject/training-material/blob/master/LICENSE.md",
+  "producer": {
+    "@type": "Organization",
+    "email": "galaxytrainingnetwork@gmail.com",
+    "name": "Galaxy Training Network",
+    "url": "https://galaxyproject.org/teach/gtn/"
+  },
+  "provider": {
+    "@type": "Organization",
+    "email": "galaxytrainingnetwork@gmail.com",
+    "name": "Galaxy Training Network",
+    "url": "https://galaxyproject.org/teach/gtn/"
+  },
+  "sourceOrganization": {
+    "@type": "Organization",
+    "email": "galaxytrainingnetwork@gmail.com",
+    "name": "Galaxy Training Network",
+    "url": "https://galaxyproject.org/teach/gtn/"
+  },
+  "isPartOf": {
+    "@type": "CreativeWork",
+    "name": "Proteomics",
+    "description": "Training material for proteomics workflows in Galaxy",
+    "url": "https://training.galaxyproject.org//training-material/topics/proteomics/"
+  },
+  "courseCode": "proteomics / metaproteomics / hands-on",
+  "learningResourceType": "hands-on tutorial",
+  "name": "Hands-on for 'Metaproteomics tutorial' tutorial",
+  "url": "https://training.galaxyproject.org//training-material/topics/proteomics/tutorials/metaproteomics/tutorial.html",
+  "timeRequired": "PT2H",
+  "description": "The questions this  addresses are:\n - How can I match metaproteomic mass spectrometry data to peptide sequences derived from shotgun metagenomic data?\n - How can I perform taxonomy analysis and visualize metaproteomics data?\n - How can I perform functional analysis on this metaproteomics data?\n\n\\nThe objectives are:\n - A taxonomy and functional analysis of metaproteomic mass spectrometry data.\n\n",
+  "coursePrerequisites": [
+    {
+      "@type": "CreativeWork",
+      "url": "https://training.galaxyproject.org//training-material/topics/introduction/",
+      "name": "Introduction to Galaxy Analyses",
+      "description": "Introduction to Galaxy Analyses",
+      "provider": {
+        "@type": "Organization",
+        "email": "galaxytrainingnetwork@gmail.com",
+        "name": "Galaxy Training Network",
+        "url": "https://galaxyproject.org/teach/gtn/"
+      }
+    }
+  ],
+  "hasPart": [
+
+  ],
+  "author": [
+    {
+      "@type": "Person",
+      "name": "Timothy J. Griffin"
+    },
+    {
+      "@type": "Person",
+      "name": "Pratik Jagtap"
+    },
+    {
+      "@type": "Person",
+      "name": "James Johnson"
+    },
+    {
+      "@type": "Person",
+      "name": "Clemens Blank"
+    },
+    {
+      "@type": "Person",
+      "name": "Subina Mehta"
+    }
+  ],
+  "contributor": [
+    {
+      "@type": "Person",
+      "name": "Timothy J. Griffin"
+    },
+    {
+      "@type": "Person",
+      "name": "Pratik Jagtap"
+    },
+    {
+      "@type": "Person",
+      "name": "James Johnson"
+    },
+    {
+      "@type": "Person",
+      "name": "Clemens Blank"
+    },
+    {
+      "@type": "Person",
+      "name": "Subina Mehta"
+    }
+  ],
+  "about": [
+    {
+      "@type": "CreativeWork",
+      "name": "Proteomics",
+      "description": "Training material for proteomics workflows in Galaxy",
+      "url": "https://training.galaxyproject.org//training-material/topics/proteomics/"
+    },
+    {
+      "@type": "DefinedTerm",
+      "@id": "http://edamontology.org/topic_0121",
+      "inDefinedTermSet": "http://edamontology.org",
+      "termCode": "topic_0121",
+      "url": "https://bioportal.bioontology.org/ontologies/EDAM/?p=classes&conceptid=http%3A%2F%2Fedamontology.org%2Ftopic_0121"
+    }
+  ]
+}
+    </script>
+
+    <section class="tutorial">
+        <h1 data-toc-skip>Metaproteomics tutorial</h1>
+        
+
+        <div class="contributors-line">By: 
+
+<a href="/training-material/hall-of-fame/timothygriffin/" class="contributor-badge"><img src="https://avatars.githubusercontent.com/timothygriffin" alt="Timothy J. Griffin">Timothy J. Griffin</a>, <a href="/training-material/hall-of-fame/pratikdjagtap/" class="contributor-badge"><img src="https://avatars.githubusercontent.com/pratikdjagtap" alt="Pratik Jagtap">Pratik Jagtap</a>, <a href="/training-material/hall-of-fame/jj-umn/" class="contributor-badge"><img src="https://avatars.githubusercontent.com/jj-umn" alt="James Johnson">James Johnson</a>, <a href="/training-material/hall-of-fame/blankclemens/" class="contributor-badge"><img src="https://avatars.githubusercontent.com/blankclemens" alt="Clemens Blank">Clemens Blank</a>, <a href="/training-material/hall-of-fame/subinamehta/" class="contributor-badge"><img src="https://avatars.githubusercontent.com/subinamehta" alt="Subina Mehta">Subina Mehta</a>
+
+</div>
+
+        <blockquote class="overview">
+            <h3>Overview</h3>
+            <strong><i class="far fa-question-circle" aria-hidden="true"></i><span class="visually-hidden">question</span> Questions</strong>
+            <ul>
+            
+            <li><p>How can I match metaproteomic mass spectrometry data to peptide sequences derived from shotgun metagenomic data?</p>
+</li>
+            
+            <li><p>How can I perform taxonomy analysis and visualize metaproteomics data?</p>
+</li>
+            
+            <li><p>How can I perform functional analysis on this metaproteomics data?</p>
+</li>
+            
+            </ul>
+
+            <strong><i class="fas fa-bullseye" aria-hidden="true"></i><span class="visually-hidden">objectives</span> Objectives</strong>
+            <ul>
+            
+            <li><p>A taxonomy and functional analysis of metaproteomic mass spectrometry data.</p>
+</li>
+            
+            </ul>
+
+            
+            <strong><i class="fas fa-check-circle" aria-hidden="true"></i><span class="visually-hidden">requirements</span> Requirements</strong>
+            <ul>
+            
+    <li>
+    
+        
+        
+        <a href="/training-material/topics/introduction">Introduction to Galaxy Analyses</a>
+        
+    
+    </li>
+
+            
+            </ul>
+            
+
+            
+            <p><strong><i class="fas fa-hourglass-half" aria-hidden="true"></i><span class="visually-hidden">time</span> Time estimation:</strong> 2 hours</p>
+            
+
+            
+
+            
+            
+
+            
+            <p id="supporting-materials"><strong><i class="fa fa-external-link" aria-hidden="true"></i> Supporting Materials</strong></p>
+            <ul>
+                <div class="supporting_material">
+                
+
+                
+                    <li class="btn btn-default supporting_material">
+<a class="topic-icon" href="https://doi.org/10.5281/zenodo.839701">
+    <i class="far fa-copy" aria-hidden="true"></i><span class="visually-hidden">zenodo_link</span> Datasets
+</a>
+
+</li>
+                
+
+                
+                    <li class="btn btn-default supporting_material">
+    <a class="topic-icon" href="/training-material/topics/proteomics/tutorials/metaproteomics/workflows/" title="Workflows" alt="Metaproteomics tutorial workflows">
+        <i class="fas fa-share-alt" aria-hidden="true"></i><span class="visually-hidden">workflow</span> Workflows
+    </a>
+
+</li>
+                
+
+                
+                    <li class="btn btn-default supporting_material">
+<a class="topic-icon" href="https://github.com/galaxyproject/training-material/tree/master/topics/proteomics/tutorials/metaproteomics/tours/">
+    <i class="fas fa-magic" aria-hidden="true"></i><span class="visually-hidden">interactive_tour</span> Tours
+</a>
+
+</li>
+                
+
+                
+                    <li class="btn btn-default supporting_material">
+
+    <a href="#" class="btn btn-default dropdown-toggle topic-icon" data-toggle="dropdown" aria-expanded="false" title="Where to run the tutorial">
+        <i class="fas fa-globe" aria-hidden="true"></i><span class="visually-hidden">instances</span> Available on these Galaxies
+    </a>
+    <ul class="dropdown-menu">
+    
+        <li>
+            <a class="dropdown-item" href="https://github.com/galaxyproject/training-material/tree/master/topics/proteomics/docker" title="Docker image for this tutorial">
+                <i class="fab fa-docker" aria-hidden="true"></i><span class="visually-hidden">docker_image</span> Docker image
+            </a>
+        </li>
+    
+    
+    </ul>
+
+
+</li>
+                
+                </div>
+            </ul>
+            
+
+            <p><strong> <i class="far fa-calendar" aria-hidden="true"></i><span class="visually-hidden">last_modification</span> Last modification:</strong> Nov 26, 2020 </p>
+        </blockquote>
+
+        <div class="container">
+            <div class="row">
+                <!-- sidebar, which will move to the top on a small screen -->
+                <div class="col-sm-2">
+                    <nav id="toc" data-toggle="toc" class="sticky-top"></nav>
+                </div>
+                <div class="col-sm-10">
+                    <h1 class="no_toc" id="introduction">Introduction</h1>
+
+<p>In this metaproteomics tutorial we will identify expressed proteins from a complex bacterial community sample.
+For this MS/MS data will be matched to peptide sequences provided through a FASTA file.</p>
+
+<p>Metaproteomics is the large-scale characterization of the entire protein complement of environmental microbiota
+at a given point in time. It has the potential to unravel the mechanistic details of microbial interactions with
+the host / environment by analyzing the functional dynamics of the microbiome.</p>
+
+<p>In this tutorial, we will analyze a sample of sea water that was collected in August of 2013 from the Bering
+Strait chlorophyll maximum layer (7m depth, 65° 43.44″ N, 168° 57.42″ W). The data were originally published in <a href="https://www.ncbi.nlm.nih.gov/pubmed/27396978">May et al., 2016</a>.</p>
+
+<blockquote class="agenda">
+  <h3 id="agenda">Agenda</h3>
+
+  <p>In this tutorial, we will deal with:</p>
+
+<ol id="markdown-toc">
+  <li><a href="#pretreatments" id="markdown-toc-pretreatments">Pretreatments</a>    <ol>
+      <li><a href="#data-upload" id="markdown-toc-data-upload">Data upload</a></li>
+    </ol>
+  </li>
+  <li><a href="#analysis" id="markdown-toc-analysis">Analysis</a>    <ol>
+      <li><a href="#match-peptide-sequences" id="markdown-toc-match-peptide-sequences">Match peptide sequences</a></li>
+      <li><a href="#taxonomy-analysis" id="markdown-toc-taxonomy-analysis">Taxonomy analysis</a></li>
+      <li><a href="#genus-taxonomy-level-summary" id="markdown-toc-genus-taxonomy-level-summary">Genus taxonomy level summary</a></li>
+      <li><a href="#functional-analysis" id="markdown-toc-functional-analysis">Functional Analysis</a></li>
+    </ol>
+  </li>
+</ol>
+
+</blockquote>
+
+<h1 id="pretreatments">Pretreatments</h1>
+
+<h2 id="data-upload">Data upload</h2>
+
+<p>There are three ways to upload your data.</p>
+
+<ul>
+  <li>Upload/Import the files from your computer</li>
+  <li>Using a direct link</li>
+  <li>Import from the data library if your instance provides the files</li>
+</ul>
+
+<p>In this tutorial, we will get the data from Zenodo: <a href="https://doi.org/10.5281/zenodo.839701"><img src="https://zenodo.org/badge/DOI/10.5281/zenodo.839701.svg" alt="DOI" /></a>.</p>
+
+<blockquote class="notranslate hands_on">
+  <h3 id="hands_on-hands-on-data-upload-and-organization"><i class="fas fa-pencil-alt" aria-hidden="true"></i><span class="visually-hidden">hands_on</span> Hands-on: Data upload and organization</h3>
+
+  <ol>
+    <li>
+      <p>Create a new history and name it something meaningful (e.g. <em>Metaproteomics tutorial</em>)</p>
+
+      <blockquote class="tip">
+
+        <h3 id="tip-tip-creating-a-new-history"><i class="far fa-lightbulb" aria-hidden="true"></i><span class="visually-hidden">tip</span> Tip: Creating a new history</h3>
+
+        <p>Click the <i class="fas fa-plus" aria-hidden="true"></i><span class="visually-hidden">new-history</span> icon at the top of the history panel</p>
+
+        <p>If the <i class="fas fa-plus" aria-hidden="true"></i><span class="visually-hidden">new-history</span> is missing:</p>
+        <ol>
+          <li>Click on the <i class="fas fa-cog" aria-hidden="true"></i><span class="visually-hidden"><span class="notranslate">galaxy</span>-gear</span> icon (<strong>History options</strong>) on the top of the history panel</li>
+          <li>Select the option <strong>Create New</strong> from the menu</li>
+        </ol>
+      </blockquote>
+
+      <blockquote class="tip">
+
+        <h3 id="tip-tip-renaming-a-history"><i class="far fa-lightbulb" aria-hidden="true"></i><span class="visually-hidden">tip</span> Tip: Renaming a history</h3>
+
+        <ol>
+          <li>Click on <strong>Unnamed history</strong> (or the current name of the history) (<strong>Click to rename history</strong>) at the top of your history panel</li>
+          <li>Type the new name</li>
+          <li>Press <kbd>Enter</kbd></li>
+        </ol>
+      </blockquote>
+    </li>
+    <li>
+      <p>Import the three MGF MS/MS files and the FASTA sequence file from Zenodo.</p>
+
+      <blockquote class="tip">
+
+        <h3 id="tip-tip-importing-data-via-links"><i class="far fa-lightbulb" aria-hidden="true"></i><span class="visually-hidden">tip</span> Tip: Importing data via links</h3>
+
+        <ul>
+          <li>Copy the link location</li>
+          <li>
+            <p>Open the <span class="notranslate">Galaxy</span> Upload Manager (<i class="fas fa-upload" aria-hidden="true"></i><span class="visually-hidden"><span class="notranslate">galaxy</span>-upload</span> on the top-right of the tool panel)</p>
+          </li>
+          <li>Select <strong>Paste/Fetch Data</strong></li>
+          <li>
+            <p>Paste the link into the text field</p>
+          </li>
+          <li>
+            <p>Press <strong>Start</strong></p>
+          </li>
+          <li><strong>Close</strong> the window</li>
+        </ul>
+
+        <p>By default, <span class="notranslate">Galaxy</span> uses the URL as the name, so rename the files with a more useful name.</p>
+
+      </blockquote>
+
+      <p>As default, <span class="notranslate">Galaxy</span> takes the link as name.</p>
+
+      <blockquote class="comment">
+        <h3 id="comment-comments"><i class="far fa-comment-dots" aria-hidden="true"></i><span class="visually-hidden">comment</span> Comments</h3>
+        <ul>
+          <li>Rename the datasets to a more descriptive name</li>
+        </ul>
+      </blockquote>
+    </li>
+    <li>
+      <p>Build a <strong>Dataset list</strong> for the three MGF files</p>
+
+      <blockquote class="tip">
+
+        <h3 id="tip-tip-creating-a-dataset-collection"><i class="far fa-lightbulb" aria-hidden="true"></i><span class="visually-hidden">tip</span> Tip: Creating a dataset collection</h3>
+
+        <ul>
+          <li>Click on <strong>Operations on multiple datasets</strong> (check box icon) at the top of the history panel <img src="../../../galaxy-interface/images/historyItemControls.png" alt="Operations on multiple datasets button" /></li>
+          <li>Check all the datasets in your history you would like to include</li>
+          <li>
+            <p>Click <strong>For all selected..</strong> and choose <strong>Build dataset list</strong></p>
+
+            <p><img src="/training-material/topics/galaxy-interface/images/buildList.png" alt="build list collection menu item" width="15%" /></p>
+          </li>
+          <li>Enter a name for your collection</li>
+          <li>Click <strong>Create List</strong> to build your collection</li>
+          <li>Click on the checkmark icon at the top of your history again</li>
+        </ul>
+      </blockquote>
+    </li>
+  </ol>
+
+</blockquote>
+
+<h1 id="analysis">Analysis</h1>
+
+<h2 id="match-peptide-sequences">Match peptide sequences</h2>
+
+<p>The search database labelled <code class="language-plaintext highlighter-rouge">FASTA_Bering_Strait_Trimmed_metapeptides_cRAP.FASTA</code> is the input database that
+will be used to match MS/MS to peptide sequences via a sequence database search. It is a small excerpt of the original database, which was constructed based on a metagenomic screening of the sea water samples (see <a href="https://www.ncbi.nlm.nih.gov/pubmed/27396978">May et al. (2016)</a>). The full original database can be accessed from <a href="https://noble.gs.washington.edu/proj/metapeptide/data/metapeptides_BSt.fasta">here</a>. The contaminant database (cRAP) was merged with the original database.</p>
+
+<p>For this, the sequence database-searching program called <a href="https://compomics.github.io/projects/searchgui.html">SearchGUI</a> will be used.
+The created dataset collection of the three <em>MGF files</em> in the history is used as the MS/MS input.</p>
+
+<h4 id="searchgui">SearchGUI</h4>
+
+<blockquote class="notranslate hands_on">
+  <h3 id="hands_on-hands-on-searchgui"><i class="fas fa-pencil-alt" aria-hidden="true"></i><span class="visually-hidden">hands_on</span> Hands-on: SearchGUI</h3>
+
+  <ol>
+    <li><strong>SearchGUI</strong> <i class="fas fa-wrench" aria-hidden="true"></i><span class="visually-hidden">tool</span>: Run <strong>SearchGUI</strong> with:
+      <ul>
+        <li><strong>Protein Database</strong>: <code class="language-plaintext highlighter-rouge">FASTA_Bering_Strait_Trimmed_metapeptides_cRAP.FASTA</code>(or however you named the <code class="language-plaintext highlighter-rouge">FASTA</code> file)</li>
+        <li><strong>Input Peak lists (mgf)</strong>: <code class="language-plaintext highlighter-rouge">MGF files</code> dataset collection.</li>
+      </ul>
+
+      <blockquote class="tip">
+        <h3 id="tip-tip-select-dataset-collections-as-input"><i class="far fa-lightbulb" aria-hidden="true"></i><span class="visually-hidden">tip</span> Tip: Select dataset collections as input</h3>
+
+        <ul>
+          <li>
+            <p>Click the <strong>Dataset collection</strong> icon on the left of the input field:</p>
+
+            <p><img src="../../images/dataset_button.png" alt="Dataset collection button" /></p>
+          </li>
+          <li>
+            <p>Select the appropriate dataset collection from the list</p>
+          </li>
+        </ul>
+      </blockquote>
+
+      <p>Section <strong>Search Engine Options</strong>:</p>
+
+      <ul>
+        <li><strong>Search Engines</strong>: <code class="language-plaintext highlighter-rouge">X!Tandem</code></li>
+      </ul>
+
+      <blockquote class="comment">
+        <h3 id="comment-comment"><i class="far fa-comment-dots" aria-hidden="true"></i><span class="visually-hidden">comment</span> Comment</h3>
+
+        <p>The section <strong>Search Engine Options</strong> contains a selection of sequence database searching
+algorithms that are available in SearchGUI. Any combination of these programs can be used for
+generating PSMs from MS/MS data. For the purpose of this tutorial, <strong>X!Tandem</strong> we will be used.</p>
+      </blockquote>
+
+      <p>Section <strong>Precursor Options</strong>:</p>
+
+      <ul>
+        <li><strong>Fragment Tolerance Units</strong>: <code class="language-plaintext highlighter-rouge">Daltons</code></li>
+        <li><strong>Fragment Tolerance</strong>: <code class="language-plaintext highlighter-rouge">0.02</code>- this is high resolution MS/MS data</li>
+        <li><strong>Maximum Charge</strong>: <code class="language-plaintext highlighter-rouge">6</code></li>
+      </ul>
+
+      <p>Section <strong>Protein Modification Options</strong>:</p>
+
+      <ul>
+        <li><strong>Fixed Modifications</strong>: <code class="language-plaintext highlighter-rouge">Carbamidomethylation of C</code></li>
+        <li><strong>Variable modifications</strong>: <code class="language-plaintext highlighter-rouge">Oxidation of M</code></li>
+      </ul>
+
+      <blockquote class="tip">
+        <h3 id="tip-tip-search-for-options"><i class="far fa-lightbulb" aria-hidden="true"></i><span class="visually-hidden">tip</span> Tip: Search for options</h3>
+
+        <ul>
+          <li>For selection lists, typing the first few letters in the window will filter the available options.</li>
+        </ul>
+      </blockquote>
+
+      <p>Section <strong>Advanced Options</strong>:</p>
+      <ul>
+        <li><strong>X!Tandem Options</strong>: <code class="language-plaintext highlighter-rouge">Advanced</code></li>
+        <li><strong>X!Tandem: Quick Acetyl</strong>: <code class="language-plaintext highlighter-rouge">No</code></li>
+        <li><strong>X!Tandem: Quick Pyrolidone</strong>: <code class="language-plaintext highlighter-rouge">No</code></li>
+        <li><strong>X!Tandem: Protein stP Bias</strong>: <code class="language-plaintext highlighter-rouge">No</code></li>
+        <li>
+          <p><strong>X!Tandem: Maximum Valid Expectation Value</strong>: <code class="language-plaintext highlighter-rouge">100</code></p>
+        </li>
+        <li>leave everything else as default</li>
+      </ul>
+    </li>
+    <li>Click <strong>Execute</strong>.</li>
+  </ol>
+
+</blockquote>
+
+<p>Once the database search is completed, the SearchGUI tool will output a file (called a
+SearchGUI archive file) that will serve as an input for the next section, PeptideShaker.</p>
+
+<blockquote class="comment">
+  <h3 id="comment-comment-1"><i class="far fa-comment-dots" aria-hidden="true"></i><span class="visually-hidden">comment</span> Comment</h3>
+  <p>Note that sequence databases used for metaproteomics are usually much larger than the excerpt used in this tutorial. When using large databases, the peptide identification step can take much more time for computation. In metaproteomics, choosing the optimal database is a crucial step of your <span class="notranslate">workflow</span>, for further reading see <a href="https://www.ncbi.nlm.nih.gov/pubmed/27824341">Timmins-Schiffman et al (2017)</a>.</p>
+
+  <p>To learn more about database construction in general, like integrating contaminant databases or using a decoy strategy for FDR searching, please consult our tutorial on <a href="/training-material/topics/proteomics/tutorials/database-handling/tutorial.html">Database Handling</a>.</p>
+
+</blockquote>
+
+<h4 id="peptideshaker">PeptideShaker</h4>
+
+<p><a href="https://compomics.github.io/projects/peptide-shaker.html">PeptideShaker</a> is a post-processing software tool that
+processes data from the SearchGUI software tool. It serves to organize the Peptide-Spectral
+Matches (PSMs) generated from SearchGUI processing and is contained in the SearchGUI archive.
+It provides an assessment of confidence of the data, inferring proteins identified from the
+matched peptide sequences and generates outputs that can be visualized by users to interpret
+results. PeptideShaker has been wrapped in <span class="notranslate">Galaxy</span> to work in combination with SearchGUI
+outputs.</p>
+
+<blockquote class="comment">
+  <h3 id="comment-comment-2"><i class="far fa-comment-dots" aria-hidden="true"></i><span class="visually-hidden">comment</span> Comment</h3>
+  <p>There are a number of choices for different data files that can be generated using
+PeptideShaker. A compressed file can be made containing all information needed to view the
+results in the standalone PeptideShaker viewer. A <code class="language-plaintext highlighter-rouge">mzidentML</code> file can be created that contains
+all peptide sequence matching information and can be utilized by compatible <span class="notranslate">downstream</span>
+software. Other outputs are focused on the inferred proteins identified from the PSMs, as well
+as phosphorylation reports, relevant if a phosphoproteomics experiment has been undertaken.
+More detailed information on peptide inference using SearchGUI and PeptideShaker can be found in our tutorial on <a href="/training-material/topics/proteomics/tutorials/protein-id-sg-ps/tutorial.html">Peptide and Protein ID</a>.</p>
+</blockquote>
+
+<blockquote class="notranslate hands_on">
+  <h3 id="hands_on-hands-on-peptideshaker"><i class="fas fa-pencil-alt" aria-hidden="true"></i><span class="visually-hidden">hands_on</span> Hands-on: PeptideShaker</h3>
+
+  <ol>
+    <li><strong>PeptideShaker</strong> <i class="fas fa-wrench" aria-hidden="true"></i><span class="visually-hidden">tool</span>: Run <strong>PeptideShaker</strong> with:
+      <ul>
+        <li><strong>Compressed SearchGUI results</strong>: The SearchGUI archive file</li>
+        <li><strong>Specify Advanced PeptideShaker Processing Options</strong>: <code class="language-plaintext highlighter-rouge">Default Processing Options</code></li>
+        <li><strong>Specify Advanced Filtering Options</strong>: <code class="language-plaintext highlighter-rouge">Advanced Filtering Options</code></li>
+        <li><strong>Maximum Precursor Error Type</strong>: <code class="language-plaintext highlighter-rouge">Daltons</code></li>
+        <li><strong>Specify Contact Information for mzIdendML</strong>: You can leave the default dummy options for now, but feel free to enter custom contact information.</li>
+        <li><strong>Include the protein sequences in mzIdentML</strong>: <code class="language-plaintext highlighter-rouge">No</code></li>
+        <li><strong>Output options</strong>: Select the <code class="language-plaintext highlighter-rouge">PSM Report</code> (Peptide-Spectral Match) and the <code class="language-plaintext highlighter-rouge">Certificate of Analysis</code></li>
+      </ul>
+
+      <blockquote class="comment">
+        <h3 id="comment-comment-3"><i class="far fa-comment-dots" aria-hidden="true"></i><span class="visually-hidden">comment</span> Comment</h3>
+
+        <p>The <strong>Certificate of Analysis</strong> provides details on all the parameters
+used by both SearchGUI and PeptideShaker in the analysis. This can be downloaded from the
+<span class="notranslate">Galaxy</span> instance to your local computer in a text file if desired.</p>
+      </blockquote>
+    </li>
+    <li>Click <strong>Execute</strong> and inspect the resulting files after they turned green with the <strong>View data</strong> icon:
+ <img src="../../images/view_data_icon.png" alt="View data button" /></li>
+  </ol>
+
+</blockquote>
+
+<p>A number of new items will appear in your history, each corresponding to the outputs selected
+in the PeptideShaker parameters. Most relevant for this tutorial is the PSM report:</p>
+
+<figure id="figure-1"><img src="../../images/psm_report.png" alt="Display of the PSM report tabular file" /><figcaption><span class="figcaption-prefix">Figure 1:</span> The PSM report</figcaption></figure>
+
+<p>Scrolling towards left will show the sequence for the PSM that matched to these
+metapeptide entries. Column 3 is the sequence matched for each PSM entry. Every identified PSM is a
+new row in the tabular output.</p>
+
+<p>In the following steps of this tutorial, selected portions of this output will be extracted and used for
+analysis of the taxonomic make-up of the sample as well as the biochemical functions
+represented by the proteins identified.</p>
+
+<h2 id="taxonomy-analysis">Taxonomy analysis</h2>
+
+<p>In the previous section, the genome sequencing and mass spectrometry data from
+processing of biological samples was used to identify peptides present in those samples.
+Now those peptides are used as evidence to infer which organisms are represented in the sample,
+and what biological functions those peptides and associated proteins suggest are occurring.</p>
+
+<p>The UniProt organization collects and annotates all known proteins for organisms. A UniProt
+entry includes the protein amino acid sequence, the NCBI taxonomy, and any annotations
+about structure and function of the protein. The UniPept web resource developed
+by Ghent University will be used to match the sample peptides to proteins. UniPept indexes all Uniprot
+proteins and provides a fast matching algorithm for peptides.</p>
+
+<blockquote class="comment">
+  <h3 id="comment-unipept"><i class="far fa-comment-dots" aria-hidden="true"></i><span class="visually-hidden">comment</span> Unipept</h3>
+
+  <p>Users can access UniPept via a <a href="https://unipept.ugent.be">web page</a> and paste peptide
+sequences into the search form to retrieve protein information. But we`ll use the <span class="notranslate">Galaxy</span>
+<em>Unipept</em> tool to automate the process. The <em>Unipept</em> tool sends the peptide list to the
+UniPept REST API service, then transforms the results into datasets that can be further analyzed
+or operated on within <span class="notranslate">Galaxy</span>.</p>
+</blockquote>
+
+<h4 id="recieving-the-list-of-peptides-query-tabular">Recieving the list of peptides: Query Tabular</h4>
+
+<p>In order to use <em>Unipept</em>, a list containing the peptide sequences has to be generated.
+The tool <strong>Query Tabular</strong> can load tabular data (the PSM report in this case) into a SQLite data base.
+As a tabular file is being read, line filters may be applied and an SQL query can be performed.</p>
+
+<blockquote class="notranslate hands_on">
+  <h3 id="hands_on-hands-on-query-tabular"><i class="fas fa-pencil-alt" aria-hidden="true"></i><span class="visually-hidden">hands_on</span> Hands-on: Query Tabular</h3>
+
+  <ol>
+    <li>
+      <p><strong>Query Tabular</strong> <i class="fas fa-wrench" aria-hidden="true"></i><span class="visually-hidden">tool</span>: Run <strong>Query Tabular</strong> with:</p>
+
+      <ul>
+        <li><strong>Database Table</strong>: Click on <code class="language-plaintext highlighter-rouge">+ Insert Database Table</code>:</li>
+        <li><strong>Tabular Dataset for Table</strong>: The PSM report</li>
+      </ul>
+
+      <p>Section <strong>Filter Dataset Input</strong>:</p>
+
+      <ul>
+        <li><strong>Filter Tabular Input Lines</strong>: Click on <code class="language-plaintext highlighter-rouge">+ Insert Filter Tabular Input Lines</code>:</li>
+        <li><strong>Filter By</strong>: Select <code class="language-plaintext highlighter-rouge">by regex <span class="notranslate">expression</span> matching</code>
+          <ul>
+            <li><strong>regex pattern</strong>: <code class="language-plaintext highlighter-rouge">^\d</code></li>
+            <li><strong>action for regex match</strong>: <code class="language-plaintext highlighter-rouge">include line on pattern match</code></li>
+          </ul>
+        </li>
+      </ul>
+
+      <p>Section <strong>Table Options</strong>:</p>
+
+      <ul>
+        <li><strong>Specify Name for Table</strong>: <code class="language-plaintext highlighter-rouge">psm</code></li>
+        <li>
+          <p><strong>Specify Column Names (comma-separated list)</strong>: <code class="language-plaintext highlighter-rouge">id,,sequence,,,,,,,,,,,,,,,,,,,,confidence,validation</code></p>
+
+          <blockquote class="comment">
+            <h3 id="comment-comment-4"><i class="far fa-comment-dots" aria-hidden="true"></i><span class="visually-hidden">comment</span> Comment</h3>
+
+            <p>By default, table columns will be named: c1,c2,c3,…,cn (column names for a table must be unique).
+You can override the default names by entering a comma separated list of names, e.g. <code class="language-plaintext highlighter-rouge">,name1,,,name2</code>
+would rename the second and fifth columns.</p>
+
+            <p>Check your input file to find the settings which best fits your needs.</p>
+          </blockquote>
+        </li>
+        <li>
+          <p><strong>Only load the columns you have named into database</strong>: <code class="language-plaintext highlighter-rouge">Yes</code></p>
+        </li>
+        <li>
+          <p><strong>Save the sqlite database in your history</strong>: <code class="language-plaintext highlighter-rouge">Yes</code></p>
+
+          <blockquote class="comment">
+            <h3 id="comment-querying-sqlite-databases"><i class="far fa-comment-dots" aria-hidden="true"></i><span class="visually-hidden">comment</span> Querying SQLite Databases</h3>
+
+            <ul>
+              <li><strong>Query Tabular</strong> can also use an existing SQLite database. Activating <code class="language-plaintext highlighter-rouge">Save the sqlite database in your history</code>
+will store the created database in the history, allowing to reuse it directly.</li>
+            </ul>
+
+          </blockquote>
+        </li>
+        <li>
+          <p><strong>SQL Query to generate tabular output</strong>:</p>
+
+          <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>SELECT distinct sequence
+
+FROM psm
+
+WHERE confidence &gt;= 95
+
+ORDER BY sequence
+</code></pre></div>          </div>
+        </li>
+      </ul>
+
+      <blockquote class="question">
+        <h3 id="question-questions"><i class="far fa-question-circle" aria-hidden="true"></i><span class="visually-hidden">question</span> Questions</h3>
+
+        <p>The SQL query might look confusing at first, but having a closer look should clarify a lot.</p>
+
+        <ol>
+          <li>What does <code class="language-plaintext highlighter-rouge">FROM psm</code> mean?</li>
+          <li>What need to be changed if we only want peptides with a confidence higher then 98%?</li>
+        </ol>
+
+        <blockquote class="solution">
+          <h3 id="solution-solution"><i class="far fa-eye" aria-hidden="true"></i><span class="visually-hidden">solution</span> Solution</h3>
+          <ol>
+            <li>We want to read from table “psm”. We defined the name before in the “Specify Name for Table” option.</li>
+            <li>We need to change the value in line 3: “WHERE validation IS NOT ‘Confident’ AND confidence &gt;= 98”</li>
+          </ol>
+        </blockquote>
+      </blockquote>
+
+      <ul>
+        <li><strong>include query result column headers</strong>: <code class="language-plaintext highlighter-rouge">No</code></li>
+      </ul>
+    </li>
+    <li>
+      <p>Click <strong>Execute</strong> and inspect the query results file after it turned green. If everything went well, it should look similiar:</p>
+
+      <figure id="figure-2"><img src="../../images/query_tabular_1.png" alt="Query Tabular output showing the peptides" /><figcaption><span class="figcaption-prefix">Figure 2:</span> Query Tabular output</figcaption></figure>
+    </li>
+  </ol>
+
+</blockquote>
+
+<p>While we can proceed with this list of peptides, let’s practice using the created SQLite database for further queries.
+We might not only be interested in all the distinct peptides, but also on how many PSMs a single peptide had.
+Therefore we can search the database for the peptides and count the occurrence without configuring the tables and columns again:</p>
+
+<blockquote class="notranslate hands_on">
+  <h3 id="hands_on-hands-on-sqlite-to-tabular"><i class="fas fa-pencil-alt" aria-hidden="true"></i><span class="visually-hidden">hands_on</span> Hands-on: SQLite to tabular</h3>
+
+  <ol>
+    <li>
+      <p><strong>SQLite to tabular</strong> <i class="fas fa-wrench" aria-hidden="true"></i><span class="visually-hidden">tool</span>: Run <strong>SQLite to tabular</strong> with:</p>
+
+      <ul>
+        <li>
+          <p><strong>SQL Query</strong>:</p>
+
+          <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>SELECT sequence as "peptide", count(id) as "PSMs"
+
+FROM psm
+
+WHERE confidence &gt;= 95
+
+GROUP BY sequence
+
+ORDER BY sequence
+</code></pre></div>          </div>
+        </li>
+      </ul>
+    </li>
+    <li>
+      <p>Click <strong>Execute</strong>. The resulting file should have two columns, one with the distinct peptides, the other with the count number of PSMs.</p>
+    </li>
+  </ol>
+
+</blockquote>
+
+<h4 id="retrieve-taxonomy-for-peptides-unipept">Retrieve taxonomy for peptides: Unipept</h4>
+
+<p>The generated list of peptides can now be used to search via <em>Unipept</em>.
+We do a taxonomy analysis using the UniPept pept2lca function to return the taxonomic lowest common ancestor for each peptide:</p>
+
+<blockquote class="notranslate hands_on">
+  <h3 id="hands_on-hands-on-unipept"><i class="fas fa-pencil-alt" aria-hidden="true"></i><span class="visually-hidden">hands_on</span> Hands-on: Unipept</h3>
+
+  <ol>
+    <li>
+      <p><strong>Unipept</strong> <i class="fas fa-wrench" aria-hidden="true"></i><span class="visually-hidden">tool</span>: Run <strong>Unipept</strong> with:</p>
+
+      <ul>
+        <li><strong>Unipept application</strong>: <code class="language-plaintext highlighter-rouge">pept2lca: lowest common ancestor</code></li>
+        <li><strong>Peptides input format</strong>: <code class="language-plaintext highlighter-rouge">tabular</code></li>
+        <li><strong>Tabular Input Containing Peptide column</strong>: The query results file.</li>
+        <li><strong>Select column with peptides</strong>: <code class="language-plaintext highlighter-rouge">Column 1</code></li>
+        <li><strong>Choose outputs</strong>: Select <code class="language-plaintext highlighter-rouge">tabular</code> and <code class="language-plaintext highlighter-rouge">JSON taxonomy tree</code></li>
+      </ul>
+    </li>
+    <li>
+      <p>Click <strong>Execute</strong>. The history should grow by two files. View each to see the difference.</p>
+
+      <blockquote class="comment">
+        <h3 id="comment-comment-5"><i class="far fa-comment-dots" aria-hidden="true"></i><span class="visually-hidden">comment</span> Comment</h3>
+
+        <p>The JSON (JavaScript Object Notation) file contains the same information as the tabular file but is not comfortably human readable.
+Instead, we can use it to use JavaScript libraries to visualize this data.</p>
+      </blockquote>
+    </li>
+    <li>
+      <p>Visualize the data:</p>
+
+      <ul>
+        <li>
+          <p>Click on the JSON output file from the <em>Unipept</em> tool to expand it. Click on the <strong>Visualize</strong> button and select <strong>Unipept Tree viewer</strong>:</p>
+
+          <p><img src="../../images/visualize_button.png" alt="Visualize button" /></p>
+        </li>
+        <li>
+          <p>A new window should appear with a visualization of the taxonomy tree of your data. Use the mouse wheel to scroll in and out and click on nodes to expand or collapse them:</p>
+
+          <figure id="figure-3"><img src="../../images/unipept_tree_viewer.png" alt="Unipept Tree viewer visual output" /><figcaption><span class="figcaption-prefix">Figure 3:</span> Interactive visualization from the Unipept Tree viever plugin</figcaption></figure>
+        </li>
+      </ul>
+    </li>
+  </ol>
+
+</blockquote>
+
+<h2 id="genus-taxonomy-level-summary">Genus taxonomy level summary</h2>
+
+<p>The tabular <em>Unipept</em> output lists the taxonomy assignments for each peptide. To create a meaningful summary, the <strong>Query Tabular</strong> tool is
+once again used, aggregating the number of peptides and PSMs for each genus level taxonomy assignment:</p>
+
+<blockquote class="notranslate hands_on">
+  <h3 id="hands_on-hands-on-query-tabular-1"><i class="fas fa-pencil-alt" aria-hidden="true"></i><span class="visually-hidden">hands_on</span> Hands-on: Query Tabular</h3>
+
+  <ol>
+    <li>
+      <p><strong>Query Tabular</strong> <i class="fas fa-wrench" aria-hidden="true"></i><span class="visually-hidden">tool</span>: Run <strong>Query Tabular</strong> with:</p>
+
+      <ul>
+        <li><strong>Database Table</strong>: Click on <code class="language-plaintext highlighter-rouge">+ Insert Database Table</code></li>
+        <li><strong>Tabular Dataset for Table</strong>: The PSM report</li>
+      </ul>
+
+      <p>Section <strong>Filter Dataset Input</strong>:</p>
+
+      <ul>
+        <li><strong>Filter Tabular Input Lines</strong>: Click on <code class="language-plaintext highlighter-rouge">+ Insert Filter Tabular Input Lines</code>:</li>
+        <li><strong>Filter By</strong>: Select <code class="language-plaintext highlighter-rouge">by regex <span class="notranslate">expression</span> matching</code>
+          <ul>
+            <li><strong>regex pattern</strong>: <code class="language-plaintext highlighter-rouge">^\d</code></li>
+            <li><strong>action for regex match</strong>: <code class="language-plaintext highlighter-rouge">include line on pattern match</code></li>
+          </ul>
+        </li>
+      </ul>
+
+      <p>Section <strong>Table Options</strong>:</p>
+
+      <ul>
+        <li><strong>Specify Name for Table</strong>: <code class="language-plaintext highlighter-rouge">psm</code></li>
+        <li>
+          <p><strong>Specify Column Names (comma-separated list)</strong>: <code class="language-plaintext highlighter-rouge">,,sequence,,,,,,,,,,,,,,,,,,,,confidence,validation</code></p>
+        </li>
+        <li><strong>Only load the columns you have named into database</strong>: <code class="language-plaintext highlighter-rouge">Yes</code></li>
+      </ul>
+    </li>
+    <li>
+      <p>Repeat this step to have a second <strong>Database Table</strong>:</p>
+
+      <ul>
+        <li><strong>Database Table</strong>: Click on <code class="language-plaintext highlighter-rouge">+ Insert Database Table</code></li>
+        <li><strong>Tabular Dataset for Table</strong>: The <strong>Unipept</strong> <code class="language-plaintext highlighter-rouge">tabular</code>/<code class="language-plaintext highlighter-rouge">tsv</code> output</li>
+      </ul>
+
+      <p>Section <strong>Filter Dataset Input</strong>:</p>
+
+      <ul>
+        <li><strong>Filter Tabular Input Lines</strong>: Click on <code class="language-plaintext highlighter-rouge">+ Insert Filter Tabular Input Lines</code>:</li>
+        <li><strong>Filter By</strong>: Select <code class="language-plaintext highlighter-rouge">by regex <span class="notranslate">expression</span> matching</code>
+          <ul>
+            <li><strong>regex pattern</strong>: <code class="language-plaintext highlighter-rouge">#peptide</code></li>
+            <li><strong>action for regex match</strong>: <code class="language-plaintext highlighter-rouge">exclude line on pattern match</code></li>
+          </ul>
+        </li>
+      </ul>
+
+      <p>Section <strong>Table Options</strong>:</p>
+
+      <ul>
+        <li><strong>Specify Name for Table</strong>: <code class="language-plaintext highlighter-rouge">lca</code></li>
+        <li>
+          <p><strong>Specify Column Names (comma-separated list)</strong>: <code class="language-plaintext highlighter-rouge">peptide,,,,,,,,,,,,,,,,,,,,,genus</code></p>
+        </li>
+        <li>
+          <p><strong>Only load the columns you have named into database</strong>: <code class="language-plaintext highlighter-rouge">Yes</code></p>
+        </li>
+        <li>
+          <p><strong>Save the sqlite database in your history</strong>: <code class="language-plaintext highlighter-rouge">Yes</code></p>
+        </li>
+        <li>
+          <p><strong>SQL Query to generate tabular output</strong>:</p>
+
+          <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>SELECT lca.genus,count(psm.sequence) as "PSMs",count(distinct psm.sequence) as "DISTINCT PEPTIDES"
+
+FROM psm LEFT JOIN lca ON psm.sequence = lca.peptide
+
+WHERE confidence &gt;= 95
+
+GROUP BY lca.genus
+
+ORDER BY PSMs desc, 'DISTINCT PEPTIDES' desc
+</code></pre></div>          </div>
+        </li>
+      </ul>
+    </li>
+    <li>
+      <p>Click <strong>Execute</strong> and inspect the query results file after it turned green:</p>
+
+      <figure id="figure-4"><img src="../../images/metaproteomics_summary.png" alt="Query Tabular output showing gene, PSMs and distinct peptides" /><figcaption><span class="figcaption-prefix">Figure 4:</span> Query Tabular output</figcaption></figure>
+    </li>
+  </ol>
+
+</blockquote>
+
+<h2 id="functional-analysis">Functional Analysis</h2>
+
+<p>Recent advances in microbiome research indicate that functional characterization via metaproteomics analysis has the potential to accurately
+measure the microbial response to perturbations. In particular, metaproteomics enables the estimation of the function of the microbial
+community based on expressed microbial proteome.</p>
+
+<p>In the following chapter, a functional analysis will be performed using the <strong>UniPept</strong> application <code class="language-plaintext highlighter-rouge">pept2prot</code> in order to match the list of peptides with the correlated Gene Ontology terms.
+This allows to get an insight of the <strong>biological process</strong>, the <strong>molecular function</strong> and the <strong>cellular component</strong> related to the sample data.</p>
+
+<blockquote class="comment">
+  <h3 id="comment-gene-ontology-go-consortium"><i class="far fa-comment-dots" aria-hidden="true"></i><span class="visually-hidden">comment</span> Gene Ontology (GO) Consortium</h3>
+
+  <p>The <a href="http://www.geneontology.org/">Gene Ontology Consortium</a> provides with its Ontology a framework for the model of biology.
+The GO defines concepts/classes used to describe gene function, and relationships between these concepts. It classifies functions along three aspects:</p>
+
+  <ul>
+    <li>
+      <p><strong>molecular function</strong></p>
+
+      <ul>
+        <li>molecular activities of gene products</li>
+      </ul>
+    </li>
+    <li>
+      <p><strong>cellular component</strong></p>
+
+      <ul>
+        <li>where gene products are active</li>
+      </ul>
+    </li>
+    <li>
+      <p><strong>biological process</strong></p>
+
+      <ul>
+        <li>pathways and larger processes made up of the activities of multiple gene products.</li>
+      </ul>
+    </li>
+  </ul>
+
+  <p><a href="http://geneontology.org/page/ontology-documentation">more information</a></p>
+
+</blockquote>
+
+<h4 id="data-upload-1">Data upload</h4>
+
+<p>For this tutorial, a tabular file containing the relevant GO terms has been created. It contains the GO aspect, the ID and the name.
+It is available at Zenodo: <a href="https://doi.org/10.5281/zenodo.839701"><img src="https://zenodo.org/badge/DOI/10.5281/zenodo.839701.svg" alt="DOI" /></a>.</p>
+
+<blockquote class="notranslate hands_on">
+  <h3 id="hands_on-hands-on-data-upload"><i class="fas fa-pencil-alt" aria-hidden="true"></i><span class="visually-hidden">hands_on</span> Hands-on: Data upload</h3>
+
+  <ol>
+    <li>
+      <p>Import the file <code class="language-plaintext highlighter-rouge">Gene_Ontology_Terms.tabular</code> from Zenodo.</p>
+
+      <blockquote class="tip">
+        <h3 id="tip-tip-setting-file-metadata-on-upload"><i class="far fa-lightbulb" aria-hidden="true"></i><span class="visually-hidden">tip</span> Tip: Setting file metadata on upload</h3>
+
+        <p>In the upload window of <span class="notranslate">Galaxy</span> you can set the filetype and related genome of the file you’re uploading in the corresponding columns beforehand.
+This might be handy if the automatic detection of the filetype didn’t work out perfectly or if you want to avoid setting the genome later on, especially for multiple files.</p>
+
+      </blockquote>
+
+      <p>As default, <span class="notranslate">Galaxy</span> takes the link as name.</p>
+
+      <blockquote class="comment">
+        <h3 id="comment-comments-1"><i class="far fa-comment-dots" aria-hidden="true"></i><span class="visually-hidden">comment</span> Comments</h3>
+        <ul>
+          <li>Rename the datasets to a more descriptive name, e.g. <code class="language-plaintext highlighter-rouge">Gene Ontology Terms</code></li>
+        </ul>
+      </blockquote>
+    </li>
+  </ol>
+
+</blockquote>
+
+<blockquote class="details">
+  <h3 id="details-creating-your-own-gene-ontology-list"><i class="fas fa-info-circle" aria-hidden="true"></i><span class="visually-hidden">details</span> Creating your own Gene Ontology list</h3>
+
+  <p>The latest Gene Ontology can be downloaded <a href="http://geneontology.org/page/download-ontology">here</a> as a text file in the <code class="language-plaintext highlighter-rouge">OBO</code> format.
+<code class="language-plaintext highlighter-rouge">OBO</code> files are human-readable (in addition to machine-readable) and can be opened in any text editor. They contain more information than just the name and aspect.</p>
+
+  <p>In order to receive a file like we use in the tutorial for your own analysis, different tools are available to extract information from <code class="language-plaintext highlighter-rouge">OBO</code> files,
+one of them being <a href="https://doi.org/10.1093/bioinformatics/btn042">ONTO-PERL</a>.
+An example file with all GO terms from 08.07.2017 named <code class="language-plaintext highlighter-rouge">Gene_Ontology_Terms_full_07.08.2017.tabular</code> can be found on the <a href="https://doi.org/10.5281/zenodo.839701">Zenodo repository</a> of this tutorial as well.</p>
+
+</blockquote>
+
+<h4 id="retrieve-go-ids-for-peptides-unipept">Retrieve GO IDs for peptides: Unipept</h4>
+
+<p>The <strong>UniPept</strong> application <code class="language-plaintext highlighter-rouge">pept2prot</code> can be used to return the list of proteins containing each peptide.
+The option <code class="language-plaintext highlighter-rouge">retrieve extra information</code> option is set to <code class="language-plaintext highlighter-rouge">yes</code> so that we retrieve Gene Ontology assignments (<code class="language-plaintext highlighter-rouge">go_references</code>)
+for each protein.</p>
+
+<blockquote class="notranslate hands_on">
+  <h3 id="hands_on-hands-on-unipept-1"><i class="fas fa-pencil-alt" aria-hidden="true"></i><span class="visually-hidden">hands_on</span> Hands-on: Unipept</h3>
+
+  <ol>
+    <li>
+      <p><strong>Unipept</strong> <i class="fas fa-wrench" aria-hidden="true"></i><span class="visually-hidden">tool</span>: Run <strong>Unipept</strong> with:</p>
+
+      <ul>
+        <li><strong>Unipept application</strong>: <code class="language-plaintext highlighter-rouge">pept2prot: UniProt entries containing a given tryptic peptide</code></li>
+        <li><strong>retrieve extra information</strong>: <code class="language-plaintext highlighter-rouge">Yes</code></li>
+        <li><strong>Peptides input format</strong>: <code class="language-plaintext highlighter-rouge">tabular</code></li>
+        <li><strong>Tabular Input Containing Peptide column</strong>: The first query results file.</li>
+        <li><strong>Select column with peptides</strong>: <code class="language-plaintext highlighter-rouge">Column 1</code></li>
+        <li><strong>Choose outputs</strong>: Select <code class="language-plaintext highlighter-rouge">tabular</code></li>
+      </ul>
+    </li>
+    <li>
+      <p>Click <strong>Execute</strong>.</p>
+    </li>
+    <li>
+      <p>inspect the result:</p>
+
+      <ul>
+        <li>The output should be a tabular file containing a column labeled <code class="language-plaintext highlighter-rouge">go_references</code>. This is what we’re looking for.</li>
+      </ul>
+    </li>
+  </ol>
+
+</blockquote>
+
+<h4 id="combine-all-information-to-quantify-the-go-results">Combine all information to quantify the GO results</h4>
+
+<p>As a final step we will use <strong>Query Tabular</strong> in a more sophisticated way to combine all information to quantify the GO analysis. The three used file and the extracted information are:</p>
+
+<ul>
+  <li><strong>Gene Ontology Terms</strong>:
+    <ul>
+      <li><code class="language-plaintext highlighter-rouge">go_id</code> to match with <strong>Normalized UniPept output</strong></li>
+      <li>The GO <code class="language-plaintext highlighter-rouge">aspect</code> to group the results in three separate files</li>
+      <li>The GO <code class="language-plaintext highlighter-rouge">description</code> to annotate the results</li>
+    </ul>
+  </li>
+  <li><strong>Normalized UniPept output</strong>:
+    <ul>
+      <li><code class="language-plaintext highlighter-rouge">peptide</code> to match with <strong>PSM Report</strong> and to count distinct peptides per GO term</li>
+      <li><code class="language-plaintext highlighter-rouge">go_reference</code> to match with <strong>Gene Ontology Terms</strong></li>
+    </ul>
+  </li>
+  <li><strong>PSM Report</strong>:
+    <ul>
+      <li><code class="language-plaintext highlighter-rouge">sequence</code> to match with <strong>Normalized UniPept output</strong></li>
+      <li><code class="language-plaintext highlighter-rouge">id</code> to count distinct PSM’s per GO term</li>
+    </ul>
+  </li>
+</ul>
+
+<blockquote class="notranslate hands_on">
+  <h3 id="hands_on-hands-on-query-tabular-2"><i class="fas fa-pencil-alt" aria-hidden="true"></i><span class="visually-hidden">hands_on</span> Hands-on: Query Tabular</h3>
+
+  <ol>
+    <li>
+      <p><strong>Query Tabular</strong> <i class="fas fa-wrench" aria-hidden="true"></i><span class="visually-hidden">tool</span>: Run <strong>Query Tabular</strong> with:</p>
+
+      <ul>
+        <li><strong>Database Table</strong>: Click on <code class="language-plaintext highlighter-rouge">+ Insert Database Table</code></li>
+        <li><strong>Tabular Dataset for Table</strong>: The <code class="language-plaintext highlighter-rouge">Gene Ontology Terms</code> file</li>
+      </ul>
+
+      <p>Section <strong>Filter Dataset Input</strong>:</p>
+
+      <ul>
+        <li><strong>Filter Tabular Input Lines</strong>: Click on <code class="language-plaintext highlighter-rouge">+ Insert Filter Tabular Input Lines</code>:</li>
+        <li><strong>Filter By</strong>: Select <code class="language-plaintext highlighter-rouge">skip leading lines</code>
+          <ul>
+            <li><strong>Skip lines</strong>: <code class="language-plaintext highlighter-rouge">1</code></li>
+          </ul>
+        </li>
+      </ul>
+
+      <p>Section <strong>Table Options</strong>:</p>
+
+      <ul>
+        <li><strong>Specify Name for Table</strong>: <code class="language-plaintext highlighter-rouge">go</code></li>
+        <li><strong>Specify Column Names (comma-separated list)</strong>: <code class="language-plaintext highlighter-rouge">aspect,go_id,description</code></li>
+        <li><strong>Table Index</strong>: Click on <code class="language-plaintext highlighter-rouge">+ Insert Table Index</code>:
+          <ul>
+            <li><strong>This is a unique index</strong>: <code class="language-plaintext highlighter-rouge">No</code></li>
+            <li><strong>Index on Columns</strong>: <code class="language-plaintext highlighter-rouge">aspect,go_id</code></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+    <li>
+      <p>Repeat this step to have a second <strong>Database Table</strong>:</p>
+
+      <ul>
+        <li><strong>Database Table</strong>: Click on <code class="language-plaintext highlighter-rouge">+ Insert Database Table</code></li>
+        <li><strong>Tabular Dataset for Table</strong>: The <strong>Unipept</strong> <code class="language-plaintext highlighter-rouge">tabluar</code>/<code class="language-plaintext highlighter-rouge">tsv</code> output</li>
+      </ul>
+
+      <p>Section <strong>Filter Dataset Input</strong>:</p>
+
+      <ul>
+        <li><strong>Filter Tabular Input Lines</strong>: Click on <code class="language-plaintext highlighter-rouge">+ Insert Filter Tabular Input Lines</code>:</li>
+        <li><strong>Filter By</strong>: Select <code class="language-plaintext highlighter-rouge">skip leading lines</code>
+          <ul>
+            <li><strong>Skip lines</strong>: <code class="language-plaintext highlighter-rouge">1</code></li>
+          </ul>
+        </li>
+        <li>Add another Filter: Click on <code class="language-plaintext highlighter-rouge">+ Insert Filter Tabular Input Lines</code>:</li>
+        <li><strong>Filter By</strong>: Select <code class="language-plaintext highlighter-rouge">prepend a line number column</code></li>
+      </ul>
+
+      <p>Section <strong>Table Options</strong>:</p>
+
+      <ul>
+        <li><strong>Specify Name for Table</strong>: <code class="language-plaintext highlighter-rouge">bering_prot</code></li>
+        <li><strong>Specify Column Names (comma-separated list)</strong>: <code class="language-plaintext highlighter-rouge">id,peptide,uniprot_id,taxon_id,taxon_name,ec_references,go_references,refseq_ids,refseq_protein_ids,insdc_ids,insdc_protein_ids</code></li>
+        <li><strong>Table Index</strong>: Click on <code class="language-plaintext highlighter-rouge">+ Insert Table Index</code>:
+          <ul>
+            <li><strong>This is a unique index</strong>: <code class="language-plaintext highlighter-rouge">No</code></li>
+            <li><strong>Index on Columns</strong>: <code class="language-plaintext highlighter-rouge">id,peptide</code></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+    <li>
+      <p>Repeat this step to have another <strong>Database Table</strong>:</p>
+
+      <ul>
+        <li><strong>Database Table</strong>: Click on <code class="language-plaintext highlighter-rouge">+ Insert Database Table</code></li>
+        <li><strong>Tabular Dataset for Table</strong>: The same <strong>Unipept</strong> <code class="language-plaintext highlighter-rouge">tabluar</code>/<code class="language-plaintext highlighter-rouge">tsv</code> output</li>
+      </ul>
+
+      <p>Section <strong>Filter Dataset Input</strong>:</p>
+
+      <ul>
+        <li><strong>Filter Tabular Input Lines</strong>: Click on <code class="language-plaintext highlighter-rouge">+ Insert Filter Tabular Input Lines</code>:</li>
+        <li><strong>Filter By</strong>: Select <code class="language-plaintext highlighter-rouge">skip leading lines</code>
+          <ul>
+            <li><strong>Skip lines</strong>: leave blank</li>
+          </ul>
+        </li>
+        <li>Add another Filter: Click on <code class="language-plaintext highlighter-rouge">+ Insert Filter Tabular Input Lines</code>:</li>
+        <li><strong>Filter By</strong>: Select <code class="language-plaintext highlighter-rouge">prepend a line number column</code></li>
+        <li>Add another Filter: Click on <code class="language-plaintext highlighter-rouge">+ Insert Filter Tabular Input Lines</code>:</li>
+        <li><strong>Filter By</strong>: Select <code class="language-plaintext highlighter-rouge">select columns</code>
+          <ul>
+            <li><strong>enter column numbers to keep</strong>: <code class="language-plaintext highlighter-rouge">1,7</code></li>
+          </ul>
+        </li>
+        <li>Add another Filter: Click on <code class="language-plaintext highlighter-rouge">+ Insert Filter Tabular Input Lines</code>:</li>
+        <li><strong>Filter By</strong>: Select <code class="language-plaintext highlighter-rouge">normalize list columns, replicates row for each item in list</code>
+          <ul>
+            <li><strong>enter column numbers to normalize</strong>: <code class="language-plaintext highlighter-rouge">2</code></li>
+            <li><strong>List item delimiter in column</strong>: ` ` (a single blank character)</li>
+          </ul>
+        </li>
+      </ul>
+
+      <blockquote class="comment">
+        <h3 id="comment-comments-2"><i class="far fa-comment-dots" aria-hidden="true"></i><span class="visually-hidden">comment</span> Comments</h3>
+        <ul>
+          <li>The UniPept result file can contain multiple GO IDs in a single row. In order to create a normalized table of this data, these rows will be split so each record contains only one GO ID.</li>
+        </ul>
+      </blockquote>
+
+      <p>Section <strong>Table Options</strong>:</p>
+
+      <ul>
+        <li><strong>Specify Name for Table</strong>: <code class="language-plaintext highlighter-rouge">bering_prot_go</code></li>
+        <li><strong>Specify Column Names (comma-separated list)</strong>: <code class="language-plaintext highlighter-rouge">id,go_reference</code></li>
+        <li><strong>Table Index</strong>: Click on <code class="language-plaintext highlighter-rouge">+ Insert Table Index</code>:
+          <ul>
+            <li><strong>This is a unique index</strong>: <code class="language-plaintext highlighter-rouge">No</code></li>
+            <li><strong>Index on Columns</strong>: <code class="language-plaintext highlighter-rouge">go_reference,id</code></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+    <li>
+      <p>Repeat this step to have another <strong>Database Table</strong>:</p>
+
+      <ul>
+        <li><strong>Database Table</strong>: Click on <code class="language-plaintext highlighter-rouge">+ Insert Database Table</code></li>
+        <li><strong>Tabular Dataset for Table</strong>: The <code class="language-plaintext highlighter-rouge">PSM Report</code></li>
+      </ul>
+
+      <p>Section <strong>Filter Dataset Input</strong>:</p>
+
+      <ul>
+        <li><strong>Filter Tabular Input Lines</strong>: Click on <code class="language-plaintext highlighter-rouge">+ Insert Filter Tabular Input Lines</code>:</li>
+        <li><strong>Filter By</strong>: Select <code class="language-plaintext highlighter-rouge">by regex <span class="notranslate">expression</span> matching</code>
+          <ul>
+            <li><strong>regex pattern</strong>: <code class="language-plaintext highlighter-rouge">^\d</code></li>
+            <li><strong>action for regex match</strong>: <code class="language-plaintext highlighter-rouge">include line on pattern match</code></li>
+          </ul>
+        </li>
+        <li>Add another Filter: Click on <code class="language-plaintext highlighter-rouge">+ Insert Filter Tabular Input Lines</code>:</li>
+        <li><strong>Filter By</strong>: Select <code class="language-plaintext highlighter-rouge">select columns</code>
+          <ul>
+            <li><strong>enter column numbers to keep</strong>: <code class="language-plaintext highlighter-rouge">1,3,23,24</code></li>
+          </ul>
+        </li>
+      </ul>
+
+      <p>Section <strong>Table Options</strong>:</p>
+
+      <ul>
+        <li><strong>Specify Name for Table</strong>: <code class="language-plaintext highlighter-rouge">bering_psms</code></li>
+        <li><strong>Specify Column Names (comma-separated list)</strong>: <code class="language-plaintext highlighter-rouge">id,sequence,confidence,validation</code></li>
+        <li><strong>Only load the columns you have named into database</strong>: <code class="language-plaintext highlighter-rouge">Yes</code></li>
+        <li><strong>Table Index</strong>: Click on <code class="language-plaintext highlighter-rouge">+ Insert Table Index</code>:
+          <ul>
+            <li><strong>This is a unique index</strong>: <code class="language-plaintext highlighter-rouge">No</code></li>
+            <li><strong>Index on Columns</strong>: <code class="language-plaintext highlighter-rouge">sequence,id</code></li>
+          </ul>
+        </li>
+        <li>
+          <p><strong>Save the sqlite database in your history</strong>: <code class="language-plaintext highlighter-rouge">Yes</code></p>
+        </li>
+        <li>
+          <p><strong>SQL Query to generate tabular output</strong>:</p>
+
+          <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>SELECT sequence as "peptide", count(id) as "PSMs"
+
+FROM bering_psms
+
+WHERE confidence &gt;= 95
+
+GROUP BY sequence
+
+ORDER BY sequence
+</code></pre></div>          </div>
+        </li>
+      </ul>
+    </li>
+    <li>
+      <p>Click <strong>Execute</strong>.</p>
+    </li>
+  </ol>
+
+</blockquote>
+
+<p>With this we have combined all the data into a single database which we can now query to extract the desired information with <strong>SQLite to tabular</strong>:</p>
+
+<blockquote class="notranslate hands_on">
+  <h3 id="hands_on-hands-on-sqlite-to-tabular-1"><i class="fas fa-pencil-alt" aria-hidden="true"></i><span class="visually-hidden">hands_on</span> Hands-on: SQLite to tabular</h3>
+
+  <ol>
+    <li>
+      <p><strong>SQLite to tabular</strong> <i class="fas fa-wrench" aria-hidden="true"></i><span class="visually-hidden">tool</span>: Run <strong>SQLite to tabular</strong> with:</p>
+
+      <ul>
+        <li><strong>SQLite Database</strong>: The created SQLite database from the former step</li>
+        <li>
+          <p><strong>SQL Query</strong>:</p>
+
+          <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>SELECT go.description,
+
+count(distinct bering_psms.sequence) as "bering_peptides", count(distinct bering_psms.id) as "bering_psms"
+
+FROM go JOIN bering_prot_go ON go.go_id = bering_prot_go.go_reference JOIN bering_prot on bering_prot_go.id = bering_prot.id JOIN
+
+bering_psms ON bering_prot.peptide = bering_psms.sequence
+
+WHERE go.aspect = 'molecular_function'
+
+GROUP BY go.description
+
+ORDER BY  bering_peptides desc,bering_psms desc
+</code></pre></div>          </div>
+        </li>
+      </ul>
+    </li>
+    <li>Click <strong>Execute</strong>.</li>
+    <li>Repeat these steps two times by replacing <code class="language-plaintext highlighter-rouge">molecular_function</code> in the fifth row of the SQL query by <code class="language-plaintext highlighter-rouge">biological_process</code> and <code class="language-plaintext highlighter-rouge">cellular_component</code>.</li>
+  </ol>
+
+</blockquote>
+
+<p>With these three output files the functional analysis of this tutorial is finished. Each record contains the name of a GO term, the amount of peptides related to it and the amount of PSMs for these peptides.</p>
+
+<blockquote class="comment">
+  <h3 id="comment-references"><i class="far fa-comment-dots" aria-hidden="true"></i><span class="visually-hidden">comment</span> References</h3>
+
+  <ul>
+    <li>
+      <p><a href="https://www.ncbi.nlm.nih.gov/pubmed/27824341">Dataset</a> and <a href="https://www.ncbi.nlm.nih.gov/pubmed/27396978">SixGill software</a></p>
+    </li>
+    <li>
+      <p><a href="https://www.ncbi.nlm.nih.gov/pubmed/26058579"><span class="notranslate">Galaxy</span> workflows for metaproteomics</a></p>
+    </li>
+    <li>
+      <p><a href="https://z.umn.edu/gcc2017mporal">Metaproteomics community effort</a></p>
+    </li>
+    <li>
+      <p><a href="https://www.ncbi.nlm.nih.gov/pubmed/28552653">Unipept</a></p>
+    </li>
+    <li>
+      <p><a href="http://z.umn.edu/metaproteomicsgateway"><span class="notranslate">Galaxy</span>-P Metaproteomics instance</a></p>
+    </li>
+    <li>
+      <p><a href="http://z.umn.edu/mpvideo2018">Metaproteomics video</a></p>
+    </li>
+  </ul>
+</blockquote>
+
+
+
+                    
+                    <blockquote class="key_points">
+                        <h3><i class="fas fa-key" aria-hidden="true"></i><span class="visually-hidden">keypoints</span> Key points</h3>
+                        <ul>
+                            
+                            <li><p>Use dataset collections</p>
+</li>
+                            
+                            <li><p>With SearchGUI and PeptideShaker you can gain access to multiple search engines</p>
+</li>
+                            
+                            <li><p>Learning the basics of SQL queries can pay off</p>
+</li>
+                            
+                        </ul>
+                    </blockquote>
+                    
+
+                    
+                    <h1 data-toc-skip>Useful literature</h1>
+                    <p>Further information, including links to documentation and original publications, regarding the tools, analysis techniques and the interpretation of results described in this tutorial can be found <a href="/training-material/topics/proteomics#references">here</a>.</p>
+                    
+
+                    
+
+                    <h1>Feedback</h1>
+                    <p class="text-muted">Did you use this material as an instructor? Feel free to give us feedback on <a href="https://github.com/galaxyproject/training-material/issues/1452" target="_blank">how it went</a>.</p>
+
+                    <div id="feedback-button">
+                        <img src="/training-material/shared/images/feedback.png" title="Click to activate" alt="Click here to load Google feedback frame" />
+                    </div>
+                    <div id="feedback-form">
+                    </div>
+                    <script type="text/javascript">
+                        (function (window, document) {
+                            function onDocumentReady(fn) {
+                                if (document.attachEvent ? document.readyState === "complete" : document.readyState !== "loading") {
+                                    fn();
+                                } else {
+                                    document.addEventListener('DOMContentLoaded', fn);
+                                }
+                            }
+
+                            onDocumentReady(function () {
+                                $("#feedback-button").click(function(evt){
+                                    var e = $(evt.target)
+                                    e.hide();
+
+                                    $("#feedback-form").html(`
+                                        <iframe id="feedback-google" class="google-form" src="https://docs.google.com/forms/d/e/1FAIpQLSd4VZptFTQ03kHkMz0JyW9b6_S8geU5KjNE_tLM0dixT3ZQmA/viewform?embedded=true&entry.1235803833=Metaproteomics tutorial (Proteomics)">Loading...</iframe>
+                                    `)
+                                })
+                            });
+                        })(window, document);
+                    </script>
+
+
+
+                    <h1>Citing this Tutorial</h1>
+                    <p>
+                        <ol>
+                            <li id="citation-text">Timothy J. Griffin, Pratik Jagtap, James Johnson, Clemens Blank, Subina Mehta, 2020 <b>Metaproteomics tutorial (Galaxy Training Materials)</b>. <a href="/training-material/topics/proteomics/tutorials/metaproteomics/tutorial.html">/training-material/topics/proteomics/tutorials/metaproteomics/tutorial.html</a> Online; accessed TODAY
+                            </li>
+                            <li>
+                            Batut et al., 2018 <b>Community-Driven Data Analysis Training for Biology</b> Cell Systems <a href="https://doi.org/10.1016%2Fj.cels.2018.05.012">10.1016/j.cels.2018.05.012</a>
+                            </li>
+                        </ol>
+                    </p>
+
+
+                    <blockquote class="details">
+                      <h3><i class="fa fa-info-circle" aria-hidden="true"></i><span class="visually-hidden">details</span> BibTeX</h3>
+                      <p style="display: none;">
+
+                    <div class="highlighter-rouge"><div class="highlight"><pre class="highlight">
+<code id="citation-code">@misc{proteomics-metaproteomics,
+    author = "Timothy J. Griffin and Pratik Jagtap and James Johnson and Clemens Blank and Subina Mehta",
+    title = "Metaproteomics tutorial (Galaxy Training Materials)",
+    year = "2020",
+    month = "11",
+    day = "26"
+    url = "\url{/training-material/topics/proteomics/tutorials/metaproteomics/tutorial.html}",
+    note = "[Online; accessed TODAY]"
+}
+@article{Batut_2018,
+        doi = {10.1016/j.cels.2018.05.012},
+        url = {https://doi.org/10.1016%2Fj.cels.2018.05.012},
+        year = 2018,
+        month = {jun},
+        publisher = {Elsevier {BV}},
+        volume = {6},
+        number = {6},
+        pages = {752--758.e1},
+        author = {B{\'{e}}r{\'{e}}nice Batut and Saskia Hiltemann and Andrea Bagnacani and Dannon Baker and Vivek Bhardwaj and Clemens Blank and Anthony Bretaudeau and Loraine Brillet-Gu{\'{e}}guen and Martin {\v{C}}ech and John Chilton and Dave Clements and Olivia Doppelt-Azeroual and Anika Erxleben and Mallory Ann Freeberg and Simon Gladman and Youri Hoogstrate and Hans-Rudolf Hotz and Torsten Houwaart and Pratik Jagtap and Delphine Larivi{\`{e}}re and Gildas Le Corguill{\'{e}} and Thomas Manke and Fabien Mareuil and Fidel Ram{\'{\i}}rez and Devon Ryan and Florian Christoph Sigloch and Nicola Soranzo and Joachim Wolff and Pavankumar Videm and Markus Wolfien and Aisanjiang Wubuli and Dilmurat Yusuf and James Taylor and Rolf Backofen and Anton Nekrutenko and Björn Grüning},
+        title = {Community-Driven Data Analysis Training for Biology},
+        journal = {Cell Systems}
+}</code>
+                    </pre></div></div>
+                    </p>
+                    </blockquote>
+
+
+<script type="text/javascript">
+// update the date on load, or leave fallback of 'today'
+d = new Date();
+document.getElementById("citation-code").innerHTML = document.getElementById("citation-code").innerHTML.replace("TODAY", d.toDateString());
+document.getElementById("citation-text").innerHTML = document.getElementById("citation-text").innerHTML.replace("TODAY", d.toDateString());
+</script>
+
+                </div>
+            </div>
+        </div>
+
+        <h3><i class="far fa-thumbs-up" aria-hidden="true"></i><span class="visually-hidden">congratulations</span> Congratulations on successfully completing this tutorial!</h3>
+
+        
+
+        
+    </section>
+</div>
+
+
+<footer>
+    <div class="container">
+        <p>
+            This material is the result of a collaborative work. Thanks to the
+            <a href="https://wiki.galaxyproject.org/Teach/GTN">Galaxy Training Network</a>
+            and all the <a href="/training-material/hall-of-fame">contributors</a> (Timothy J. Griffin, Pratik Jagtap, James Johnson, Clemens Blank, Subina Mehta)!
+        </p>
+        <p>
+            Found a typo? Something is wrong in this tutorial? Edit it on
+            <a href="https://github.com/galaxyproject/training-material/tree/master/topics/proteomics/tutorials/metaproteomics/tutorial.md">GitHub</a>.
+        </p>
+        <p>
+    The content of the tutorials and website is licensed under the <a rel="license" href="https://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0 International License</a>.
+</p>
+    </div>
+</footer>
+
+    </body>
+    <script type="text/javascript" src="/training-material/assets/js/jquery.slim.min.js"></script>
+    <script type="text/javascript" src="/training-material/assets/js/popper.min.js"></script>
+    <script type="text/javascript" src="/training-material/assets/js/bootstrap.min.js?v=3"></script>
+    <script type="text/javascript" src="/training-material/assets/js/details-element-polyfill.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript" src="/training-material/assets/js/bootstrap-toc.min.js"></script>
+    <script type="text/javascript" src="/training-material/assets/js/main.js"></script>
+    <script type="text/javascript" src="/training-material/assets/js/theme.js"></script>
+
+    <script type="text/javascript" src="/training-material/assets/js/clipboard.min.js"></script>
+    <script type="text/javascript">
+    var snippets=document.querySelectorAll('div.highlight');
+    [].forEach.call(snippets,function(snippet){
+        snippet.firstChild.insertAdjacentHTML('beforebegin','<button class="btn btn-light" data-clipboard-snippet><i class="fa fa-copy"></i>&nbsp;Copy</button>');
+    });
+
+    var clipboardSnippets=new ClipboardJS('[data-clipboard-snippet]',{
+        target:function(trigger){return trigger.nextElementSibling;
+    }});
+    </script>
+    
+
+    <script type="text/javascript">
+        if(window.location.hostname === "galaxyproject.github.io") {
+            // Redirect
+            var redirect = "https://training.galaxyproject.org" + window.location.pathname + window.location.search;
+            $('div.container.main-content').prepend("<div class='alert alert-warning'><strong>Note: </strong>This content has a new home at <a href=\"" + redirect + "\">" + redirect + "</a>, which you will be redirected to in 5 seconds.</div>");
+
+            window.setTimeout(function(){
+                window.location.href = redirect;
+            }, 5000)
+
+        }
+    </script>
+</html>

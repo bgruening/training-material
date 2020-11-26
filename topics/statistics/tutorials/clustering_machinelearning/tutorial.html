@@ -1,0 +1,1357 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <title>Clustering in Machine Learning</title>
+        
+            <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+    ga('create', '' , 'auto');
+    ga('send', 'pageview');
+</script>
+        
+        <link rel="stylesheet" href="/training-material/assets/css/bootstrap.min.css?v=3">
+        <link rel="stylesheet" href="/training-material/assets/css/bootstrap-toc.min.css">
+        <link rel="stylesheet" href="/training-material/assets/css/main.css?v=2">
+        <script src="https://kit.fontawesome.com/67b3f98409.js" crossorigin="anonymous"></script>
+        <link rel="stylesheet" href="/training-material/assets/css/academicons.css">
+        <link rel="stylesheet" href="/training-material/assets/css/syntax_highlighting.css">
+        <link rel="shortcut icon" href="/training-material/favicon.ico" type="image/x-icon" />
+
+        
+        
+        
+        
+        
+        <meta name="description" content="Statistical Analyses for omics data and machine learning ..." />
+        <meta property="og:title" content="Galaxy Training: Clustering in Machine Learning" />
+        <meta property="og:description" content="Statistical Analyses for omics data and machine learning ..." />
+        <meta property="og:image" content="/training-material/assets/images/GTNLogo1000.png" />
+    </head>
+    <body data-spy="scroll" data-target="#toc">
+        
+
+
+
+
+
+
+
+
+
+
+
+<!-- Gitter -->
+
+
+<script>
+  ((window.gitter = {}).chat = {}).options = {
+  room: 'Galaxy-Training-Network/Lobby'
+  };
+</script>
+<script src="https://sidecar.gitter.im/dist/sidecar.v1.js" async defer></script>
+
+<header>
+    <nav class="navbar navbar-expand-lg navbar-dark">
+        <div class="container">
+            <a class="navbar-brand" href="/training-material/">
+                <img src="/training-material/assets/images/GTN-60px.png" height="30" alt="Galaxy Training Network logo">
+                Galaxy Training!
+            </a>
+
+            <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#top-navbar" aria-controls="top-navbar" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="top-navbar">
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link" href="/training-material/topics/statistics" title="Go back to list of tutorials">
+                            <i class="far fa-folder" aria-hidden="true"></i><span class="visually-hidden">topic</span> Statistics and machine learning
+                        </a>
+                    </li>
+
+                    <li class="nav-item dropdown">
+                        <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" aria-expanded="false" title="Language Selector">
+                            <i class="fas fa-language" aria-hidden="true"></i><span class="visually-hidden">language</span> Language
+                        </a>
+                        <div class="dropdown-menu">
+                            
+                            <a class="dropdown-item" href="https://translate.google.com/translate?hl=jp&sl=en&tl=fr&u=https%3A%2F%2Ftraining.galaxyproject.org%2Ftopics%2Fstatistics%2Ftutorials%2Fclustering_machinelearning%2Ftutorial.html&edit-text=&act=url" title="">
+                                Français
+                            </a>
+                            
+                            <a class="dropdown-item" href="https://translate.google.com/translate?hl=jp&sl=en&tl=ja&u=https%3A%2F%2Ftraining.galaxyproject.org%2Ftopics%2Fstatistics%2Ftutorials%2Fclustering_machinelearning%2Ftutorial.html&edit-text=&act=url" title="">
+                                日本語
+                            </a>
+                            
+                            <a class="dropdown-item" href="https://translate.google.com/translate?hl=jp&sl=en&tl=es&u=https%3A%2F%2Ftraining.galaxyproject.org%2Ftopics%2Fstatistics%2Ftutorials%2Fclustering_machinelearning%2Ftutorial.html&edit-text=&act=url" title="">
+                                Español
+                            </a>
+                            
+                            <a class="dropdown-item" href="https://translate.google.com/translate?hl=jp&sl=en&tl=pt&u=https%3A%2F%2Ftraining.galaxyproject.org%2Ftopics%2Fstatistics%2Ftutorials%2Fclustering_machinelearning%2Ftutorial.html&edit-text=&act=url" title="">
+                                Português
+                            </a>
+                            
+                            <a class="dropdown-item" href="https://translate.google.com/translate?hl=jp&sl=en&tl=ar&u=https%3A%2F%2Ftraining.galaxyproject.org%2Ftopics%2Fstatistics%2Ftutorials%2Fclustering_machinelearning%2Ftutorial.html&edit-text=&act=url" title="">
+                                العربية
+                            </a>
+                            
+                            <a class="dropdown-item" href="https://translate.google.com/translate?hl=jp&sl=en&tl=&u=https%3A%2F%2Ftraining.galaxyproject.org%2Ftopics%2Fstatistics%2Ftutorials%2Fclustering_machinelearning%2Ftutorial.html&edit-text=&act=url" title="">
+                                And more!
+                            </a>
+                        </div>
+                    </li>
+
+                    <li class="nav-item dropdown">
+    <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" aria-expanded="false" title="Help">
+        <i class="far fa-question-circle" aria-hidden="true"></i><span class="visually-hidden">help</span> Help
+    </a>
+    <div class="dropdown-menu dropdown-menu-right">
+        <form method="get" action="https://tess.elixir-europe.org/materials">
+            <input type="text" id="search" name="q" value="" style="margin-left: 0.5em;/*! border-radius: 0px; */">
+            <input type="hidden" value="Galaxy Training" name="content_provider">
+            <input type="submit" value="Search on TeSS" style="width: 92%;border-radius: 0px;margin: 0.5em;background: #f47d20;border: 0px;padding: 0.25em;" class="">
+        </form>
+
+        <div class="dropdown-divider"></div>
+        <a class="dropdown-item" href="/training-material/faq" title="Check our FAQ">
+            FAQ
+        </a>
+        <a class="dropdown-item" href="https://help.galaxyproject.org/" title="Discuss on Galaxy Help">
+            Discuss on Galaxy Help
+        </a>
+
+        <div class="dropdown-item">
+            <div>
+                Theme
+            </div>
+
+            <div id="theme-selector" data-toggle="buttons">
+                <label data-value="default" class="btn btn-secondary">
+                    <input type="radio" name="options" id="default" autocomplete="off"> Default
+                </label>
+                <label data-value="night" class="btn btn-secondary">
+                    <input type="radio" name="options" id="night" autocomplete="off"> Night
+                </label>
+                <label data-value="midnight" class="btn btn-secondary">
+                    <input type="radio" name="options" id="midnight" autocomplete="off"> Midnight
+                </label>
+                <label data-value="rainbow" class="btn btn-secondary">
+                    <input type="radio" name="options" id="rainbow" autocomplete="off"> Rainbow
+                </label>
+                <label data-value="halloween" class="btn btn-secondary">
+                    <input type="radio" name="options" id="halloween" autocomplete="off"> 🎃
+                </label>
+            </div>
+
+        </div>
+    </div>
+</li>
+
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="https://github.com/galaxyproject/training-material/edit/master/topics/statistics/tutorials/clustering_machinelearning/tutorial.md">
+                            <i class="fab fa-github" aria-hidden="true"></i><span class="visually-hidden">github</span> Edit
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+</header>
+
+<div class="container main-content">
+    <script type="application/ld+json">
+        
+
+
+{
+  "@context": "http://schema.org",
+  "@type": "Course",
+  "accessMode": [
+    "textual",
+    "visual"
+  ],
+  "accessModeSufficient": [
+    "textual",
+    "visual"
+  ],
+  "accessibilityControl": [
+    "fullKeyboardControl",
+    "fullMouseControl"
+  ],
+  "accessibilityFeature": [
+    "alternativeText",
+    "tableOfContents"
+  ],
+  "accessibilitySummary": "Short descriptions are present but long descriptions will be needed for non-visual users",
+  "audience": {
+    "@type": "EducationalAudience",
+    "educationalRole": "students"
+  },
+  "citation": {
+    "@type": "CreativeWork",
+    "name": "Community-Driven Data Analysis Training for Biology",
+    "url": "https://doi.org/10.1016/j.cels.2018.05.012"
+  },
+  "copyrightHolder": {
+    "@type": "Organization",
+    "email": "galaxytrainingnetwork@gmail.com",
+    "name": "Galaxy Training Network",
+    "url": "https://galaxyproject.org/teach/gtn/"
+  },
+  "discussionUrl": "https://gitter.im/Galaxy-Training-Network/Lobby",
+  "headline": "Clustering in Machine Learning",
+  "inLanguage": {
+    "@type": "Language",
+    "name": "English",
+    "alternateName": "en"
+  },
+  "interactivityType": "mixed",
+  "isAccessibleForFree": true,
+  "license": "https://github.com/galaxyproject/training-material/blob/master/LICENSE.md",
+  "producer": {
+    "@type": "Organization",
+    "email": "galaxytrainingnetwork@gmail.com",
+    "name": "Galaxy Training Network",
+    "url": "https://galaxyproject.org/teach/gtn/"
+  },
+  "provider": {
+    "@type": "Organization",
+    "email": "galaxytrainingnetwork@gmail.com",
+    "name": "Galaxy Training Network",
+    "url": "https://galaxyproject.org/teach/gtn/"
+  },
+  "sourceOrganization": {
+    "@type": "Organization",
+    "email": "galaxytrainingnetwork@gmail.com",
+    "name": "Galaxy Training Network",
+    "url": "https://galaxyproject.org/teach/gtn/"
+  },
+  "isPartOf": {
+    "@type": "CreativeWork",
+    "name": "Statistics and machine learning",
+    "description": "Statistical Analyses for omics data and machine learning using Galaxy tools",
+    "url": "https://training.galaxyproject.org//training-material/topics/statistics/"
+  },
+  "courseCode": "statistics / clustering_machinelearning / hands-on",
+  "learningResourceType": "hands-on tutorial",
+  "name": "Hands-on for 'Clustering in Machine Learning' tutorial",
+  "url": "https://training.galaxyproject.org//training-material/topics/statistics/tutorials/clustering_machinelearning/tutorial.html",
+  "timeRequired": "PT2H",
+  "description": "The questions this  addresses are:\n - How to use clustering algorithms to categorize data in different clusters\n\n\\nThe objectives are:\n - Learn clustering background\n - Learn hierarchical clustering algorithm\n - Learn k-means clustering algorithm\n - Learn DBSCAN clustering algorithm\n - Apply clustering algorithms to different datasets\n - Learn how to visualize clusters\n\n",
+  "coursePrerequisites": [
+    {
+      "@type": "CreativeWork",
+      "url": "https://training.galaxyproject.org//training-material/topics/introduction/",
+      "name": "Introduction to Galaxy Analyses",
+      "description": "Introduction to Galaxy Analyses",
+      "provider": {
+        "@type": "Organization",
+        "email": "galaxytrainingnetwork@gmail.com",
+        "name": "Galaxy Training Network",
+        "url": "https://galaxyproject.org/teach/gtn/"
+      }
+    }
+  ],
+  "hasPart": [
+
+  ],
+  "author": [
+    {
+      "@type": "Person",
+      "name": "Alireza Khanteymoori"
+    },
+    {
+      "@type": "Person",
+      "name": "Anup Kumar"
+    }
+  ],
+  "contributor": [
+    {
+      "@type": "Person",
+      "name": "Alireza Khanteymoori"
+    },
+    {
+      "@type": "Person",
+      "name": "Anup Kumar"
+    }
+  ],
+  "about": [
+    {
+      "@type": "CreativeWork",
+      "name": "Statistics and machine learning",
+      "description": "Statistical Analyses for omics data and machine learning using Galaxy tools",
+      "url": "https://training.galaxyproject.org//training-material/topics/statistics/"
+    },
+    {
+      "@type": "DefinedTerm",
+      "@id": "http://edamontology.org/topic_2269",
+      "inDefinedTermSet": "http://edamontology.org",
+      "termCode": "topic_2269",
+      "url": "https://bioportal.bioontology.org/ontologies/EDAM/?p=classes&conceptid=http%3A%2F%2Fedamontology.org%2Ftopic_2269"
+    }
+  ]
+}
+    </script>
+
+    <section class="tutorial">
+        <h1 data-toc-skip>Clustering in Machine Learning</h1>
+        
+
+        <div class="contributors-line">By: 
+
+<a href="/training-material/hall-of-fame/khanteymoori/" class="contributor-badge"><img src="https://avatars.githubusercontent.com/khanteymoori" alt="Alireza Khanteymoori">Alireza Khanteymoori</a>, <a href="/training-material/hall-of-fame/anuprulez/" class="contributor-badge"><img src="https://avatars.githubusercontent.com/anuprulez" alt="Anup Kumar">Anup Kumar</a>
+
+</div>
+
+        <blockquote class="overview">
+            <h3>Overview</h3>
+            <strong><i class="far fa-question-circle" aria-hidden="true"></i><span class="visually-hidden">question</span> Questions</strong>
+            <ul>
+            
+            <li><p>How to use clustering algorithms to categorize data in different clusters</p>
+</li>
+            
+            </ul>
+
+            <strong><i class="fas fa-bullseye" aria-hidden="true"></i><span class="visually-hidden">objectives</span> Objectives</strong>
+            <ul>
+            
+            <li><p>Learn clustering background</p>
+</li>
+            
+            <li><p>Learn hierarchical clustering algorithm</p>
+</li>
+            
+            <li><p>Learn k-means clustering algorithm</p>
+</li>
+            
+            <li><p>Learn DBSCAN clustering algorithm</p>
+</li>
+            
+            <li><p>Apply clustering algorithms to different datasets</p>
+</li>
+            
+            <li><p>Learn how to visualize clusters</p>
+</li>
+            
+            </ul>
+
+            
+            <strong><i class="fas fa-check-circle" aria-hidden="true"></i><span class="visually-hidden">requirements</span> Requirements</strong>
+            <ul>
+            
+    <li>
+    
+        
+        
+        <a href="/training-material/topics/introduction">Introduction to Galaxy Analyses</a>
+        
+    
+    </li>
+
+            
+            </ul>
+            
+
+            
+            <p><strong><i class="fas fa-hourglass-half" aria-hidden="true"></i><span class="visually-hidden">time</span> Time estimation:</strong> 2 hours</p>
+            
+
+            
+
+            
+            
+
+            
+            <p id="supporting-materials"><strong><i class="fa fa-external-link" aria-hidden="true"></i> Supporting Materials</strong></p>
+            <ul>
+                <div class="supporting_material">
+                
+
+                
+                    <li class="btn btn-default supporting_material">
+<a class="topic-icon" href="https://zenodo.org/record/3813447">
+    <i class="far fa-copy" aria-hidden="true"></i><span class="visually-hidden">zenodo_link</span> Datasets
+</a>
+
+</li>
+                
+
+                
+                    <li class="btn btn-default supporting_material">
+    <a class="topic-icon" href="/training-material/topics/statistics/tutorials/clustering_machinelearning/workflows/" title="Workflows" alt="Clustering in Machine Learning workflows">
+        <i class="fas fa-share-alt" aria-hidden="true"></i><span class="visually-hidden">workflow</span> Workflows
+    </a>
+
+</li>
+                
+
+                
+
+                
+                    <li class="btn btn-default supporting_material">
+
+    <a href="#" class="btn btn-default dropdown-toggle topic-icon" data-toggle="dropdown" aria-expanded="false" title="Where to run the tutorial">
+        <i class="fas fa-globe" aria-hidden="true"></i><span class="visually-hidden">instances</span> Available on these Galaxies
+    </a>
+    <ul class="dropdown-menu">
+    
+        <li>
+            <a class="dropdown-item" href="https://github.com/galaxyproject/training-material/tree/master/topics/statistics/docker" title="Docker image for this tutorial">
+                <i class="fab fa-docker" aria-hidden="true"></i><span class="visually-hidden">docker_image</span> Docker image
+            </a>
+        </li>
+    
+    
+    </ul>
+
+
+</li>
+                
+                </div>
+            </ul>
+            
+
+            <p><strong> <i class="far fa-calendar" aria-hidden="true"></i><span class="visually-hidden">last_modification</span> Last modification:</strong> Nov 26, 2020 </p>
+        </blockquote>
+
+        <div class="container">
+            <div class="row">
+                <!-- sidebar, which will move to the top on a small screen -->
+                <div class="col-sm-2">
+                    <nav id="toc" data-toggle="toc" class="sticky-top"></nav>
+                </div>
+                <div class="col-sm-10">
+                    <h1 class="no_toc" id="introduction">Introduction</h1>
+
+<p>The goal of <a href="https://en.wikipedia.org/wiki/Unsupervised_learning">unsupervised learning</a> is to discover hidden patterns in any unlabeled data. One of the approaches to unsupervised learning is <a href="https://en.wikipedia.org/wiki/Cluster_analysis">clustering</a>. In this tutorial, we will discuss clustering, its types and a few algorithms to find clusters in data. Clustering groups data points based on their similarities. Each group is called a cluster and contains data points with high similarity and low similarity with data points in other clusters. In short, data points of a cluster are more similar to each other than they are to the data points of other clusters. The goal of clustering is to divide a set of data points in such a way that similar items fall into the same cluster, whereas dissimilar data points fall in different clusters. Further in this tutorial, we will discuss ideas on how to choose different metrics of similarity  between data points and use them in different clustering algorithms.</p>
+
+<p>Clustering is crucial in multiple research fields in BioInformatics such as analyzing unlabeled data which can be gene <span class="notranslate">expression</span>s profiles, biomedical images and so on. For example, clustering is often used in gene <span class="notranslate">expression</span> analysis to find groups of genes with similar <span class="notranslate">expression</span> patterns which may provide a useful understanding of gene functions and regulations, cellular processes and so on. For more details, please refer to <a href="https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0171429">ref1</a> and <a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC5135122/">ref2</a>.</p>
+
+<p>We represent an observation/sample/data point as an n-dimensional vector and many such data points constitute a dataset. To show an example, let us assume that a dataset, shown in Figure 1, contains many samples and each sample has two dimensions each:</p>
+
+<figure id="figure-1"><img src="images/data_before_clustering.png" alt="data" /><figcaption><span class="figcaption-prefix">Figure 1:</span> Sample data before clustering</figcaption></figure>
+
+<p>Clustering reveals the following three groups, indicated by different colors:</p>
+
+<figure id="figure-2"><img src="images/data_after_clustering.png" alt="data" /><figcaption><span class="figcaption-prefix">Figure 2:</span> Sample data after clustering</figcaption></figure>
+
+<p>Clustering is divided into two subgroups based on the assignment of data points to clusters:</p>
+
+<ul>
+  <li>
+    <p>Hard: Each data point is assigned to exactly one cluster. One example is <a href="https://en.wikipedia.org/wiki/K-means_clustering">k-means</a> clustering.</p>
+  </li>
+  <li>
+    <p>Soft: Each data point is assigned a probability or likelihood of being in a cluster. One example is <a href="https://en.wikipedia.org/wiki/Expectation%E2%80%93maximization_algorithm">expectation-maximization</a> (EM) algorithm.</p>
+  </li>
+</ul>
+
+<blockquote class="agenda">
+  <h3 id="agenda">Agenda</h3>
+
+  <p>In this tutorial, we will cover:</p>
+
+<ol id="markdown-toc">
+  <li><a href="#types-of-clustering-algorithms" id="markdown-toc-types-of-clustering-algorithms">Types of clustering algorithms</a></li>
+  <li><a href="#clustering-distance-measures" id="markdown-toc-clustering-distance-measures">Clustering distance measures</a></li>
+  <li><a href="#different-clustering-approaches" id="markdown-toc-different-clustering-approaches">Different clustering approaches</a>    <ol>
+      <li><a href="#hierarchical-clustering" id="markdown-toc-hierarchical-clustering">Hierarchical clustering</a></li>
+      <li><a href="#k-means-clustering" id="markdown-toc-k-means-clustering">K-means clustering</a></li>
+      <li><a href="#dbscan-clustering" id="markdown-toc-dbscan-clustering">DBSCAN clustering</a></li>
+    </ol>
+  </li>
+  <li><a href="#applying-clustering-algorithms-on-multiple-datasets" id="markdown-toc-applying-clustering-algorithms-on-multiple-datasets">Applying clustering algorithms on multiple datasets</a>    <ol>
+      <li><a href="#visualise-datasets" id="markdown-toc-visualise-datasets">Visualise datasets</a></li>
+      <li><a href="#find-clusters" id="markdown-toc-find-clusters">Find clusters</a></li>
+      <li><a href="#visualise-clusters" id="markdown-toc-visualise-clusters">Visualise clusters</a></li>
+    </ol>
+  </li>
+  <li><a href="#conclusion" id="markdown-toc-conclusion">Conclusion</a></li>
+</ol>
+
+</blockquote>
+
+<h1 id="types-of-clustering-algorithms">Types of clustering algorithms</h1>
+
+<p>There are many algorithms available for data clustering which use different ways to establish similarity between data points. The clustering algorithms can be broadly divided into many categories such as connectivity model, centroid model, density model, distribution model, group model, graph-based model and so on. Some of these are discussed below:</p>
+
+<ul>
+  <li>
+    <p>Connectivity model: This model assigns higher similarity to data points which are closer in one or multi-dimensional space than those points which are farther away. There are two approaches - first, it categorises all data points into different clusters and then merges the data points in relation to the distances among them. Second, it categorises all data points into one single cluster and then partitions them into different clusters as the distance increases. This model is easy to understand but has problems in handling large datasets. One example is <a href="https://en.wikipedia.org/wiki/Hierarchical_clustering">hierarchical clustering</a> and its variants.</p>
+  </li>
+  <li>
+    <p>Centroid model: It is an iterative clustering algorithm in which similarity is based on the proximity of a data point to the centroids of the clusters. <a href="https://en.wikipedia.org/wiki/K-means_clustering">K-means</a> clustering is one example of this model. It needs a number of clusters before running and then divides data points into these many clusters iteratively. Therefore, to use k-means, users should acquire some prior knowledge about the dataset.</p>
+  </li>
+  <li>
+    <p>Density model: This model searches one or multi-dimensional space for dense regions (having a large number of data points in a small region). A popular example of a density model is <a href="https://en.wikipedia.org/wiki/DBSCAN">DBSCAN</a>.</p>
+  </li>
+</ul>
+
+<p>In this tutorial, we will go through three clustering algorithms - hierarchical clustering, k-means, DBSCAN, and a comparison between these methods. Further, we will discuss their parameters and how to apply them to find clusters in the <a href="https://en.wikipedia.org/wiki/Iris_flower_data_set">iris flower dataset</a> and a few other datasets.</p>
+
+<h1 id="clustering-distance-measures">Clustering distance measures</h1>
+
+<p>Clustering groups similar data points and requires a metric or measure to compute a degree of similarity or dissimilarity of data points. Two main types of measures are distance and similarity. The smaller the distance between two objects, the more similar they are to each other. Moreover, the type of distance measure depends on the problem and one measure may not work with all kinds of problems.</p>
+
+<p>Many clustering algorithms use distance measures to determine the similarity or dissimilarity between any pair of data points. A valid distance measure should be symmetric and obtains its minimum value (usually zero) in case of identical data points. By computing the distance or (dis)similarity between each pair of observations, a dissimilarity or distance matrix is obtained.</p>
+
+<p>The choice of a distance measure is crucial in clustering. It defines how the similarity of two elements <code class="language-plaintext highlighter-rouge">(x, y)</code> is calculated as it influences the shape of the clusters. The classical distance measures are <a href="https://en.wikipedia.org/wiki/Euclidean_distance">euclidean</a> and <a href="https://en.wikipedia.org/wiki/Taxicab_geometry">manhattan</a> distances. For the most common clustering algorithms, the default distance measure is euclidean. If the euclidean distance is chosen, then observations having high magnitudes of their respective features will be clustered together. The same holds for the observations having low magnitudes of their respective features. In Figure 3, we group the cells using euclidean distance and their distance matrix.</p>
+
+<figure id="figure-3"><img src="images/raceid_distance.svg" alt="Distances" /><figcaption><span class="figcaption-prefix">Figure 3:</span> Euclidean distance between three points (R, P, V) across three features (G1, G2, G3)</figcaption></figure>
+
+<blockquote class="question">
+  <h3 id="question-questions"><i class="far fa-question-circle" aria-hidden="true"></i><span class="visually-hidden">question</span> Questions</h3>
+
+  <ol>
+    <li>Why are there zeroes along the diagonal of the above example distance matrix?</li>
+    <li>Is there any symmetry in this matrix?</li>
+  </ol>
+
+  <blockquote class="solution">
+    <h3 id="solution-solution"><i class="far fa-eye" aria-hidden="true"></i><span class="visually-hidden">solution</span> Solution</h3>
+
+    <ol>
+      <li>The distance between a point to itself is zero.</li>
+      <li>The distance between point <em>a</em> to point <em>b</em> is the same as the distance between point <em>b</em> to point <em>a</em> using the Euclidean distance metric.</li>
+    </ol>
+
+  </blockquote>
+
+</blockquote>
+
+<p>Other dissimilarity measures exist such as correlation-based distances, which are widely used for gene <span class="notranslate">expression</span> data analyses. Correlation-based distance considers two objects to be similar if their features are highly correlated, even though the observed values may be far apart in terms of euclidean distance. The distance between the two objects is 0 when they are perfectly correlated. <a href="https://en.wikipedia.org/wiki/Pearson_correlation_coefficient">Pearson’s correlation</a> is quite sensitive to outliers. This does not matter when clustering samples because the correlation is over thousands of genes. However, it is important to be aware of the possible impact of outliers. This can be mitigated by using <a href="https://en.wikipedia.org/wiki/Spearman%27s_rank_correlation_coefficient">Spearman’s correlation</a> instead of Pearson’s correlation.</p>
+
+<h1 id="different-clustering-approaches">Different clustering approaches</h1>
+
+<h2 id="hierarchical-clustering">Hierarchical clustering</h2>
+
+<p>Hierarchical clustering creates a hierarchy of clusters. It starts with all the data points assigned to clusters of their own. Then, the two nearest clusters are merged into the same cluster. In the end, the algorithm terminates when there is only one cluster left.</p>
+
+<p>Following are the steps that are performed during hierarchical clustering:</p>
+
+<ol>
+  <li>
+    <p>In the beginning, every data point in the dataset is treated as a cluster which means that we have <code class="language-plaintext highlighter-rouge">N</code> clusters at the beginning of the algorithm for a dataset of size <code class="language-plaintext highlighter-rouge">N</code>.</p>
+  </li>
+  <li>
+    <p>The distance between all the points is calculated and two points closest to each other are merged together to form a new cluster.</p>
+  </li>
+  <li>
+    <p>Next, the point which is closest to the cluster formed in step 2, will be merged to the cluster.</p>
+  </li>
+  <li>
+    <p>Steps 2 and 3 are repeated until one large cluster is created.</p>
+  </li>
+  <li>
+    <p>Finally, this large cluster is divided into K small clusters with the help of dendrograms.</p>
+  </li>
+</ol>
+
+<p>Let’s now see how dendrograms help in hierarchical clustering.</p>
+
+<figure id="figure-4"><img src="images/Hierarchical_clustering_1.png" alt="data" /><figcaption><span class="figcaption-prefix">Figure 4:</span> Hierarchical clustering</figcaption></figure>
+
+<p>All data points are chosen at the bottom and each one is assigned to a separate cluster. Then, the two closest clusters are merged till just one cluster is left at the top. From the dendrogram thus formed, the distance between two clusters can be determined by computing the height at which two clusters are merged.</p>
+
+<p>By looking at the dendrogram, the clusters can be observed showing different groups in the best way. The optimal number of clusters is the number of vertical lines in the dendrogram cut by a horizontal line that can transverse maximum distance vertically without intersecting a cluster.</p>
+
+<p>In the above example, the best choice of the number of clusters will be 4 as the red horizontal line in the dendrogram below covers maximum vertical distance AB. For more details, please read <a href="https://www.analyticsvidhya.com/blog/2016/11/an-introduction-to-clustering-and-different-methods-of-clustering/">here</a>.</p>
+<figure id="figure-5"><img src="images/Hierarchical_clustering_2.png" alt="data" /><figcaption><span class="figcaption-prefix">Figure 5:</span> Hierarchical clustering</figcaption></figure>
+
+<p>This algorithm explained above uses the bottom-up approach. It is also possible to follow the top-down approach starting with all data points assigned in the same cluster and recursively performing splits till each data point is assigned a separate cluster. The decision of merging two clusters is taken based on the proximity of these clusters.</p>
+
+<blockquote class="comment">
+  <h3 id="comment-background-of-the-iris-dataset"><i class="far fa-comment-dots" aria-hidden="true"></i><span class="visually-hidden">comment</span> Background of the iris dataset</h3>
+  <p>The iris flower dataset or Fisher’s iris dataset is a multivariate dataset introduced by the British statistician and biologist Ronald Fisher in his 1936 paper (<a class="citation" href="#Fisher1936">Fisher 1936</a>).
+Each row of the table represents an iris flower, including its species and dimensions of its botanical parts, sepal and petal, in centimeters.
+For more history of this dataset read here <a href="https://en.wikipedia.org/wiki/Iris_flower_data_set">Wikipedia</a>.</p>
+</blockquote>
+
+<p>At the first step, we should upload the iris dataset and two other datasets which will be used at the end of the tutorial.</p>
+
+<blockquote class="notranslate hands_on">
+  <h3 id="hands_on-hands-on-data-upload"><i class="fas fa-pencil-alt" aria-hidden="true"></i><span class="visually-hidden">hands_on</span> Hands-on: Data upload</h3>
+
+  <ol>
+    <li>
+      <p><strong>Import</strong> <i class="fas fa-upload" aria-hidden="true"></i><span class="visually-hidden"><span class="notranslate">galaxy</span>-upload</span> the file <code class="language-plaintext highlighter-rouge">iris.csv</code> from <a href="https://zenodo.org/record/3813447/files/iris.csv">Zenodo</a> or from the data library</p>
+
+      <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>https://zenodo.org/record/3813447/files/iris.csv
+https://zenodo.org/record/3813447/files/circles.csv
+https://zenodo.org/record/3813447/files/moon.csv
+</code></pre></div>      </div>
+
+      <blockquote class="tip">
+
+        <h3 id="tip-tip-importing-data-via-links"><i class="far fa-lightbulb" aria-hidden="true"></i><span class="visually-hidden">tip</span> Tip: Importing data via links</h3>
+
+        <ul>
+          <li>Copy the link location</li>
+          <li>
+            <p>Open the <span class="notranslate">Galaxy</span> Upload Manager (<i class="fas fa-upload" aria-hidden="true"></i><span class="visually-hidden"><span class="notranslate">galaxy</span>-upload</span> on the top-right of the tool panel)</p>
+          </li>
+          <li>Select <strong>Paste/Fetch Data</strong></li>
+          <li>
+            <p>Paste the link into the text field</p>
+          </li>
+          <li>
+            <p>Press <strong>Start</strong></p>
+          </li>
+          <li><strong>Close</strong> the window</li>
+        </ul>
+
+        <p>By default, <span class="notranslate">Galaxy</span> uses the URL as the name, so rename the files with a more useful name.</p>
+
+      </blockquote>
+
+      <blockquote class="tip">
+
+        <h3 id="tip-tip-importing-data-from-a-data-library"><i class="far fa-lightbulb" aria-hidden="true"></i><span class="visually-hidden">tip</span> Tip: Importing data from a data library</h3>
+
+        <p>As an alte<span class="notranslate">rna</span>tive to uploading the data from a URL or your computer, the files may also have been made available from a <em>shared data library</em>:</p>
+
+        <ul>
+          <li>
+            <p>Go into <strong>Shared data</strong> (top panel) then <strong>Data libraries</strong></p>
+          </li>
+          <li>
+            <p>Find the correct folder (ask your instructor)</p>
+          </li>
+          <li>Select the desired files</li>
+          <li>Click on the <strong>To History</strong> button near the top and select <strong>as Datasets</strong> from the dropdown menu</li>
+          <li>In the pop-up window, select the history you want to import the files to (or create a new one)</li>
+          <li>Click on <strong>Import</strong></li>
+        </ul>
+      </blockquote>
+    </li>
+    <li>
+      <p><strong>Rename</strong> <i class="fas fa-pencil-alt" aria-hidden="true"></i><span class="visually-hidden"><span class="notranslate">galaxy</span>-pencil</span> the datasets to <code class="language-plaintext highlighter-rouge">iris</code>, <code class="language-plaintext highlighter-rouge">circles</code> and <code class="language-plaintext highlighter-rouge">moon</code> respectively.</p>
+
+      <blockquote class="tip">
+
+        <h3 id="tip-tip-renaming-a-dataset"><i class="far fa-lightbulb" aria-hidden="true"></i><span class="visually-hidden">tip</span> Tip: Renaming a dataset</h3>
+        <ul>
+          <li>Click on the <i class="fas fa-pencil-alt" aria-hidden="true"></i><span class="visually-hidden"><span class="notranslate">galaxy</span>-pencil</span> <strong>pencil icon</strong> for the dataset to edit its attributes</li>
+          <li>In the central panel, change the <strong>Name</strong> field</li>
+          <li>Click the <strong>Save</strong> button</li>
+        </ul>
+      </blockquote>
+    </li>
+    <li>
+      <p>Check the <strong>datatype</strong></p>
+      <ul>
+        <li>Click on the history item to expand it to get more information.</li>
+        <li>The datatype of the iris dataset should be <code class="language-plaintext highlighter-rouge">csv</code>.</li>
+        <li><strong>Change</strong> <i class="fas fa-pencil-alt" aria-hidden="true"></i><span class="visually-hidden"><span class="notranslate">galaxy</span>-pencil</span> the datatype <em>if</em> it is different than <code class="language-plaintext highlighter-rouge">csv</code>.
+          <ul>
+            <li>Option 1: Datatypes can be <strong>autodetected</strong></li>
+            <li>Option 2: Datatypes can be <strong>manually set</strong></li>
+          </ul>
+        </li>
+      </ul>
+
+      <blockquote class="tip">
+
+        <h3 id="tip-tip-detecting-the-datatype"><i class="far fa-lightbulb" aria-hidden="true"></i><span class="visually-hidden">tip</span> Tip: Detecting the datatype</h3>
+        <ul>
+          <li>Click on the <i class="fas fa-pencil-alt" aria-hidden="true"></i><span class="visually-hidden"><span class="notranslate">galaxy</span>-pencil</span> <strong>pencil icon</strong> for the dataset to edit its attributes</li>
+          <li>In the central panel, click on the <i class="fas fa-database" aria-hidden="true"></i><span class="visually-hidden"><span class="notranslate">galaxy</span>-chart-select-data</span> <strong>Datatypes</strong> tab on the top</li>
+          <li>Select <code class="language-plaintext highlighter-rouge">datatypes</code></li>
+          <li>Click the <strong>Detect datatype</strong> button</li>
+        </ul>
+      </blockquote>
+
+      <blockquote class="tip">
+
+        <h3 id="tip-tip-changing-the-datatype"><i class="far fa-lightbulb" aria-hidden="true"></i><span class="visually-hidden">tip</span> Tip: Changing the datatype</h3>
+        <ul>
+          <li>Click on the <i class="fas fa-pencil-alt" aria-hidden="true"></i><span class="visually-hidden"><span class="notranslate">galaxy</span>-pencil</span> <strong>pencil icon</strong> for the dataset to edit its attributes</li>
+          <li>In the central panel, click on the <i class="fas fa-database" aria-hidden="true"></i><span class="visually-hidden"><span class="notranslate">galaxy</span>-chart-select-data</span> <strong>Datatypes</strong> tab on the top</li>
+          <li>Select <code class="language-plaintext highlighter-rouge">csv</code></li>
+          <li>Click the <strong>Change datatype</strong> button</li>
+        </ul>
+      </blockquote>
+    </li>
+  </ol>
+
+</blockquote>
+
+<p>Our objective is to categorise similar flowers in different groups (Figure 6). We know that we have <strong>3</strong> species of iris flowers (versicolor, virginica, setosa) with
+<strong>50</strong> samples for each. These species look very much alike as shown in the figure below.</p>
+
+<figure id="figure-6"><img src="images/iris_flowers.png" alt="3 species of iris flowers" /><figcaption><span class="figcaption-prefix">Figure 6:</span> 3 species of iris flowers</figcaption></figure>
+
+<p>In our dataset, we have the following features measured for each flower: <a href="https://en.wikipedia.org/wiki/Petal">petal</a> length, petal width, <a href="https://en.wikipedia.org/wiki/Sepal">sepal</a> length, sepal width</p>
+
+<p>Figure 7 shows the dendrogram of these data.</p>
+
+<figure id="figure-7"><img src="images/Hierarchical_iris.png" alt="data" /><figcaption><span class="figcaption-prefix">Figure 7:</span> Iris data hierarchical clustering</figcaption></figure>
+
+<p>We will apply hierarchical clustering to the iris dataset to find clusters based on two features (of flowers) - sepal length and width.
+<strong>Hint</strong>: Please find the <code class="language-plaintext highlighter-rouge">Numeric Clustering</code> tool in the <code class="language-plaintext highlighter-rouge">Statistics</code> tool section.</p>
+
+<blockquote class="notranslate hands_on">
+  <h3 id="hands_on-hands-on-hierarchical-clustering"><i class="fas fa-pencil-alt" aria-hidden="true"></i><span class="visually-hidden">hands_on</span> Hands-on: Hierarchical clustering</h3>
+
+  <ol>
+    <li><strong>Numeric Clustering</strong> <i class="fas fa-wrench" aria-hidden="true"></i><span class="visually-hidden">tool</span> with the following clustering parameters:
+      <ul>
+        <li><em>“Select the format of input data”</em>: <code class="language-plaintext highlighter-rouge">Tabular Format (tabular,txt)</code>
+          <ul>
+            <li><i class="far fa-file" aria-hidden="true"></i><span class="visually-hidden">param-file</span> <em>“Data file with numeric values”</em>: <code class="language-plaintext highlighter-rouge">iris</code></li>
+            <li><i class="far fa-check-square" aria-hidden="true"></i><span class="visually-hidden">param-check</span> <em>“Does the dataset contain header”</em>: <code class="language-plaintext highlighter-rouge">Yes</code></li>
+            <li><i class="fas fa-filter" aria-hidden="true"></i><span class="visually-hidden">param-select</span> <em>“Choose how to select data by column”</em>: <code class="language-plaintext highlighter-rouge">All columns EXCLUDING some by column header name(s)</code>
+              <ul>
+                <li><i class="fas fa-pencil-alt" aria-hidden="true"></i><span class="visually-hidden">param-text</span> <em>“Type header name(s)”</em>: <code class="language-plaintext highlighter-rouge">Species</code></li>
+              </ul>
+            </li>
+            <li><i class="fas fa-filter" aria-hidden="true"></i><span class="visually-hidden">param-select</span> <em>“Clustering Algorithm”</em>: <code class="language-plaintext highlighter-rouge">Hierarchical Agglomerative Clustering</code></li>
+            <li>In <em>“Advanced options”</em>
+              <ul>
+                <li><i class="fas fa-pencil-alt" aria-hidden="true"></i><span class="visually-hidden">param-text</span> <em>“Number of clusters”</em>: <code class="language-plaintext highlighter-rouge">2</code></li>
+                <li><i class="fas fa-filter" aria-hidden="true"></i><span class="visually-hidden">param-select</span> <em>“Affinity”</em>: <code class="language-plaintext highlighter-rouge">Euclidean</code></li>
+                <li><i class="fas fa-filter" aria-hidden="true"></i><span class="visually-hidden">param-select</span> <em>“Linkage”</em>: <code class="language-plaintext highlighter-rouge">ward</code></li>
+              </ul>
+            </li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+    <li>Rename the generated file to <code class="language-plaintext highlighter-rouge">Hierarchical clustering</code></li>
+  </ol>
+</blockquote>
+
+<p>If you view the result table, you can see the last column is the label for each cluster and as you see, all the setosa samples are grouped in one cluster and two other species (versicolor and virginica) are grouped in the second cluster. From Figure 6, it is obvious that versicolor and virginica are more similar to each other.</p>
+
+<h3 id="visualize-hierarchical-clustering">Visualize hierarchical clustering</h3>
+
+<p>The resulting candidate clustering can be visualized using the <code class="language-plaintext highlighter-rouge">Scatterplot with ggplot2</code> tool. Each sample is color-coded based on its clustering for that sample.
+Let’s visualize the clustering results to see how groups have been built. <strong>Hint</strong>: Please find the <code class="language-plaintext highlighter-rouge">Scatterplot with ggplot2</code> tool in the <code class="language-plaintext highlighter-rouge">Graph/Display data</code> tool section.</p>
+
+<blockquote class="notranslate hands_on">
+  <h3 id="hands_on-hands-on-visualize-hierarchical-clustering-result"><i class="fas fa-pencil-alt" aria-hidden="true"></i><span class="visually-hidden">hands_on</span> Hands-on: Visualize hierarchical clustering result</h3>
+
+  <ol>
+    <li><strong>Scatterplot with ggplot2</strong> <i class="fas fa-wrench" aria-hidden="true"></i><span class="visually-hidden">tool</span> with the following parameters:
+      <ul>
+        <li><i class="far fa-file" aria-hidden="true"></i><span class="visually-hidden">param-file</span> <em>“Input tabular dataset”</em>: <strong>Hierarchical clustering</strong></li>
+        <li><em>“Column to plot on x-axis”</em>: <code class="language-plaintext highlighter-rouge">1</code></li>
+        <li><em>“Column to plot on y-axis”</em>: <code class="language-plaintext highlighter-rouge">2</code></li>
+        <li><em>“Plot title”</em>: <code class="language-plaintext highlighter-rouge">Hierarchical clustering in iris data</code></li>
+        <li><em>“Label for x axis”</em>: <code class="language-plaintext highlighter-rouge">Sepal length</code></li>
+        <li><em>“Label for y axis”</em>: <code class="language-plaintext highlighter-rouge">Sepal width</code></li>
+        <li>In <em>“Advanced Options”</em>:
+          <ul>
+            <li><em>“Data point options”</em>: <code class="language-plaintext highlighter-rouge">User defined point options</code>
+              <ul>
+                <li><em>“relative size of points”</em>: <code class="language-plaintext highlighter-rouge">2.0</code></li>
+              </ul>
+            </li>
+            <li><em>“Plotting multiple groups”</em>: <code class="language-plaintext highlighter-rouge">Plot multiple groups of data on one plot</code>
+              <ul>
+                <li><em>“column differentiating the different groups”</em>: <code class="language-plaintext highlighter-rouge">6</code></li>
+                <li><em>“Color schemes to differentiate your groups”</em>: <code class="language-plaintext highlighter-rouge">Set 2 - predefined color pallete</code></li>
+              </ul>
+            </li>
+          </ul>
+        </li>
+        <li>In <em>“Output options”</em>:
+          <ul>
+            <li><i class="fas fa-pencil-alt" aria-hidden="true"></i><span class="visually-hidden">param-text</span> <em>“width of output”</em>: <code class="language-plaintext highlighter-rouge">7.0</code></li>
+            <li><i class="fas fa-pencil-alt" aria-hidden="true"></i><span class="visually-hidden">param-text</span> <em>“height of output”</em>: <code class="language-plaintext highlighter-rouge">5.0</code></li>
+            <li><i class="fas fa-pencil-alt" aria-hidden="true"></i><span class="visually-hidden">param-text</span> <em>“dpi of output”</em>: <code class="language-plaintext highlighter-rouge">175.0</code></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+    <li><strong>View</strong> <i class="far fa-eye" aria-hidden="true"></i><span class="visually-hidden"><span class="notranslate">galaxy</span>-eye</span> the resulting plot</li>
+    <li>Rename to <code class="language-plaintext highlighter-rouge">Hierarchical scatter plot</code></li>
+  </ol>
+</blockquote>
+
+<figure id="figure-8"><img src="images/hierarchical_scatter.png" alt="data" /><figcaption><span class="figcaption-prefix">Figure 8:</span> Hierarchical clustering scatter plot</figcaption></figure>
+
+<h2 id="k-means-clustering">K-means clustering</h2>
+
+<p>K-means clustering is the most commonly used unsupervised machine learning algorithm for partitioning a given dataset into a set of k clusters, where k represents the number of groups pre-specified by the user. In k-means clustering, each cluster is represented by its center or centroid which corresponds to the mean of points assigned to the cluster. The basic idea behind k-means clustering is to define clusters and their centroids such that the total intra-cluster variation is minimized.</p>
+
+<p>K-means is popular because of its speed and scalability. Many variants of the k-means algorithm such as <a href="https://en.wikipedia.org/wiki/Lloyd%27s_algorithm">Lloyd’s algorithm</a>, k-medians algorithms and so on are available. The standard algorithm defines the total within-cluster variation as the sum of squared Euclidean distances between items and the corresponding centroid. K is a hyperparameter of the algorithm and the k-means algorithm can be summarized as follows:</p>
+
+<ol>
+  <li>
+    <p>Specify the number of clusters (k) to be created (to be specified by users).</p>
+  </li>
+  <li>
+    <p>Select k data points randomly from the dataset as the initial cluster centers or means.</p>
+  </li>
+  <li>
+    <p>Assign each data point to their closest centroid, based on the euclidean distance between a data point and its centroid.</p>
+  </li>
+  <li>
+    <p>For each of the k clusters update cluster centroid by calculating the new mean values of all the data points in the cluster.</p>
+  </li>
+  <li>
+    <p>Iteratively minimize the total within the sum of squares: iterate steps 3 and 4 until the cluster assignments stop changing or the maximum number of iterations is reached.</p>
+  </li>
+</ol>
+
+<p>The parameters that minimize the cost function are learned through an iterative process of assigning data points to clusters and then moving the clusters. A restriction for the k-means algorithm is that the dataset should be continuous.</p>
+
+<blockquote class="notranslate hands_on">
+  <h3 id="hands_on-hands-on-k-means-clustering"><i class="fas fa-pencil-alt" aria-hidden="true"></i><span class="visually-hidden">hands_on</span> Hands-on: K-means clustering</h3>
+
+  <ol>
+    <li><strong>Numeric Clustering</strong> <i class="fas fa-wrench" aria-hidden="true"></i><span class="visually-hidden">tool</span> with the following clustering parameters:
+      <ul>
+        <li><em>“Select the format of input data”</em>: <code class="language-plaintext highlighter-rouge">Tabular Format (tabular,txt)</code>
+          <ul>
+            <li><i class="far fa-file" aria-hidden="true"></i><span class="visually-hidden">param-file</span> <em>“Data file with numeric values”</em>: <code class="language-plaintext highlighter-rouge">iris</code></li>
+            <li><i class="far fa-check-square" aria-hidden="true"></i><span class="visually-hidden">param-check</span> <em>“Does the dataset contain header”</em>: <code class="language-plaintext highlighter-rouge">Yes</code></li>
+            <li><i class="fas fa-filter" aria-hidden="true"></i><span class="visually-hidden">param-select</span> <em>“Choose how to select data by column”</em>: <code class="language-plaintext highlighter-rouge">All columns EXCLUDING some by column header name(s)</code>
+              <ul>
+                <li><i class="fas fa-pencil-alt" aria-hidden="true"></i><span class="visually-hidden">param-text</span> <em>“Type header name(s)”</em>: <code class="language-plaintext highlighter-rouge">Species</code></li>
+              </ul>
+            </li>
+            <li><i class="fas fa-filter" aria-hidden="true"></i><span class="visually-hidden">param-select</span> <em>“Clustering Algorithm”</em>: <code class="language-plaintext highlighter-rouge">KMeans</code></li>
+            <li>In <em>“Advanced options”</em>
+              <ul>
+                <li><i class="fas fa-pencil-alt" aria-hidden="true"></i><span class="visually-hidden">param-text</span> <em>“Number of clusters”</em>: <code class="language-plaintext highlighter-rouge">2</code></li>
+              </ul>
+            </li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+    <li>Rename the generated file to <code class="language-plaintext highlighter-rouge">k-means clustering</code></li>
+  </ol>
+</blockquote>
+
+<h3 id="visualize-k-means-clustering">Visualize k-means clustering</h3>
+
+<blockquote class="notranslate hands_on">
+  <h3 id="hands_on-hands-on-visualize-k-means-clustering-result"><i class="fas fa-pencil-alt" aria-hidden="true"></i><span class="visually-hidden">hands_on</span> Hands-on: Visualize k-means clustering result</h3>
+
+  <ol>
+    <li><strong>Scatterplot with ggplot2</strong> <i class="fas fa-wrench" aria-hidden="true"></i><span class="visually-hidden">tool</span> with the following parameters:
+      <ul>
+        <li><i class="far fa-file" aria-hidden="true"></i><span class="visually-hidden">param-file</span> <em>“Input tabular dataset”</em>: <strong>k-means clustering</strong></li>
+        <li><em>“Column to plot on x-axis”</em>: <code class="language-plaintext highlighter-rouge">1</code></li>
+        <li><em>“Column to plot on y-axis”</em>: <code class="language-plaintext highlighter-rouge">2</code></li>
+        <li><em>“Plot title”</em>: <code class="language-plaintext highlighter-rouge">K-means clustering in iris data</code></li>
+        <li><em>“Label for x axis”</em>: <code class="language-plaintext highlighter-rouge">Sepal length</code></li>
+        <li><em>“Label for y axis”</em>: <code class="language-plaintext highlighter-rouge">Sepal width</code></li>
+        <li>In <em>“Advanced Options”</em>:
+          <ul>
+            <li><em>“Data point options”</em>: <code class="language-plaintext highlighter-rouge">User defined point options</code>
+              <ul>
+                <li><em>“relative size of points”</em>: <code class="language-plaintext highlighter-rouge">2.0</code></li>
+              </ul>
+            </li>
+            <li><em>“Plotting multiple groups”</em>: <code class="language-plaintext highlighter-rouge">Plot multiple groups of data on one plot</code>
+              <ul>
+                <li><em>“column differentiating the different groups”</em>: <code class="language-plaintext highlighter-rouge">6</code></li>
+                <li><em>“Color schemes to differentiate your groups”</em>: <code class="language-plaintext highlighter-rouge">Set 2 - predefined color pallete</code></li>
+              </ul>
+            </li>
+          </ul>
+        </li>
+        <li>In <em>“Output options”</em>:
+          <ul>
+            <li><i class="fas fa-pencil-alt" aria-hidden="true"></i><span class="visually-hidden">param-text</span> <em>“width of output”</em>: <code class="language-plaintext highlighter-rouge">7.0</code></li>
+            <li><i class="fas fa-pencil-alt" aria-hidden="true"></i><span class="visually-hidden">param-text</span> <em>“height of output”</em>: <code class="language-plaintext highlighter-rouge">5.0</code></li>
+            <li><i class="fas fa-pencil-alt" aria-hidden="true"></i><span class="visually-hidden">param-text</span> <em>“dpi of output”</em>: <code class="language-plaintext highlighter-rouge">175.0</code></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+    <li><strong>View</strong> <i class="far fa-eye" aria-hidden="true"></i><span class="visually-hidden"><span class="notranslate">galaxy</span>-eye</span> the resulting plot</li>
+    <li>Rename to <code class="language-plaintext highlighter-rouge">k-means scatter plot</code></li>
+  </ol>
+</blockquote>
+
+<figure id="figure-9"><img src="images/k_means_scatter.png" alt="data" /><figcaption><span class="figcaption-prefix">Figure 9:</span> K-means clustering scatter plot</figcaption></figure>
+
+<blockquote class="question">
+  <h3 id="question-question"><i class="far fa-question-circle" aria-hidden="true"></i><span class="visually-hidden">question</span> Question</h3>
+
+  <p>How to choose the right number of expected clusters (k)?</p>
+
+  <blockquote class="solution">
+    <h3 id="solution-solution-1"><i class="far fa-eye" aria-hidden="true"></i><span class="visually-hidden">solution</span> Solution</h3>
+
+    <p>Major difficulty found with k-means is the choice of the number of clusters. Different methods are proposed to solve this problem.
+Here, we provide a simple solution. The idea is to compute k-means clustering using different values of clusters k. Next, the within sum of squares is drawn according to the number of clusters. The location of a bend (knee) in the plot is generally considered as an indicator of the appropriate number of clusters.</p>
+    <figure id="figure-10"><img src="images/number_of_clusters.png" alt="data" /><figcaption><span class="figcaption-prefix">Figure 10:</span> Optimal number of clusters</figcaption></figure>
+    <p>The plot above represents the variance within the clusters. It decreases as k increases, but it can be seen as a bend (or “elbow”) at k = 4. This bend indicates that
+additional clusters beyond the fourth have little value.</p>
+  </blockquote>
+</blockquote>
+
+<blockquote class="question">
+  <h3 id="question-questions-1"><i class="far fa-question-circle" aria-hidden="true"></i><span class="visually-hidden">question</span> Questions</h3>
+
+  <p>What are the differences between k-means and hierarchical clustering techniques</p>
+
+  <blockquote class="solution">
+    <h3 id="solution-solution-2"><i class="far fa-eye" aria-hidden="true"></i><span class="visually-hidden">solution</span> Solution</h3>
+
+    <ol>
+      <li>
+        <p>Hierarchical clustering has difficulties in handling large data well but k-means clustering can. This is because the time complexity (of Lloyd’s variant) of k-means is linear (O(nkdi), n = number of data points, k = number clusters, d = data point dimensions and i = number of iterations) while the time-complexity of the optimal hierarchical clustering is quadratic (O(n2)).</p>
+      </li>
+      <li>
+        <p>K-means works well when the clusters are spherical (like circle in 2D, sphere in 3D) in shape. But, when the clusters are of arbitrary geometrical shapes, the performance suffers.</p>
+      </li>
+      <li>
+        <p>K-means clustering requires prior knowledge of the number of clusters. It does not learn the number of clusters from data. But, for the hierarchical clustering it is not necessary.</p>
+      </li>
+    </ol>
+
+  </blockquote>
+
+</blockquote>
+
+<h2 id="dbscan-clustering">DBSCAN clustering</h2>
+
+<p>DBSCAN (Density-based spatial clustering of applications with noise) is a popular clustering algorithm and finds clusters as regions of high density followed by regions of low density. Clusters found by DBSCAN can be of any shape, as opposed to k-means which works well if the clusters are spherical in shape. The central component of the DBSCAN algorithm are the core samples which are present in the areas of high density. A cluster is, therefore, a set of core samples close to one other (measured by some distance measure) and a set of non-core samples that are close to core samples (but are not core samples themselves). There are two important parameters in DBSCAN algorithm - <code class="language-plaintext highlighter-rouge">min_samples</code> is the number of samples in a neighborhood for a point to be considered as a core point and <code class="language-plaintext highlighter-rouge">eps</code> is the maximum distance (between two samples) for a sample to be considered as in the neighborhood of the other. Higher the value of <code class="language-plaintext highlighter-rouge">min_samples</code> or lower the value of eps indicate higher density necessary to form a cluster. DBSCAN does not require one to specify the number of clusters in the data a priori, as opposed to k-means.</p>
+
+<blockquote class="notranslate hands_on">
+  <h3 id="hands_on-hands-on-dbscan-clustering"><i class="fas fa-pencil-alt" aria-hidden="true"></i><span class="visually-hidden">hands_on</span> Hands-on: DBSCAN clustering</h3>
+
+  <ol>
+    <li><strong>Numeric Clustering</strong> <i class="fas fa-wrench" aria-hidden="true"></i><span class="visually-hidden">tool</span> with the following clustering parameters:
+      <ul>
+        <li><em>“Select the format of input data”</em>: <code class="language-plaintext highlighter-rouge">Tabular Format (tabular,txt)</code>
+          <ul>
+            <li><i class="far fa-file" aria-hidden="true"></i><span class="visually-hidden">param-file</span> <em>“Data file with numeric values”</em>: <code class="language-plaintext highlighter-rouge">iris</code></li>
+            <li><i class="far fa-check-square" aria-hidden="true"></i><span class="visually-hidden">param-check</span> <em>“Does the dataset contain header”</em>: <code class="language-plaintext highlighter-rouge">Yes</code></li>
+            <li><i class="fas fa-filter" aria-hidden="true"></i><span class="visually-hidden">param-select</span> <em>“Choose how to select data by column”</em>: <code class="language-plaintext highlighter-rouge">All columns EXCLUDING some by column header name(s)</code>
+              <ul>
+                <li><i class="fas fa-pencil-alt" aria-hidden="true"></i><span class="visually-hidden">param-text</span> <em>“Type header name(s)”</em>: <code class="language-plaintext highlighter-rouge">Species</code></li>
+              </ul>
+            </li>
+            <li><i class="fas fa-filter" aria-hidden="true"></i><span class="visually-hidden">param-select</span> <em>“Clustering Algorithm”</em>: <code class="language-plaintext highlighter-rouge">DBSCAN</code></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+    <li>Rename the generated file to <code class="language-plaintext highlighter-rouge">DBSCAN clustering</code></li>
+  </ol>
+</blockquote>
+
+<h3 id="visualise-dbscan-clustering">Visualise DBSCAN clustering</h3>
+
+<blockquote class="notranslate hands_on">
+  <h3 id="hands_on-hands-on-visualize-dbscan-clustering-result"><i class="fas fa-pencil-alt" aria-hidden="true"></i><span class="visually-hidden">hands_on</span> Hands-on: Visualize DBSCAN clustering result</h3>
+
+  <ol>
+    <li><strong>Scatterplot with ggplot2</strong> <i class="fas fa-wrench" aria-hidden="true"></i><span class="visually-hidden">tool</span> with the following parameters:
+      <ul>
+        <li><i class="far fa-file" aria-hidden="true"></i><span class="visually-hidden">param-file</span> <em>“Input tabular dataset”</em>: <strong>DBSCAN clustering</strong></li>
+        <li><em>“Column to plot on x-axis”</em>: <code class="language-plaintext highlighter-rouge">1</code></li>
+        <li><em>“Column to plot on y-axis”</em>: <code class="language-plaintext highlighter-rouge">2</code></li>
+        <li><em>“Plot title”</em>: <code class="language-plaintext highlighter-rouge">DBSCAN clustering in iris data</code></li>
+        <li><em>“Label for x axis”</em>: <code class="language-plaintext highlighter-rouge">Sepal length</code></li>
+        <li><em>“Label for y axis”</em>: <code class="language-plaintext highlighter-rouge">Sepal width</code></li>
+        <li>In <em>“Advanced Options”</em>:
+          <ul>
+            <li><em>“Data point options”</em>: <code class="language-plaintext highlighter-rouge">User defined point options</code>
+              <ul>
+                <li><em>“relative size of points”</em>: <code class="language-plaintext highlighter-rouge">2.0</code></li>
+              </ul>
+            </li>
+            <li><em>“Plotting multiple groups”</em>: <code class="language-plaintext highlighter-rouge">Plot multiple groups of data on one plot</code>
+              <ul>
+                <li><em>“column differentiating the different groups”</em>: <code class="language-plaintext highlighter-rouge">6</code></li>
+                <li><em>“Color schemes to differentiate your groups”</em>: <code class="language-plaintext highlighter-rouge">Set 2 - predefined color pallete</code></li>
+              </ul>
+            </li>
+          </ul>
+        </li>
+        <li>In <em>“Output options”</em>:
+          <ul>
+            <li><i class="fas fa-pencil-alt" aria-hidden="true"></i><span class="visually-hidden">param-text</span> <em>“width of output”</em>: <code class="language-plaintext highlighter-rouge">7.0</code></li>
+            <li><i class="fas fa-pencil-alt" aria-hidden="true"></i><span class="visually-hidden">param-text</span> <em>“height of output”</em>: <code class="language-plaintext highlighter-rouge">5.0</code></li>
+            <li><i class="fas fa-pencil-alt" aria-hidden="true"></i><span class="visually-hidden">param-text</span> <em>“dpi of output”</em>: <code class="language-plaintext highlighter-rouge">175.0</code></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+    <li><strong>View</strong> <i class="far fa-eye" aria-hidden="true"></i><span class="visually-hidden"><span class="notranslate">galaxy</span>-eye</span> the resulting plot:</li>
+    <li>Rename to <code class="language-plaintext highlighter-rouge">DBSCAN scatter plot</code></li>
+  </ol>
+</blockquote>
+
+<figure id="figure-11"><img src="images/dbscan_scatter.png" alt="data" /><figcaption><span class="figcaption-prefix">Figure 11:</span> DBSCAN clustering scatter plot</figcaption></figure>
+
+<p>You will also notice that the green points (factor = -1) in the plot are not contained within any cluster. DBSCAN does not necessarily categorize every data point, and is therefore works very well with handling outliers in a dataset.</p>
+
+<blockquote class="question">
+  <h3 id="question-question-1"><i class="far fa-question-circle" aria-hidden="true"></i><span class="visually-hidden">question</span> Question</h3>
+
+  <p>How can we evaluate the clustering results?</p>
+
+  <blockquote class="solution">
+    <h3 id="solution-solution-3"><i class="far fa-eye" aria-hidden="true"></i><span class="visually-hidden">solution</span> Solution</h3>
+
+    <p>Clustering is an unsupervised learning algorithm; there are no labels or ground truth to compare with the clusters. However, we can still evaluate the performance of the algorithm using intrinsic measures.
+There is a performance measure for clustering evaluation which is called the <a href="https://en.wikipedia.org/wiki/Silhouette_(clustering)">silhouette coefficient</a>. It is a measure of the compactness and separation of the clusters.
+It increases as the quality of the clusters increase; it is large for compact clusters that are far from each other and small for large, overlapping clusters. The silhouette coefficient is calculated per instance; for a set of instances, it is calculated as the mean of the individual sample score.</p>
+  </blockquote>
+</blockquote>
+
+<h1 id="applying-clustering-algorithms-on-multiple-datasets">Applying clustering algorithms on multiple datasets</h1>
+
+<p>We can apply the same steps on the other datasets such <code class="language-plaintext highlighter-rouge">moon</code> and <code class="language-plaintext highlighter-rouge">circles</code> datasets (already imported) which are generated using <a href="https://scikit-learn.org/stable/datasets/index.html#generated-datasets">scikit-learn</a> methods.</p>
+
+<h2 id="visualise-datasets">Visualise datasets</h2>
+
+<blockquote class="notranslate hands_on">
+  <h3 id="hands_on-hands-on-visualize-scatter-plot-of-data"><i class="fas fa-pencil-alt" aria-hidden="true"></i><span class="visually-hidden">hands_on</span> Hands-on: Visualize scatter plot of data</h3>
+
+  <ol>
+    <li>
+      <p><strong>Scatterplot with ggplot2</strong> <i class="fas fa-wrench" aria-hidden="true"></i><span class="visually-hidden">tool</span> with the following parameters:</p>
+
+      <blockquote class="tip">
+
+        <h3 id="tip-tip-select-multiple-datasets"><i class="far fa-lightbulb" aria-hidden="true"></i><span class="visually-hidden">tip</span> Tip: Select multiple datasets</h3>
+
+        <ol>
+          <li>Click on <i class="far fa-copy" aria-hidden="true"></i><span class="visually-hidden">param-files</span> <strong>Multiple datasets</strong></li>
+          <li>Select several files by keeping the <kbd>Ctrl</kbd> (or
+<kbd>COMMAND</kbd>) key pressed and clicking on the files of interest</li>
+        </ol>
+      </blockquote>
+
+      <ul>
+        <li><i class="far fa-file" aria-hidden="true"></i><span class="visually-hidden">param-file</span> <em>“Input tabular dataset”</em>: <code class="language-plaintext highlighter-rouge">circles</code> and <code class="language-plaintext highlighter-rouge">moon</code> as <strong>multiple datasets</strong></li>
+        <li><em>“Column to plot on x-axis”</em>: <code class="language-plaintext highlighter-rouge">1</code></li>
+        <li><em>“Column to plot on y-axis”</em>: <code class="language-plaintext highlighter-rouge">2</code></li>
+        <li><em>“Plot title”</em>: <code class="language-plaintext highlighter-rouge">Scatter Plot</code></li>
+        <li><em>“Label for x axis”</em>: <code class="language-plaintext highlighter-rouge">X</code></li>
+        <li><em>“Label for y axis”</em>: <code class="language-plaintext highlighter-rouge">Y</code></li>
+        <li>In <em>“Output options”</em>:
+          <ul>
+            <li><i class="fas fa-pencil-alt" aria-hidden="true"></i><span class="visually-hidden">param-text</span> <em>“width of output”</em>: <code class="language-plaintext highlighter-rouge">7.0</code></li>
+            <li><i class="fas fa-pencil-alt" aria-hidden="true"></i><span class="visually-hidden">param-text</span> <em>“height of output”</em>: <code class="language-plaintext highlighter-rouge">5.0</code></li>
+            <li><i class="fas fa-pencil-alt" aria-hidden="true"></i><span class="visually-hidden">param-text</span> <em>“dpi of output”</em>: <code class="language-plaintext highlighter-rouge">175.0</code></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+    <li>
+      <p><strong>View</strong> <i class="far fa-eye" aria-hidden="true"></i><span class="visually-hidden"><span class="notranslate">galaxy</span>-eye</span> the resulting plots</p>
+    </li>
+  </ol>
+</blockquote>
+
+<figure id="figure-12"><img src="images/circles_moon_scatter.png" alt="data" /><figcaption><span class="figcaption-prefix">Figure 12:</span> Scatter plot of circles and moon datasets</figcaption></figure>
+
+<h2 id="find-clusters">Find clusters</h2>
+
+<p>Now you can find clusters in these datasets using the aforementioned algorithms.</p>
+
+<blockquote class="notranslate hands_on">
+  <h3 id="hands_on-hands-on-hierarchical-clustering-of-circles-and-moon-datasets"><i class="fas fa-pencil-alt" aria-hidden="true"></i><span class="visually-hidden">hands_on</span> Hands-on: Hierarchical clustering of circles and moon datasets</h3>
+
+  <ol>
+    <li>
+      <p><strong>Numeric Clustering</strong> <i class="fas fa-wrench" aria-hidden="true"></i><span class="visually-hidden">tool</span> with the following clustering parameters:</p>
+
+      <blockquote class="tip">
+
+        <h3 id="tip-tip-select-multiple-datasets-1"><i class="far fa-lightbulb" aria-hidden="true"></i><span class="visually-hidden">tip</span> Tip: Select multiple datasets</h3>
+
+        <ol>
+          <li>Click on <i class="far fa-copy" aria-hidden="true"></i><span class="visually-hidden">param-files</span> <strong>Multiple datasets</strong></li>
+          <li>Select several files by keeping the <kbd>Ctrl</kbd> (or
+<kbd>COMMAND</kbd>) key pressed and clicking on the files of interest</li>
+        </ol>
+      </blockquote>
+
+      <ul>
+        <li><em>“Select the format of input data”</em>: <code class="language-plaintext highlighter-rouge">Tabular Format (tabular,txt)</code>
+          <ul>
+            <li><i class="far fa-file" aria-hidden="true"></i><span class="visually-hidden">param-file</span> <em>“Data file with numeric values”</em>: <code class="language-plaintext highlighter-rouge">circles</code> and <code class="language-plaintext highlighter-rouge">moon</code> as <strong>multiple datasets</strong></li>
+            <li><i class="far fa-check-square" aria-hidden="true"></i><span class="visually-hidden">param-check</span> <em>“Does the dataset contain header”</em>: <code class="language-plaintext highlighter-rouge">Yes</code></li>
+            <li><i class="fas fa-filter" aria-hidden="true"></i><span class="visually-hidden">param-select</span> <em>“Choose how to select data by column”</em>: <code class="language-plaintext highlighter-rouge">All columns</code></li>
+            <li><i class="fas fa-filter" aria-hidden="true"></i><span class="visually-hidden">param-select</span> <em>“Clustering Algorithm”</em>: <code class="language-plaintext highlighter-rouge">Hierarchical Agglomerative Clustering</code></li>
+            <li>In <em>“Advanced option”</em>
+              <ul>
+                <li><i class="fas fa-pencil-alt" aria-hidden="true"></i><span class="visually-hidden">param-text</span> <em>“Number of clusters”</em>: <code class="language-plaintext highlighter-rouge">2</code></li>
+                <li><i class="fas fa-filter" aria-hidden="true"></i><span class="visually-hidden">param-select</span> <em>“Affinity”</em>: <code class="language-plaintext highlighter-rouge">Euclidean</code></li>
+                <li><i class="fas fa-filter" aria-hidden="true"></i><span class="visually-hidden">param-select</span> <em>“Linkage”</em>: <code class="language-plaintext highlighter-rouge">ward</code></li>
+              </ul>
+            </li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+    <li>
+      <p>Rename the generated files to <code class="language-plaintext highlighter-rouge">circles hierarchical clustering</code> and <code class="language-plaintext highlighter-rouge">moon hierarchical clustering</code> respectively</p>
+    </li>
+  </ol>
+</blockquote>
+
+<h2 id="visualise-clusters">Visualise clusters</h2>
+
+<p>Then, you can visualize the clustering results using the following steps:</p>
+
+<blockquote class="notranslate hands_on">
+  <h3 id="hands_on-hands-on-visualize-hierarchical-clustering-result-on-circles-and-moon-datasets"><i class="fas fa-pencil-alt" aria-hidden="true"></i><span class="visually-hidden">hands_on</span> Hands-on: Visualize hierarchical clustering result on circles and moon datasets.</h3>
+
+  <ol>
+    <li>
+      <p><strong>Scatterplot with ggplot2</strong> <i class="fas fa-wrench" aria-hidden="true"></i><span class="visually-hidden">tool</span> with the following parameters:</p>
+
+      <blockquote class="tip">
+
+        <h3 id="tip-tip-select-multiple-datasets-2"><i class="far fa-lightbulb" aria-hidden="true"></i><span class="visually-hidden">tip</span> Tip: Select multiple datasets</h3>
+
+        <ol>
+          <li>Click on <i class="far fa-copy" aria-hidden="true"></i><span class="visually-hidden">param-files</span> <strong>Multiple datasets</strong></li>
+          <li>Select several files by keeping the <kbd>Ctrl</kbd> (or
+<kbd>COMMAND</kbd>) key pressed and clicking on the files of interest</li>
+        </ol>
+      </blockquote>
+
+      <ul>
+        <li><i class="far fa-file" aria-hidden="true"></i><span class="visually-hidden">param-file</span> <em>“Input tabular dataset”</em>: <code class="language-plaintext highlighter-rouge">circles hierarchical clustering</code> and <code class="language-plaintext highlighter-rouge">moon hierarchical clustering</code> as <strong>multiple datasets</strong></li>
+        <li><em>“Column to plot on x-axis”</em>: <code class="language-plaintext highlighter-rouge">1</code></li>
+        <li><em>“Column to plot on y-axis”</em>: <code class="language-plaintext highlighter-rouge">2</code></li>
+        <li><em>“Plot title”</em>: <code class="language-plaintext highlighter-rouge">Hierarchical clustering</code></li>
+        <li><em>“Label for x axis”</em>: <code class="language-plaintext highlighter-rouge">X</code></li>
+        <li><em>“Label for y axis”</em>: <code class="language-plaintext highlighter-rouge">Y</code></li>
+        <li>In <em>“Advanced Options”</em>:
+          <ul>
+            <li><em>“Data point options”</em>: <code class="language-plaintext highlighter-rouge">User defined point options</code>
+              <ul>
+                <li><em>“relative size of points”</em>: <code class="language-plaintext highlighter-rouge">2.0</code></li>
+              </ul>
+            </li>
+            <li><em>“Plotting multiple groups”</em>: <code class="language-plaintext highlighter-rouge">Plot multiple groups of data on one plot</code>
+              <ul>
+                <li><em>“column differentiating the different groups”</em>: <code class="language-plaintext highlighter-rouge">3</code></li>
+                <li><em>“Color schemes to differentiate your groups”</em>: <code class="language-plaintext highlighter-rouge">Set 2 - predefined color pallete</code></li>
+              </ul>
+            </li>
+          </ul>
+        </li>
+        <li>In <em>“Output options”</em>:
+          <ul>
+            <li><i class="fas fa-pencil-alt" aria-hidden="true"></i><span class="visually-hidden">param-text</span> <em>“width of output”</em>: <code class="language-plaintext highlighter-rouge">7.0</code></li>
+            <li><i class="fas fa-pencil-alt" aria-hidden="true"></i><span class="visually-hidden">param-text</span> <em>“height of output”</em>: <code class="language-plaintext highlighter-rouge">5.0</code></li>
+            <li><i class="fas fa-pencil-alt" aria-hidden="true"></i><span class="visually-hidden">param-text</span> <em>“dpi of output”</em>: <code class="language-plaintext highlighter-rouge">175.0</code></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+    <li><strong>View</strong> <i class="far fa-eye" aria-hidden="true"></i><span class="visually-hidden"><span class="notranslate">galaxy</span>-eye</span> the resulting plots</li>
+    <li>Rename the generated files to <code class="language-plaintext highlighter-rouge">Circles scatter plot</code> and <code class="language-plaintext highlighter-rouge">Moon scatter plot</code> respectively</li>
+  </ol>
+</blockquote>
+
+<p>You can apply the other two algorithms (k-means and DBSCAN) to moon and circles datasets in the same way as explained above. In the k-means algorithm, please use <code class="language-plaintext highlighter-rouge">k=2</code> and for the DBSCAN algorithm, the parameters should not be the default ones as used earlier. They should be set as follows: for the circles dataset (<code class="language-plaintext highlighter-rouge">maximum neighborhood distance=0.2</code> and <code class="language-plaintext highlighter-rouge">minimal core point density=5</code>) and for the moon dataset (<code class="language-plaintext highlighter-rouge">maximum neighborhood distance=0.3</code> and <code class="language-plaintext highlighter-rouge">minimal core point density=4</code>). You can see the scatter plots of the clustering results for all three clustering algorithms in Figure 13 and 14.</p>
+
+<figure id="figure-13"><img src="images/circles_clustering.png" alt="data" /><figcaption><span class="figcaption-prefix">Figure 13:</span> Plot of clustering algorithms on circles dataset</figcaption></figure>
+
+<figure id="figure-14"><img src="images/moon_clustering.png" alt="data" /><figcaption><span class="figcaption-prefix">Figure 14:</span> Plot of clustering algorithms on moon dataset</figcaption></figure>
+
+<h1 id="conclusion">Conclusion</h1>
+
+<p>In this tutorial, we discussed 3 clustering algorithms which are used to discover structures or patterns in unlabeled data. You learned about the hierarchical, k-means and DBSCAN algorithms. By following steps specified for each clustering tool, we learned how to perform clustering and visualize results using clustering and plotting tools, respectively in <span class="notranslate">Galaxy</span>. There are many other clustering approaches which can be tried out on these datasets to find how they perform and how they compare to the 3 clustering algorithms explained in this tutorial. Different datasets can also be analysed using these algorithms. The clustering algorithms have some parameters which can be altered while performing the analyses to see if they affect the clustering or not. While using clustering algorithms, we need to take care of some important aspects like treating outliers in data and making sure each cluster has sufficient population. Some data pre-processors can also be used to clean the datasets.</p>
+
+
+                    
+                    <blockquote class="key_points">
+                        <h3><i class="fas fa-key" aria-hidden="true"></i><span class="visually-hidden">keypoints</span> Key points</h3>
+                        <ul>
+                            
+                            <li><p>Using clustering methods, clusters inside a dataset are drawn using hierarchical, k-means and DBSCAN</p>
+</li>
+                            
+                            <li><p>For each clustering algorithm, the number of clusters and their respective hyperparameters should be optimised based on the dataset</p>
+</li>
+                            
+                        </ul>
+                    </blockquote>
+                    
+
+                    
+
+                    
+                    <h1 id="bibliography">References</h1>
+                    <ol class="bibliography"><li><span id="Fisher1936">Fisher, R. A., 1936 <b>The use of multiple measurements in taxonomic problems</b>. Annals of Eugenics 7: 179–188.</span>
+    
+    
+    <a href="https://doi.org/10.1111/j.1469-1809.1936.tb02137.x">10.1111/j.1469-1809.1936.tb02137.x</a>
+    
+    
+      <!-- prevent duplicate doi links -->
+      
+      <a href="https://onlinelibrary.wiley.com/doi/abs/10.1111/j.1469-1809.1936.tb02137.x">https://onlinelibrary.wiley.com/doi/abs/10.1111/j.1469-1809.1936.tb02137.x</a>
+      
+    
+
+</li></ol>
+                    
+
+                    <h1>Feedback</h1>
+                    <p class="text-muted">Did you use this material as an instructor? Feel free to give us feedback on <a href="https://github.com/galaxyproject/training-material/issues/1452" target="_blank">how it went</a>.</p>
+
+                    <div id="feedback-button">
+                        <img src="/training-material/shared/images/feedback.png" title="Click to activate" alt="Click here to load Google feedback frame" />
+                    </div>
+                    <div id="feedback-form">
+                    </div>
+                    <script type="text/javascript">
+                        (function (window, document) {
+                            function onDocumentReady(fn) {
+                                if (document.attachEvent ? document.readyState === "complete" : document.readyState !== "loading") {
+                                    fn();
+                                } else {
+                                    document.addEventListener('DOMContentLoaded', fn);
+                                }
+                            }
+
+                            onDocumentReady(function () {
+                                $("#feedback-button").click(function(evt){
+                                    var e = $(evt.target)
+                                    e.hide();
+
+                                    $("#feedback-form").html(`
+                                        <iframe id="feedback-google" class="google-form" src="https://docs.google.com/forms/d/e/1FAIpQLSd4VZptFTQ03kHkMz0JyW9b6_S8geU5KjNE_tLM0dixT3ZQmA/viewform?embedded=true&entry.1235803833=Clustering in Machine Learning (Statistics and machine learning)">Loading...</iframe>
+                                    `)
+                                })
+                            });
+                        })(window, document);
+                    </script>
+
+
+
+                    <h1>Citing this Tutorial</h1>
+                    <p>
+                        <ol>
+                            <li id="citation-text">Alireza Khanteymoori, Anup Kumar, 2020 <b>Clustering in Machine Learning (Galaxy Training Materials)</b>. <a href="/training-material/topics/statistics/tutorials/clustering_machinelearning/tutorial.html">/training-material/topics/statistics/tutorials/clustering_machinelearning/tutorial.html</a> Online; accessed TODAY
+                            </li>
+                            <li>
+                            Batut et al., 2018 <b>Community-Driven Data Analysis Training for Biology</b> Cell Systems <a href="https://doi.org/10.1016%2Fj.cels.2018.05.012">10.1016/j.cels.2018.05.012</a>
+                            </li>
+                        </ol>
+                    </p>
+
+
+                    <blockquote class="details">
+                      <h3><i class="fa fa-info-circle" aria-hidden="true"></i><span class="visually-hidden">details</span> BibTeX</h3>
+                      <p style="display: none;">
+
+                    <div class="highlighter-rouge"><div class="highlight"><pre class="highlight">
+<code id="citation-code">@misc{statistics-clustering_machinelearning,
+    author = "Alireza Khanteymoori and Anup Kumar",
+    title = "Clustering in Machine Learning (Galaxy Training Materials)",
+    year = "2020",
+    month = "11",
+    day = "26"
+    url = "\url{/training-material/topics/statistics/tutorials/clustering_machinelearning/tutorial.html}",
+    note = "[Online; accessed TODAY]"
+}
+@article{Batut_2018,
+        doi = {10.1016/j.cels.2018.05.012},
+        url = {https://doi.org/10.1016%2Fj.cels.2018.05.012},
+        year = 2018,
+        month = {jun},
+        publisher = {Elsevier {BV}},
+        volume = {6},
+        number = {6},
+        pages = {752--758.e1},
+        author = {B{\'{e}}r{\'{e}}nice Batut and Saskia Hiltemann and Andrea Bagnacani and Dannon Baker and Vivek Bhardwaj and Clemens Blank and Anthony Bretaudeau and Loraine Brillet-Gu{\'{e}}guen and Martin {\v{C}}ech and John Chilton and Dave Clements and Olivia Doppelt-Azeroual and Anika Erxleben and Mallory Ann Freeberg and Simon Gladman and Youri Hoogstrate and Hans-Rudolf Hotz and Torsten Houwaart and Pratik Jagtap and Delphine Larivi{\`{e}}re and Gildas Le Corguill{\'{e}} and Thomas Manke and Fabien Mareuil and Fidel Ram{\'{\i}}rez and Devon Ryan and Florian Christoph Sigloch and Nicola Soranzo and Joachim Wolff and Pavankumar Videm and Markus Wolfien and Aisanjiang Wubuli and Dilmurat Yusuf and James Taylor and Rolf Backofen and Anton Nekrutenko and Björn Grüning},
+        title = {Community-Driven Data Analysis Training for Biology},
+        journal = {Cell Systems}
+}</code>
+                    </pre></div></div>
+                    </p>
+                    </blockquote>
+
+
+<script type="text/javascript">
+// update the date on load, or leave fallback of 'today'
+d = new Date();
+document.getElementById("citation-code").innerHTML = document.getElementById("citation-code").innerHTML.replace("TODAY", d.toDateString());
+document.getElementById("citation-text").innerHTML = document.getElementById("citation-text").innerHTML.replace("TODAY", d.toDateString());
+</script>
+
+                </div>
+            </div>
+        </div>
+
+        <h3><i class="far fa-thumbs-up" aria-hidden="true"></i><span class="visually-hidden">congratulations</span> Congratulations on successfully completing this tutorial!</h3>
+
+        
+
+        
+    </section>
+</div>
+
+
+<footer>
+    <div class="container">
+        <p>
+            This material is the result of a collaborative work. Thanks to the
+            <a href="https://wiki.galaxyproject.org/Teach/GTN">Galaxy Training Network</a>
+            and all the <a href="/training-material/hall-of-fame">contributors</a> (Alireza Khanteymoori, Anup Kumar)!
+        </p>
+        <p>
+            Found a typo? Something is wrong in this tutorial? Edit it on
+            <a href="https://github.com/galaxyproject/training-material/tree/master/topics/statistics/tutorials/clustering_machinelearning/tutorial.md">GitHub</a>.
+        </p>
+        <p>
+    The content of the tutorials and website is licensed under the <a rel="license" href="https://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0 International License</a>.
+</p>
+    </div>
+</footer>
+
+    </body>
+    <script type="text/javascript" src="/training-material/assets/js/jquery.slim.min.js"></script>
+    <script type="text/javascript" src="/training-material/assets/js/popper.min.js"></script>
+    <script type="text/javascript" src="/training-material/assets/js/bootstrap.min.js?v=3"></script>
+    <script type="text/javascript" src="/training-material/assets/js/details-element-polyfill.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript" src="/training-material/assets/js/bootstrap-toc.min.js"></script>
+    <script type="text/javascript" src="/training-material/assets/js/main.js"></script>
+    <script type="text/javascript" src="/training-material/assets/js/theme.js"></script>
+
+    <script type="text/javascript" src="/training-material/assets/js/clipboard.min.js"></script>
+    <script type="text/javascript">
+    var snippets=document.querySelectorAll('div.highlight');
+    [].forEach.call(snippets,function(snippet){
+        snippet.firstChild.insertAdjacentHTML('beforebegin','<button class="btn btn-light" data-clipboard-snippet><i class="fa fa-copy"></i>&nbsp;Copy</button>');
+    });
+
+    var clipboardSnippets=new ClipboardJS('[data-clipboard-snippet]',{
+        target:function(trigger){return trigger.nextElementSibling;
+    }});
+    </script>
+    
+
+    <script type="text/javascript">
+        if(window.location.hostname === "galaxyproject.github.io") {
+            // Redirect
+            var redirect = "https://training.galaxyproject.org" + window.location.pathname + window.location.search;
+            $('div.container.main-content').prepend("<div class='alert alert-warning'><strong>Note: </strong>This content has a new home at <a href=\"" + redirect + "\">" + redirect + "</a>, which you will be redirected to in 5 seconds.</div>");
+
+            window.setTimeout(function(){
+                window.location.href = redirect;
+            }, 5000)
+
+        }
+    </script>
+</html>

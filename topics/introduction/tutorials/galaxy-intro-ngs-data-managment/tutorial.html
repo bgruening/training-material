@@ -1,0 +1,1128 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <title>NGS data logistics</title>
+        
+            <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+    ga('create', '' , 'auto');
+    ga('send', 'pageview');
+</script>
+        
+        <link rel="stylesheet" href="/training-material/assets/css/bootstrap.min.css?v=3">
+        <link rel="stylesheet" href="/training-material/assets/css/bootstrap-toc.min.css">
+        <link rel="stylesheet" href="/training-material/assets/css/main.css?v=2">
+        <script src="https://kit.fontawesome.com/67b3f98409.js" crossorigin="anonymous"></script>
+        <link rel="stylesheet" href="/training-material/assets/css/academicons.css">
+        <link rel="stylesheet" href="/training-material/assets/css/syntax_highlighting.css">
+        <link rel="shortcut icon" href="/training-material/favicon.ico" type="image/x-icon" />
+
+        
+        
+        
+        
+        
+        <meta name="description" content="Galaxy is a scientific workflow, data integration, and da..." />
+        <meta property="og:title" content="Galaxy Training: NGS data logistics" />
+        <meta property="og:description" content="Galaxy is a scientific workflow, data integration, and da..." />
+        <meta property="og:image" content="/training-material/assets/images/GTNLogo1000.png" />
+    </head>
+    <body data-spy="scroll" data-target="#toc">
+        
+
+
+
+
+
+
+
+
+
+
+
+<!-- Gitter -->
+
+
+<script>
+  ((window.gitter = {}).chat = {}).options = {
+  room: 'Galaxy-Training-Network/Lobby'
+  };
+</script>
+<script src="https://sidecar.gitter.im/dist/sidecar.v1.js" async defer></script>
+
+<header>
+    <nav class="navbar navbar-expand-lg navbar-dark">
+        <div class="container">
+            <a class="navbar-brand" href="/training-material/">
+                <img src="/training-material/assets/images/GTN-60px.png" height="30" alt="Galaxy Training Network logo">
+                Galaxy Training!
+            </a>
+
+            <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#top-navbar" aria-controls="top-navbar" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="top-navbar">
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link" href="/training-material/topics/introduction" title="Go back to list of tutorials">
+                            <i class="far fa-folder" aria-hidden="true"></i><span class="visually-hidden">topic</span> Introduction to Galaxy Analyses
+                        </a>
+                    </li>
+
+                    <li class="nav-item dropdown">
+                        <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" aria-expanded="false" title="Language Selector">
+                            <i class="fas fa-language" aria-hidden="true"></i><span class="visually-hidden">language</span> Language
+                        </a>
+                        <div class="dropdown-menu">
+                            
+                            <a class="dropdown-item" href="https://translate.google.com/translate?hl=jp&sl=en&tl=fr&u=https%3A%2F%2Ftraining.galaxyproject.org%2Ftopics%2Fintroduction%2Ftutorials%2Fgalaxy-intro-ngs-data-managment%2Ftutorial.html&edit-text=&act=url" title="">
+                                Français
+                            </a>
+                            
+                            <a class="dropdown-item" href="https://translate.google.com/translate?hl=jp&sl=en&tl=ja&u=https%3A%2F%2Ftraining.galaxyproject.org%2Ftopics%2Fintroduction%2Ftutorials%2Fgalaxy-intro-ngs-data-managment%2Ftutorial.html&edit-text=&act=url" title="">
+                                日本語
+                            </a>
+                            
+                            <a class="dropdown-item" href="https://translate.google.com/translate?hl=jp&sl=en&tl=es&u=https%3A%2F%2Ftraining.galaxyproject.org%2Ftopics%2Fintroduction%2Ftutorials%2Fgalaxy-intro-ngs-data-managment%2Ftutorial.html&edit-text=&act=url" title="">
+                                Español
+                            </a>
+                            
+                            <a class="dropdown-item" href="https://translate.google.com/translate?hl=jp&sl=en&tl=pt&u=https%3A%2F%2Ftraining.galaxyproject.org%2Ftopics%2Fintroduction%2Ftutorials%2Fgalaxy-intro-ngs-data-managment%2Ftutorial.html&edit-text=&act=url" title="">
+                                Português
+                            </a>
+                            
+                            <a class="dropdown-item" href="https://translate.google.com/translate?hl=jp&sl=en&tl=ar&u=https%3A%2F%2Ftraining.galaxyproject.org%2Ftopics%2Fintroduction%2Ftutorials%2Fgalaxy-intro-ngs-data-managment%2Ftutorial.html&edit-text=&act=url" title="">
+                                العربية
+                            </a>
+                            
+                            <a class="dropdown-item" href="https://translate.google.com/translate?hl=jp&sl=en&tl=&u=https%3A%2F%2Ftraining.galaxyproject.org%2Ftopics%2Fintroduction%2Ftutorials%2Fgalaxy-intro-ngs-data-managment%2Ftutorial.html&edit-text=&act=url" title="">
+                                And more!
+                            </a>
+                        </div>
+                    </li>
+
+                    <li class="nav-item dropdown">
+    <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" aria-expanded="false" title="Help">
+        <i class="far fa-question-circle" aria-hidden="true"></i><span class="visually-hidden">help</span> Help
+    </a>
+    <div class="dropdown-menu dropdown-menu-right">
+        <form method="get" action="https://tess.elixir-europe.org/materials">
+            <input type="text" id="search" name="q" value="" style="margin-left: 0.5em;/*! border-radius: 0px; */">
+            <input type="hidden" value="Galaxy Training" name="content_provider">
+            <input type="submit" value="Search on TeSS" style="width: 92%;border-radius: 0px;margin: 0.5em;background: #f47d20;border: 0px;padding: 0.25em;" class="">
+        </form>
+
+        <div class="dropdown-divider"></div>
+        <a class="dropdown-item" href="/training-material/faq" title="Check our FAQ">
+            FAQ
+        </a>
+        <a class="dropdown-item" href="https://help.galaxyproject.org/" title="Discuss on Galaxy Help">
+            Discuss on Galaxy Help
+        </a>
+
+        <div class="dropdown-item">
+            <div>
+                Theme
+            </div>
+
+            <div id="theme-selector" data-toggle="buttons">
+                <label data-value="default" class="btn btn-secondary">
+                    <input type="radio" name="options" id="default" autocomplete="off"> Default
+                </label>
+                <label data-value="night" class="btn btn-secondary">
+                    <input type="radio" name="options" id="night" autocomplete="off"> Night
+                </label>
+                <label data-value="midnight" class="btn btn-secondary">
+                    <input type="radio" name="options" id="midnight" autocomplete="off"> Midnight
+                </label>
+                <label data-value="rainbow" class="btn btn-secondary">
+                    <input type="radio" name="options" id="rainbow" autocomplete="off"> Rainbow
+                </label>
+                <label data-value="halloween" class="btn btn-secondary">
+                    <input type="radio" name="options" id="halloween" autocomplete="off"> 🎃
+                </label>
+            </div>
+
+        </div>
+    </div>
+</li>
+
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="https://github.com/galaxyproject/training-material/edit/master/topics/introduction/tutorials/galaxy-intro-ngs-data-managment/tutorial.md">
+                            <i class="fab fa-github" aria-hidden="true"></i><span class="visually-hidden">github</span> Edit
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+</header>
+
+<div class="container main-content">
+    <script type="application/ld+json">
+        
+
+
+{
+  "@context": "http://schema.org",
+  "@type": "Course",
+  "accessMode": [
+    "textual",
+    "visual"
+  ],
+  "accessModeSufficient": [
+    "textual",
+    "visual"
+  ],
+  "accessibilityControl": [
+    "fullKeyboardControl",
+    "fullMouseControl"
+  ],
+  "accessibilityFeature": [
+    "alternativeText",
+    "tableOfContents"
+  ],
+  "accessibilitySummary": "Short descriptions are present but long descriptions will be needed for non-visual users",
+  "audience": {
+    "@type": "EducationalAudience",
+    "educationalRole": "students"
+  },
+  "citation": {
+    "@type": "CreativeWork",
+    "name": "Community-Driven Data Analysis Training for Biology",
+    "url": "https://doi.org/10.1016/j.cels.2018.05.012"
+  },
+  "copyrightHolder": {
+    "@type": "Organization",
+    "email": "galaxytrainingnetwork@gmail.com",
+    "name": "Galaxy Training Network",
+    "url": "https://galaxyproject.org/teach/gtn/"
+  },
+  "discussionUrl": "https://gitter.im/Galaxy-Training-Network/Lobby",
+  "headline": "NGS data logistics",
+  "inLanguage": {
+    "@type": "Language",
+    "name": "English",
+    "alternateName": "en"
+  },
+  "interactivityType": "mixed",
+  "isAccessibleForFree": true,
+  "license": "https://github.com/galaxyproject/training-material/blob/master/LICENSE.md",
+  "producer": {
+    "@type": "Organization",
+    "email": "galaxytrainingnetwork@gmail.com",
+    "name": "Galaxy Training Network",
+    "url": "https://galaxyproject.org/teach/gtn/"
+  },
+  "provider": {
+    "@type": "Organization",
+    "email": "galaxytrainingnetwork@gmail.com",
+    "name": "Galaxy Training Network",
+    "url": "https://galaxyproject.org/teach/gtn/"
+  },
+  "sourceOrganization": {
+    "@type": "Organization",
+    "email": "galaxytrainingnetwork@gmail.com",
+    "name": "Galaxy Training Network",
+    "url": "https://galaxyproject.org/teach/gtn/"
+  },
+  "isPartOf": {
+    "@type": "CreativeWork",
+    "name": "Introduction to Galaxy Analyses",
+    "description": "Galaxy is a scientific workflow, data integration, and data and analysis persistence and publishing platform that aims to make computational biology accessible to research scientists that do not have computer programming experience. ",
+    "url": "https://training.galaxyproject.org//training-material/topics/introduction/"
+  },
+  "courseCode": "introduction / galaxy-intro-ngs-data-managment / hands-on",
+  "learningResourceType": "hands-on tutorial",
+  "name": "Hands-on for 'NGS data logistics' tutorial",
+  "url": "https://training.galaxyproject.org//training-material/topics/introduction/tutorials/galaxy-intro-ngs-data-managment/tutorial.html",
+  "timeRequired": "PT30M",
+  "description": "The questions this  addresses are:\n - How to manipulate and process NGS data\n\n\\nThe objectives are:\n - Learn about FASTQ, SAM, and BAM.\n\n",
+  "hasPart": [
+
+  ],
+  "author": [
+    {
+      "@type": "Person",
+      "name": "Anton Nekrutenko"
+    }
+  ],
+  "contributor": [
+    {
+      "@type": "Person",
+      "name": "Anton Nekrutenko"
+    }
+  ],
+  "about": [
+    {
+      "@type": "CreativeWork",
+      "name": "Introduction to Galaxy Analyses",
+      "description": "Galaxy is a scientific workflow, data integration, and data and analysis persistence and publishing platform that aims to make computational biology accessible to research scientists that do not have computer programming experience. ",
+      "url": "https://training.galaxyproject.org//training-material/topics/introduction/"
+    }
+  ]
+}
+    </script>
+
+    <section class="tutorial">
+        <h1 data-toc-skip>NGS data logistics</h1>
+        
+
+        <div class="contributors-line">By: 
+
+<a href="/training-material/hall-of-fame/nekrut/" class="contributor-badge"><img src="https://avatars.githubusercontent.com/nekrut" alt="Anton Nekrutenko">Anton Nekrutenko</a>
+
+</div>
+
+        <blockquote class="overview">
+            <h3>Overview</h3>
+            <strong><i class="far fa-question-circle" aria-hidden="true"></i><span class="visually-hidden">question</span> Questions</strong>
+            <ul>
+            
+            <li><p>How to manipulate and process NGS data</p>
+</li>
+            
+            </ul>
+
+            <strong><i class="fas fa-bullseye" aria-hidden="true"></i><span class="visually-hidden">objectives</span> Objectives</strong>
+            <ul>
+            
+            <li><p>Learn about FASTQ, SAM, and BAM.</p>
+</li>
+            
+            </ul>
+
+            
+
+            
+            <p><strong><i class="fas fa-hourglass-half" aria-hidden="true"></i><span class="visually-hidden">time</span> Time estimation:</strong> 30 minutes</p>
+            
+
+            
+
+            
+            
+
+            
+            <p id="supporting-materials"><strong><i class="fa fa-external-link" aria-hidden="true"></i> Supporting Materials</strong></p>
+            <ul>
+                <div class="supporting_material">
+                
+                    <li class="btn btn-default supporting_material"><a href="/training-material/topics/introduction/slides/introduction.html" title="Introduction slides">
+                        <i class="fab fa-slideshare" aria-hidden="true"></i><span class="visually-hidden">slides</span> Introduction slides
+                    </a></li>
+                
+
+                
+
+                
+
+                
+
+                
+                    <li class="btn btn-default supporting_material">
+
+    <a href="#" class="btn btn-default dropdown-toggle topic-icon" data-toggle="dropdown" aria-expanded="false" title="Where to run the tutorial">
+        <i class="fas fa-globe" aria-hidden="true"></i><span class="visually-hidden">instances</span> Available on these Galaxies
+    </a>
+    <ul class="dropdown-menu">
+    
+        <li>
+            <a class="dropdown-item" href="https://github.com/galaxyproject/training-material/tree/master/topics/introduction/docker" title="Docker image for this tutorial">
+                <i class="fab fa-docker" aria-hidden="true"></i><span class="visually-hidden">docker_image</span> Docker image
+            </a>
+        </li>
+    
+    
+    </ul>
+
+
+</li>
+                
+                </div>
+            </ul>
+            
+
+            <p><strong> <i class="far fa-calendar" aria-hidden="true"></i><span class="visually-hidden">last_modification</span> Last modification:</strong> Nov 26, 2020 </p>
+        </blockquote>
+
+        <div class="container">
+            <div class="row">
+                <!-- sidebar, which will move to the top on a small screen -->
+                <div class="col-sm-2">
+                    <nav id="toc" data-toggle="toc" class="sticky-top"></nav>
+                </div>
+                <div class="col-sm-10">
+                    <p>In this section we will look at practical aspects of manipulation of next-generation sequencing data. We will start with the FASTQ format produced by most sequencing machines and will finish with the SAM/BAM format representing mapped <span class="notranslate">reads</span>. The cover image above shows a screen dump of a SAM dataset.</p>
+
+<h1 id="getting-ngs-data-in">Getting NGS data in</h1>
+
+<p>You can upload data in <span class="notranslate">Galaxy</span> using one of five ways:</p>
+
+<h2 id="from-your-computer">From your computer</h2>
+
+<p>This works well for small files because web browser do not like lengthy file transfers:</p>
+
+<div class="embed-responsive embed-responsive-16by9"><iframe src="https://player.vimeo.com/video/120901536?portrait=0" webkitallowfullscreen="" mozallowfullscreen="" allowfullscreen=""></iframe></div>
+
+<h2 id="using-ftp">Using FTP</h2>
+
+<p>FTP (<a href="https://en.wikipedia.org/wiki/File_Transfer_Protocol">file transfer protocol</a>) allows transferring large collection of files:</p>
+
+<div class="embed-responsive embed-responsive-16by9"><iframe src="https://player.vimeo.com/video/120972739?portrait=0" webkitallowfullscreen="" mozallowfullscreen="" allowfullscreen=""></iframe></div>
+
+<h2 id="from-the-web">From the Web</h2>
+
+<p>Upload from the web works when URL (addresses) of data files are known:</p>
+
+<div class="embed-responsive embed-responsive-16by9"><iframe src="https://player.vimeo.com/video/120973708?portrait=0" webkitallowfullscreen="" mozallowfullscreen="" allowfullscreen=""></iframe></div>
+
+<h2 id="from-ebi-short-read-archive">From EBI short read archive</h2>
+
+<p>This is the best way to upload published datasets deposited to EBI SRA. The problem is that not all datasets are available from EBI. Next option (below) explain how to deal with NCBI SRA datasets:</p>
+
+<div class="embed-responsive embed-responsive-16by9"><iframe src="https://player.vimeo.com/video/121187220?portrait=0" webkitallowfullscreen="" mozallowfullscreen="" allowfullscreen=""></iframe></div>
+
+<h2 id="from-ncbi-short-read-archive">From NCBI short read archive</h2>
+
+<p>Finally, datasets can be uploaded directly from NCBI’s short read archive:</p>
+
+<div class="embed-responsive embed-responsive-16by9"><iframe src="https://player.vimeo.com/video/121190377?portrait=0" webkitallowfullscreen="" mozallowfullscreen="" allowfullscreen=""></iframe></div>
+
+<h3 id="try-it-yourself">Try it yourself</h3>
+
+<ul>
+  <li>Create a new <span class="notranslate">Galaxy</span> history at https://use<span class="notranslate">galaxy</span>.org (don’t forget to log in).</li>
+  <li>Import the following two datasets (for help see the above video):
+    <ul>
+      <li><a href="https://zenodo.org/record/583613/files/sample1-f.fq.gz">A set of Forward <span class="notranslate">reads</span></a></li>
+      <li><a href="https://zenodo.org/record/583613/files/sample1-r.fq.gz">A set of Reverse <span class="notranslate">reads</span></a></li>
+    </ul>
+  </li>
+</ul>
+
+<p>These are paired end data (see below for explanation of what paired-end is) for a single Illumina run. Keep <span class="notranslate">Galaxy</span> history for later. We will need it again in a few minutes.</p>
+
+<h1 id="fastq-manipulation-and-quality-control">FASTQ manipulation and quality control</h1>
+
+<h2 id="what-is-fastq">What is FASTQ?</h2>
+
+<p><a href="https://en.wikipedia.org/wiki/FASTQ_format">FASTQ</a> is not a very well defined format. In the beginning various manufacturers of sequencing instruments were free to interpret FASTQ as they saw fit, resulting in a multitude of FASTQ flavors. This variation stemmed primarily from different ways of encoding quality values as described <a href="https://en.wikipedia.org/wiki/FASTQ_format">here</a> (below you will explanation of quality scores and their meaning). Today, the <a href="https://www.ncbi.nlm.nih.gov/pubmed/20015970">FASTQ Sanger</a> version of the format is considered to be the standard form of FASTQ. <span class="notranslate">Galaxy</span> is using FASTQ Sanger as the only legitimate input for <span class="notranslate">downstream</span> processing tools and provides <a href="https://www.ncbi.nlm.nih.gov/pubmed/20562416">a number of utilities for converting FASTQ files</a> into this form (see <strong>NGS: QC and manipulation</strong> section of <span class="notranslate">Galaxy</span> tools).</p>
+
+<p>The FASTQ format looks like this:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+@M02286:19:000000000-AA549:1:1101:12677:1273 1:N:0:23
+CCTACGGGTGGCAGCAGTGAGGAATATTGGTCAATGGACGGAAGTCTGAACCAGCCAAGTAGCGTGCAG
++
+ABC8C,:@F:CE8,B-,C,-6-9-C,CE9-CC--C-&lt;-C++,,+;CE&lt;,,CD,CEFC,@E9&lt;FCFCF?9
+@M02286:19:000000000-AA549:1:1101:15048:1299 1:N:0:23
+CCTACGGGTGGCTGCAGTGAGGAATATTGGACAATGGTCGGAAGACTGATCCAGCCATGCCGCGTGCAG
++
+ABC@CC77CFCEG;F9&lt;F89&lt;9--C,CE,--C-6C-,CE:++7:,CF&lt;,CEF,CFGGD8FFCFCFEGCF
+@M02286:19:000000000-AA549:1:1101:11116:1322 1:N:0:23
+CCTACGGGAGGCAGCAGTAGGGAATCTTCGGCAATGGACGGAAGTCTGACCGAGCAACGCCGCGTGAGT
++
+AAC&lt;CCF+@@&gt;CC,C9,F9C9@9-CFFFE@7@:+CC8-C@:7,@EFE,6CF:+8F7EFEEF@EGGGEEE
+
+</code></pre></div></div>
+
+<p>Each sequencing read is represented by four lines:</p>
+
+<ol>
+  <li><code class="language-plaintext highlighter-rouge">@</code> followed by read ID and optional information about sequencing run</li>
+  <li>sequenced bases</li>
+  <li><code class="language-plaintext highlighter-rouge">+</code> (optionally followed by the read ID and some additional info)</li>
+  <li>quality scores for each base of the sequence encoded as <a href="https://en.wikipedia.org/wiki/ASCII">ASCII symbols</a></li>
+</ol>
+
+<h2 id="paired-end-data">Paired end data</h2>
+
+<p>It is common to prepare pair-end and mate-pair sequencing libraries. This is highly beneficial for a number of applications discussed in subsequent topics. For now let’s just briefly discuss what these are and how they manifest themselves in FASTQ form.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th> </th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><img src="../../images/pe_mp.png" alt="Paired-end and mate-pair reads" /></td>
+    </tr>
+    <tr>
+      <td><small><strong>Paired-end and mate-pair <span class="notranslate">reads</span></strong>. In paired end sequencing (left) the actual ends of rather short <span class="notranslate">DNA</span> molecules (less than 1kb) are determined, while for mate pair sequencing (right) the ends of long molecules are joined and prepared in special sequencing libraries. In these mate pair protocols, the ends of long, size-selected molecules are connected with an inte<span class="notranslate">rna</span>l adapter sequence (i.e. linker, yellow) in a circularization reaction. The circular molecule is then processed using restriction enzymes or fragmentation. Fragments are enriched for the linker and outer library adapters are added around the two combined molecule ends. The inte<span class="notranslate">rna</span>l adapter can then be used as a second priming site for an additional sequencing reaction in the same orientation or sequencing can be performed from the second adapter, from the reverse strand. (From “Understanding and improving high-throughput sequencing data production and analysis”, Ph.D. dissertation by <a href="https://ul.qucosa.de/api/qucosa%3A11231/attachment/ATT-0/">Martin Kircher</a>)</small></td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Thus in both cases (paired-end and mate-pair) a single physical piece of <span class="notranslate">DNA</span> (or <span class="notranslate">RNA</span> in the case of <span class="notranslate">RNA</span>-seq) is sequenced from two ends and so generates two <span class="notranslate">reads</span>. These can be represented as separate files (two FASTQ files with first and second <span class="notranslate">reads</span>) or a single file were <span class="notranslate">reads</span> for each end are interleaved. Here are examples:</p>
+
+<h4 id="two-single-files">Two single files</h4>
+
+<p><strong>File 1</strong></p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code> @M02286:19:000000000-AA549:1:1101:12677:1273 1:N:0:23
+ CCTACGGGTGGCAGCAGTGAGGAATATTGGTCAATGGACGGAAGTCT
+ +
+ ABC8C,:@F:CE8,B-,C,-6-9-C,CE9-CC--C-&lt;-C++,,+;CE
+ @M02286:19:000000000-AA549:1:1101:15048:1299 1:N:0:23
+ CCTACGGGTGGCTGCAGTGAGGAATATTGGACAATGGTCGGAAGACT
+ +
+ ABC@CC77CFCEG;F9&lt;F89&lt;9--C,CE,--C-6C-,CE:++7:,CF
+</code></pre></div></div>
+
+<p><strong>File 2</strong></p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>@M02286:19:000000000-AA549:1:1101:12677:1273 2:N:0:23
+CACTACCCGTGTATCTAATCCTGTTTGATACCCGCACCTTCGAGCTTA
++
+--8A,CCE+,,;,&lt;CC,,&lt;CE@,CFD,,C,CFF+@+@CCEF,,,B+C,
+@M02286:19:000000000-AA549:1:1101:15048:1299 2:N:0:23
+CACTACCGGGGTATCTAATCCTGTTCGCTCCCCACGCTTTCGTCCATC
++
+-6AC,EE@::CF7CFF&lt;&lt;FFGGDFFF,@FGGGG?F7FEGGGDEFF&gt;FF
+</code></pre></div></div>
+
+<blockquote class="comment">
+  <h3 id="comment-read-order-is-important"><i class="far fa-comment-dots" aria-hidden="true"></i><span class="visually-hidden">comment</span> Read order is important</h3>
+  <p>Note that read IDs are <strong>identical</strong> in two files and they are listed in <strong>the same</strong> order. In some cases read IDs in the first and second file may be appended with <code class="language-plaintext highlighter-rouge">/1</code> and <code class="language-plaintext highlighter-rouge">/2</code> tags, respectively.</p>
+</blockquote>
+
+<h4 id="interleaved-file">Interleaved file</h4>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>@1/1
+AGGGATGTGTTAGGGTTAGGGTTAGGGTTAGGGTTAGGGTTAGGGTTA
++
+EGGEGGGDFGEEEAEECGDEGGFEEGEFGBEEDDECFEFDD@CDD&lt;ED
+@1/2
+CCTAACCCTAACCCTAACCCTAACCCTAACCCTAACCCTAACCCTAAC
++
+GHHHDFDFGFGEGFBGEGGEGEGGGHGFGHFHFHHHHHHHEF?EFEFF
+@2/1
+AGGGATGTGTTAGGGTTAGGGTTAGGGTTAGGGTTAGGGTTAGGGTTA
++
+HHHHHHEGFHEEFEEHEEHHGGEGGGGEFGFGGGGHHHHFBEEEEEFG
+@2/2
+CCTAACCCTAACCCTAACCCTAACCCTAACCCTAACCCTAACCCTAAC
++
+HHHHHHHHHHHHHGHHHHHHGHHHHHHHHHHHFHHHFHHHHHHHHHHH
+</code></pre></div></div>
+
+<p>Here the first and the second <span class="notranslate">reads</span> are identified with <code class="language-plaintext highlighter-rouge">/1</code> and <code class="language-plaintext highlighter-rouge">/2</code> tags.</p>
+
+<blockquote class="comment">
+  <h3 id="comment-fastq-format-is-a-loose-standard"><i class="far fa-comment-dots" aria-hidden="true"></i><span class="visually-hidden">comment</span> FASTQ format is a loose standard</h3>
+  <p>FASTQ format is not strictly defined and its variations will always cause headache for you. See <a href="https://www.ncbi.nlm.nih.gov/sra/docs/submitformats/">this page</a> for more information.</p>
+</blockquote>
+
+<h2 id="what-are-base-qualities">What are base qualities?</h2>
+
+<p>As we’ve seen above, FASTQ datasets contain two types of information:</p>
+
+<ul>
+  <li><em>sequence of the read</em></li>
+  <li><em>base qualities</em> for each nucleotide in the read.</li>
+</ul>
+
+<p>The base qualities allow us to judge how trustworthy each base in a sequencing read is. The following excerpt from an excellent <a href="http://chagall.med.cornell.edu/RNASEQcourse/Intro2RNAseq.pdf">tutorial</a> by Friederike Dündar, Luce Skrabanek, Paul Zumbo explains what base qualities are:</p>
+
+<blockquote class="comment">
+  <h3 id="comment-from-introduction-to-differential-gene-expression-analysis-using-rna-seq"><i class="far fa-comment-dots" aria-hidden="true"></i><span class="visually-hidden">comment</span> From “Introduction to differential gene <span class="notranslate">expression</span> analysis using <span class="notranslate">RNA</span>-seq”</h3>
+  <p>Illumina sequencing is based on identifying the individual nucleotides by the fluorescence signal emitted upon their incorporation into the growing sequencing read. Once the fluorescence intensities are extracted and translated into the four letter code. The deduction of nucleotide sequences from the images acquired during sequencing is commonly referred to as base calling.</p>
+
+  <p>Due to the imperfect nature of the sequencing process and limitations of the optical instruments, base calling will always have inherent uncertainty. This is the reason why FASTQ files store the <span class="notranslate">DNA</span> sequence of each read together with a position-specific quality score that represents the error probability, i.e., how likely it is that an individual base call may be incorrect. The score is called <a href="http://www.phrap.com/phred/">Phred score</a>, \(Q\), which is proportional to the probability \(p\) that a base call is incorrect, where \(Q = −10lg(p)\). For example, a Phred score of 10 corresponds to one error in every ten base calls (\(Q = −10lg(0.1)\)), or 90% accuracy; a Phred score of 20 corresponds to one error in every 100 base calls, or 99% accuracy. A higher Phred score thus reflects higher confidence in the reported base.</p>
+
+  <p>To assign each base a unique score identifier (instead of numbers of varying character length), Phred scores are typically represented as ASCII characters. At http://ascii-code.com/ you can see which characters are assigned to what number.</p>
+
+  <p>For raw <span class="notranslate">reads</span>, the range of scores will depend on the sequencing technology and the base caller used (Illumina, for example, used a tool called Bustard, or, more recently, RTA). Unfortunately, Illumina has been anything but consistent in how they calculated and ASCII-encoded the Phred score (see below)! In addition, Illumina now allows Phred scores for base calls with as high as 45, while 41 used to be the maximum score until the HiSeq X. This may cause issues with <span class="notranslate">downstream</span> sapplications that expect an upper limit of 41.</p>
+</blockquote>
+
+<p><img src="../../images/illumina_qs.png" alt="Illumina quality score" /></p>
+
+<p>Base call quality scores are represented with the Phred range. Different Illumina (formerly Solexa) versions
+used different scores and ASCII offsets. Starting with Illumina format 1.8, the score now represents the standard
+Sanger/Phred format that is also used by other sequencing platforms and the sequencing archives.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th> </th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><img src="../../images/fastq_qs.png" alt="FASTQ quality score" /></td>
+    </tr>
+    <tr>
+      <td><small>The ASCII interpretation and ranges of the different Phred score notations used by Illumina and the original Sanger interpretation. Although the Sanger format allows a theoretical score of 93, raw sequencing <span class="notranslate">reads</span> typically do not exceed a Phred score of 60. In fact, most Illumina-based sequencing will result in maximum scores of 41 to 45 (image from <a href="https://en.wikipedia.org/wiki/FASTQ_format">Wikipedia</a>)</small></td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 id="assessing-data-quality">Assessing data quality</h2>
+
+<p>One of the first steps in the analysis of NGS data is seeing how good the data actually is. <a href="https://www.bioinformatics.babraham.ac.uk/projects/fastqc/">FastqQC</a> is a fantastic tool allowing you to gauge the quality of FASTQ datasets (and deciding whether to blame or not to blame whoever has done sequencing for you).</p>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: left"> </th>
+      <th style="text-align: left"> </th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: left"><img src="../../images/good_fq.png" alt="Good quality in FastQC" /></td>
+      <td style="text-align: left"><img src="../../images/bad_fq.png" alt="Bad quality in FastQC" /></td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><small><strong>A.</strong> Excellent quality</small></td>
+      <td style="text-align: left"><small><strong>B.</strong> Hmmm…OK</small></td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Here you can see FastQC base quality reports (the tools gives you many other types of data) for two datasets: <strong>A</strong> and <strong>B</strong>. The <strong>A</strong> dataset has long <span class="notranslate">reads</span> (250 bp) and very good quality profile with no qualities dropping below <a href="http://www.phrap.com/phred/">phred score</a> of 30. The <strong>B</strong> dataset is significantly worse with ends of the <span class="notranslate">reads</span> dipping below phred score of 20. The <strong>B</strong> <span class="notranslate">reads</span> may need to be trimmed for further processing.</p>
+
+<div class="embed-responsive embed-responsive-16by9"><iframe src="https://player.vimeo.com/video/123453134?portrait=0" webkitallowfullscreen="" mozallowfullscreen="" allowfullscreen=""></iframe></div>
+
+<h3 id="try-it-yourself-1">Try it yourself</h3>
+
+<p>QC datasets you have uploaded before.</p>
+
+<h1 id="mapping-your-data"><span class="notranslate">Mapping</span> your data</h1>
+
+<p><span class="notranslate">Mapping</span> of NGS <span class="notranslate">reads</span> against reference sequences is one of the key steps of the analysis. Now it is time to see how this is done in practice. Below is a list of key publications highlighting mainstream <span class="notranslate">mapping</span> tools:</p>
+
+<ul>
+  <li>2009 Bowtie 1 - <a href="http://genomebiology.com/content/10/3/R25">Langmead et al.</a></li>
+  <li>2012 Bowtie 2 - <a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3322381/">Langmead and Salzberg</a></li>
+  <li>2009 BWA - <a href="https://academic.oup.com/bioinformatics/article/25/14/1754/225615/Fast-and-accurate-short-read-alignment-with">Li and Durbin</a></li>
+  <li>2010 BWA - <a href="https://academic.oup.com/bioinformatics/article/26/5/589/211735/Fast-and-accurate-long-read-alignment-with-Burrows">Li and Durbin</a></li>
+  <li>2013 BWA-MEM - <a href="https://arxiv.org/abs/1303.3997">Li</a></li>
+</ul>
+
+<h2 id="mapping-against-a-pre-computed-genome-index"><span class="notranslate">Mapping</span> against a pre-computed genome index</h2>
+
+<p>Mappers usually compare <span class="notranslate">reads</span> against a reference sequence that has been transformed into a highly accessible data structure called genome index. Such indexes should be generated before <span class="notranslate">mapping</span> begins. <span class="notranslate">Galaxy</span> instances typically store indexes for a number of publicly available genome builds.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th> </th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><img src="../../images/cached_genome.png" alt="Cached genome" /></td>
+    </tr>
+    <tr>
+      <td><small><span class="notranslate">Mapping</span> against a pre-computed index in <span class="notranslate">Galaxy</span>.</small></td>
+    </tr>
+  </tbody>
+</table>
+
+<p>For example, the image above shows indexes for <code class="language-plaintext highlighter-rouge">hg38</code> version of the human genome. You can see that there are actually three choices: (1) <code class="language-plaintext highlighter-rouge">hg38</code>, (2) <code class="language-plaintext highlighter-rouge">hg38 canonical</code> and (3) <code class="language-plaintext highlighter-rouge">hg38 canonical female</code>. The <code class="language-plaintext highlighter-rouge">hg38</code> contains all chromosomes as well as all unplaced contigs. The <code class="language-plaintext highlighter-rouge">hg38 canonical</code> does not contain unplaced sequences and only consists of chromosomes 1 through 22, X, Y, and mitochondria. The
+<code class="language-plaintext highlighter-rouge">hg38 canonical female</code> contains everything from the canonical set with the exception of chromosome Y.</p>
+
+<p>The following video show <span class="notranslate">mapping</span> using BWA:</p>
+
+<div class="embed-responsive embed-responsive-16by9"><iframe src="https://player.vimeo.com/video/123102338?portrait=0" webkitallowfullscreen="" mozallowfullscreen="" allowfullscreen=""></iframe></div>
+
+<h3 id="try-it-yourself-2">Try it yourself</h3>
+
+<p>Map datasets uploaded before using BWA against <code class="language-plaintext highlighter-rouge">hg38</code> version of the human genome.</p>
+
+<h2 id="what-if-pre-computed-index-does-not-exist">What if pre-computed index does not exist?</h2>
+
+<p>If <span class="notranslate">Galaxy</span> does not have a genome you need to map against, you can upload your genome sequence as a FASTA file and use it in the mapper directly as shown below (<strong>Load reference genome</strong> is set to <code class="language-plaintext highlighter-rouge">History</code>).</p>
+
+<table>
+  <thead>
+    <tr>
+      <th> </th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><img src="../../images/uploaded_genome.png" alt="Uploaded genome" /></td>
+    </tr>
+    <tr>
+      <td><small><span class="notranslate">Mapping</span> against a pre-computed index in <span class="notranslate">Galaxy</span> </small></td>
+    </tr>
+  </tbody>
+</table>
+
+<p>In this case <span class="notranslate">Galaxy</span> will first create an index from this dataset and then run <span class="notranslate">mapping</span> analysis against it. The following video shows how this works in practice:</p>
+
+<div class="embed-responsive embed-responsive-16by9"><iframe src="https://player.vimeo.com/video/123108417?portrait=0" webkitallowfullscreen="" mozallowfullscreen="" allowfullscreen=""></iframe></div>
+
+<h1 id="sambam-datasets">SAM/BAM datasets</h1>
+
+<p>The <a href="https://samtools.github.io/hts-specs/SAMv1.pdf">SAM/BAM</a> format is an accepted standard for storing aligned <span class="notranslate">reads</span> (it can also store unaligned <span class="notranslate">reads</span> and some mappers such as BWA are accepting unaligned BAM as input). The binary form of the format (BAM) is compact and can be rapidly searched (if indexed). In <span class="notranslate">Galaxy</span> BAM datasets are always indexed (accompanies by a .bai file) and sorted in coordinate order. In the following duscussion I once again rely on <a href="http://chagall.med.cornell.edu/RNASEQcourse/Intro2RNAseq.pdf">tutorial</a> by Friederike Dündar, Luce Skrabanek, and Paul Zumbo.</p>
+
+<p>The Sequence Alignment/Map (SAM) format is, in fact, a generic nucleotide alignment format that describes the alignment of sequencing <span class="notranslate">reads</span> (or query sequences) to a reference. The human readable, TABdelimited SAM files can be compressed into the Binary Alignment/Map format. These BAM files are bigger than simply gzipped SAM files, because they have been optimized for fast random access rather than size reduction. Position-sorted BAM files can be indexed so that all <span class="notranslate">reads</span> aligning to a locus can be efficiently retrieved without loading the entire file into memory.</p>
+
+<p>As shown below, SAM files typically contain a short header section and a very long alignment section where each row represents a single read alignment. The following sections will explain the SAM format in a bit more detail. For the most comprehensive and updated information go to https://github.com/samtools/hts-specs.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th> </th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><img src="../../images/bam_structure.png" alt="BAM structure" /></td>
+    </tr>
+    <tr>
+      <td><small><strong>Schematic representation of a SAM file</strong>. Each line of the optional header section starts with “@”, followed by the appropriate abbreviation (e.g., SQ for sequence dictionary which lists all chromosomes names (SN) and their lengths (LN)). The vast majority of lines within a SAM file typically correspond to read alignments where each read is described by the 11 mandatory entries (black font) and a variable number of optional fields (grey font). From <a href="http://chagall.med.cornell.edu/RNASEQcourse/Intro2RNAseq.pdf">tutorial</a> by Friederike Dündar, Luce Skrabanek, and Paul Zumbo.</small></td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 id="sam-header">SAM Header</h2>
+
+<p>The header section includes information about how the alignment was generated and stored. All lines in the header section are tab-delimited and begin with the “@” character, followed by tag:value pairs, where tag is a two-letter string that defines the content and the format of value. For example, the “@SQ” line in the header section contains the information about the names and lengths of the *reference sequences to which the <span class="notranslate">reads</span> were aligned. For a hypothetical organism with three chromosomes of length 1,000 bp, the SAM header should contain the following three lines:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>@SQ SN:chr1 LN:1000
+@SQ SN:chr2 LN:1000
+@SQ SN:chr3 LN:1000
+</code></pre></div></div>
+
+<h2 id="sam-alignment-section">SAM alignment section</h2>
+
+<p>The optional header section is followed by the alignment section where each line corresponds to one sequenced read. For each read, there are 11 mandatory fields that always appear in the same order:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>&lt;QNAME&gt; &lt;FLAG&gt; &lt;<span class="notranslate">RNA</span>ME&gt; &lt;POS&gt; &lt;MAPQ&gt; &lt;CIGAR&gt; &lt;MRNM&gt; &lt;MPOS&gt; &lt;ISIZE&gt; &lt;SEQ&gt; &lt;QUAL&gt;
+</code></pre></div></div>
+
+<p>If the corresponding information is unavailable or irrelevant, field values can be ‘0’ or ‘*’ (depending on the field, see below), but they cannot be missing! After the 11 mandatory fields, a variable number of optional fields can be present. Here’s an example of one single line of a real-life SAM file (you may need to scroll sideways):</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>ERR458493 .552967 16 chrI 140 255 12 M61232N37M2S * 0 0 CCACTCGTTCACCAGGGCCGGCGGGCTGATCACTTTATCGTGCATCTTGGC BB?HHJJIGHHJIGIIJJIJGIJIJJIIIGHBJJJJJJHHHHFFDDDA1+B NH:i:1 HI:i:1 AS:i:41 nM:i:2
+</code></pre></div></div>
+
+<p>The following table explains the format and content of each field. The <code class="language-plaintext highlighter-rouge">FLAG</code>, <code class="language-plaintext highlighter-rouge">CIGAR</code>, and the optional fields (marked in blue) are explained in more detail below. The number of optional fields can vary widely between different SAM files and even between <span class="notranslate">reads</span> within in the same file. The field types marked in blue are explained in more detail in the main text below.</p>
+
+<p><img src="../../images/sam_fields.png" alt="SAM fields" /></p>
+
+<h3 id="flag-field"><code class="language-plaintext highlighter-rouge">FLAG</code> field</h3>
+
+<p>The FLAG field encodes various pieces of information about the individual read, which is particularly important for PE <span class="notranslate">reads</span>. It contains an integer that is generated from a sequence of Boolean bits (0, 1). This way, answers to multiple binary (Yes/No) questions can be compactly stored as a series of bits, where each of the single bits can be addressed and assigned separately.</p>
+
+<p>The following table gives an overview of the different properties that can be encoded in the FLAG field. The developers of the SAM format and samtools tend to use the hexadecimal encoding as a means to refer to the different bits in their documentation. The value of the FLAG field in a given SAM file, however, will always be the decimal representation of the sum of the underlying binary values (as shown in Table below, row 2).</p>
+
+<table>
+  <thead>
+    <tr>
+      <th> </th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><img src="../../images/sam_flag.png" alt="SAM flag" /></td>
+    </tr>
+    <tr>
+      <td><small>The <code class="language-plaintext highlighter-rouge">FLAG</code> field of SAM files stores information about the respective read alignment in one single decimal number. The decimal number is the sum of all the answers to the Yes/No questions associated with each binary bit. The hexadecimal representation is used to refer to the individual bits (questions). A bit is set if the corresponding state is true. For example, if a read is paired, <code class="language-plaintext highlighter-rouge">0x1</code> will be set, returning the decimal value of 1. Therefore, all <code class="language-plaintext highlighter-rouge">FLAG</code> values associated with paired <span class="notranslate">reads</span> must be uneven decimal numbers. Conversely, if the <code class="language-plaintext highlighter-rouge">0x1</code> bit is unset (= read is not paired), no assumptions can be made about <code class="language-plaintext highlighter-rouge">0x2</code>, <code class="language-plaintext highlighter-rouge">0x8</code>, <code class="language-plaintext highlighter-rouge">0x20</code>, <code class="language-plaintext highlighter-rouge">0x40</code> and <code class="language-plaintext highlighter-rouge">0x80</code> because they refer to paired <span class="notranslate">reads</span>. From <a href="http://chagall.med.cornell.edu/RNASEQcourse/Intro2RNAseq.pdf">tutorial</a> by Friederike Dündar, Luce Skrabanek, and Paul Zumbo</small></td>
+    </tr>
+  </tbody>
+</table>
+
+<p>In a run with single <span class="notranslate">reads</span>, the flags you most commonly see are:</p>
+
+<ul>
+  <li>0: This read has been mapped to the forward strand. (None of the bit-wise flags have been set.)</li>
+  <li>4: The read is unmapped (<code class="language-plaintext highlighter-rouge">0x4</code> is set).</li>
+  <li>16: The read is mapped to the reverse strand (<code class="language-plaintext highlighter-rouge">0x10</code> is set)</li>
+</ul>
+
+<p>(<code class="language-plaintext highlighter-rouge">0x100</code>, <code class="language-plaintext highlighter-rouge">0x200</code> and <code class="language-plaintext highlighter-rouge">0x400</code> are not used by most aligners/mappers, but could, in principle be set for single <span class="notranslate">reads</span>.) Some common <code class="language-plaintext highlighter-rouge">FLAG</code> values that you may see in a PE experiment include:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th> </th>
+      <th> </th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>69</strong> (= 1 + 4 + 64)</td>
+      <td>The read is paired, is the first read in the pair, and is unmapped.</td>
+    </tr>
+    <tr>
+      <td><strong>77</strong> (= 1 + 4 + 8 + 64)</td>
+      <td>The read is paired, is the first read in the pair, both are unmapped.</td>
+    </tr>
+    <tr>
+      <td><strong>83</strong> (= 1 + 2 + 16 + 64)</td>
+      <td>The read is paired, mapped in a proper pair, is the first read in the pair, and it is mapped to the reverse strand.</td>
+    </tr>
+    <tr>
+      <td><strong>99</strong> (= 1 + 2 + 32 + 64)</td>
+      <td>The read is paired, mapped in a proper pair, is the first read in the pair, and its mate is mapped to the reverse strand.</td>
+    </tr>
+    <tr>
+      <td><strong>133</strong> (= 1 + 4 + 128)</td>
+      <td>The read is paired, is the second read in the pair, and it is unmapped.</td>
+    </tr>
+    <tr>
+      <td><strong>137</strong> (= 1 + 8 + 128)</td>
+      <td>The read is paired, is the second read in the pair, and it is mapped while its mate is not.</td>
+    </tr>
+    <tr>
+      <td><strong>141</strong> (= 1 + 4 + 8 + 128)</td>
+      <td>The read is paired, is the second read in the pair, but both are unmapped.</td>
+    </tr>
+    <tr>
+      <td><strong>147</strong> (= 1 + 2 + 16 + 128)</td>
+      <td>The read is paired, mapped in a proper pair, is the second read in the pair, and mapped to the reverse strand.</td>
+    </tr>
+    <tr>
+      <td><strong>163</strong> (= 1 + 2 + 32 + 128)</td>
+      <td>The read is paired, mapped in a proper pair, is the second read in the pair, and its mate is mapped to the reverse strand.</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>A useful website for quickly translating the FLAG integers into plain English explanations like the ones shown above is: https://broadinstitute.github.io/picard/explain-flags.html</p>
+
+<h3 id="cigar-string"><code class="language-plaintext highlighter-rouge">CIGAR</code> string</h3>
+
+<p><code class="language-plaintext highlighter-rouge">CIGAR</code> stands for <em>Concise Idiosyncratic Gapped Alignment Report</em>. This sixth field of a SAM file
+contains a so-called CIGAR string indicating which operations were necessary to map the read to the reference sequence at that particular locus.</p>
+
+<p>The following operations are defined in CIGAR format (also see figure below):</p>
+
+<ul>
+  <li><strong>M</strong> - Alignment (can be a sequence match or mismatch!)</li>
+  <li><strong>I</strong> - Insertion in the read compared to the reference</li>
+  <li><strong>D</strong> - Deletion in the read compared to the reference</li>
+  <li><strong>N</strong> - Skipped region from the reference. For m<span class="notranslate">RNA</span>-to-genome alignments, an N operation represents an intron. For other types of alignments, the interpretation of N is not defined.</li>
+  <li><strong>S</strong> - Soft clipping (clipped sequences are present in read); S may only have H operations between them and the ends of the string</li>
+  <li><strong>H</strong> - Hard clipping (clipped sequences are NOT present in the alignment record); can only be present as the first and/or last operation</li>
+  <li><strong>P</strong> - Padding (silent deletion from padded reference)</li>
+  <li><strong>=</strong> - Sequence match (not widely used)</li>
+  <li><strong>X</strong> - Sequence mismatch (not widely used)</li>
+</ul>
+
+<p>The sum of lengths of the <strong>M</strong>, <strong>I</strong>, <strong>S</strong>, <strong>=</strong>, <strong>X</strong> operations must equal the length of the read. Here are some examples:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th> </th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><img src="../../images/cigar.png" alt="CIGAR" /></td>
+    </tr>
+    <tr>
+      <td><small>From <a href="http://chagall.med.cornell.edu/RNASEQcourse/Intro2RNAseq.pdf">tutorial</a> by Friederike Dündar, Luce Skrabanek, and Paul Zumbo.</small></td>
+    </tr>
+  </tbody>
+</table>
+
+<h3 id="optional-fields">Optional fields</h3>
+
+<p>Following the eleven mandatory SAM file fields, the optional fields are presented as key-value
+pairs in the format of <code class="language-plaintext highlighter-rouge">&lt;TAG&gt;:&lt;TYPE&gt;:&lt;VALUE&gt;</code>, where <code class="language-plaintext highlighter-rouge">TYPE</code> is one of:</p>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">A</code> - Character</li>
+  <li><code class="language-plaintext highlighter-rouge">i</code> - Integer</li>
+  <li><code class="language-plaintext highlighter-rouge">f</code> - Float number</li>
+  <li><code class="language-plaintext highlighter-rouge">Z</code> - String</li>
+  <li><code class="language-plaintext highlighter-rouge">H</code> - Hex string</li>
+</ul>
+
+<p>The information stored in these optional fields will vary widely depending on the mapper and new tags can be added freely. In addition, <span class="notranslate">reads</span> within the same SAM file may have different numbers of optional fields, depending on the program that generated the SAM file. Commonly used optional tags include:</p>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">AS:i</code> - Alignment score</li>
+  <li><code class="language-plaintext highlighter-rouge">BC:Z</code> - Barcode sequence</li>
+  <li><code class="language-plaintext highlighter-rouge">HI:i</code> - Match is i-th hit to the read</li>
+  <li><code class="language-plaintext highlighter-rouge">NH:i</code> - Number of reported alignments for the query sequence</li>
+  <li><code class="language-plaintext highlighter-rouge">NM:i</code> - Edit distance of the query to the reference</li>
+  <li><code class="language-plaintext highlighter-rouge">MD:Z</code> - String that contains the exact positions of mismatches (should complement the CIGAR string)</li>
+  <li><code class="language-plaintext highlighter-rouge">RG:Z</code> - Read group (should match the entry after ID if @RG is present in the header.</li>
+</ul>
+
+<p>Thus, for example, we can use the NM:i:0 tag to select only those <span class="notranslate">reads</span> which map perfectly to the reference(i.e., have no mismatches). While the optional fields listed above are fairly standardized, tags that begin with <code class="language-plaintext highlighter-rouge">X</code>, <code class="language-plaintext highlighter-rouge">Y</code>, and <code class="language-plaintext highlighter-rouge">Z</code> are reserved for particularly free usage and will never be part of the official SAM file format specifications. <code class="language-plaintext highlighter-rouge">XS</code>, for example, is used by TopHat (an <span class="notranslate">RNA</span>-seq analysis tool we will discuss later) to encode the strand information (e.g., <code class="language-plaintext highlighter-rouge">XS:A:+</code>) while Bowtie2 and BWA use <code class="language-plaintext highlighter-rouge">XS:i:</code> for <span class="notranslate">reads</span> with multiple alignments to store the alignment score for the next-best-scoring alignment (e.g., <code class="language-plaintext highlighter-rouge">XS:i:30</code>).</p>
+
+<h2 id="read-groups">Read Groups</h2>
+
+<p>One of the key features of SAM/BAM format is the ability to label individual <span class="notranslate">reads</span> with readgroup tags. This allows pooling results of multiple experiments into a single BAM dataset. This significantly simplifies <span class="notranslate">downstream</span> logistics: instead of dealing with multiple datasets one can handle just one. Many <span class="notranslate">downstream</span> analysis tools such as variant callers are designed to recognize readgroup data and output results on per-readgroup basis.</p>
+
+<p>One of the best descriptions of BAM readgroups is on <a href="https://gatkforums.broadinstitute.org/discussion/1317/collected-faqs-about-bam-files">GATK support site</a>. We have gratefully stolen two tables describing the most important readgroup tags - <code class="language-plaintext highlighter-rouge">ID</code>, <code class="language-plaintext highlighter-rouge">SM</code>, <code class="language-plaintext highlighter-rouge">LB</code>, and <code class="language-plaintext highlighter-rouge">PL</code> - from GATK forum and provide them here:</p>
+
+<p><img src="../../images/rg.png" alt="Read groups" /></p>
+
+<p>GATK forum also provides the following example:</p>
+
+<p><img src="../../images/rg_example.png" alt="Read group example" /></p>
+
+<p>To see an example of read group manipulation in <span class="notranslate">Galaxy</span> see the following video:</p>
+
+<div class="embed-responsive embed-responsive-16by9"><iframe src="https://player.vimeo.com/video/123102338#t=1:40?portrait=0" webkitallowfullscreen="" mozallowfullscreen="" allowfullscreen=""></iframe></div>
+
+<h1 id="manipulating-sambam-datasets">Manipulating SAM/BAM datasets</h1>
+
+<p>We support four major toolsets for processing of SAM/BAM datasets:</p>
+
+<ul>
+  <li><a href="https://deeptools.readthedocs.io">DeepTools</a> - a suite of user-friendly tools for the visualization, quality control and normalization of data from deep-sequencing <span class="notranslate">DNA</span> sequencing experiments.</li>
+  <li><a href="http://www.htslib.org/">SAMtools</a> - various utilities for manipulating alignments in the SAM/BAM format, including sorting, merging, indexing and generating alignments in a per-position format.</li>
+  <li><a href="https://github.com/pezmaster31/bamtools/wiki/Tutorial_Toolkit_BamTools-1.0.pdf">BAMtools</a> - a toolkit for reading, writing, and manipulating BAM (genome alignment) files.</li>
+  <li><a href="https://broadinstitute.github.io/picard/">Picard</a> - a set of Java tools for manipulating high-throughput sequencing data (HTS) data and formats.</li>
+</ul>
+
+<p>The following video highlights de-duplication, filtering, and cleaning of a BAM dataset using BAMtools and Picard tools:</p>
+
+<div class="embed-responsive embed-responsive-16by9"><iframe src="https://player.vimeo.com/video/123113197?portrait=0" webkitallowfullscreen="" mozallowfullscreen="" allowfullscreen=""></iframe></div>
+
+<h3 id="try-it-yourself-3">Try it yourself</h3>
+
+<p>Perform a similar analyses with your own data.</p>
+
+<h1 id="the-challenge-of-read-duplicates">The challenge of read duplicates</h1>
+
+<h2 id="pcr-duplicates">PCR duplicates</h2>
+
+<p>Preparation of sequencing libraries (at least at the time of writing) for technologies such as Illumina (used in this examples) involves PCR amplification. It is required to generate sufficient number of sequencing templates so that a reliable detection can be performed by base callers. Yet PCR has it’s biases, which are especially profound in cases of multitemplate PCR used for construction of sequencing libraries (Kanagawa et al. <a href="https://www.ncbi.nlm.nih.gov/entrez/query.fcgi?cmd=Retrieve&amp;db=PubMed&amp;dopt=Abstract&amp;list_uids=16233530">2003</a>).</p>
+
+<table>
+  <thead>
+    <tr>
+      <th> </th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><img src="../../images/pcr-duplicates.png" alt="PCR duplicates" /></td>
+    </tr>
+    <tr>
+      <td><small>Analyzing molecules aligning with the same outer coordinates, a <span class="notranslate">mapping</span> quality of at least 30 and a length of at least 30nt, resulted in an average coverage of 12.9 per PCR duplicate and an empirical coverage distribution similar to an exponential/power law distribution (left upper panel). This indicates that many molecules are only observed for deeper sequencing while other molecules are available at higher frequencies. Analyzing length (left middle panel) and GC content (left lower panel) patterns as well as the combination (right panel) shows higher PCR duplicate counts for a GC content between 30% to 70% as well as for shorter molecules compared to longer molecules. This effect may be due to an amplification bias from the polymerase or the cluster generation process necessary for Illumina sequencing. From Ph.D. dissertation of <a href="https://ul.qucosa.de/api/qucosa%3A11231/attachment/ATT-0/">Martin Kircher</a>).</small></td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Duplicates can be identified based on their outer alignment coordinates or using sequence-based clustering. One of the common ways for identification of duplicate <span class="notranslate">reads</span> is the <code class="language-plaintext highlighter-rouge">MarkDuplicates</code> utility from <a href="https://broadinstitute.github.io/picard/command-line-overview.html">Picard</a> package. It is designed to identify both PCR and optical duplicates:</p>
+
+<div class="well well-lg">
+
+Duplicates are identified as read pairs having identical 5' positions (coordinate and strand) for both <span class="notranslate">reads</span> in a mate pair (and optionally, matching unique molecular identifier <span class="notranslate">reads</span>; see BARCODE_TAG option). Optical, or more broadly Sequencing, duplicates are duplicates that appear clustered together spatially during sequencing and can arise from optical/imagine-processing artifacts or from bio-chemical processes during clonal amplification and sequencing; they are identified using the READ_NAME_REGEX and the OPTICAL_DUPLICATE_PIXEL_DISTANCE options. The tool's main output is a new SAM or BAM file in which duplicates have been identified in the SAM flags field, or optionally removed (see REMOVE_DUPLICATE and REMOVE_SEQUENCING_DUPLICATES), and optionally marked with a duplicate type in the 'DT' optional attribute. In addition, it also outputs a metrics file containing the numbers of READ_PAIRS_EXAMINED, UNMAPPED_<span class="notranslate">READS</span>, UNPAIRED_<span class="notranslate">READS</span>, UNPAIRED_READ DUPLICATES, READ_PAIR_DUPLICATES, and READ_PAIR_OPTICAL_DUPLICATES. Usage example: java -jar picard.jar MarkDuplicates I=input.bam \ O=marked_duplicates.bam M=marked_dup_metrics.txt.`
+
+</div>
+
+<h2 id="sampling-coincidence-duplicates">Sampling coincidence duplicates</h2>
+
+<p>However, one has to be careful when removing duplicates in cases when the sequencing targets are small (e.g., sequencing of bacterial, viral, or organellar genomes as well as amplicons). This is because when sequencing target is small <span class="notranslate">reads</span> will have the same coordinates by chance and not because of PCR amplification issues. The figure below illustrates the fine balance between estimates allele frequency, coverage, and variation in insert size:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th> </th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><img src="../../images/sampling-bias.png" alt="Sampling bias" /></td>
+    </tr>
+    <tr>
+      <td><small>The Variant Allele Frequency (VAF) bias determined by coverage and insert size variance. <span class="notranslate">Reads</span> are paired-end and read length is 76. The insert size distribution is modeled as a Gaussian distribution with mean at 200 and standard deviation shown on the x-axis. The true VAF is 0.05. The darkness at each position indicates the magnitude of the bias in the VAF. (From Zhou et al. <a href="https://bioinformatics.oxfordjournals.org/content/30/8/1073">2013</a>).</small></td>
+    </tr>
+  </tbody>
+</table>
+
+
+                    
+                    <blockquote class="key_points">
+                        <h3><i class="fas fa-key" aria-hidden="true"></i><span class="visually-hidden">keypoints</span> Key points</h3>
+                        <ul>
+                            
+                            <li><p>Data can be uploaded directly from a computer, from EBI SRA and from NCBI SRA, also using FTP or URL.</p>
+</li>
+                            
+                            <li><p>FASTQ Sanger version of the format is considered to be the standard form of FASTQ.</p>
+</li>
+                            
+                            <li><p>Paired end data can be provided as two files or as an interleaved one.</p>
+</li>
+                            
+                            <li><p>FastqQC is a tool allowing to check the quality of FASTQ datasets.</p>
+</li>
+                            
+                            <li><p>The most common tools for mapping are Bowtie, BWA, BWA-MEM. You can use in-built genome to map against or upload one if it is missing.</p>
+</li>
+                            
+                            <li><p>The standard format for storing aligned reads is SAM/BAM. The major toolsets to process these datasets are DeepTools, SAMtools, BAMtools and Picard.</p>
+</li>
+                            
+                        </ul>
+                    </blockquote>
+                    
+
+                    
+
+                    
+
+                    <h1>Feedback</h1>
+                    <p class="text-muted">Did you use this material as an instructor? Feel free to give us feedback on <a href="https://github.com/galaxyproject/training-material/issues/1452" target="_blank">how it went</a>.</p>
+
+                    <div id="feedback-button">
+                        <img src="/training-material/shared/images/feedback.png" title="Click to activate" alt="Click here to load Google feedback frame" />
+                    </div>
+                    <div id="feedback-form">
+                    </div>
+                    <script type="text/javascript">
+                        (function (window, document) {
+                            function onDocumentReady(fn) {
+                                if (document.attachEvent ? document.readyState === "complete" : document.readyState !== "loading") {
+                                    fn();
+                                } else {
+                                    document.addEventListener('DOMContentLoaded', fn);
+                                }
+                            }
+
+                            onDocumentReady(function () {
+                                $("#feedback-button").click(function(evt){
+                                    var e = $(evt.target)
+                                    e.hide();
+
+                                    $("#feedback-form").html(`
+                                        <iframe id="feedback-google" class="google-form" src="https://docs.google.com/forms/d/e/1FAIpQLSd4VZptFTQ03kHkMz0JyW9b6_S8geU5KjNE_tLM0dixT3ZQmA/viewform?embedded=true&entry.1235803833=NGS data logistics (Introduction to Galaxy Analyses)">Loading...</iframe>
+                                    `)
+                                })
+                            });
+                        })(window, document);
+                    </script>
+
+
+
+                    <h1>Citing this Tutorial</h1>
+                    <p>
+                        <ol>
+                            <li id="citation-text">Anton Nekrutenko, 2020 <b>NGS data logistics (Galaxy Training Materials)</b>. <a href="/training-material/topics/introduction/tutorials/galaxy-intro-ngs-data-managment/tutorial.html">/training-material/topics/introduction/tutorials/galaxy-intro-ngs-data-managment/tutorial.html</a> Online; accessed TODAY
+                            </li>
+                            <li>
+                            Batut et al., 2018 <b>Community-Driven Data Analysis Training for Biology</b> Cell Systems <a href="https://doi.org/10.1016%2Fj.cels.2018.05.012">10.1016/j.cels.2018.05.012</a>
+                            </li>
+                        </ol>
+                    </p>
+
+
+                    <blockquote class="details">
+                      <h3><i class="fa fa-info-circle" aria-hidden="true"></i><span class="visually-hidden">details</span> BibTeX</h3>
+                      <p style="display: none;">
+
+                    <div class="highlighter-rouge"><div class="highlight"><pre class="highlight">
+<code id="citation-code">@misc{introduction-galaxy-intro-ngs-data-managment,
+    author = "Anton Nekrutenko",
+    title = "NGS data logistics (Galaxy Training Materials)",
+    year = "2020",
+    month = "11",
+    day = "26"
+    url = "\url{/training-material/topics/introduction/tutorials/galaxy-intro-ngs-data-managment/tutorial.html}",
+    note = "[Online; accessed TODAY]"
+}
+@article{Batut_2018,
+        doi = {10.1016/j.cels.2018.05.012},
+        url = {https://doi.org/10.1016%2Fj.cels.2018.05.012},
+        year = 2018,
+        month = {jun},
+        publisher = {Elsevier {BV}},
+        volume = {6},
+        number = {6},
+        pages = {752--758.e1},
+        author = {B{\'{e}}r{\'{e}}nice Batut and Saskia Hiltemann and Andrea Bagnacani and Dannon Baker and Vivek Bhardwaj and Clemens Blank and Anthony Bretaudeau and Loraine Brillet-Gu{\'{e}}guen and Martin {\v{C}}ech and John Chilton and Dave Clements and Olivia Doppelt-Azeroual and Anika Erxleben and Mallory Ann Freeberg and Simon Gladman and Youri Hoogstrate and Hans-Rudolf Hotz and Torsten Houwaart and Pratik Jagtap and Delphine Larivi{\`{e}}re and Gildas Le Corguill{\'{e}} and Thomas Manke and Fabien Mareuil and Fidel Ram{\'{\i}}rez and Devon Ryan and Florian Christoph Sigloch and Nicola Soranzo and Joachim Wolff and Pavankumar Videm and Markus Wolfien and Aisanjiang Wubuli and Dilmurat Yusuf and James Taylor and Rolf Backofen and Anton Nekrutenko and Björn Grüning},
+        title = {Community-Driven Data Analysis Training for Biology},
+        journal = {Cell Systems}
+}</code>
+                    </pre></div></div>
+                    </p>
+                    </blockquote>
+
+
+<script type="text/javascript">
+// update the date on load, or leave fallback of 'today'
+d = new Date();
+document.getElementById("citation-code").innerHTML = document.getElementById("citation-code").innerHTML.replace("TODAY", d.toDateString());
+document.getElementById("citation-text").innerHTML = document.getElementById("citation-text").innerHTML.replace("TODAY", d.toDateString());
+</script>
+
+                </div>
+            </div>
+        </div>
+
+        <h3><i class="far fa-thumbs-up" aria-hidden="true"></i><span class="visually-hidden">congratulations</span> Congratulations on successfully completing this tutorial!</h3>
+
+        
+
+        
+    </section>
+</div>
+
+
+<footer>
+    <div class="container">
+        <p>
+            This material is the result of a collaborative work. Thanks to the
+            <a href="https://wiki.galaxyproject.org/Teach/GTN">Galaxy Training Network</a>
+            and all the <a href="/training-material/hall-of-fame">contributors</a> (Anton Nekrutenko)!
+        </p>
+        <p>
+            Found a typo? Something is wrong in this tutorial? Edit it on
+            <a href="https://github.com/galaxyproject/training-material/tree/master/topics/introduction/tutorials/galaxy-intro-ngs-data-managment/tutorial.md">GitHub</a>.
+        </p>
+        <p>
+    The content of the tutorials and website is licensed under the <a rel="license" href="https://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0 International License</a>.
+</p>
+    </div>
+</footer>
+
+    </body>
+    <script type="text/javascript" src="/training-material/assets/js/jquery.slim.min.js"></script>
+    <script type="text/javascript" src="/training-material/assets/js/popper.min.js"></script>
+    <script type="text/javascript" src="/training-material/assets/js/bootstrap.min.js?v=3"></script>
+    <script type="text/javascript" src="/training-material/assets/js/details-element-polyfill.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript" src="/training-material/assets/js/bootstrap-toc.min.js"></script>
+    <script type="text/javascript" src="/training-material/assets/js/main.js"></script>
+    <script type="text/javascript" src="/training-material/assets/js/theme.js"></script>
+
+    <script type="text/javascript" src="/training-material/assets/js/clipboard.min.js"></script>
+    <script type="text/javascript">
+    var snippets=document.querySelectorAll('div.highlight');
+    [].forEach.call(snippets,function(snippet){
+        snippet.firstChild.insertAdjacentHTML('beforebegin','<button class="btn btn-light" data-clipboard-snippet><i class="fa fa-copy"></i>&nbsp;Copy</button>');
+    });
+
+    var clipboardSnippets=new ClipboardJS('[data-clipboard-snippet]',{
+        target:function(trigger){return trigger.nextElementSibling;
+    }});
+    </script>
+    
+
+    <script type="text/javascript">
+        if(window.location.hostname === "galaxyproject.github.io") {
+            // Redirect
+            var redirect = "https://training.galaxyproject.org" + window.location.pathname + window.location.search;
+            $('div.container.main-content').prepend("<div class='alert alert-warning'><strong>Note: </strong>This content has a new home at <a href=\"" + redirect + "\">" + redirect + "</a>, which you will be redirected to in 5 seconds.</div>");
+
+            window.setTimeout(function(){
+                window.location.href = redirect;
+            }, 5000)
+
+        }
+    </script>
+</html>

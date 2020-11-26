@@ -1,0 +1,582 @@
+<!DOCTYPE html>
+<html>
+
+
+
+
+
+
+
+
+
+  <head>
+    <meta charset="utf-8">
+    <title>Ansible</title>
+    
+        <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+    ga('create', '' , 'auto');
+    ga('send', 'pageview');
+</script>
+    
+    <link rel="stylesheet" href="/training-material/assets/css/slides.css">
+    <script src="https://kit.fontawesome.com/67b3f98409.js" crossorigin="anonymous"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="shortcut icon" href="/training-material/favicon.ico" type="image/x-icon" />
+
+    
+    
+    
+    
+    <meta name="description" content="Resources related to configuration and maintenance of Gal..." />
+    <meta property="og:title" content="Galaxy Training: Ansible" />
+    <meta property="og:description" content="Resources related to configuration and maintenance of Gal..." />
+    <meta property="og:image" content="/training-material/assets/images/GTNLogo1000.png" />
+    <script type="application/ld+json">
+      
+
+
+{
+  "@context": "http://schema.org",
+  "@type": "Course",
+  "accessMode": [
+    "textual",
+    "visual"
+  ],
+  "accessModeSufficient": [
+    "textual",
+    "visual"
+  ],
+  "accessibilityControl": [
+    "fullKeyboardControl",
+    "fullMouseControl"
+  ],
+  "accessibilityFeature": [
+    "alternativeText",
+    "tableOfContents"
+  ],
+  "accessibilitySummary": "Short descriptions are present but long descriptions will be needed for non-visual users",
+  "audience": {
+    "@type": "EducationalAudience",
+    "educationalRole": "students"
+  },
+  "citation": {
+    "@type": "CreativeWork",
+    "name": "Community-Driven Data Analysis Training for Biology",
+    "url": "https://doi.org/10.1016/j.cels.2018.05.012"
+  },
+  "copyrightHolder": {
+    "@type": "Organization",
+    "email": "galaxytrainingnetwork@gmail.com",
+    "name": "Galaxy Training Network",
+    "url": "https://galaxyproject.org/teach/gtn/"
+  },
+  "discussionUrl": "https://gitter.im/Galaxy-Training-Network/Lobby",
+  "headline": "Ansible",
+  "inLanguage": {
+    "@type": "Language",
+    "name": "English",
+    "alternateName": "en"
+  },
+  "interactivityType": "mixed",
+  "isAccessibleForFree": true,
+  "license": "https://github.com/galaxyproject/training-material/blob/master/LICENSE.md",
+  "producer": {
+    "@type": "Organization",
+    "email": "galaxytrainingnetwork@gmail.com",
+    "name": "Galaxy Training Network",
+    "url": "https://galaxyproject.org/teach/gtn/"
+  },
+  "provider": {
+    "@type": "Organization",
+    "email": "galaxytrainingnetwork@gmail.com",
+    "name": "Galaxy Training Network",
+    "url": "https://galaxyproject.org/teach/gtn/"
+  },
+  "sourceOrganization": {
+    "@type": "Organization",
+    "email": "galaxytrainingnetwork@gmail.com",
+    "name": "Galaxy Training Network",
+    "url": "https://galaxyproject.org/teach/gtn/"
+  },
+  "isPartOf": {
+    "@type": "CreativeWork",
+    "name": "Galaxy Server administration",
+    "description": "Resources related to configuration and maintenance of Galaxy servers",
+    "url": "https://training.galaxyproject.org//training-material/topics/admin/"
+  },
+  "courseCode": "admin / ansible / slides",
+  "learningResourceType": "slides",
+  "name": "Slides for 'Ansible' tutorial",
+  "url": "https://training.galaxyproject.org//training-material/topics/admin/tutorials/ansible/slides.html",
+  "description": "The questions this  addresses are:\n - Why Ansible?\n - How and when to use Ansible?\n - How to write a role?\n - How to leverage community build roles?\n\n\\nThe objectives are:\n - Learn Ansible basics.\n - Write a simple role.\n - Install a role from Ansible Galaxy.\n\n",
+  "hasPart": [
+
+  ],
+  "author": [
+    {
+      "@type": "Person",
+      "name": "Helena Rasche"
+    }
+  ],
+  "contributor": [
+    {
+      "@type": "Person",
+      "name": "Helena Rasche"
+    }
+  ],
+  "about": [
+    {
+      "@type": "CreativeWork",
+      "name": "Galaxy Server administration",
+      "description": "Resources related to configuration and maintenance of Galaxy servers",
+      "url": "https://training.galaxyproject.org//training-material/topics/admin/"
+    }
+  ]
+}
+    </script>
+    <script type="text/javascript" src="/training-material/assets/js/jquery.slim.min.js"></script>
+  </head>
+  <body>
+    <textarea id="source">
+name: inverse
+layout: true
+class: center, middle, inverse
+
+<div class="my-header"><span>
+<a href="/training-material/topics/admin" title="Return to topic page" ><i class="fa fa-level-up" aria-hidden="true"></i></a>
+
+<a class="nav-link" href="https://github.com/galaxyproject/training-material/edit/master/topics/admin/tutorials/ansible/slides.html"><i class="fa fa-pencil" aria-hidden="true"></i></a>
+
+</span></div>
+
+<div class="my-footer"><span>
+
+<img src="/training-material/assets/images/GTN-60px.png" alt="Galaxy Training Network" style="height: 40px;"/>
+
+</span></div>
+
+---
+
+# Ansible
+
+
+
+.footnote[Tip: press `P` to view the presenter notes]
+
+???
+Presenter notes contain extra information which might be useful if you
+intend to use these slides for teaching.
+
+Press `P` again to switch presenter notes off
+
+Press `C` to create a new window where the same presentation will be displayed.
+This window is linked to the main window. Changing slides on one will cause the
+slide to change on the other. Useful when presenting.
+
+---
+
+
+
+
+
+### &lt;i class=&quot;far fa-question-circle&quot; aria-hidden=&quot;true&quot;&gt;&lt;/i&gt;&lt;span class=&quot;visually-hidden&quot;&gt;question&lt;/span&gt; Questions
+
+
+- Why Ansible?
+
+- How and when to use Ansible?
+
+- How to write a role?
+
+- How to leverage community build roles?
+
+
+---
+
+
+### &lt;i class=&quot;fas fa-bullseye&quot; aria-hidden=&quot;true&quot;&gt;&lt;/i&gt;&lt;span class=&quot;visually-hidden&quot;&gt;objectives&lt;/span&gt; Objectives
+
+
+- Learn Ansible basics.
+
+- Write a simple role.
+
+- Install a role from Ansible Galaxy.
+
+
+---
+
+
+## Configuration Management
+
+Manages the configuration of machines.
+
+Specifies what software is installed, how it is configured
+
+
+???
+
+Configuration management manages the configuration of machines.
+
+It specifies what software should be installed, and how it should be configured
+
+---
+
+### Why Configuration Management?
+
+- Are you keeping track of config changes?
+- What if your server dies?
+- ... or your VM is accidentally deleted?
+- Can you recover? How quickly?
+
+???
+
+So why do you want CM?
+
+What do you do when things go wrong?
+
+What if your server dies?
+
+Did you backup your configuration?
+
+Did you back up your webserver configuration?
+
+Ansible provides an answer.
+
+---
+
+### Configuration Management goals
+
+- Reproducibility
+
+- Ensure 1000s of machines are correctly configured
+
+- Easily recover from bad situations
+
+???
+
+The goals of using CM are reproducibility, uniformity, and recovery.
+
+---
+
+### Ansible
+
+- [Ansible](https://www.ansible.com/) is an open-source configuration management tool, sponsored by Red Hat
+
+- Several [alternatives](https://en.wikipedia.org/wiki/Comparison_of_open-source_configuration_management_software) are available (Chef, Puppet, Salt, etc)
+
+- It uses an agentless model: SSH into machine and executes commands
+
+- Very popular, especially among Galaxy admins!
+
+- Many modules for common tasks like copying files or managing users or services.
+
+???
+
+Ansible is a very popular CM tool, sponsored by Red hat.
+
+There are several alternatives, but Galaxy Project uses Ansible.
+
+It uses an agent-less model. You SSH into machines and execute commands on them.
+
+It has many popular pre-existing roles for common tasks.
+
+---
+
+## Important Terms
+
+???
+
+Some important terms you should know
+
+---
+
+### Inventory File
+
+Defines the systems (called &quot;hosts&quot;) against which Ansible will work.
+
+```ini
+[webservers]
+192.168.0.1
+192.168.0.2 ansible_user=ubuntu
+
+[databases]
+db_1.example.org ansible_user=root
+```
+
+???
+
+First is the Inventory File. This file lists all of your hosts.
+
+The group name is in square brackets. Group names are used to select a set of systems, on which Ansible should operate.
+
+It is possible to assign variables to hosts and groups.
+
+Here we override the ansible user variable on two hosts. This variable controls which user is used in login.
+
+---
+
+### Ansible Module and Tasks
+
+A **module** is a piece of code that Ansible can execute on a host, collecting return values.
+
+A **task** is an invocation of single module with its configuration.
+
+```yaml
+---
+- copy:
+    src: foo.conf
+    dest: /etc/foo.conf
+    owner: foo
+    group: foo
+    mode: 0644
+
+- package:
+    name: ntpdate
+    state: present
+```
+
+???
+
+Here is an example of invoking the copy module and the package module.
+
+Copy copies a file from source, on the local host to destination, on the remote host.
+
+Then it sets some attributes about the file like the owner and mode.
+
+Next we see an example of the package module. This is a generic OS package manager module.
+
+It ensures that for the package named n t p date, its state is present, i.e. installed.
+
+---
+
+### Role
+
+.pull-left[
+A collection of:
+
+- tasks
+- files
+- templates
+- variables
+- handlers
+
+]
+
+.pull-right[
+with a predefined directory structure:
+```
+.
+├── defaults
+│   └── main.yml
+├── files
+│   └── cvmfs_wipecache.centos_7
+├── handlers
+│   └── main.yml
+├── meta
+│   └── main.yml
+├── README.md
+├── tasks
+│   ├── apache.yml
+│   ├── main.yml
+│   └── stratumN.yml
+├── templates
+│   └── stratum1_squid.conf.j2
+├── tests
+│   ├── inventory
+│   └── test.yml
+└── vars
+    └── main.yml
+
+```
+]
+
+???
+
+A role is a collection of tasks, files, templates, variables, and handlers.
+
+Tasks are things to be executed, like a copy task to add files to a remote machine.
+
+Files have static, unchanging files that are used by the tasks.
+
+The templates are like files, but they contain variables which will be replaced, when ansible deploys the file.
+
+Variables contain definitions of variables for use in templates and tasks.
+
+Handlers manage services, restarting them when configuration changes.
+
+---
+
+### Playbook
+
+A YAML file listing a set of tasks and/or roles that should be applied to a group of hosts.
+
+.pull-left[
+- We define a playbook which has a name
+- And applies to some group of hosts
+- We specify some additional variables
+- And then invoke some roles
+]
+
+
+.pull-right[
+```yaml
+- name: CVMFS
+  hosts: all
+  vars:
+    cvmfs_role: client
+    galaxy_cvmfs_repos_enabled: true
+  roles:
+    - geerlingguy.repo-epel
+    - galaxyproject.cvmfs
+```
+]
+
+
+???
+
+This is an example playbook.
+
+We give it a name, in this case C V M F S.
+
+Then we select some hosts, i.e. all hosts known to our inventory file.
+
+We specify some additional variables.
+
+And then we invoke two roles.
+
+---
+
+### Vault
+
+- Ansible playbooks should be kept under **version control** (typically with Git)
+- Playbooks can be safely shared on public Git repositories (e.g. GitHub) by storing secrets like passwords in encrypted files called **vaults**
+
+```
+$ANSIBLE_VAULT;1.1;AES256
+63333238633033313664633437316231323932326531386266636637353037313335613563663934
+6639666536653631363739383639633165633337393334630a353233393938646539306362633738
+61613439366435336230636561663864323765303663666239613430323534333665636665643964
+6537376666323333660a663233343565393166373665366138306661343764623561343634656463
+31636265303430623731643766346434323565663436626466353765393465376533376366356463
+```
+
+???
+
+If you have secrets like API keys or passwords, you need to use Vault.
+
+Vault encrypts your secrets with a password, so you can include them in your playbooks.
+
+This lets you collaborate on playbooks and infrastructure publicly with git.
+
+---
+
+## Ansible Philosophies
+
+- Some people write a single playbook that completely manages a machine (installing everything on a brand new machine)
+
+- Other people write playbooks for a single task (e.g. upgrading software / installing nginx)
+
+- Which one depends on your use case.
+
+???
+
+There are multiple ways of designing playbooks, use one that fits your use case.
+
+Some prefer a playbook which does everything, so no step can be forgotten.
+
+Others prefer playbooks which do individual steps. These can be faster, and you can only run the ones that change.
+
+---
+
+## Ansible Galaxy
+
+- Public repository of roles
+
+- Many for common software deployment (nginx, apache, postgresql)
+
+- Different &quot;Galaxy&quot; than the bioinformatics tool server (but Ansible can be used to install that too!)
+
+???
+
+Ansible has a repository for public roles.
+
+There are a huge number of available roles for common tasks.
+
+It is called ansible Galaxy, but it is a different Galaxy.
+
+
+
+
+---
+### &lt;i class=&quot;fas fa-key&quot; aria-hidden=&quot;true&quot;&gt;&lt;/i&gt;&lt;span class=&quot;visually-hidden&quot;&gt;keypoints&lt;/span&gt; Key points
+
+
+- Ansible lets you do system administration at scale
+
+- Many system administration, software installation, and software management tasks are already available as Ansible tasks or roles
+
+
+
+
+
+
+
+---
+
+## Thank you!
+
+This material is the result of a collaborative work. Thanks to the [Galaxy Training Network](https://wiki.galaxyproject.org/Teach/GTN) and all the contributors!
+
+
+<div class="contributors-line">
+
+
+<a href="/training-material/hall-of-fame/hexylena/" class="contributor-badge"><img src="https://avatars.githubusercontent.com/hexylena" alt="Helena Rasche">Helena Rasche</a>
+
+
+</div>
+
+
+
+<img src="/training-material/assets/images/GTN.png" alt="Galaxy Training Network" style="height: 100px;"/>
+
+
+This material is licensed under the <a rel="license" href="https://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0 International License</a>.
+
+
+    </textarea>
+	<script src="/training-material/assets/js/remark-latest.min.js" type="text/javascript"></script>
+    <script type="text/javascript" src="/training-material/assets/js/theme.js"></script>
+    <script type="text/javascript" src="/training-material/assets/js/clipboard.min.js"></script>
+    <script type="text/javascript">
+      var slideshow = remark.create({navigation: {scroll: false,}});
+      var hljs = remark.highlighter.engine;
+      var snippets = document.querySelectorAll('code.remark-code');
+        [].forEach.call(snippets,function(snippet){
+          snippet.firstChild.insertAdjacentHTML('beforebegin','<button class="btn btn-light" data-clipboard-snippet><i class="fa fa-copy"></i>&nbsp;Copy</button>');
+        });
+      var clipboardSnippets=new ClipboardJS('[data-clipboard-snippet]',{
+        target:function(trigger){return trigger.parentElement;
+      }});
+    </script>
+
+    <script type="text/javascript">
+        if(window.location.hostname === "galaxyproject.github.io") {
+            // Redirect
+            var redirect = "https://training.galaxyproject.org" + window.location.pathname + window.location.search;
+            $('body').prepend("<div style='text-align: center'><strong>Note: </strong>This content has a new home at <a href=\"" + redirect + "\">" + redirect + "</a>, which you will be redirected to in 5 seconds.</div>");
+
+            window.setTimeout(function(){
+                window.location.href = redirect;
+            }, 5000)
+
+        }
+    </script>
+
+  </body>
+</html>

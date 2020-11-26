@@ -1,0 +1,1422 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <title>Mass spectrometry imaging: Finding differential analytes</title>
+        
+            <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+    ga('create', '' , 'auto');
+    ga('send', 'pageview');
+</script>
+        
+        <link rel="stylesheet" href="/training-material/assets/css/bootstrap.min.css?v=3">
+        <link rel="stylesheet" href="/training-material/assets/css/bootstrap-toc.min.css">
+        <link rel="stylesheet" href="/training-material/assets/css/main.css?v=2">
+        <script src="https://kit.fontawesome.com/67b3f98409.js" crossorigin="anonymous"></script>
+        <link rel="stylesheet" href="/training-material/assets/css/academicons.css">
+        <link rel="stylesheet" href="/training-material/assets/css/syntax_highlighting.css">
+        <link rel="shortcut icon" href="/training-material/favicon.ico" type="image/x-icon" />
+
+        
+        
+        
+        
+        
+        <meta name="description" content="Training material to analyse Mass spectrometry data in Ga..." />
+        <meta property="og:title" content="Galaxy Training: Mass spectrometry imaging: Finding differential analytes" />
+        <meta property="og:description" content="Training material to analyse Mass spectrometry data in Ga..." />
+        <meta property="og:image" content="/training-material/assets/images/GTNLogo1000.png" />
+    </head>
+    <body data-spy="scroll" data-target="#toc">
+        
+
+
+
+
+
+
+
+
+
+
+
+<!-- Gitter -->
+
+
+<script>
+  ((window.gitter = {}).chat = {}).options = {
+  room: 'Galaxy-Training-Network/Lobby'
+  };
+</script>
+<script src="https://sidecar.gitter.im/dist/sidecar.v1.js" async defer></script>
+
+<header>
+    <nav class="navbar navbar-expand-lg navbar-dark">
+        <div class="container">
+            <a class="navbar-brand" href="/training-material/">
+                <img src="/training-material/assets/images/GTN-60px.png" height="30" alt="Galaxy Training Network logo">
+                Galaxy Training!
+            </a>
+
+            <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#top-navbar" aria-controls="top-navbar" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="top-navbar">
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link" href="/training-material/topics/metabolomics" title="Go back to list of tutorials">
+                            <i class="far fa-folder" aria-hidden="true"></i><span class="visually-hidden">topic</span> Metabolomics
+                        </a>
+                    </li>
+
+                    <li class="nav-item dropdown">
+                        <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" aria-expanded="false" title="Language Selector">
+                            <i class="fas fa-language" aria-hidden="true"></i><span class="visually-hidden">language</span> Language
+                        </a>
+                        <div class="dropdown-menu">
+                            
+                            <a class="dropdown-item" href="https://translate.google.com/translate?hl=jp&sl=en&tl=fr&u=https%3A%2F%2Ftraining.galaxyproject.org%2Ftopics%2Fmetabolomics%2Ftutorials%2Fmsi-finding-nglycans%2Ftutorial.html&edit-text=&act=url" title="">
+                                Français
+                            </a>
+                            
+                            <a class="dropdown-item" href="https://translate.google.com/translate?hl=jp&sl=en&tl=ja&u=https%3A%2F%2Ftraining.galaxyproject.org%2Ftopics%2Fmetabolomics%2Ftutorials%2Fmsi-finding-nglycans%2Ftutorial.html&edit-text=&act=url" title="">
+                                日本語
+                            </a>
+                            
+                            <a class="dropdown-item" href="https://translate.google.com/translate?hl=jp&sl=en&tl=es&u=https%3A%2F%2Ftraining.galaxyproject.org%2Ftopics%2Fmetabolomics%2Ftutorials%2Fmsi-finding-nglycans%2Ftutorial.html&edit-text=&act=url" title="">
+                                Español
+                            </a>
+                            
+                            <a class="dropdown-item" href="https://translate.google.com/translate?hl=jp&sl=en&tl=pt&u=https%3A%2F%2Ftraining.galaxyproject.org%2Ftopics%2Fmetabolomics%2Ftutorials%2Fmsi-finding-nglycans%2Ftutorial.html&edit-text=&act=url" title="">
+                                Português
+                            </a>
+                            
+                            <a class="dropdown-item" href="https://translate.google.com/translate?hl=jp&sl=en&tl=ar&u=https%3A%2F%2Ftraining.galaxyproject.org%2Ftopics%2Fmetabolomics%2Ftutorials%2Fmsi-finding-nglycans%2Ftutorial.html&edit-text=&act=url" title="">
+                                العربية
+                            </a>
+                            
+                            <a class="dropdown-item" href="https://translate.google.com/translate?hl=jp&sl=en&tl=&u=https%3A%2F%2Ftraining.galaxyproject.org%2Ftopics%2Fmetabolomics%2Ftutorials%2Fmsi-finding-nglycans%2Ftutorial.html&edit-text=&act=url" title="">
+                                And more!
+                            </a>
+                        </div>
+                    </li>
+
+                    <li class="nav-item dropdown">
+    <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" aria-expanded="false" title="Help">
+        <i class="far fa-question-circle" aria-hidden="true"></i><span class="visually-hidden">help</span> Help
+    </a>
+    <div class="dropdown-menu dropdown-menu-right">
+        <form method="get" action="https://tess.elixir-europe.org/materials">
+            <input type="text" id="search" name="q" value="" style="margin-left: 0.5em;/*! border-radius: 0px; */">
+            <input type="hidden" value="Galaxy Training" name="content_provider">
+            <input type="submit" value="Search on TeSS" style="width: 92%;border-radius: 0px;margin: 0.5em;background: #f47d20;border: 0px;padding: 0.25em;" class="">
+        </form>
+
+        <div class="dropdown-divider"></div>
+        <a class="dropdown-item" href="/training-material/faq" title="Check our FAQ">
+            FAQ
+        </a>
+        <a class="dropdown-item" href="https://help.galaxyproject.org/" title="Discuss on Galaxy Help">
+            Discuss on Galaxy Help
+        </a>
+
+        <div class="dropdown-item">
+            <div>
+                Theme
+            </div>
+
+            <div id="theme-selector" data-toggle="buttons">
+                <label data-value="default" class="btn btn-secondary">
+                    <input type="radio" name="options" id="default" autocomplete="off"> Default
+                </label>
+                <label data-value="night" class="btn btn-secondary">
+                    <input type="radio" name="options" id="night" autocomplete="off"> Night
+                </label>
+                <label data-value="midnight" class="btn btn-secondary">
+                    <input type="radio" name="options" id="midnight" autocomplete="off"> Midnight
+                </label>
+                <label data-value="rainbow" class="btn btn-secondary">
+                    <input type="radio" name="options" id="rainbow" autocomplete="off"> Rainbow
+                </label>
+                <label data-value="halloween" class="btn btn-secondary">
+                    <input type="radio" name="options" id="halloween" autocomplete="off"> 🎃
+                </label>
+            </div>
+
+        </div>
+    </div>
+</li>
+
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="https://github.com/galaxyproject/training-material/edit/master/topics/metabolomics/tutorials/msi-finding-nglycans/tutorial.md">
+                            <i class="fab fa-github" aria-hidden="true"></i><span class="visually-hidden">github</span> Edit
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+</header>
+
+<div class="container main-content">
+    <script type="application/ld+json">
+        
+
+
+{
+  "@context": "http://schema.org",
+  "@type": "Course",
+  "accessMode": [
+    "textual",
+    "visual"
+  ],
+  "accessModeSufficient": [
+    "textual",
+    "visual"
+  ],
+  "accessibilityControl": [
+    "fullKeyboardControl",
+    "fullMouseControl"
+  ],
+  "accessibilityFeature": [
+    "alternativeText",
+    "tableOfContents"
+  ],
+  "accessibilitySummary": "Short descriptions are present but long descriptions will be needed for non-visual users",
+  "audience": {
+    "@type": "EducationalAudience",
+    "educationalRole": "students"
+  },
+  "citation": {
+    "@type": "CreativeWork",
+    "name": "Community-Driven Data Analysis Training for Biology",
+    "url": "https://doi.org/10.1016/j.cels.2018.05.012"
+  },
+  "copyrightHolder": {
+    "@type": "Organization",
+    "email": "galaxytrainingnetwork@gmail.com",
+    "name": "Galaxy Training Network",
+    "url": "https://galaxyproject.org/teach/gtn/"
+  },
+  "discussionUrl": "https://gitter.im/Galaxy-Training-Network/Lobby",
+  "headline": "Mass spectrometry imaging: Finding differential analytes",
+  "inLanguage": {
+    "@type": "Language",
+    "name": "English",
+    "alternateName": "en"
+  },
+  "interactivityType": "mixed",
+  "isAccessibleForFree": true,
+  "license": "https://github.com/galaxyproject/training-material/blob/master/LICENSE.md",
+  "producer": {
+    "@type": "Organization",
+    "email": "galaxytrainingnetwork@gmail.com",
+    "name": "Galaxy Training Network",
+    "url": "https://galaxyproject.org/teach/gtn/"
+  },
+  "provider": {
+    "@type": "Organization",
+    "email": "galaxytrainingnetwork@gmail.com",
+    "name": "Galaxy Training Network",
+    "url": "https://galaxyproject.org/teach/gtn/"
+  },
+  "sourceOrganization": {
+    "@type": "Organization",
+    "email": "galaxytrainingnetwork@gmail.com",
+    "name": "Galaxy Training Network",
+    "url": "https://galaxyproject.org/teach/gtn/"
+  },
+  "isPartOf": {
+    "@type": "CreativeWork",
+    "name": "Metabolomics",
+    "description": "Training material to analyse Mass spectrometry data in Galaxy: Metabolomics (LCMS, FIAMS, GCMS, NMR) and imaging.",
+    "url": "https://training.galaxyproject.org//training-material/topics/metabolomics/"
+  },
+  "courseCode": "metabolomics / msi-finding-nglycans / hands-on",
+  "learningResourceType": "hands-on tutorial",
+  "name": "Hands-on for 'Mass spectrometry imaging: Finding differential analytes' tutorial",
+  "url": "https://training.galaxyproject.org//training-material/topics/metabolomics/tutorials/msi-finding-nglycans/tutorial.html",
+  "timeRequired": "PT2H",
+  "description": "The questions this  addresses are:\n - Can N-linked glycans from FFPE tissues be detected by MALDI imaging?\n - Can potential N-linked glycans be identified by an additional LC-MS/MS experiment?\n - Do specific kidney compartments have different N-linked glycan compositions?\n\n\\nThe objectives are:\n - Combining MSI datasets while using the information about each subfile in further steps.\n - Preprocessing raw MSI data.\n - Performing supervised and unsupervised statistical analysis.\n\n",
+  "coursePrerequisites": [
+    {
+      "@type": "CreativeWork",
+      "url": "https://training.galaxyproject.org//training-material/topics/introduction/",
+      "name": "Introduction to Galaxy Analyses",
+      "description": "Introduction to Galaxy Analyses",
+      "provider": {
+        "@type": "Organization",
+        "email": "galaxytrainingnetwork@gmail.com",
+        "name": "Galaxy Training Network",
+        "url": "https://galaxyproject.org/teach/gtn/"
+      }
+    },
+    {
+      "@type": "Course",
+      "url": "https://training.galaxyproject.org//training-material/topics/proteomics/tutorials/mass-spectrometry-imaging-loading-exploring-data/tutorial.html",
+      "name": "Mass spectrometry imaging: Loading and exploring MSI data",
+      "description": "Hands-on for 'Mass spectrometry imaging: Loading and exploring MSI data' tutorial",
+      "learningResourceType": "hands-on tutorial",
+      "interactivityType": "expositive",
+      "provider": {
+        "@type": "Organization",
+        "email": "galaxytrainingnetwork@gmail.com",
+        "name": "Galaxy Training Network",
+        "url": "https://galaxyproject.org/teach/gtn/"
+      }
+    }
+  ],
+  "hasPart": [
+
+  ],
+  "author": [
+    {
+      "@type": "Person",
+      "name": "Melanie Föll"
+    }
+  ],
+  "contributor": [
+    {
+      "@type": "Person",
+      "name": "Melanie Föll"
+    }
+  ],
+  "about": [
+    {
+      "@type": "CreativeWork",
+      "name": "Metabolomics",
+      "description": "Training material to analyse Mass spectrometry data in Galaxy: Metabolomics (LCMS, FIAMS, GCMS, NMR) and imaging.",
+      "url": "https://training.galaxyproject.org//training-material/topics/metabolomics/"
+    },
+    {
+      "@type": "DefinedTerm",
+      "@id": "http://edamontology.org/topic_3172",
+      "inDefinedTermSet": "http://edamontology.org",
+      "termCode": "topic_3172",
+      "url": "https://bioportal.bioontology.org/ontologies/EDAM/?p=classes&conceptid=http%3A%2F%2Fedamontology.org%2Ftopic_3172"
+    }
+  ],
+  "skillLevel": "Intermediate"
+}
+    </script>
+
+    <section class="tutorial">
+        <h1 data-toc-skip>Mass spectrometry imaging: Finding differential analytes</h1>
+        
+
+        <div class="contributors-line">By: 
+
+<a href="/training-material/hall-of-fame/foellmelanie/" class="contributor-badge"><img src="https://avatars.githubusercontent.com/foellmelanie" alt="Melanie Föll">Melanie Föll</a>
+
+</div>
+
+        <blockquote class="overview">
+            <h3>Overview</h3>
+            <strong><i class="far fa-question-circle" aria-hidden="true"></i><span class="visually-hidden">question</span> Questions</strong>
+            <ul>
+            
+            <li><p>Can N-linked glycans from FFPE tissues be detected by MALDI imaging?</p>
+</li>
+            
+            <li><p>Can potential N-linked glycans be identified by an additional LC-MS/MS experiment?</p>
+</li>
+            
+            <li><p>Do specific kidney compartments have different N-linked glycan compositions?</p>
+</li>
+            
+            </ul>
+
+            <strong><i class="fas fa-bullseye" aria-hidden="true"></i><span class="visually-hidden">objectives</span> Objectives</strong>
+            <ul>
+            
+            <li><p>Combining MSI datasets while using the information about each subfile in further steps.</p>
+</li>
+            
+            <li><p>Preprocessing raw MSI data.</p>
+</li>
+            
+            <li><p>Performing supervised and unsupervised statistical analysis.</p>
+</li>
+            
+            </ul>
+
+            
+            <strong><i class="fas fa-check-circle" aria-hidden="true"></i><span class="visually-hidden">requirements</span> Requirements</strong>
+            <ul>
+            
+    <li>
+    
+        
+        
+        <a href="/training-material/topics/introduction">Introduction to Galaxy Analyses</a>
+        
+    
+    </li>
+
+            
+    <li>
+    
+        
+        
+        <a href="/training-material/topics/proteomics">Proteomics</a>
+        
+            <ul>
+                
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                            
+                            <li> Mass spectrometry imaging: Loading and exploring MSI data:
+                            
+                            
+                                
+                                     <a href="/training-material/topics/proteomics/tutorials/mass-spectrometry-imaging-loading-exploring-data/tutorial.html"><i class="fas fa-laptop" aria-hidden="true"></i><span class="visually-hidden">tutorial</span> hands-on</a>
+                                
+                            
+                            </li>
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                
+            </ul>
+        
+    
+    </li>
+
+            </ul>
+            
+
+            
+            <p><strong><i class="fas fa-hourglass-half" aria-hidden="true"></i><span class="visually-hidden">time</span> Time estimation:</strong> 2 hours</p>
+            
+
+            
+            <p><strong><i class="fas fa-graduation-cap" aria-hidden="true"></i><span class="visually-hidden">level</span> Level: </strong>
+             Intermediate 
+<span class="level intermediate" title="Intermediate Tutorial">
+  <i class="fas fa-graduation-cap" aria-hidden="true"></i><span class="visually-hidden">level</span> <i class="fas fa-graduation-cap" aria-hidden="true"></i><span class="visually-hidden">level</span> <i class="fas fa-graduation-cap" aria-hidden="true"></i><span class="visually-hidden">level</span>
+</span>
+
+</p>
+            
+
+            
+            
+
+            
+            <p id="supporting-materials"><strong><i class="fa fa-external-link" aria-hidden="true"></i> Supporting Materials</strong></p>
+            <ul>
+                <div class="supporting_material">
+                
+                    <li class="btn btn-default supporting_material"><a href="/training-material/topics/metabolomics/slides/introduction.html" title="Introduction slides">
+                        <i class="fab fa-slideshare" aria-hidden="true"></i><span class="visually-hidden">slides</span> Introduction slides
+                    </a></li>
+                
+
+                
+                    <li class="btn btn-default supporting_material">
+<a class="topic-icon" href="https://zenodo.org/record/2628280">
+    <i class="far fa-copy" aria-hidden="true"></i><span class="visually-hidden">zenodo_link</span> Datasets
+</a>
+
+</li>
+                
+
+                
+                    <li class="btn btn-default supporting_material">
+    <a class="topic-icon" href="/training-material/topics/metabolomics/tutorials/msi-finding-nglycans/workflows/" title="Workflows" alt="Mass spectrometry imaging: Finding differential analytes workflows">
+        <i class="fas fa-share-alt" aria-hidden="true"></i><span class="visually-hidden">workflow</span> Workflows
+    </a>
+
+</li>
+                
+
+                
+
+                
+                    <li class="btn btn-default supporting_material">
+
+    <a href="#" class="btn btn-default dropdown-toggle topic-icon" data-toggle="dropdown" aria-expanded="false" title="Where to run the tutorial">
+        <i class="fas fa-globe" aria-hidden="true"></i><span class="visually-hidden">instances</span> Available on these Galaxies
+    </a>
+    <ul class="dropdown-menu">
+    
+        <li>
+            <a class="dropdown-item" href="https://github.com/galaxyproject/training-material/tree/master/topics/metabolomics/docker" title="Docker image for this tutorial">
+                <i class="fab fa-docker" aria-hidden="true"></i><span class="visually-hidden">docker_image</span> Docker image
+            </a>
+        </li>
+    
+    
+    </ul>
+
+
+</li>
+                
+                </div>
+            </ul>
+            
+
+            <p><strong> <i class="far fa-calendar" aria-hidden="true"></i><span class="visually-hidden">last_modification</span> Last modification:</strong> Nov 26, 2020 </p>
+        </blockquote>
+
+        <div class="container">
+            <div class="row">
+                <!-- sidebar, which will move to the top on a small screen -->
+                <div class="col-sm-2">
+                    <nav id="toc" data-toggle="toc" class="sticky-top"></nav>
+                </div>
+                <div class="col-sm-10">
+                    <h1 class="no_toc" id="introduction">Introduction</h1>
+
+<p>Mass spectrometry imaging (MSI) is applied to measure the spatial distribution of hundreds of biomolecules in a sample. A mass spectrometer scans over the entire sample and collects a mass spectrum every 5-200 µm. This results in thousands of spots (or pixels) for each of which a mass spectrum is acquired. Each mass spectrum consists of hundreds of analytes that are measured by their mass-to-charge (m/z) ratio. For each analyte the peak intensity in the mass spectra of every pixel is known and can be set together to map the spatial distribution of the analyte in the sample.</p>
+
+<p>The technique has a broad range of applications as it is able to measure many different kinds of analytes such as peptides, proteins, metabolites or chemical compounds in a large variety of samples such as cells, tissues and liquid biopsies. Application areas include pharmacokinetic studies, biomarker discovery, molecular pathology, forensic studies, plant research and material sciences. The strength of MSI is the simultaneous analysis of hundreds of analytes in an unbiased, untargeted, label-free, fast and affordable measurement while maintaining morphological information.</p>
+
+<p>Depending on the analyte of interest and the application, different mass spectrometers are used. A mass spectrometer measures the analytes by ionizing, evaporating and sorting them by their mass-to-charge (m/z) ratio. Put simply, a mass spectrometer consists basically of three parts: an ionization source, a mass analyzer and a detector. The most common ionization sources for MSI are MALDI (Matrix Assisted Laser Desorption/Ionization), DESI (Desorption Electrospray Ionization) and SIMS (Secondary Ion Mass Spectrometry).</p>
+
+<figure id="figure-1"><img src="../../images/msi_distribution_maldi_tof_imaging.png" alt="MSI measurement" /><figcaption><span class="figcaption-prefix">Figure 1:</span> MALDI TOF imaging of a mouse kidney</figcaption></figure>
+
+<p>One common type of mass spectrometer for MSI is a MALDI Time-Of-Flight (MALDI-TOF) device. During MALDI ionization, a laser is fired onto the sample, which has been covered with a special matrix that absorbs the laser energy and transfers it to the analytes. This process vaporizes and ionizes the analytes. As they are now charged, they can be accelerated in an electric field towards the TOF tube. The time of flight through the tube to the detector is measured, which allows calculation of the mass over charge (m/z) of the analyte, as both mass and charge are correlated with time of flight. During measurement, complete mass spectra with hundreds of m/z - intensity pairs are acquired in thousands of sample plots, leading to large and complex datasets. Each mass spectrum is annotated with coordinates (x,y) that define its location in the sample. This allows visualization of the intensity distribution of each m/z feature in the sample as a heatmap.</p>
+
+<p>Depending on the analyte of interest, the sample type and the mass spectrometer, the sample preparation steps as well as the properties of the acquired data vary. Human tissues are often stained with hematoxylin and hemalaun (H&amp;E) after mass spectrometry imaging. This allows better visualization of tissue histology and can be used to compare the MSI heatmaps with the real morphology. The stained image of the tissue can also be used to define regions of interest that can be extracted from the MSI data and can be subjected to supervised statistical analysis.</p>
+
+<p>As MSI measures only unfractionated molecules (MS1), identification of the resulting m/z features requires matching them to a list of known m/z features. The easiest approach is to match the MSI m/z features to existing databases such as UniProt for proteins or lipidmaps for lipids. More accurate identification is obtained by performing additional mass spectrometry experiments (either on the same or on a similar sample, e.g. adjacent slice from a tissue) that also measure the fragmented molecules (MS2) and thereby also allow accurate identification of isobaric molecules. This tandem mass spectrometry approach can either be done in situ directly on the sample or by transferring the sample to a tube and bringing it into solution for liquid-chromatography tandem mass spectrometry (LC-MS/MS).</p>
+
+<p>In this tutorial we will determine and identify N-linked glycans by differential analysis of a control (untreated) murine kidney section and a section treated with PNGase F. The data analysis steps can be transferred to any other application that requires finding differential analytes, such as for biomarker discovery.</p>
+
+<blockquote class="agenda">
+  <h3 id="agenda">Agenda</h3>
+
+  <p>In this tutorial, we will cover:</p>
+
+<ol id="markdown-toc">
+  <li><a href="#n-linked-glycans-in-murine-kidney-dataset" id="markdown-toc-n-linked-glycans-in-murine-kidney-dataset">N-linked glycans in murine kidney dataset</a>    <ol>
+      <li><a href="#get-data" id="markdown-toc-get-data">Get data</a></li>
+    </ol>
+  </li>
+  <li><a href="#preparing-the-files-for-statistical-analysis" id="markdown-toc-preparing-the-files-for-statistical-analysis">Preparing the files for statistical analysis</a>    <ol>
+      <li><a href="#combining-control-and-treated1-files" id="markdown-toc-combining-control-and-treated1-files">Combining control and treated1 files</a></li>
+      <li><a href="#exploring-the-combined-file" id="markdown-toc-exploring-the-combined-file">Exploring the combined file</a></li>
+      <li><a href="#preprocessing-of-the-combined-file" id="markdown-toc-preprocessing-of-the-combined-file">Preprocessing of the combined file</a></li>
+    </ol>
+  </li>
+  <li><a href="#statistical-analysis-and-identification-of-n-glycans" id="markdown-toc-statistical-analysis-and-identification-of-n-glycans">Statistical analysis and identification of N-glycans</a>    <ol>
+      <li><a href="#unsupervised-statistical-analysis" id="markdown-toc-unsupervised-statistical-analysis">Unsupervised statistical analysis</a></li>
+      <li><a href="#supervised-statistical-analysis" id="markdown-toc-supervised-statistical-analysis">Supervised statistical analysis</a></li>
+      <li><a href="#identification-of-n-glycans" id="markdown-toc-identification-of-n-glycans">Identification of N-glycans</a></li>
+      <li><a href="#n-linked-glycan-distribution-in-the-complete-dataset" id="markdown-toc-n-linked-glycan-distribution-in-the-complete-dataset">N-linked glycan distribution in the complete dataset</a></li>
+      <li><a href="#n-linked-glycans-with-a-distinct-localization-to-kidney-compartments" id="markdown-toc-n-linked-glycans-with-a-distinct-localization-to-kidney-compartments">N-linked glycans with a distinct localization to kidney compartments</a></li>
+    </ol>
+  </li>
+  <li><a href="#conclusion" id="markdown-toc-conclusion">Conclusion</a></li>
+</ol>
+
+</blockquote>
+
+<h1 id="n-linked-glycans-in-murine-kidney-dataset">N-linked glycans in murine kidney dataset</h1>
+
+<p>In this tutorial we will use the <a href="https://doi.org/10.1016/j.dib.2018.08.186">murine kidney N-glycan dataset</a> generated in the lab of Peter Hoffmann (Adelaide, Australia). N-linked glycans are carbohydrates (consisting of several sugar molecules) that are attached as a post-translational modification to the carboxamide side chain of an asparagine residue of a protein. Changes in N-linked glycans have been observed in several diseases. The Hoffmann lab acquired the presented dataset to show that their automated sample preparation method for N-glycan MALDI imaging successfully analyses N-glycans from formalin-fixed paraffin-embedded murine kidney tissue (<a href="https://doi.org/10.1007/s00216-014-8293-7">Gustafsson et al.</a>). The datasets generated in this study were made publicly available via the <a href="https://www.ebi.ac.uk/pride/archive/projects/PXD009808">PRIDE Archive</a>.</p>
+
+<p>Three 6 µm sections of formalin-fixed paraffin-embedded murine kidney tissue were prepared for MALDI imaging. To release N-linked glycans from the proteins, PNGase F was printed onto two kidney sections. In the third kidney section, one area was printed with buffer to serve as a control, and another was covered with N-glycan calibrants <a href="https://media.springernature.com/original/springer-static/image/art%3A10.1007%2Fs00216-014-8293-7/MediaObjects/216_2014_8293_Fig4_HTML.gif">Figure 4a-c</a>. 2,5-DHB matrix was sprayed onto the tissue sections and MALDI imaging was performed with 100 µm intervals using a MALDI-TOF/TOF instrument.</p>
+
+<p>To make computation times feasible for this training, we reduced all datasets to a m/z range of 1250 – 2310 and resampled the m/z values with a step size of 0.1. The main part of the training will be performed with the control and one PNGase F treated kidney file, which were both restricted to representative pixels (Figure 2). To test the results on the complete dataset we also provide a file in which all four (m/z reduced and resampled) files (control, calibrants, treated kidney 1 and treated kidney 2) are combined and TIC-normalized. All size-reduced training datasets are available via <a href="https://zenodo.org/record/2628280">Zenodo</a>. We will combine the cropped control and the cropped treated1 file and perform similar steps to those described by <a href="https://doi.org/10.1007/s00216-014-8293-7">Gustafsson et al.</a>. These steps include combining files, preprocessing, unsupervised and supervised analysis, identification of N-glycans and generation of analyte distribution heatmaps.</p>
+
+<figure id="figure-2"><img src="../../images/msi-diff-abundance-file-dimensions.png" alt="file_dimensions" /><figcaption><span class="figcaption-prefix">Figure 2:</span> Top image: All four files after combining them. Black rectangles show the orientation of the cropped control and cropped treated1 files that are used in the major part of the training. Bottom: Cropped training files after combining them.</figcaption></figure>
+
+<h2 id="get-data">Get data</h2>
+
+<blockquote class="notranslate hands_on">
+  <h3 id="hands_on-hands-on-data-upload"><i class="fas fa-pencil-alt" aria-hidden="true"></i><span class="visually-hidden">hands_on</span> Hands-on: Data upload</h3>
+
+  <ol>
+    <li>
+      <p>Create a new history and give it a name.</p>
+
+      <blockquote class="tip">
+
+        <h3 id="tip-tip-creating-a-new-history"><i class="far fa-lightbulb" aria-hidden="true"></i><span class="visually-hidden">tip</span> Tip: Creating a new history</h3>
+
+        <p>Click the <i class="fas fa-plus" aria-hidden="true"></i><span class="visually-hidden">new-history</span> icon at the top of the history panel</p>
+
+        <p>If the <i class="fas fa-plus" aria-hidden="true"></i><span class="visually-hidden">new-history</span> is missing:</p>
+        <ol>
+          <li>Click on the <i class="fas fa-cog" aria-hidden="true"></i><span class="visually-hidden"><span class="notranslate">galaxy</span>-gear</span> icon (<strong>History options</strong>) on the top of the history panel</li>
+          <li>Select the option <strong>Create New</strong> from the menu</li>
+        </ol>
+      </blockquote>
+    </li>
+    <li>Import the files from <a href="https://zenodo.org/record/2628280">Zenodo</a>. Upload all three datasets (one by one) to <span class="notranslate">Galaxy</span> via the <strong>composite</strong> option and rename them to ‘control’, ‘treated1’ and ‘all_files’.
+      <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>https://zenodo.org/record/2628280/files/conrol.imzml
+https://zenodo.org/record/2628280/files/control.ibd
+https://zenodo.org/record/2628280/files/treated1.imzml
+https://zenodo.org/record/2628280/files/treated1.ibd
+https://zenodo.org/record/2628280/files/all_files.imzml
+https://zenodo.org/record/2628280/files/all_files.ibd
+</code></pre></div>      </div>
+    </li>
+    <li>Paste the link of the tabular file with the N-glycan identities into the regular upload and rename it to ‘Glycan IDs’:
+      <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>https://zenodo.org/record/2628280/files/Glycan_IDs.tabular
+</code></pre></div>      </div>
+    </li>
+    <li>Create a tabular file with the three glycan calibrants that were used in the study and rename it to ‘calibrants’:
+      <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>M+Na+    composition
+1257.4225    Man5GlcNAc2
+1542.5551    Man3GlcNAc5
+2393.8457    Man3Gal4GlcNAc6
+</code></pre></div>      </div>
+    </li>
+    <li>
+      <p>Add a tag to each imzML file (‘control’, ‘treated1’ and ‘all_files’) and to the tabular file (‘Glycans’):</p>
+
+      <blockquote class="tip">
+
+        <h3 id="tip-tip-adding-a-tag"><i class="far fa-lightbulb" aria-hidden="true"></i><span class="visually-hidden">tip</span> Tip: Adding a tag</h3>
+        <ul>
+          <li>Click on the dataset</li>
+          <li>Click on <i class="fas fa-tags" aria-hidden="true"></i><span class="visually-hidden"><span class="notranslate">galaxy</span>-tags</span> <strong>Edit dataset tags</strong></li>
+          <li>
+            <p>Add a tag starting with <code class="language-plaintext highlighter-rouge">#</code></p>
+
+            <p>Tags starting with <code class="language-plaintext highlighter-rouge">#</code> will be automatically propagated to the outputs of tools using this dataset.</p>
+          </li>
+          <li>Check that the tag is appearing below the dataset name</li>
+        </ul>
+
+      </blockquote>
+    </li>
+  </ol>
+
+</blockquote>
+
+<h1 id="preparing-the-files-for-statistical-analysis">Preparing the files for statistical analysis</h1>
+
+<h2 id="combining-control-and-treated1-files">Combining control and treated1 files</h2>
+
+<blockquote class="notranslate hands_on">
+  <h3 id="hands_on-hands-on-combining-files"><i class="fas fa-pencil-alt" aria-hidden="true"></i><span class="visually-hidden">hands_on</span> Hands-on: Combining files</h3>
+
+  <ol>
+    <li><strong>MSI combine</strong> <i class="fas fa-wrench" aria-hidden="true"></i><span class="visually-hidden">tool</span> with the following parameters:
+      <ul>
+        <li><i class="far fa-copy" aria-hidden="true"></i><span class="visually-hidden">param-files</span> <em>“MSI data”</em>: <code class="language-plaintext highlighter-rouge">control</code> (uploaded dataset) and <code class="language-plaintext highlighter-rouge">treated1</code> (uploaded dataset)</li>
+        <li><em>“Output format”</em>: <code class="language-plaintext highlighter-rouge">imzML</code></li>
+      </ul>
+
+      <blockquote class="comment">
+        <h3 id="comment-comment-on-the-combine-tool"><i class="far fa-comment-dots" aria-hidden="true"></i><span class="visually-hidden">comment</span> Comment on the combine tool</h3>
+
+        <p>Two combining options are available: ‘Automatic combination’ combines the selected files into a grid with 5 pixel space between them. The order of the files in the history determines their orientation in the combined file and the file name is used to annotate the corresponding pixels. For custom orientation of the files the option ‘shift xy coordinates with a tabular file’ can be applied. For now, the <strong>MSI combine</strong> <i class="fas fa-wrench" aria-hidden="true"></i><span class="visually-hidden">tool</span> only allows combining files with the same m/z axis. Different m/z axes can be adjusted by filtering for the common m/z range and then binning with the same bin size (<strong>MSI filtering</strong> <i class="fas fa-wrench" aria-hidden="true"></i><span class="visually-hidden">tool</span> and <strong>MSI preprocessing</strong> <i class="fas fa-wrench" aria-hidden="true"></i><span class="visually-hidden">tool</span>.</p>
+      </blockquote>
+    </li>
+  </ol>
+
+</blockquote>
+
+<h2 id="exploring-the-combined-file">Exploring the combined file</h2>
+
+<p>To get an overview of the combined dataset we will use the <strong>MSI Qualitycontrol</strong> <i class="fas fa-wrench" aria-hidden="true"></i><span class="visually-hidden">tool</span>. We will use the annotation file that was generated by the <strong>MSI combine</strong> <i class="fas fa-wrench" aria-hidden="true"></i><span class="visually-hidden">tool</span> to inform the <strong>MSI Qualitycontrol</strong> <i class="fas fa-wrench" aria-hidden="true"></i><span class="visually-hidden">tool</span> which spectra belong to which subfile - this will lead to several extra figures where the data properties for both subfiles are plotted separately.</p>
+
+<blockquote class="notranslate hands_on">
+  <h3 id="hands_on-hands-on-quality-control-with-spectrum-annotations"><i class="fas fa-pencil-alt" aria-hidden="true"></i><span class="visually-hidden">hands_on</span> Hands-on: Quality control with spectrum annotations</h3>
+
+  <ol>
+    <li><strong>MSI Qualitycontrol</strong> <i class="fas fa-wrench" aria-hidden="true"></i><span class="visually-hidden">tool</span> with the following parameters:
+      <ul>
+        <li><i class="far fa-file" aria-hidden="true"></i><span class="visually-hidden">param-file</span> <em>“MSI data”</em>: <code class="language-plaintext highlighter-rouge">combined imzML</code> (output of <strong>MSI combine</strong> <i class="fas fa-wrench" aria-hidden="true"></i><span class="visually-hidden">tool</span>)</li>
+        <li><em>“Use pixel annotation from tabular file for QC plots”</em>: <code class="language-plaintext highlighter-rouge">use pixel annotation from a tabular file</code>
+          <ul>
+            <li><i class="far fa-file" aria-hidden="true"></i><span class="visually-hidden">param-file</span> <em>“Tabular file with pixel coordinates and annotation”</em>: <code class="language-plaintext highlighter-rouge">combined annotations</code> (output of <strong>MSI combine</strong> <i class="fas fa-wrench" aria-hidden="true"></i><span class="visually-hidden">tool</span>)</li>
+            <li><em>“Column with x values”</em>: <code class="language-plaintext highlighter-rouge">Column: 1</code></li>
+            <li><em>“Column with y values”</em>: <code class="language-plaintext highlighter-rouge">Column: 2</code></li>
+            <li><em>“Column with pixel annotations”</em>: <code class="language-plaintext highlighter-rouge">Column: 3</code></li>
+            <li><em>“Tabular file contains a header line”</em>: <code class="language-plaintext highlighter-rouge">Yes</code></li>
+          </ul>
+        </li>
+        <li><i class="far fa-file" aria-hidden="true"></i><span class="visually-hidden">param-file</span> <em>“m/z of interest (e.g. inte<span class="notranslate">rna</span>l Calibrants)”</em>: <code class="language-plaintext highlighter-rouge">calibrants</code> (uploaded dataset)</li>
+        <li><em>“Column with m/z values”</em>: <code class="language-plaintext highlighter-rouge">column:1</code></li>
+        <li><em>“Column with name of m/z values”</em>: <code class="language-plaintext highlighter-rouge">column:2</code></li>
+        <li><em>“Tabular file contains a header line”</em>: <code class="language-plaintext highlighter-rouge">Yes</code></li>
+        <li><em>“PCA with 2 components”</em>: <code class="language-plaintext highlighter-rouge">Yes</code></li>
+      </ul>
+    </li>
+  </ol>
+
+</blockquote>
+
+<blockquote class="question">
+  <h3 id="question-questions"><i class="far fa-question-circle" aria-hidden="true"></i><span class="visually-hidden">question</span> Questions</h3>
+
+  <ol>
+    <li>How many m/z values does the combined dataset contain?</li>
+    <li>How many spectra does the combined dataset contain?</li>
+    <li>How many input calibrants were valid?</li>
+    <li>Which of the two subfiles shows higher overall intensities?</li>
+  </ol>
+
+  <blockquote class="solution">
+    <h3 id="solution-solution"><i class="far fa-eye" aria-hidden="true"></i><span class="visually-hidden">solution</span> Solution</h3>
+
+    <ol>
+      <li>10581</li>
+      <li>1935</li>
+      <li>Two calibrants are valid, which means that they lie in the (cropped) m/z range of our files.</li>
+      <li>Several plots show that the treated subfile has higher intensities than the control subfile.</li>
+    </ol>
+
+  </blockquote>
+
+</blockquote>
+
+<p>The quality report gives a broad overview of the properties of both files. The pixel order seems to be random and does not correspond to the measurement in the MALDI. This means that the plots where the ‘spectra index’ is plotted on the x-axis do not represent the acquisition process. While the PNGase F treated kidney file shows higher intensities in several plots (e.g. median intensity per spectrum and intensity boxplots), the number of peaks is similar in both subfiles. The most abundant m/z feature plot of the treated kidney roughly corresponds to the morphology of the kidney while in the control file there are no visible kidney structures. The first principal componant in the PCA analysis roughly differentiates the spectra of the two subfiles which is a good sign for finding differences in the treated vs. control kidney files. For the following preprocessing steps, it is important to know the rough number of data points that one peak consists of. From page 27 on, the average mass spectra of the two glycan calibrants are shown. Due to our harsh resampling to 0.1 m/z, the calibrant 1257.4225 (Man5GlcNAc2) shows quite an angular peak shape. The complete peak consists of about 6 data points, which corresponds to a width of 0.5 m/z. On page 28 the average spectrum for each subfile is plotted, showing a nice peak in the treated subfile and only basal intensity in the control subfile. Page 29 and 30 show the average mass spectra for the 1542.5551 (Man3GlcNAc5) calibrant. The intensities of this calibrant are relatively low and only slightly higher in the treated than in the control subfile. Furthermore, the split up peak shape is not useful for defining the peak width properly.</p>
+
+<h2 id="preprocessing-of-the-combined-file">Preprocessing of the combined file</h2>
+
+<p>Preprocessing of the MSI raw spectra is crucial to reduce experimental (electrical, chemical and mechanical) noise and variance within and between the datasets before statistical analysis. Depending on the ionization technique, the mass analyzer, the sample and the statistical analysis, different preprocessing steps have to be applied. Here, we will perform similar preprocessing steps to those described by <a href="https://doi.org/10.1007/s00216-014-8293-7">Gustafsson et al.</a>.</p>
+
+<ol>
+  <li>
+    <p><strong>Intensity normalization</strong>:
+Signal intensities in MALDI datasets are affected by heterogeneous matrix spray or crystallization, salt and pH gradients and contamination of the ion source over time. Therefore intensity normalization is important to ensure spectra that were acquired at different positions of the sample are comparable. The most common method is the normalization to the total ion current (TIC). This means that each intensity value of a spectrum is divided by the sum of all intensities of the spectrum (equal to the total ion current, TIC). More information on normalization can be found in the publications by <a href="https://arxiv.org/pdf/1607.03180.pdf">Gibb and Strimmer</a> and <a href="https://link.springer.com/article/10.1007%2Fs00216-011-4929-z">Deininger et al.</a>.</p>
+  </li>
+  <li>
+    <p><strong>Spectra smoothing</strong>:
+Smoothing reduces noise in the spectra and thereby improves peak picking. Smoothing is an optional preprocessing step, especially for high resolution data. The critical parameter for smoothing is the window size. Larger window sizes lead to stronger smoothing, which not only reduces noise but also the intensities of real peaks. Therefore it is important to set the window size large enough to remove noise but small enough to preserve the peaks. We will use the ‘gaussian’ smoothing method that applies a weighted moving average filter and set the window size to 4 (resampling was done with 0.1, multiplied by 4 this gives a 0.4 m/z window which is slightly smaller than the complete peak width that we found to be roughly 0.5 m/z). The standard deviation is set to the default setting: window/4 = 1. As the smoothing changes the peak width, we will quickly examine the 1257.42 calibrant peak width afterwards and use the information to define the correct window sizes in further preprocessing steps.</p>
+  </li>
+  <li>
+    <p><strong>Baseline removal</strong>:
+Especially for MALDI datasets it is common to perform a baseline subtraction to remove the background intensity that is generated by chemical noise. Baseline removal could also be performed before smoothing but as smoothing might slightly increase the baseline we perform the baseline removal afterwards. Similar to the smoothing step, the window size in which the noise is estimated is crucial. The window should be large enough to obtain a representative number of data points but small enough to avoid removing parts of the peaks as well. Here, the window is obtained by dividing the m/z range by the number of blocks. Recommended window sizes range from 1 - 5 m/z. We will divide the m/z axis into 500 blocks, giving a window size of about 2 m/z.</p>
+  </li>
+</ol>
+
+<blockquote class="notranslate hands_on">
+  <h3 id="hands_on-hands-on-preprocessing-part-i"><i class="fas fa-pencil-alt" aria-hidden="true"></i><span class="visually-hidden">hands_on</span> Hands-on: Preprocessing part I</h3>
+
+  <ol>
+    <li><strong>MSI preprocessing</strong> <i class="fas fa-wrench" aria-hidden="true"></i><span class="visually-hidden">tool</span> with the following parameters:
+      <ul>
+        <li><i class="far fa-file" aria-hidden="true"></i><span class="visually-hidden">param-file</span> <em>“MSI data”</em>: <code class="language-plaintext highlighter-rouge">combined imzML</code> (output of <strong>MSI combine</strong> <i class="fas fa-wrench" aria-hidden="true"></i><span class="visually-hidden">tool</span>)</li>
+        <li>In <em>“Preprocessing”</em>:
+          <ul>
+            <li>Click on <em>“Insert Preprocessing”</em>:</li>
+            <li>In <em>“1: Preprocessing”</em>:
+              <ul>
+                <li><em>“Preprocessing methods”</em>: <code class="language-plaintext highlighter-rouge">Intensity Normalization (TIC)</code></li>
+              </ul>
+            </li>
+            <li>Click on <em>“Insert Preprocessing”</em>:</li>
+            <li>In <em>“2: Preprocessing”</em>:
+              <ul>
+                <li><em>“Preprocessing methods”</em>: <code class="language-plaintext highlighter-rouge">Peak smoothing</code>
+                  <ul>
+                    <li><em>“Smoothing method”</em>: <code class="language-plaintext highlighter-rouge">gaussian</code>
+                      <ul>
+                        <li><em>“The standard deviation for the Gaussian kernel (window/sd)”</em>: <code class="language-plaintext highlighter-rouge">1</code></li>
+                      </ul>
+                    </li>
+                    <li><em>“Window size”</em>: <code class="language-plaintext highlighter-rouge">4.0</code></li>
+                  </ul>
+                </li>
+              </ul>
+            </li>
+            <li>In <em>“3: Preprocessing”</em>:
+              <ul>
+                <li><em>“Preprocessing methods”</em>: <code class="language-plaintext highlighter-rouge">Baseline Reduction</code></li>
+              </ul>
+            </li>
+          </ul>
+        </li>
+        <li><em>“Output format”</em>: <code class="language-plaintext highlighter-rouge">imzML</code></li>
+      </ul>
+    </li>
+    <li><strong>MSI plot spectra</strong> <i class="fas fa-wrench" aria-hidden="true"></i><span class="visually-hidden">tool</span> with the following parameters:
+      <ul>
+        <li><i class="far fa-file" aria-hidden="true"></i><span class="visually-hidden">param-file</span> <em>“MSI data”</em>: <code class="language-plaintext highlighter-rouge">processed imzML</code> (output of <strong>MSI preprocessing</strong> <i class="fas fa-wrench" aria-hidden="true"></i><span class="visually-hidden">tool</span>)</li>
+        <li><em>“Select if you want to plot the mass spectrum of a single pixel or the average spectrum of all pixels of a sample”</em>: <code class="language-plaintext highlighter-rouge">Average spectrum for each sample</code>
+          <ul>
+            <li><em>“Use pixel annotation from tabular file for spectra plots”</em>: <code class="language-plaintext highlighter-rouge">group pixels according to annotations</code></li>
+            <li><i class="far fa-file" aria-hidden="true"></i><span class="visually-hidden">param-file</span> <em>“Tabular file with pixel coordinates and annotation”</em>: <code class="language-plaintext highlighter-rouge">combined annotations</code> (output of <strong>MSI combine</strong> <i class="fas fa-wrench" aria-hidden="true"></i><span class="visually-hidden">tool</span>)</li>
+            <li><em>“Column with x values”</em>: <code class="language-plaintext highlighter-rouge">Column: 1</code></li>
+            <li><em>“Column with y values”</em>: <code class="language-plaintext highlighter-rouge">Column: 2</code></li>
+            <li><em>“Column with pixel annotations”</em>: <code class="language-plaintext highlighter-rouge">Column: 3</code></li>
+            <li><em>“Tabular file contains a header line”</em>: <code class="language-plaintext highlighter-rouge">Yes</code></li>
+            <li>In <em>“Zoomed in plots with m/z min and m/z max to define the plot window”</em>:
+              <ul>
+                <li>Click on <em>“Insert Zoomed in plots with m/z min and m/z max to define the plot window”</em>:</li>
+                <li>In <em>“1: Zoomed in plots with m/z min and m/z max to define the plot window”</em>:
+                  <ul>
+                    <li><em>“lower m/z boundary for plotting window”</em>: <code class="language-plaintext highlighter-rouge">1257</code></li>
+                    <li><em>“upper m/z boundary for plotting window”</em>: <code class="language-plaintext highlighter-rouge">1259</code></li>
+                  </ul>
+                </li>
+              </ul>
+            </li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+  </ol>
+
+</blockquote>
+
+<p>The QC report of the <strong>MSI preprocessing</strong> <i class="fas fa-wrench" aria-hidden="true"></i><span class="visually-hidden">tool</span> shows the changes during preprocessing for four random spectra. TIC normalization only changes the dimension of the y-axis. Smoothing decreases the peak height and thus the intensity values on the y-axis shrink as well. Baseline removal shifts the complete spectrum towards the bottom.</p>
+
+<p>The <strong>MSI plot spectra</strong> <i class="fas fa-wrench" aria-hidden="true"></i><span class="visually-hidden">tool</span> is a quick way to control peak shape after smoothing. The zoomed in spectrum of the 1257.42 calibrant peaks shows that the peaks become broader than before. Most of the underlying data points can be seen as angles of the peak. The peak width ranges from 1257.1 to 1257.9 m/z = 0.8 m/z width. We will set the following window sizes to 9 data points (half the window size of 4).</p>
+
+<p>We can then continue with the second part of the preprocessing:</p>
+
+<ol>
+  <li>
+    <p><strong>m/z alignment</strong>:
+Despite regular m/z calibration of the mass spectrometer, m/z values vary slightly during data acquisition. To make m/z features comparable between different spectra or samples, they need to have the same m/z value. Furthermore, if identification is desired the m/z values should also be as accurate as possible. For high resolution data, binning of the m/z axis is often sufficient to group similar m/z values to a common m/z bin. For TOF instruments, re-calibration of the m/z values is commonly applied with the help of known, ubiquitous analytes such as inte<span class="notranslate">rna</span>l calibrants or matrix peaks. Unfortunately, no inte<span class="notranslate">rna</span>l calibrants were applied and the DHB matrix peaks occur more frequently below 1000 m/z. Therefore, the m/z values are not re-calibrated with known analytes but instead aligned to the average picked mass spectrum to ensure that similar m/z features obtain the same m/z value. This common m/z value can still be slightly shifted from its correct position - this should be kept in mind for the identification step that we will perform later. m/z alignment or binning could also be done after peak picking, but as we will perform peak picking on the average spectrum it is important that the m/z shifts are already minimized. We will remove spectra in which less than 2 reference m/z were found by setting them to zero and then removing all empty spectra. To account for the m/z shifts we will export the processed imzML file, which means that each spectrum has its own m/z axis.</p>
+  </li>
+  <li>
+    <p><strong>Peak picking and binning</strong>:
+The key step during preprocessing is peak detection as it reduces the dimensionality of the data and bases the following statistical analysis on potentially relevant peaks rather than on noise. A peak is a local maximum above a user-defined noise threshold. The higher the signal-to-noise ratio is set, the more true positive peaks are picked, but at the cost of lowered sensitivity. Therefore, we will set the signal-to-noise ratio to 5, which should remove most of the noise while keeping enough sensitivity. The window should ideally have about the size of the peak width (recalling we set half window size to 4). We will perform peak picking and monoisotopic picking on the average mass spectra of each subfile, which are again defined with the annotation tabular file. The removal of isotopic peaks reduces the number of m/z features of the dataset, which is not only beneficial for computation time but also for many statistical approaches that are hindered by highly correlating variables. To ensure comparability of the picked m/z features, binning of the m/z axis is performed.</p>
+  </li>
+  <li>
+    <p><strong>Extracting peaks</strong>:
+The average peak picking has removed all spatial information and kept only mean intensity values for the two subfiles. Therefore, the ‘peaks’ function is used to retrieve the picked peaks from all pixels of the normalized, smoothed and baseline reduced dataset.</p>
+  </li>
+</ol>
+
+<p>For further reading on preprocessing we recommend <a href="https://arxiv.org/pdf/1607.03180.pdf">Gibb and Strimmer</a> and <a href="https://doi.org/10.1016/j.ijms.2006.10.005">Norris et al.</a>.</p>
+
+<blockquote class="notranslate hands_on">
+  <h3 id="hands_on-hands-on-preprocessing-part-ii"><i class="fas fa-pencil-alt" aria-hidden="true"></i><span class="visually-hidden">hands_on</span> Hands-on: Preprocessing part II</h3>
+
+  <ol>
+    <li><strong>MALDIquant preprocessing</strong> <i class="fas fa-wrench" aria-hidden="true"></i><span class="visually-hidden">tool</span> with the following parameters:
+      <ul>
+        <li><i class="far fa-file" aria-hidden="true"></i><span class="visually-hidden">param-file</span> <em>“MSI data”</em>: <code class="language-plaintext highlighter-rouge">preprocessed imzML</code> (output of <strong>MSI preprocessing</strong> <i class="fas fa-wrench" aria-hidden="true"></i><span class="visually-hidden">tool</span>)</li>
+        <li>In <em>“Method”</em>:
+          <ul>
+            <li>In <em>“1: Method”</em>:
+              <ul>
+                <li><em>“Select a method”</em>: <code class="language-plaintext highlighter-rouge">Align spectra</code>
+                  <ul>
+                    <li><em>“Tolerance”</em>: <code class="language-plaintext highlighter-rouge">0.0002</code></li>
+                    <li><em>“Half window size”</em>: <code class="language-plaintext highlighter-rouge">4</code></li>
+                    <li><em>“Signal-to-noise-ratio”</em>: <code class="language-plaintext highlighter-rouge">3</code></li>
+                    <li><em>“Allow no matches”</em>: <code class="language-plaintext highlighter-rouge">Yes</code></li>
+                    <li><em>“Empty no matches”</em>: <code class="language-plaintext highlighter-rouge">Yes</code></li>
+                    <li><em>“Remove empty spectra”</em>: <code class="language-plaintext highlighter-rouge">Yes</code></li>
+                    <li><em>“minFrequency”</em>: <code class="language-plaintext highlighter-rouge">0.8</code></li>
+                    <li><em>“Export processed imzML”</em>: <code class="language-plaintext highlighter-rouge">Yes</code></li>
+                  </ul>
+                </li>
+              </ul>
+            </li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+    <li><strong>MALDIquant peak detection</strong> <i class="fas fa-wrench" aria-hidden="true"></i><span class="visually-hidden">tool</span> with the following parameters:
+      <ul>
+        <li><i class="far fa-file" aria-hidden="true"></i><span class="visually-hidden">param-file</span> <em>“MSI data”</em>: <code class="language-plaintext highlighter-rouge">MALDIquant preprocessing imzML</code> (output of <strong>MALDIquant preprocessing</strong> <i class="fas fa-wrench" aria-hidden="true"></i><span class="visually-hidden">tool</span>)</li>
+        <li><em>“Spectra annotations”</em>: <code class="language-plaintext highlighter-rouge">yes</code>
+          <ul>
+            <li><em>“Use annotations from tabular file”</em>: <code class="language-plaintext highlighter-rouge">combined annotations</code> (output of <strong>MSI combine</strong> <i class="fas fa-wrench" aria-hidden="true"></i><span class="visually-hidden">tool</span>)</li>
+            <li><em>“Column with x values”</em>: <code class="language-plaintext highlighter-rouge">Column: 1</code></li>
+            <li><em>“Column with y values”</em>: <code class="language-plaintext highlighter-rouge">Column: 2</code></li>
+            <li><em>“Column with pixel annotations”</em>: <code class="language-plaintext highlighter-rouge">Column: 3</code></li>
+            <li><em>“File contains a header line”</em>: <code class="language-plaintext highlighter-rouge">Yes</code></li>
+          </ul>
+        </li>
+        <li>In <em>“Method”</em>:
+          <ul>
+            <li>In <em>“1: Method”</em>:
+              <ul>
+                <li><em>“Select a method”</em>: <code class="language-plaintext highlighter-rouge">Peak detection</code>
+                  <ul>
+                    <li><em>“Half window size”</em>: <code class="language-plaintext highlighter-rouge">4</code></li>
+                    <li><em>“Signal to noise”</em>: <code class="language-plaintext highlighter-rouge">5</code></li>
+                    <li><em>“Detect peaks on average mass spectra”</em>: <code class="language-plaintext highlighter-rouge">Yes</code></li>
+                  </ul>
+                </li>
+              </ul>
+            </li>
+            <li>Click on <em>“Insert Method”</em>:</li>
+            <li>In <em>“2: Method”</em>:
+              <ul>
+                <li><em>“Select a method”</em>: <code class="language-plaintext highlighter-rouge">Monoisotopic peaks</code>
+                  <ul>
+                    <li><em>“Minimal correlation”</em>: <code class="language-plaintext highlighter-rouge">0.4</code></li>
+                    <li><em>“Tolerance”</em>: <code class="language-plaintext highlighter-rouge">0.0002</code></li>
+                    <li><em>“Size”</em>: <code class="language-plaintext highlighter-rouge">2:5</code></li>
+                  </ul>
+                </li>
+              </ul>
+            </li>
+            <li>Click on <em>“Insert Method”</em>:</li>
+            <li>In <em>“3: Method”</em>:
+              <ul>
+                <li><em>“Select a method”</em>: <code class="language-plaintext highlighter-rouge">Binning</code>
+                  <ul>
+                    <li><em>“Tolerance”</em>: <code class="language-plaintext highlighter-rouge">0.0002</code></li>
+                  </ul>
+                </li>
+              </ul>
+            </li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+    <li><strong>MSI preprocessing</strong> <i class="fas fa-wrench" aria-hidden="true"></i><span class="visually-hidden">tool</span> with the following parameters:
+      <ul>
+        <li><i class="far fa-file" aria-hidden="true"></i><span class="visually-hidden">param-file</span> <em>“MSI data”</em>: <code class="language-plaintext highlighter-rouge">preprocessed imzML from first step</code> (output of <strong>MSI preprocessing</strong> <i class="fas fa-wrench" aria-hidden="true"></i><span class="visually-hidden">tool</span>)</li>
+        <li>In <em>“Preprocessing”</em>:
+          <ul>
+            <li>Click on <em>“Insert Preprocessing”</em>:</li>
+            <li>In <em>“1: Preprocessing”</em>:
+              <ul>
+                <li><em>“Preprocessing methods”</em>: <code class="language-plaintext highlighter-rouge">Data reduction</code>
+                  <ul>
+                    <li><em>“Reduction method”</em>: <code class="language-plaintext highlighter-rouge">peaks</code></li>
+                    <li><em>“Tabular file with m/z features to extract from input file”</em>: <code class="language-plaintext highlighter-rouge">MALDIquant peak detection intensity matrix</code> (output of <strong>MALDIquant peak detection</strong> <i class="fas fa-wrench" aria-hidden="true"></i><span class="visually-hidden">tool</span>)</li>
+                    <li><em>“Tabular file contains a header line”</em>: <code class="language-plaintext highlighter-rouge">Yes</code></li>
+                  </ul>
+                </li>
+              </ul>
+            </li>
+          </ul>
+        </li>
+        <li><em>“Output format”</em>: <code class="language-plaintext highlighter-rouge">imzML</code></li>
+      </ul>
+    </li>
+  </ol>
+
+</blockquote>
+
+<blockquote class="question">
+  <h3 id="question-questions-1"><i class="far fa-question-circle" aria-hidden="true"></i><span class="visually-hidden">question</span> Questions</h3>
+
+  <ol>
+    <li>How many m/z values are left after preprocessing?</li>
+    <li>What is the lowest m/z feature that is left after preprocessing?</li>
+  </ol>
+
+  <blockquote class="solution">
+    <h3 id="solution-solution-1"><i class="far fa-eye" aria-hidden="true"></i><span class="visually-hidden">solution</span> Solution</h3>
+
+    <ol>
+      <li>125 m/z features are left</li>
+      <li>1257.47 (min m/z)</li>
+    </ol>
+
+  </blockquote>
+
+</blockquote>
+
+<blockquote class="details">
+  <h3 id="details-how-to-find-good-preprocessing-parameters"><i class="fas fa-info-circle" aria-hidden="true"></i><span class="visually-hidden">details</span> How to find good preprocessing parameters</h3>
+  <p>Before starting with preprocessing it is important to know the properties of the data. Inte<span class="notranslate">rna</span>l calibrants can help to estimate the quality of the data and to control the preprocessing steps. The <strong>MSI Qualitycontrol</strong> <i class="fas fa-wrench" aria-hidden="true"></i><span class="visually-hidden">tool</span> shows the extent of a noise baseline, the level of noise in the mass spectra, intensity distributions and m/z accuracy as described in the (<a href="/training-material/topics/proteomics/tutorials/mass-spectrometry-imaging-loading-exploring-data/tutorial.html">Mass spectrometry imaging: Loading and exploring MSI data</a>) tutorial. Most preprocessing steps are applied to single spectra and therefore allow optimization of the preprocessing steps on a small subset of the original dataset that can be obtained with the <strong>MSI filtering</strong> <i class="fas fa-wrench" aria-hidden="true"></i><span class="visually-hidden">tool</span>. To make sure that the preprocessing steps and parameters are chosen properly it is recommended to perform them step by step and check the outcome after every step. The <strong>MSI Qualitycontrol</strong> <i class="fas fa-wrench" aria-hidden="true"></i><span class="visually-hidden">tool</span>, the <strong>MSI spectra plot</strong> <i class="fas fa-wrench" aria-hidden="true"></i><span class="visually-hidden">tool</span>, and the <strong>MSI mz images</strong> <i class="fas fa-wrench" aria-hidden="true"></i><span class="visually-hidden">tool</span> are helpful to track the changes during preprocessing. The first two tools are able to overlay MSI data with different annotations, making it possible to combine files before and after the preprocessing step, as done in step 1 and 2 of this tutorial, and compare the introduced changes directly. The usage of annotations in the <strong>MSI spectra plot</strong> <i class="fas fa-wrench" aria-hidden="true"></i><span class="visually-hidden">tool</span> is explained in the tutorial <a href="/training-material/topics/metabolomics/tutorials/msi-analyte-distribution/tutorial.html">Mass spectrometry imaging: Examining the spatial distribution of analytes</a>.</p>
+</blockquote>
+
+<p>The QC table of the <strong>MALDIquant preprocessing</strong> <i class="fas fa-wrench" aria-hidden="true"></i><span class="visually-hidden">tool</span> reveals that 19 spectra (pixel) were removed during the alignment. The empty spectra are visible in the QC file of <strong>MALDIquant peak detection</strong> <i class="fas fa-wrench" aria-hidden="true"></i><span class="visually-hidden">tool</span>. This QC furthermore shows the baseline in blue and the picked (monoisotopic) peaks in green. After peak extraction the mass spectra are not in profile mode anymore (one peak consists of many datapoints) but centroided (one peak is represented by one datapoint). Therefore, in further steps ‘centroided input’ must be set to ‘Yes’.</p>
+
+<h1 id="statistical-analysis-and-identification-of-n-glycans">Statistical analysis and identification of N-glycans</h1>
+
+<h2 id="unsupervised-statistical-analysis">Unsupervised statistical analysis</h2>
+
+<p>Unsupervised analysis can be applied at any time to any dataset because no prior knowledge of the data is required. The clustering or segmentation algorithms (that perform unsupervised analysis) separate regions of the data that have the most distinct differences in their mass spectra. We will perform principal component analysis (PCA) with 4 clusters to visualize the largest differences in the dataset.</p>
+
+<blockquote class="notranslate hands_on">
+  <h3 id="hands_on-hands-on-segmentation-with-pca"><i class="fas fa-pencil-alt" aria-hidden="true"></i><span class="visually-hidden">hands_on</span> Hands-on: Segmentation with PCA</h3>
+
+  <ol>
+    <li><strong>MSI segmentation</strong> <i class="fas fa-wrench" aria-hidden="true"></i><span class="visually-hidden">tool</span> with the following parameters:
+      <ul>
+        <li><i class="far fa-file" aria-hidden="true"></i><span class="visually-hidden">param-file</span> <em>“MSI data”</em>: <code class="language-plaintext highlighter-rouge">preprocessed imzML (peaks)</code> (output of <strong>MSI preprocessing</strong> <i class="fas fa-wrench" aria-hidden="true"></i><span class="visually-hidden">tool</span>)</li>
+        <li><em>“Centroided input”</em>: <code class="language-plaintext highlighter-rouge">Yes</code></li>
+        <li><em>“Select the tool for spatial clustering”</em>: <code class="language-plaintext highlighter-rouge">pca</code>
+          <ul>
+            <li><em>“The number of principal components to calculate”</em>: <code class="language-plaintext highlighter-rouge">4</code></li>
+          </ul>
+        </li>
+        <li>In <em>“Colours for the plots”</em>:
+          <ul>
+            <li>Click on <em>“Insert Colours for the plots”</em>:</li>
+            <li>In <em>“1: Colours for the plots”</em>:
+              <ul>
+                <li><em>“Colours”</em>: <code class="language-plaintext highlighter-rouge">dark_blue</code></li>
+              </ul>
+            </li>
+            <li>Click on <em>“Insert Colours for the plots”</em>:</li>
+            <li>In <em>“2: Colours for the plots”</em>:
+              <ul>
+                <li><em>“Colours”</em>: <code class="language-plaintext highlighter-rouge">orange</code></li>
+              </ul>
+            </li>
+            <li>Click on <em>“Insert Colours for the plots”</em>:</li>
+            <li>In <em>“3: Colours for the plots”</em>:
+              <ul>
+                <li><em>“Colours”</em>: <code class="language-plaintext highlighter-rouge">green</code></li>
+              </ul>
+            </li>
+            <li>Click on <em>“Insert Colours for the plots”</em>:</li>
+            <li>In <em>“4: Colours for the plots”</em>:
+              <ul>
+                <li><em>“Colours”</em>: <code class="language-plaintext highlighter-rouge">red</code></li>
+              </ul>
+            </li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+  </ol>
+
+</blockquote>
+
+<blockquote class="question">
+  <h3 id="question-questions-2"><i class="far fa-question-circle" aria-hidden="true"></i><span class="visually-hidden">question</span> Questions</h3>
+
+  <ol>
+    <li>Which principal components correlate with the morphology of the kidney?</li>
+    <li>What are the approximate m/z values with the highest loadings for each of those principal components?</li>
+  </ol>
+
+  <blockquote class="solution">
+    <h3 id="solution-solution-2"><i class="far fa-eye" aria-hidden="true"></i><span class="visually-hidden">solution</span> Solution</h3>
+
+    <ol>
+      <li>PC1, PC3 and PC4</li>
+      <li>PC1: 1900; PC3: 1900; PC4: 2300 (from PCA plot)</li>
+    </ol>
+
+  </blockquote>
+
+</blockquote>
+
+<figure id="figure-3"><img src="../../images/msi-diff-abundance-pca.png" alt="PCA" /><figcaption><span class="figcaption-prefix">Figure 3:</span> Distribution of the principal components</figcaption></figure>
+
+<p>The PCA clustering reveals that the N-glycan profile is different in different kidney compartments. To find the m/z features that correspond to these compartments, the feature tabular file can further be analyzed by sorting the file for the principal components of interest. This reveals the discrete m/z values for the features with the highest loadings: PC1 and PC3: 1905.72, PC4: 2304.91. Later, we will visualize the morphological distribution of those features on the complete dataset.</p>
+
+<h2 id="supervised-statistical-analysis">Supervised statistical analysis</h2>
+
+<p>Supervised analysis can only be performed if the regions of interest that should be compared are known. For this dataset we know which spectra were treated or not treated with PNGase F. With this information we can use the spatial shrunken centroids algorithm, which in addition to classification is able to find the m/z features that best distinguish each class (<a href="https://doi.org/10.1074/mcp.O115.053918">Bemis et al.</a>). We expect those discriminating m/z features to be the N-linked glycans that were only released in the treated kidney section but not in the control section.</p>
+
+<blockquote class="notranslate hands_on">
+  <h3 id="hands_on-hands-on-spatial-shrunken-centroids-classification"><i class="fas fa-pencil-alt" aria-hidden="true"></i><span class="visually-hidden">hands_on</span> Hands-on: Spatial shrunken centroids classification</h3>
+
+  <ol>
+    <li><strong>MSI classification</strong> <i class="fas fa-wrench" aria-hidden="true"></i><span class="visually-hidden">tool</span> with the following parameters:
+      <ul>
+        <li><i class="far fa-file" aria-hidden="true"></i><span class="visually-hidden">param-file</span> <em>“MSI data”</em>: <code class="language-plaintext highlighter-rouge">preprocessed imzML (peaks)</code> (output of <strong>MSI preprocessing</strong> <i class="fas fa-wrench" aria-hidden="true"></i><span class="visually-hidden">tool</span>)</li>
+        <li><em>“Centroided input”</em>: <code class="language-plaintext highlighter-rouge">Yes</code></li>
+        <li><em>“Analysis step to perform”</em>: <code class="language-plaintext highlighter-rouge">training</code>
+          <ul>
+            <li><i class="far fa-file" aria-hidden="true"></i><span class="visually-hidden">param-file</span> <em>“Load tabular file with pixel coordinates and their classes”</em>: <code class="language-plaintext highlighter-rouge">combined annotations</code> (output of <strong>MSI combine</strong> <i class="fas fa-wrench" aria-hidden="true"></i><span class="visually-hidden">tool</span>)</li>
+            <li><em>“Column with x values”</em>: <code class="language-plaintext highlighter-rouge">Column: 1</code></li>
+            <li><em>“Column with y values”</em>: <code class="language-plaintext highlighter-rouge">Column: 2</code></li>
+            <li><em>“Column with response (condition) values”</em>: <code class="language-plaintext highlighter-rouge">Column: 3</code></li>
+            <li><em>“Tabular files contain a header line”</em>: <code class="language-plaintext highlighter-rouge">Yes</code></li>
+            <li><em>“Select the method for classification”</em>: <code class="language-plaintext highlighter-rouge">spatial shrunken centroids</code>
+              <ul>
+                <li><em>“Analysis step to perform”</em>: <code class="language-plaintext highlighter-rouge">spatial shrunken centroids analysis</code></li>
+                <li><em>“The sparsity thresholding parameter by which to shrink the t-statistics (s)”</em>: <code class="language-plaintext highlighter-rouge">0</code></li>
+              </ul>
+            </li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+  </ol>
+
+</blockquote>
+
+<figure id="figure-4"><img src="../../images/msi-diff-abundance-classification.png" alt="SSC" /><figcaption><span class="figcaption-prefix">Figure 4:</span> T-statistics plot for the classification and distribution of the most discriminating m/z feature and class prediction for all spectra.</figcaption></figure>
+
+<p>High accuracy, sensitivity and specificity indicate that the control and PNGase F treated kidney sections can be discriminated quite well. The prediction shows the location of the few misclassified spectra towards the border of the tissue. As our aim is not to build and test a classifier for accurate prediction, we move on to investigate the m/z features that were most discriminative for the two groups more deeply. Looking at the feature tabular file, we spot the 2 m/z features that had the highest loadings in the PCA, amongst the top features with the highest t-statistics. Furthermore, this list can be compared to the m/z features that were determined as potential N-linked glycans in <a href="https://static-content.springer.com/esm/art%3A10.1007%2Fs00216-014-8293-7/MediaObjects/216_2014_8293_MOESM1_ESM.pdf">Gustafsson et al. Figure S6</a>. We found nine out of twelve m/z features. Two m/z features were outside our cropped m/z range and could therefore not be found. The 1079.408 m/z feature is missing in our feature list.</p>
+
+<h2 id="identification-of-n-glycans">Identification of N-glycans</h2>
+
+<p>We filter the m/z feature output from the <strong>MSI classification</strong> <i class="fas fa-wrench" aria-hidden="true"></i><span class="visually-hidden">tool</span> for an adjusted p-value below 0.05 and a positive t-statistic in the ‘treated1’ spectra to consider only the most discriminative features that are more abundant in the treated than in the control spectra. Those m/z features are potentially N-glycans that were released by PNGase F treatment from the kidney section but not from the control section. To verify that the m/z features are N-linked glycans and to elucidate their identity and structure <a href="https://doi.org/10.1007/s00216-014-8293-7">Gustafsson et al.</a> performed an additional LC-MS/MS experiment on N-linked glycans released from another mouse kidney section. They identified <a href="https://media.springernature.com/original/springer-static/image/art%3A10.1007%2Fs00216-014-8293-7/MediaObjects/216_2014_8293_Fig3_HTML.gif">31 N-linked glycans</a> and calculated the m/z for the sodium N-glycan ions which can be matched to the imaging m/z features. Protonated glycans do not ionize well, but sodium adducts are the best detected glycan form in positive mode mass spectrometry. We match the differential m/z features from the imaging experiment to the m/z features from the LC-MS/MS results with a tolerance of 300 ppm and keep all matches that occur within this distance. We then calculate the average ppm error for the matches.</p>
+
+<blockquote class="notranslate hands_on">
+  <h3 id="hands_on-hands-on-identification-of-n-glycans"><i class="fas fa-pencil-alt" aria-hidden="true"></i><span class="visually-hidden">hands_on</span> Hands-on: Identification of N-glycans</h3>
+
+  <ol>
+    <li><strong>Filter data on any column using simple <span class="notranslate">expression</span>s</strong> <i class="fas fa-wrench" aria-hidden="true"></i><span class="visually-hidden">tool</span> with the following parameters:
+      <ul>
+        <li><i class="far fa-file" aria-hidden="true"></i><span class="visually-hidden">param-file</span> <em>“Filter”</em>: <code class="language-plaintext highlighter-rouge">classification features</code> (output of <strong>MSI classification</strong> <i class="fas fa-wrench" aria-hidden="true"></i><span class="visually-hidden">tool</span>)</li>
+        <li><em>“With following condition”</em>: <code class="language-plaintext highlighter-rouge">c5=="treated1" and c7&gt;0 and c9&lt;0.05</code></li>
+        <li><em>“Number of header lines to skip”</em>: <code class="language-plaintext highlighter-rouge">1</code></li>
+      </ul>
+    </li>
+    <li><strong>Join two files on column allowing a small difference</strong> <i class="fas fa-wrench" aria-hidden="true"></i><span class="visually-hidden">tool</span> with the following parameters:
+      <ul>
+        <li><i class="far fa-file" aria-hidden="true"></i><span class="visually-hidden">param-file</span> <em>“1st file”</em>: <code class="language-plaintext highlighter-rouge">Filter data</code> (output of <strong>Filter</strong> <i class="fas fa-wrench" aria-hidden="true"></i><span class="visually-hidden">tool</span>)</li>
+        <li><em>“Column to use from 1st file”</em>: <code class="language-plaintext highlighter-rouge">Column: 1</code></li>
+        <li><i class="far fa-file" aria-hidden="true"></i><span class="visually-hidden">param-file</span> <em>“2nd file”</em>: <code class="language-plaintext highlighter-rouge">Glycan IDs</code> (uploaded dataset)</li>
+        <li><em>“Column to use from 2nd file”</em>: <code class="language-plaintext highlighter-rouge">Column: 1</code></li>
+        <li><em>“Does the input files contain a header line”</em>: <code class="language-plaintext highlighter-rouge">Yes</code></li>
+        <li><em>“Add an addional column with the calculated distance.”</em>: <code class="language-plaintext highlighter-rouge">Yes</code></li>
+        <li><em>“Choose the mode of merging.”</em>: <code class="language-plaintext highlighter-rouge">All matches within the defined distance</code></li>
+        <li><em>“Choose the metrics of your distance”</em>: <code class="language-plaintext highlighter-rouge">Distance in ppm</code></li>
+        <li><em>“Allowed distance between the two values that will trigger a merge”</em>: <code class="language-plaintext highlighter-rouge">300.0</code></li>
+      </ul>
+    </li>
+    <li><strong>Summary Statistics for any numerical column</strong>  <i class="fas fa-wrench" aria-hidden="true"></i><span class="visually-hidden">tool</span> with the following parameters:
+      <ul>
+        <li><i class="far fa-file" aria-hidden="true"></i><span class="visually-hidden">param-file</span> <em>“Summary statistics on”</em>: <code class="language-plaintext highlighter-rouge">Join two files</code> (output of <strong>Join two files</strong> <i class="fas fa-wrench" aria-hidden="true"></i><span class="visually-hidden">tool</span>)</li>
+        <li><em>“Column or <span class="notranslate">expression</span>”</em>: <code class="language-plaintext highlighter-rouge">c12</code></li>
+      </ul>
+    </li>
+  </ol>
+
+</blockquote>
+
+<blockquote class="question">
+  <h3 id="question-questions-3"><i class="far fa-question-circle" aria-hidden="true"></i><span class="visually-hidden">question</span> Questions</h3>
+
+  <ol>
+    <li>How many m/z features are filtered by our criteria?</li>
+    <li>How many m/z features could be identified?</li>
+    <li>How many duplicated matches occured?</li>
+    <li>What was the average m/z error for the matching?</li>
+  </ol>
+
+  <blockquote class="solution">
+    <h3 id="solution-solution-3"><i class="far fa-eye" aria-hidden="true"></i><span class="visually-hidden">solution</span> Solution</h3>
+
+    <ol>
+      <li>The filtered file has 32 lines minus one header line, i.e. 31 m/z features.</li>
+      <li>19 m/z features were identified.</li>
+      <li>0</li>
+      <li>28.98 ppm</li>
+    </ol>
+  </blockquote>
+
+</blockquote>
+
+<p>31 m/z features of the imaging dataset have a p-value below 0.05 and are potentially N-linked glycans. To ensure the identity of those features, they were matched to the results of an additional LC-MS/MS experiment. This step allows us to identify 19 m/z features as N-linked glycans. 15 of those m/z features were also found and identified in the <a href="https://doi.org/10.1007/s00216-014-8293-7">original publication</a>, which means that we found 4 additional N-glycans: 1704.7, 1542.6, 2101.8 and 1955.7. Those are the 4 m/z features with the lowest t-statistic. One hint to their validity is their m/z error. The m/z errors of 5, 24, 32 and 64 ppm seem reasonable. The average m/z error was 28.98 ppm compared to 38.7 ppm in the original publication. Without resampling of the m/z axis (which was mainly done to speed up computation time) or with additional inte<span class="notranslate">rna</span>l calibrants for m/z re-calibration this error would probably further decrease.
+Next, we visually explore the abundance distribution for all identified N-glycans in the complete, TIC-normalized dataset (consisting of the subfiles: control, calibrant, treated1 and treated2).</p>
+
+<h2 id="n-linked-glycan-distribution-in-the-complete-dataset">N-linked glycan distribution in the complete dataset</h2>
+
+<blockquote class="notranslate hands_on">
+  <h3 id="hands_on-hands-on-distribution-images-for-the-identified-n-glycans"><i class="fas fa-pencil-alt" aria-hidden="true"></i><span class="visually-hidden">hands_on</span> Hands-on: Distribution images for the identified N-glycans</h3>
+
+  <ol>
+    <li><strong>MSI mz images</strong> <i class="fas fa-wrench" aria-hidden="true"></i><span class="visually-hidden">tool</span> with the following parameters:
+      <ul>
+        <li><i class="far fa-file" aria-hidden="true"></i><span class="visually-hidden">param-file</span> <em>“MSI data”</em>: <code class="language-plaintext highlighter-rouge">all_files</code> (uploaded dataset)</li>
+        <li><i class="far fa-file" aria-hidden="true"></i><span class="visually-hidden">param-file</span> <em>“m/z of interest”</em>: <code class="language-plaintext highlighter-rouge">Join two files</code> (output of <strong>Join two files</strong> <i class="fas fa-wrench" aria-hidden="true"></i><span class="visually-hidden">tool</span>)</li>
+        <li><em>“Column with m/z values”</em>: <code class="language-plaintext highlighter-rouge">Column: 1</code></li>
+        <li><em>“Column with name of m/z values”</em>: <code class="language-plaintext highlighter-rouge">Column: 11</code></li>
+        <li><em>“Tabular file contains a header line”</em>: <code class="language-plaintext highlighter-rouge">Yes</code></li>
+        <li><em>“Contrast enhancement”</em>: <code class="language-plaintext highlighter-rouge">suppression</code></li>
+      </ul>
+    </li>
+  </ol>
+</blockquote>
+
+<blockquote class="question">
+  <h3 id="question-questions-4"><i class="far fa-question-circle" aria-hidden="true"></i><span class="visually-hidden">question</span> Questions</h3>
+
+  <ol>
+    <li>Which N-linked glycans were used as calibrants?</li>
+  </ol>
+
+  <blockquote class="solution">
+    <h3 id="solution-solution-4"><i class="far fa-eye" aria-hidden="true"></i><span class="visually-hidden">solution</span> Solution</h3>
+
+    <ol>
+      <li>(Hex)2+(Man)3(GlcNAc)2 (1257.5) and (HexNAc)3+(Man)3(GlcNAc)2 (1542.6) (higher intensity in the calibrant file)</li>
+    </ol>
+
+  </blockquote>
+
+</blockquote>
+
+<p>Despite the classification being done on a small part of the complete dataset, the discovered N-glycans are more abundant in both treated kidney sections than in the control and calibrant regions. The four additional N-glycans that we could identify are more abundant in the treated kidney than in the control files, but compared to the other N-glycans their intensities are lower.</p>
+
+<h2 id="n-linked-glycans-with-a-distinct-localization-to-kidney-compartments">N-linked glycans with a distinct localization to kidney compartments</h2>
+
+<p>During PCA analysis we found N-glycans that are localized in specific kidney compartments. We will filter the identified N-glycan file for the specific m/z features to plot their distribution to different compartments as overlay image.</p>
+
+<blockquote class="comment">
+  <h3 id="comment-regular-expressions-to-filter-text"><i class="far fa-comment-dots" aria-hidden="true"></i><span class="visually-hidden">comment</span> Regular <span class="notranslate">expression</span>s to filter text</h3>
+
+  <p>Regular <span class="notranslate">expression</span>s are syntax that can be used to describe a certain ‘text’. They are extremely helpful to filter any kind of text and are therefore utilized by several <span class="notranslate">Galaxy</span> tools. The tools help section provides more details about how to use regular <span class="notranslate">expression</span>s. Here, we want to filter for three m/z features, but we are unsure where the exact decimal places are. Therefore we filter only for the m/z feature without decimal places but include the point ‘.’ to make sure that we do not get matches to any other numbers in the tabular file. As the point ‘.’ has a special meaning in regular <span class="notranslate">expression</span>s, it is necessary to ‘escape’ it by using the backslash ‘' - this allows searching for the point as well. For example ‘1663\.’ will filter for ‘1663.’ in the text. The pipe ‘|’ separates alte<span class="notranslate">rna</span>te possibilities and allows the user to run the tool only once while filtering for three different m/z features.</p>
+</blockquote>
+
+<blockquote class="notranslate hands_on">
+  <h3 id="hands_on-hands-on-overlayed-distribution-image-for-3-n-glycans"><i class="fas fa-pencil-alt" aria-hidden="true"></i><span class="visually-hidden">hands_on</span> Hands-on: Overlayed distribution image for 3 N-glycans</h3>
+
+  <ol>
+    <li><strong>Select lines that match an <span class="notranslate">expression</span></strong> <i class="fas fa-wrench" aria-hidden="true"></i><span class="visually-hidden">tool</span> with the following parameters:
+      <ul>
+        <li><i class="far fa-file" aria-hidden="true"></i><span class="visually-hidden">param-file</span> <em>“Select lines from”</em>: <code class="language-plaintext highlighter-rouge">Join two files</code> (output of <strong>Join two files</strong> <i class="fas fa-wrench" aria-hidden="true"></i><span class="visually-hidden">tool</span>)</li>
+        <li><em>“the pattern”</em>: <code class="language-plaintext highlighter-rouge">(1663\.)|(1905\.)|(2304\.)</code></li>
+      </ul>
+    </li>
+    <li><strong>MSI mz images</strong> <i class="fas fa-wrench" aria-hidden="true"></i><span class="visually-hidden">tool</span> with the following parameters:
+      <ul>
+        <li><i class="far fa-file" aria-hidden="true"></i><span class="visually-hidden">param-file</span> <em>“MSI data”</em>: <code class="language-plaintext highlighter-rouge">all_files</code> (uploaded dataset)</li>
+        <li><i class="far fa-file" aria-hidden="true"></i><span class="visually-hidden">param-file</span> <em>“m/z of interest”</em>: <code class="language-plaintext highlighter-rouge">Select on data</code> (output of <strong>Select</strong> <i class="fas fa-wrench" aria-hidden="true"></i><span class="visually-hidden">tool</span>)</li>
+        <li><em>“Column with m/z values”</em>: <code class="language-plaintext highlighter-rouge">Column: 1</code></li>
+        <li><em>“Column with name of m/z values”</em>: <code class="language-plaintext highlighter-rouge">Column: 11</code></li>
+        <li><em>“Contrast enhancement”</em>: <code class="language-plaintext highlighter-rouge">suppression</code></li>
+        <li><em>“Overlay image”</em>: <code class="language-plaintext highlighter-rouge">yes</code>
+          <ul>
+            <li>In <em>“Colours for the plots”</em>:
+              <ul>
+                <li>Click on <em>“Insert Colours for the plots”</em>:</li>
+                <li>In <em>“1: Colours for the plots”</em>:
+                  <ul>
+                    <li><em>“Colours”</em>: <code class="language-plaintext highlighter-rouge">dark_blue</code></li>
+                  </ul>
+                </li>
+                <li>Click on <em>“Insert Colours for the plots”</em>:</li>
+                <li>In <em>“2: Colours for the plots”</em>:
+                  <ul>
+                    <li><em>“Colours”</em>: <code class="language-plaintext highlighter-rouge">green</code></li>
+                  </ul>
+                </li>
+                <li>Click on <em>“Insert Colours for the plots”</em>:</li>
+                <li>In <em>“3: Colours for the plots”</em>:
+                  <ul>
+                    <li><em>“Colours”</em>: <code class="language-plaintext highlighter-rouge">red</code></li>
+                  </ul>
+                </li>
+              </ul>
+            </li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+  </ol>
+</blockquote>
+
+<figure id="figure-5"><img src="../../images/msi-diff-abundance-mz-images.png" alt="overlay_images" /><figcaption><span class="figcaption-prefix">Figure 5:</span> Distribution for three analytes that are localized in different kidney compartments and their overlay.</figcaption></figure>
+
+<h1 id="conclusion">Conclusion</h1>
+
+<p>This tutorial covered combining datasets, data preprocessing and supervised as well as unsupervised statistical analysis.</p>
+
+<figure id="figure-6"><img src="../../images/msi-diff-abundance-workflow.png" alt="workflow" /><figcaption><span class="figcaption-prefix">Figure 6:</span> <span class="notranslate">Workflow</span> that was used during this tutorial.</figcaption></figure>
+
+
+
+                    
+                    <blockquote class="key_points">
+                        <h3><i class="fas fa-key" aria-hidden="true"></i><span class="visually-hidden">keypoints</span> Key points</h3>
+                        <ul>
+                            
+                            <li><p>Several files can be combined and the spectra used to obtain the annotation of their original file.</p>
+</li>
+                            
+                            <li><p>Preprocessing reduces the file size and can improve further analysis steps.</p>
+</li>
+                            
+                            <li><p>Unsupervised and supervised statistical analysis can reveal analytes with different abundances.</p>
+</li>
+                            
+                            <li><p>The spatial distribution of N-glycans in a tissue section can be measured by MALDI imaging.</p>
+</li>
+                            
+                            <li><p>Additional LC-MS/MS experiments enable the identification of N-glycans measured by MSI.</p>
+</li>
+                            
+                            <li><p>Some N-glycans are located to specific kidney compartments.</p>
+</li>
+                            
+                        </ul>
+                    </blockquote>
+                    
+
+                    
+
+                    
+
+                    <h1>Feedback</h1>
+                    <p class="text-muted">Did you use this material as an instructor? Feel free to give us feedback on <a href="https://github.com/galaxyproject/training-material/issues/1452" target="_blank">how it went</a>.</p>
+
+                    <div id="feedback-button">
+                        <img src="/training-material/shared/images/feedback.png" title="Click to activate" alt="Click here to load Google feedback frame" />
+                    </div>
+                    <div id="feedback-form">
+                    </div>
+                    <script type="text/javascript">
+                        (function (window, document) {
+                            function onDocumentReady(fn) {
+                                if (document.attachEvent ? document.readyState === "complete" : document.readyState !== "loading") {
+                                    fn();
+                                } else {
+                                    document.addEventListener('DOMContentLoaded', fn);
+                                }
+                            }
+
+                            onDocumentReady(function () {
+                                $("#feedback-button").click(function(evt){
+                                    var e = $(evt.target)
+                                    e.hide();
+
+                                    $("#feedback-form").html(`
+                                        <iframe id="feedback-google" class="google-form" src="https://docs.google.com/forms/d/e/1FAIpQLSd4VZptFTQ03kHkMz0JyW9b6_S8geU5KjNE_tLM0dixT3ZQmA/viewform?embedded=true&entry.1235803833=Mass spectrometry imaging: Finding differential analytes (Metabolomics)">Loading...</iframe>
+                                    `)
+                                })
+                            });
+                        })(window, document);
+                    </script>
+
+
+
+                    <h1>Citing this Tutorial</h1>
+                    <p>
+                        <ol>
+                            <li id="citation-text">Melanie Föll, 2020 <b>Mass spectrometry imaging: Finding differential analytes (Galaxy Training Materials)</b>. <a href="/training-material/topics/metabolomics/tutorials/msi-finding-nglycans/tutorial.html">/training-material/topics/metabolomics/tutorials/msi-finding-nglycans/tutorial.html</a> Online; accessed TODAY
+                            </li>
+                            <li>
+                            Batut et al., 2018 <b>Community-Driven Data Analysis Training for Biology</b> Cell Systems <a href="https://doi.org/10.1016%2Fj.cels.2018.05.012">10.1016/j.cels.2018.05.012</a>
+                            </li>
+                        </ol>
+                    </p>
+
+
+                    <blockquote class="details">
+                      <h3><i class="fa fa-info-circle" aria-hidden="true"></i><span class="visually-hidden">details</span> BibTeX</h3>
+                      <p style="display: none;">
+
+                    <div class="highlighter-rouge"><div class="highlight"><pre class="highlight">
+<code id="citation-code">@misc{metabolomics-msi-finding-nglycans,
+    author = "Melanie Föll",
+    title = "Mass spectrometry imaging: Finding differential analytes (Galaxy Training Materials)",
+    year = "2020",
+    month = "11",
+    day = "26"
+    url = "\url{/training-material/topics/metabolomics/tutorials/msi-finding-nglycans/tutorial.html}",
+    note = "[Online; accessed TODAY]"
+}
+@article{Batut_2018,
+        doi = {10.1016/j.cels.2018.05.012},
+        url = {https://doi.org/10.1016%2Fj.cels.2018.05.012},
+        year = 2018,
+        month = {jun},
+        publisher = {Elsevier {BV}},
+        volume = {6},
+        number = {6},
+        pages = {752--758.e1},
+        author = {B{\'{e}}r{\'{e}}nice Batut and Saskia Hiltemann and Andrea Bagnacani and Dannon Baker and Vivek Bhardwaj and Clemens Blank and Anthony Bretaudeau and Loraine Brillet-Gu{\'{e}}guen and Martin {\v{C}}ech and John Chilton and Dave Clements and Olivia Doppelt-Azeroual and Anika Erxleben and Mallory Ann Freeberg and Simon Gladman and Youri Hoogstrate and Hans-Rudolf Hotz and Torsten Houwaart and Pratik Jagtap and Delphine Larivi{\`{e}}re and Gildas Le Corguill{\'{e}} and Thomas Manke and Fabien Mareuil and Fidel Ram{\'{\i}}rez and Devon Ryan and Florian Christoph Sigloch and Nicola Soranzo and Joachim Wolff and Pavankumar Videm and Markus Wolfien and Aisanjiang Wubuli and Dilmurat Yusuf and James Taylor and Rolf Backofen and Anton Nekrutenko and Björn Grüning},
+        title = {Community-Driven Data Analysis Training for Biology},
+        journal = {Cell Systems}
+}</code>
+                    </pre></div></div>
+                    </p>
+                    </blockquote>
+
+
+<script type="text/javascript">
+// update the date on load, or leave fallback of 'today'
+d = new Date();
+document.getElementById("citation-code").innerHTML = document.getElementById("citation-code").innerHTML.replace("TODAY", d.toDateString());
+document.getElementById("citation-text").innerHTML = document.getElementById("citation-text").innerHTML.replace("TODAY", d.toDateString());
+</script>
+
+                </div>
+            </div>
+        </div>
+
+        <h3><i class="far fa-thumbs-up" aria-hidden="true"></i><span class="visually-hidden">congratulations</span> Congratulations on successfully completing this tutorial!</h3>
+
+        
+
+        
+    </section>
+</div>
+
+
+<footer>
+    <div class="container">
+        <p>
+            This material is the result of a collaborative work. Thanks to the
+            <a href="https://wiki.galaxyproject.org/Teach/GTN">Galaxy Training Network</a>
+            and all the <a href="/training-material/hall-of-fame">contributors</a> (Melanie Föll)!
+        </p>
+        <p>
+            Found a typo? Something is wrong in this tutorial? Edit it on
+            <a href="https://github.com/galaxyproject/training-material/tree/master/topics/metabolomics/tutorials/msi-finding-nglycans/tutorial.md">GitHub</a>.
+        </p>
+        <p>
+    The content of the tutorials and website is licensed under the <a rel="license" href="https://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0 International License</a>.
+</p>
+    </div>
+</footer>
+
+    </body>
+    <script type="text/javascript" src="/training-material/assets/js/jquery.slim.min.js"></script>
+    <script type="text/javascript" src="/training-material/assets/js/popper.min.js"></script>
+    <script type="text/javascript" src="/training-material/assets/js/bootstrap.min.js?v=3"></script>
+    <script type="text/javascript" src="/training-material/assets/js/details-element-polyfill.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript" src="/training-material/assets/js/bootstrap-toc.min.js"></script>
+    <script type="text/javascript" src="/training-material/assets/js/main.js"></script>
+    <script type="text/javascript" src="/training-material/assets/js/theme.js"></script>
+
+    <script type="text/javascript" src="/training-material/assets/js/clipboard.min.js"></script>
+    <script type="text/javascript">
+    var snippets=document.querySelectorAll('div.highlight');
+    [].forEach.call(snippets,function(snippet){
+        snippet.firstChild.insertAdjacentHTML('beforebegin','<button class="btn btn-light" data-clipboard-snippet><i class="fa fa-copy"></i>&nbsp;Copy</button>');
+    });
+
+    var clipboardSnippets=new ClipboardJS('[data-clipboard-snippet]',{
+        target:function(trigger){return trigger.nextElementSibling;
+    }});
+    </script>
+    
+
+    <script type="text/javascript">
+        if(window.location.hostname === "galaxyproject.github.io") {
+            // Redirect
+            var redirect = "https://training.galaxyproject.org" + window.location.pathname + window.location.search;
+            $('div.container.main-content').prepend("<div class='alert alert-warning'><strong>Note: </strong>This content has a new home at <a href=\"" + redirect + "\">" + redirect + "</a>, which you will be redirected to in 5 seconds.</div>");
+
+            window.setTimeout(function(){
+                window.location.href = redirect;
+            }, 5000)
+
+        }
+    </script>
+</html>

@@ -1,0 +1,884 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <title>Galaxy Database schema</title>
+        
+            <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+    ga('create', '' , 'auto');
+    ga('send', 'pageview');
+</script>
+        
+        <link rel="stylesheet" href="/training-material/assets/css/bootstrap.min.css?v=3">
+        <link rel="stylesheet" href="/training-material/assets/css/bootstrap-toc.min.css">
+        <link rel="stylesheet" href="/training-material/assets/css/main.css?v=2">
+        <script src="https://kit.fontawesome.com/67b3f98409.js" crossorigin="anonymous"></script>
+        <link rel="stylesheet" href="/training-material/assets/css/academicons.css">
+        <link rel="stylesheet" href="/training-material/assets/css/syntax_highlighting.css">
+        <link rel="shortcut icon" href="/training-material/favicon.ico" type="image/x-icon" />
+
+        
+        
+        
+        
+        
+        <meta name="description" content="Resources related to configuration and maintenance of Gal..." />
+        <meta property="og:title" content="Galaxy Training: Galaxy Database schema" />
+        <meta property="og:description" content="Resources related to configuration and maintenance of Gal..." />
+        <meta property="og:image" content="/training-material/assets/images/GTNLogo1000.png" />
+    </head>
+    <body data-spy="scroll" data-target="#toc">
+        
+
+
+
+
+
+
+
+
+
+
+
+<!-- Gitter -->
+
+
+<script>
+  ((window.gitter = {}).chat = {}).options = {
+  room: 'galaxyproject/admins'
+  };
+</script>
+<script src="https://sidecar.gitter.im/dist/sidecar.v1.js" async defer></script>
+
+<header>
+    <nav class="navbar navbar-expand-lg navbar-dark">
+        <div class="container">
+            <a class="navbar-brand" href="/training-material/">
+                <img src="/training-material/assets/images/GTN-60px.png" height="30" alt="Galaxy Training Network logo">
+                Galaxy Training!
+            </a>
+
+            <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#top-navbar" aria-controls="top-navbar" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="top-navbar">
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link" href="/training-material/topics/admin" title="Go back to list of tutorials">
+                            <i class="far fa-folder" aria-hidden="true"></i><span class="visually-hidden">topic</span> Galaxy Server administration
+                        </a>
+                    </li>
+
+                    <li class="nav-item dropdown">
+                        <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" aria-expanded="false" title="Language Selector">
+                            <i class="fas fa-language" aria-hidden="true"></i><span class="visually-hidden">language</span> Language
+                        </a>
+                        <div class="dropdown-menu">
+                            
+                            <a class="dropdown-item" href="https://translate.google.com/translate?hl=jp&sl=en&tl=fr&u=https%3A%2F%2Ftraining.galaxyproject.org%2Ftopics%2Fadmin%2Ftutorials%2Fdatabase-schema%2Ftutorial.html&edit-text=&act=url" title="">
+                                Français
+                            </a>
+                            
+                            <a class="dropdown-item" href="https://translate.google.com/translate?hl=jp&sl=en&tl=ja&u=https%3A%2F%2Ftraining.galaxyproject.org%2Ftopics%2Fadmin%2Ftutorials%2Fdatabase-schema%2Ftutorial.html&edit-text=&act=url" title="">
+                                日本語
+                            </a>
+                            
+                            <a class="dropdown-item" href="https://translate.google.com/translate?hl=jp&sl=en&tl=es&u=https%3A%2F%2Ftraining.galaxyproject.org%2Ftopics%2Fadmin%2Ftutorials%2Fdatabase-schema%2Ftutorial.html&edit-text=&act=url" title="">
+                                Español
+                            </a>
+                            
+                            <a class="dropdown-item" href="https://translate.google.com/translate?hl=jp&sl=en&tl=pt&u=https%3A%2F%2Ftraining.galaxyproject.org%2Ftopics%2Fadmin%2Ftutorials%2Fdatabase-schema%2Ftutorial.html&edit-text=&act=url" title="">
+                                Português
+                            </a>
+                            
+                            <a class="dropdown-item" href="https://translate.google.com/translate?hl=jp&sl=en&tl=ar&u=https%3A%2F%2Ftraining.galaxyproject.org%2Ftopics%2Fadmin%2Ftutorials%2Fdatabase-schema%2Ftutorial.html&edit-text=&act=url" title="">
+                                العربية
+                            </a>
+                            
+                            <a class="dropdown-item" href="https://translate.google.com/translate?hl=jp&sl=en&tl=&u=https%3A%2F%2Ftraining.galaxyproject.org%2Ftopics%2Fadmin%2Ftutorials%2Fdatabase-schema%2Ftutorial.html&edit-text=&act=url" title="">
+                                And more!
+                            </a>
+                        </div>
+                    </li>
+
+                    <li class="nav-item dropdown">
+    <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" aria-expanded="false" title="Help">
+        <i class="far fa-question-circle" aria-hidden="true"></i><span class="visually-hidden">help</span> Help
+    </a>
+    <div class="dropdown-menu dropdown-menu-right">
+        <form method="get" action="https://tess.elixir-europe.org/materials">
+            <input type="text" id="search" name="q" value="" style="margin-left: 0.5em;/*! border-radius: 0px; */">
+            <input type="hidden" value="Galaxy Training" name="content_provider">
+            <input type="submit" value="Search on TeSS" style="width: 92%;border-radius: 0px;margin: 0.5em;background: #f47d20;border: 0px;padding: 0.25em;" class="">
+        </form>
+
+        <div class="dropdown-divider"></div>
+        <a class="dropdown-item" href="/training-material/faq" title="Check our FAQ">
+            FAQ
+        </a>
+        <a class="dropdown-item" href="https://help.galaxyproject.org/" title="Discuss on Galaxy Help">
+            Discuss on Galaxy Help
+        </a>
+
+        <div class="dropdown-item">
+            <div>
+                Theme
+            </div>
+
+            <div id="theme-selector" data-toggle="buttons">
+                <label data-value="default" class="btn btn-secondary">
+                    <input type="radio" name="options" id="default" autocomplete="off"> Default
+                </label>
+                <label data-value="night" class="btn btn-secondary">
+                    <input type="radio" name="options" id="night" autocomplete="off"> Night
+                </label>
+                <label data-value="midnight" class="btn btn-secondary">
+                    <input type="radio" name="options" id="midnight" autocomplete="off"> Midnight
+                </label>
+                <label data-value="rainbow" class="btn btn-secondary">
+                    <input type="radio" name="options" id="rainbow" autocomplete="off"> Rainbow
+                </label>
+                <label data-value="halloween" class="btn btn-secondary">
+                    <input type="radio" name="options" id="halloween" autocomplete="off"> 🎃
+                </label>
+            </div>
+
+        </div>
+    </div>
+</li>
+
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="https://github.com/galaxyproject/training-material/edit/master/topics/admin/tutorials/database-schema/tutorial.md">
+                            <i class="fab fa-github" aria-hidden="true"></i><span class="visually-hidden">github</span> Edit
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+</header>
+
+<div class="container main-content">
+    <script type="application/ld+json">
+        
+
+
+{
+  "@context": "http://schema.org",
+  "@type": "Course",
+  "accessMode": [
+    "textual",
+    "visual"
+  ],
+  "accessModeSufficient": [
+    "textual",
+    "visual"
+  ],
+  "accessibilityControl": [
+    "fullKeyboardControl",
+    "fullMouseControl"
+  ],
+  "accessibilityFeature": [
+    "alternativeText",
+    "tableOfContents"
+  ],
+  "accessibilitySummary": "Short descriptions are present but long descriptions will be needed for non-visual users",
+  "audience": {
+    "@type": "EducationalAudience",
+    "educationalRole": "students"
+  },
+  "citation": {
+    "@type": "CreativeWork",
+    "name": "Community-Driven Data Analysis Training for Biology",
+    "url": "https://doi.org/10.1016/j.cels.2018.05.012"
+  },
+  "copyrightHolder": {
+    "@type": "Organization",
+    "email": "galaxytrainingnetwork@gmail.com",
+    "name": "Galaxy Training Network",
+    "url": "https://galaxyproject.org/teach/gtn/"
+  },
+  "discussionUrl": "https://gitter.im/Galaxy-Training-Network/Lobby",
+  "headline": "Galaxy Database schema",
+  "inLanguage": {
+    "@type": "Language",
+    "name": "English",
+    "alternateName": "en"
+  },
+  "interactivityType": "mixed",
+  "isAccessibleForFree": true,
+  "license": "https://github.com/galaxyproject/training-material/blob/master/LICENSE.md",
+  "producer": {
+    "@type": "Organization",
+    "email": "galaxytrainingnetwork@gmail.com",
+    "name": "Galaxy Training Network",
+    "url": "https://galaxyproject.org/teach/gtn/"
+  },
+  "provider": {
+    "@type": "Organization",
+    "email": "galaxytrainingnetwork@gmail.com",
+    "name": "Galaxy Training Network",
+    "url": "https://galaxyproject.org/teach/gtn/"
+  },
+  "sourceOrganization": {
+    "@type": "Organization",
+    "email": "galaxytrainingnetwork@gmail.com",
+    "name": "Galaxy Training Network",
+    "url": "https://galaxyproject.org/teach/gtn/"
+  },
+  "isPartOf": {
+    "@type": "CreativeWork",
+    "name": "Galaxy Server administration",
+    "description": "Resources related to configuration and maintenance of Galaxy servers",
+    "url": "https://training.galaxyproject.org//training-material/topics/admin/"
+  },
+  "courseCode": "admin / database-schema / hands-on",
+  "learningResourceType": "hands-on tutorial",
+  "name": "Hands-on for 'Galaxy Database schema' tutorial",
+  "url": "https://training.galaxyproject.org//training-material/topics/admin/tutorials/database-schema/tutorial.html",
+  "timeRequired": "PT2H",
+  "description": "The questions this  addresses are:\n - Running a production Galaxy server, you some times end up in with a situation, where you manually need to interact with the Galaxy database: how do you do that\n - How to extract usage information, which can not be gathered using the given report tools\n - How to move from MySQL to PostgreSQL\n - Is there ever a need to manually change the contents of a table\n\n\\nThe objectives are:\n - Learn some of the design concepts of the Galaxy database\n - Extract information from the Galaxy database\n - Get to know SchemaSpy\n\n",
+  "hasPart": [
+
+  ],
+  "author": [
+    {
+      "@type": "Person",
+      "name": "Hans-Rudolf Hotz"
+    },
+    {
+      "@type": "Person",
+      "name": "Björn Grüning"
+    }
+  ],
+  "contributor": [
+    {
+      "@type": "Person",
+      "name": "Hans-Rudolf Hotz"
+    },
+    {
+      "@type": "Person",
+      "name": "Björn Grüning"
+    }
+  ],
+  "about": [
+    {
+      "@type": "CreativeWork",
+      "name": "Galaxy Server administration",
+      "description": "Resources related to configuration and maintenance of Galaxy servers",
+      "url": "https://training.galaxyproject.org//training-material/topics/admin/"
+    }
+  ]
+}
+    </script>
+
+    <section class="tutorial">
+        <h1 data-toc-skip>Galaxy Database schema</h1>
+        
+
+        <div class="contributors-line">By: 
+
+<a href="/training-material/hall-of-fame/hrhotz/" class="contributor-badge"><img src="https://avatars.githubusercontent.com/hrhotz" alt="Hans-Rudolf Hotz">Hans-Rudolf Hotz</a>, <a href="/training-material/hall-of-fame/bgruening/" class="contributor-badge"><img src="https://avatars.githubusercontent.com/bgruening" alt="Björn Grüning">Björn Grüning</a>
+
+</div>
+
+        <blockquote class="overview">
+            <h3>Overview</h3>
+            <strong><i class="far fa-question-circle" aria-hidden="true"></i><span class="visually-hidden">question</span> Questions</strong>
+            <ul>
+            
+            <li><p>Running a production Galaxy server, you some times end up in with a situation, where you manually need to interact with the Galaxy database: how do you do that</p>
+</li>
+            
+            <li><p>How to extract usage information, which can not be gathered using the given report tools</p>
+</li>
+            
+            <li><p>How to move from MySQL to PostgreSQL</p>
+</li>
+            
+            <li><p>Is there ever a need to manually change the contents of a table</p>
+</li>
+            
+            </ul>
+
+            <strong><i class="fas fa-bullseye" aria-hidden="true"></i><span class="visually-hidden">objectives</span> Objectives</strong>
+            <ul>
+            
+            <li><p>Learn some of the design concepts of the Galaxy database</p>
+</li>
+            
+            <li><p>Extract information from the Galaxy database</p>
+</li>
+            
+            <li><p>Get to know SchemaSpy</p>
+</li>
+            
+            </ul>
+
+            
+
+            
+            <p><strong><i class="fas fa-hourglass-half" aria-hidden="true"></i><span class="visually-hidden">time</span> Time estimation:</strong> 2 hours</p>
+            
+
+            
+
+            
+            
+
+            
+            <p id="supporting-materials"><strong><i class="fa fa-external-link" aria-hidden="true"></i> Supporting Materials</strong></p>
+            <ul>
+                <div class="supporting_material">
+                
+                    <li class="btn btn-default supporting_material"><a href="/training-material/topics/admin/slides/introduction.html" title="Introduction slides">
+                        <i class="fab fa-slideshare" aria-hidden="true"></i><span class="visually-hidden">slides</span> Introduction slides
+                    </a></li>
+                
+
+                
+
+                
+
+                
+
+                
+                </div>
+            </ul>
+            
+
+            <p><strong> <i class="far fa-calendar" aria-hidden="true"></i><span class="visually-hidden">last_modification</span> Last modification:</strong> Nov 26, 2020 </p>
+        </blockquote>
+
+        <div class="container">
+            <div class="row">
+                <!-- sidebar, which will move to the top on a small screen -->
+                <div class="col-sm-2">
+                    <nav id="toc" data-toggle="toc" class="sticky-top"></nav>
+                </div>
+                <div class="col-sm-10">
+                    <h1 id="galaxy-database-schema"><span class="notranslate">Galaxy</span> Database Schema</h1>
+
+<h1 id="requirements">Requirements</h1>
+
+<p>For the hands-on examples you need access to a <span class="notranslate">Galaxy</span> server and access to its PostgreSQL database. You can set-up this yourself, or use the <span class="notranslate">Galaxy</span> Docker Image provided by Björn Grüning (https://github.com/bgruening/docker-<span class="notranslate">galaxy</span>-stable). During this tutorial, we will work with the <span class="notranslate">Galaxy</span> Docker Image.</p>
+
+<p>Setting up Docker and using the <span class="notranslate">Galaxy</span> Docker Image:
+(please do this before the tutorial, preferably when you are still at home using a fast internet connection)</p>
+
+<p>Follow the instruction to install the Docker engine: https://docs.docker.com/engine/installation/ <br />
+Execute:  docker run -d -p 8080:80 bgruening/<span class="notranslate">galaxy</span>-stable
+(this will download the <span class="notranslate">Galaxy</span> Docker Image, when executed the first time, and
+start it)
+Test the Docker image in your web browser: http://localhost:8080
+(see first paragraph of Björn’s introduction, for special cases when using the
+Docker Toolbox on Mac and Windows). Quit by: docker kill NAME (you get the name with:  docker ps )</p>
+
+<h1 id="introduction">Introduction</h1>
+
+<h2 id="database-versus-object-model">Database versus Object Model</h2>
+
+<p>The session description is database centric and we’ll be focusing on the relational
+database that backs <span class="notranslate">Galaxy</span> servers.  But that’s only half the picture of the this data.
+The other is the object model which is the object-oriented view of this same data.
+The object model is used by the code to manipulate and access the database.
+The translation between the two worlds is handled by an object-relational <span class="notranslate">mapping</span> implemented with SQLAlchemy (https://www.sqlalchemy.org).</p>
+
+<p>Today we are covering the database and how to access it with SQL.  We aren’t going to cover the corresponding object model or object relational <span class="notranslate">mapping</span>.</p>
+
+<h2 id="database-platform">Database Platform</h2>
+
+<p>The default out-of-the-box <span class="notranslate">Galaxy</span> installation uses SQLite (https://www.sqlite.org).
+SQLite is a lightweight database management system (DBMS) that can be packaged inside <span class="notranslate">Galaxy</span> and does not require any additional steps at initial setup time.</p>
+
+<p>However, SQLite is not the recommended DBMS for running a <span class="notranslate">Galaxy</span> server. The recommended production DMBS for
+<span class="notranslate">Galaxy</span> is PostgreSQL (https://www.postgresql.org). PostgreSQL offers a full set of DBMS features and robust support for multiple simultaneous users.</p>
+
+<p>This workshop will be entirely based in PostgreSQL (also referred to as Postgres).</p>
+
+<h2 id="what-is-in-and-not-in-the-galaxy-database">What is in (and not in) the <span class="notranslate">Galaxy</span> database?</h2>
+
+<p>The <span class="notranslate">Galaxy</span> database contains management information about your server.  The database tracks users, groups, jobs, histories, datasets, workflows and so on.</p>
+
+<p>What’s not in the database is the data. Datasets are stored outside the database. The database does keep metadata – information about the datasets such as data type. The tools themselves are not stored in the database either.</p>
+
+<h2 id="understanding-the-database-schema">Understanding the Database Schema</h2>
+
+<h4 id="er-diagrams-and-schemaspy">ER diagrams and SchemaSpy</h4>
+
+<p>Entity-relationship diagrams are a way to understand tables and the relationships between them
+inside a relational database.  SchemaSpy (http://schemaspy.org) is a free (and remarkable tool) for
+generating ER diagrams. Here’s a <a href="../../images/galaxy_schema.png">diagram of the <span class="notranslate">Galaxy</span> database</a>
+(generated by SchemaSpy on June 6 2020; 6Mb).</p>
+
+<p>The “Tables” tab is a good place to start learning the structure of the database.  Each table represents a different type of thing, and often that thing is itself a relationship. For example, each record in the dataset table has information about a specific dataset, while records in the history_dataset_association table have information about what histories that dataset is in.</p>
+
+<p>Each SchemaSpy table’s page shows the attributes in that table, as well as any constraints on those attributes, and the relationships between that table and other tables.</p>
+
+<p>Also see the “Run SchemaSpy in this container” section below for how to install and then run SchemaSpy yourself.</p>
+
+<h4 id="database-conventions">Database conventions</h4>
+<p>The <span class="notranslate">Galaxy</span> database uses a number of naming and design conventions.  Understanding these can make navigating the database much easier.</p>
+
+<h4 id="id-attributes">id attributes</h4>
+<p>Every table has an id column that uniquely identifies each row.  (The id column is the primary key in database terminology.) Beyond uniquely identifying a row in the table, ID values have no meaning.  ID values are unique within a table, but not across the database.</p>
+
+<h4 id="relationships-between-tables-and-_id-columns">Relationships between tables, and <code class="language-plaintext highlighter-rouge">_id</code> columns</h4>
+<p>Relationships between tables are implemented by exporting id columns from one table into another.  Imported ids are called foreign keys in database nomenclature, and are uniformly named
+   table_the_id_came_from_id</p>
+
+<p>There are a few notable exceptions to this rule.  If the ID is from a table that is prefixed with <span class="notranslate">galaxy</span>_, for example, <span class="notranslate">galaxy</span>_user or <span class="notranslate">galaxy</span>_session, the  <span class="notranslate">galaxy</span>_ will be dropped from the column name.  For example, <span class="notranslate">galaxy</span>_user.id becomes user_id in the over 50 tables it is imported into</p>
+
+<h4 id="relationship-tables">Relationship tables</h4>
+
+<p>As mentioned previously, some tables, such as history_dataset_association represent relationships between things, rather than things themselves.  In this case history_dataset_association describes relationships between datasets and histories.</p>
+
+<p>Relationship table names typically contain the names of tables they are relating, suffixed with <code class="language-plaintext highlighter-rouge">_association</code>.</p>
+
+<p>Why are nulls allowed in almost every column?
+We have no idea.  In practice, they aren’t nulls in most of those columns.</p>
+
+<p>Why aren’t there comments, on anything?
+PostgreSQL supports comments to table definitions, but there are none shown in the SchemaSpy report. Why? The table definitions are actually generated by SQLAlchemy, the object-relational <span class="notranslate">mapping</span> software used by <span class="notranslate">Galaxy</span>, and SQLAlchemy does not support it.</p>
+
+<p>There is nothing in the database that results from direct manipulation of the table definitions through DDL.  Everything comes in through SQLAlchemy.</p>
+
+<h2 id="start-docker-and-galaxy">Start Docker and <span class="notranslate">Galaxy</span></h2>
+
+<blockquote class="notranslate hands_on">
+  <h3 id="hands_on-hands-on"><i class="fas fa-pencil-alt" aria-hidden="true"></i><span class="visually-hidden">hands_on</span> <strong><em>Hands on!</em></strong></h3>
+
+  <ol>
+    <li>Start the <span class="notranslate">Galaxy</span> Docker Image -  this time as an interactive session</li>
+  </ol>
+
+  <div class="language-sh highlighter-rouge"><div class="highlight"><pre class="highlight"><code>      docker run <span class="nt">-i</span> <span class="nt">-t</span> <span class="nt">-p</span> 8080:80 bgruening/<span class="notranslate">galaxy</span>-stable /bin/bash
+</code></pre></div>  </div>
+
+  <ol>
+    <li>Start <span class="notranslate">Galaxy</span> and its PostgreSQL server</li>
+  </ol>
+
+  <div class="language-sh highlighter-rouge"><div class="highlight"><pre class="highlight"><code>      startup <span class="o">&gt;</span> log 2&gt;&amp;1 &amp;
+</code></pre></div>  </div>
+
+  <ol>
+    <li>Follow the startup process</li>
+  </ol>
+
+  <div class="language-sh highlighter-rouge"><div class="highlight"><pre class="highlight"><code>      <span class="nb">tail</span> <span class="nt">-f</span> log
+</code></pre></div>  </div>
+</blockquote>
+
+<h2 id="important-tables">Important tables</h2>
+
+<blockquote class="notranslate hands_on">
+  <h3 id="hands_on-hands-on-1"><i class="fas fa-pencil-alt" aria-hidden="true"></i><span class="visually-hidden">hands_on</span> <strong><em>Hands on!</em></strong></h3>
+
+  <ol>
+    <li>Connect to the PostgreSQL database (change to user <span class="notranslate">galaxy</span> first)</li>
+  </ol>
+
+  <div class="language-sh highlighter-rouge"><div class="highlight"><pre class="highlight"><code>       su <span class="notranslate">galaxy</span>
+       psql <span class="nt">-d</span> <span class="notranslate">galaxy</span> <span class="nt">-U</span> <span class="notranslate">galaxy</span>
+</code></pre></div>  </div>
+
+  <ol>
+    <li>List all tables</li>
+  </ol>
+
+  <div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code>      <span class="err">\</span><span class="n">dt</span>
+</code></pre></div>  </div>
+</blockquote>
+
+<p>Enter <code class="language-plaintext highlighter-rouge">q</code> to exit the view results page, and space to see the next results page.</p>
+
+<h3 id="table-galaxy_user">Table “<span class="notranslate">galaxy</span>_user”</h3>
+
+<blockquote class="notranslate hands_on">
+  <h3 id="hands_on-hands-on-2"><i class="fas fa-pencil-alt" aria-hidden="true"></i><span class="visually-hidden">hands_on</span> Hands-on</h3>
+
+  <div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code>       <span class="k">select</span> <span class="o">*</span> <span class="k">from</span> <span class="n"><span class="notranslate">galaxy</span>_user</span><span class="p">;</span>
+</code></pre></div>  </div>
+</blockquote>
+
+<p>As described in Björn’s introduction, an Admin user is already pre-set (email: ‘admin@<span class="notranslate">galaxy</span>.org’, password: ‘admin’). Now let’s add (i.e. register) a new user via the <span class="notranslate">Galaxy</span> website. And check the database:</p>
+
+<blockquote class="notranslate hands_on">
+  <h3 id="hands_on-hands-on-3"><i class="fas fa-pencil-alt" aria-hidden="true"></i><span class="visually-hidden">hands_on</span> Hands-on</h3>
+
+  <div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code>       <span class="k">select</span> <span class="o">*</span> <span class="k">from</span> <span class="n"><span class="notranslate">galaxy</span>_user</span><span class="p">;</span>
+</code></pre></div>  </div>
+</blockquote>
+
+<h3 id="table-job">Table “job”</h3>
+
+<blockquote class="notranslate hands_on">
+  <h3 id="hands_on-hands-on-4"><i class="fas fa-pencil-alt" aria-hidden="true"></i><span class="visually-hidden">hands_on</span> Hands-on</h3>
+
+  <div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code>       <span class="k">select</span> <span class="o">*</span> <span class="k">from</span> <span class="n">job</span><span class="p">;</span>
+</code></pre></div>  </div>
+</blockquote>
+
+<p>Run a few jobs on the <span class="notranslate">galaxy</span> website (e.g <em>upload file</em> a simple table and <em>add column</em> with ‘Iterate’ no and yes) and check the database again:</p>
+
+<blockquote class="notranslate hands_on">
+  <h3 id="hands_on-hands-on-5"><i class="fas fa-pencil-alt" aria-hidden="true"></i><span class="visually-hidden">hands_on</span> Hands-on</h3>
+
+  <div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code>       <span class="k">select</span> <span class="o">*</span> <span class="k">from</span> <span class="n">job</span> <span class="err">\</span><span class="n">x</span><span class="err">\</span><span class="k">g</span><span class="err">\</span><span class="n">x</span>
+</code></pre></div>  </div>
+</blockquote>
+
+<h3 id="table-job_parameter">Table “job_parameter”</h3>
+
+<blockquote class="notranslate hands_on">
+  <h3 id="hands_on-hands-on-6"><i class="fas fa-pencil-alt" aria-hidden="true"></i><span class="visually-hidden">hands_on</span> Hands-on</h3>
+
+  <div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code>      <span class="k">select</span> <span class="o">*</span> <span class="k">from</span> <span class="n">job_parameter</span><span class="p">;</span>
+</code></pre></div>  </div>
+</blockquote>
+
+<h3 id="table-history">Table “history”</h3>
+
+<blockquote class="notranslate hands_on">
+  <h3 id="hands_on-hands-on-7"><i class="fas fa-pencil-alt" aria-hidden="true"></i><span class="visually-hidden">hands_on</span> Hands-on</h3>
+
+  <div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code>      <span class="k">select</span> <span class="o">*</span> <span class="k">from</span> <span class="n">history</span><span class="p">;</span>
+</code></pre></div>  </div>
+</blockquote>
+
+<p>Give your current history a name and check the database again.</p>
+
+<h3 id="table-dataset">Table “dataset”</h3>
+
+<blockquote class="notranslate hands_on">
+  <h3 id="hands_on-hands-on-8"><i class="fas fa-pencil-alt" aria-hidden="true"></i><span class="visually-hidden">hands_on</span> Hands-on</h3>
+
+  <div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code>      <span class="k">select</span> <span class="o">*</span> <span class="k">from</span> <span class="n">dataset</span><span class="p">;</span>
+</code></pre></div>  </div>
+</blockquote>
+
+<h3 id="table-history_dataset_association">Table “history_dataset_association”</h3>
+
+<blockquote class="notranslate hands_on">
+  <h3 id="hands_on-hands-on-9"><i class="fas fa-pencil-alt" aria-hidden="true"></i><span class="visually-hidden">hands_on</span> Hands-on</h3>
+
+  <div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code>      <span class="k">select</span> <span class="o">*</span> <span class="k">from</span> <span class="n">history_dataset_association</span><span class="p">;</span>
+</code></pre></div>  </div>
+</blockquote>
+
+<h2 id="more-hands-on-examples-not-covered-by-the-reports-app">More (hands-on) Examples, not covered by the reports app</h2>
+
+<p>Have a look at the reports up (which is also provided in the Docker Image):</p>
+
+<p>http://admin:admin@localhost:8080/reports/</p>
+
+<p>Depending on your local needs, some queries are missing, like:</p>
+
+<h2 id="jobs-per-tool-per-year----jobs-per-tool-since-2015">Jobs per tool per year  /  jobs per tool since 2015</h2>
+
+<p>You can add the numbers per month from the reports, or:</p>
+
+<blockquote class="notranslate hands_on">
+  <h3 id="hands_on-hands-on-10"><i class="fas fa-pencil-alt" aria-hidden="true"></i><span class="visually-hidden">hands_on</span> Hands-on</h3>
+  <div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code>      <span class="k">select</span> <span class="n">j</span><span class="p">.</span><span class="n">id</span><span class="p">,</span> <span class="n">j</span><span class="p">.</span><span class="n">create_time</span> <span class="k">from</span> <span class="n">job</span> <span class="n">j</span> <span class="k">limit</span> <span class="mi">5</span><span class="p">;</span>
+</code></pre></div>  </div>
+
+  <div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code>       <span class="k">select</span> <span class="n">j</span><span class="p">.</span><span class="n">id</span><span class="p">,</span> <span class="n">j</span><span class="p">.</span><span class="n">create_time</span> <span class="k">from</span> <span class="n">job</span> <span class="n">j</span>
+           <span class="k">where</span> <span class="n">j</span><span class="p">.</span><span class="n">create_time</span> <span class="o">&gt;=</span> <span class="s1">'2015-12-31'</span>
+           <span class="k">and</span> <span class="n">j</span><span class="p">.</span><span class="n">create_time</span> <span class="o">&lt;</span> <span class="s1">'2016-12-31'</span><span class="p">;</span>
+</code></pre></div>  </div>
+
+  <div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code>       <span class="k">select</span> <span class="n">j</span><span class="p">.</span><span class="n">id</span><span class="p">,</span><span class="n">j</span><span class="p">.</span><span class="n">create_time</span> <span class="k">from</span> <span class="n">job</span> <span class="n">j</span>
+          <span class="k">where</span> <span class="k">EXTRACT</span><span class="p">(</span><span class="nb">year</span> <span class="k">FROM</span> <span class="n">j</span><span class="p">.</span><span class="n">create_time</span><span class="p">)</span> <span class="o">=</span> <span class="mi">2016</span>
+          <span class="k">and</span> <span class="n">j</span><span class="p">.</span><span class="n">tool_id</span><span class="o">=</span><span class="s1">'upload1'</span><span class="p">;</span><span class="nv">`
+</span></code></pre></div>  </div>
+
+  <p>…and now include the user</p>
+
+  <div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code>       <span class="k">select</span> <span class="k">count</span><span class="p">(</span><span class="n">j</span><span class="p">.</span><span class="n">id</span><span class="p">)</span> <span class="k">from</span> <span class="n">job</span> <span class="n">j</span><span class="p">,</span> <span class="n"><span class="notranslate">galaxy</span>_user</span> <span class="n">u</span>
+          <span class="k">where</span> <span class="n">j</span><span class="p">.</span><span class="n">user_id</span> <span class="o">=</span> <span class="n">u</span><span class="p">.</span><span class="n">id</span>
+          <span class="k">and</span> <span class="n">u</span><span class="p">.</span><span class="n">email</span> <span class="o">=</span> <span class="s1">'hansrudolf.hotz@fmi.ch'</span>
+          <span class="k">and</span> <span class="k">EXTRACT</span><span class="p">(</span><span class="nb">year</span> <span class="k">FROM</span> <span class="n">j</span><span class="p">.</span><span class="n">create_time</span><span class="p">)</span> <span class="o">=</span> <span class="mi">2016</span>
+          <span class="k">and</span> <span class="n">j</span><span class="p">.</span><span class="n">tool_id</span><span class="o">=</span><span class="s1">'upload1'</span><span class="p">;</span>
+</code></pre></div>  </div>
+
+  <div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code>       <span class="k">select</span> <span class="n">u</span><span class="p">.</span><span class="n">email</span><span class="p">,</span> <span class="k">count</span><span class="p">(</span><span class="o">*</span><span class="p">)</span> <span class="k">from</span> <span class="n">job</span> <span class="n">j</span><span class="p">,</span> <span class="n"><span class="notranslate">galaxy</span>_user</span> <span class="n">u</span>
+          <span class="k">where</span> <span class="n">j</span><span class="p">.</span><span class="n">user_id</span> <span class="o">=</span> <span class="n">u</span><span class="p">.</span><span class="n">id</span>
+          <span class="k">and</span> <span class="k">EXTRACT</span><span class="p">(</span><span class="nb">year</span> <span class="k">FROM</span> <span class="n">j</span><span class="p">.</span><span class="n">create_time</span><span class="p">)</span> <span class="o">=</span> <span class="mi">2016</span>
+          <span class="k">and</span> <span class="n">j</span><span class="p">.</span><span class="n">tool_id</span><span class="o">=</span><span class="s1">'upload1'</span>
+          <span class="k">GROUP</span> <span class="k">BY</span> <span class="n">u</span><span class="p">.</span><span class="n">email</span><span class="p">;</span>
+</code></pre></div>  </div>
+</blockquote>
+
+<h3 id="jobs-per-tool-of-a-certain-version">Jobs per tool of a certain version</h3>
+
+<p>Imagine the current version of a tool is working fine, however a previous version had a bug: now you wanna warn
+all the users who have used the broken version, without alerting users who never used the broken one.</p>
+
+<p>The following example is from the development server at the FMI</p>
+
+<blockquote class="notranslate hands_on">
+  <h3 id="hands_on-hands-on-11"><i class="fas fa-pencil-alt" aria-hidden="true"></i><span class="visually-hidden">hands_on</span> Hands-on:</h3>
+  <div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code>      <span class="k">select</span> <span class="k">distinct</span><span class="p">(</span><span class="n">j</span><span class="p">.</span><span class="n">tool_version</span><span class="p">)</span> <span class="k">from</span> <span class="n">job</span> <span class="n">j</span>
+          <span class="k">where</span> <span class="n">j</span><span class="p">.</span><span class="n">tool_id</span> <span class="o">=</span> <span class="s1">'qAlign'</span><span class="p">;</span>
+</code></pre></div>  </div>
+
+  <div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code>       <span class="k">select</span> <span class="n">j</span><span class="p">.</span><span class="n">user_id</span> <span class="k">from</span> <span class="n">job</span> <span class="n">j</span>
+          <span class="k">where</span> <span class="n">j</span><span class="p">.</span><span class="n">tool_id</span> <span class="o">=</span> <span class="s1">'qAlign'</span>
+          <span class="k">and</span> <span class="n">j</span><span class="p">.</span><span class="n">tool_version</span> <span class="o">=</span> <span class="s1">'1.0.4quasr'</span><span class="p">;</span>
+</code></pre></div>  </div>
+
+  <div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code>      <span class="k">select</span> <span class="n">u</span><span class="p">.</span><span class="n">email</span><span class="p">,</span> <span class="n">j</span><span class="p">.</span><span class="n">create_time</span> <span class="k">from</span> <span class="n">job</span> <span class="n">j</span><span class="p">,</span> <span class="n"><span class="notranslate">galaxy</span>_user</span> <span class="n">u</span>
+          <span class="k">where</span> <span class="n">j</span><span class="p">.</span><span class="n">user_id</span> <span class="o">=</span> <span class="n">u</span><span class="p">.</span><span class="n">id</span>
+          <span class="k">and</span> <span class="n">j</span><span class="p">.</span><span class="n">tool_id</span> <span class="o">=</span> <span class="s1">'qAlign'</span>
+          <span class="k">and</span> <span class="n">j</span><span class="p">.</span><span class="n">tool_version</span> <span class="o">=</span> <span class="s1">'1.0.4quasr'</span><span class="p">;</span>
+</code></pre></div>  </div>
+</blockquote>
+
+<h2 id="all-users-running-a-job-using-a-certain-parameter">All users running a job using a certain parameter</h2>
+
+<blockquote class="notranslate hands_on">
+  <h3 id="hands_on-hands-on-12"><i class="fas fa-pencil-alt" aria-hidden="true"></i><span class="visually-hidden">hands_on</span> <strong><em>Hands on!</em></strong></h3>
+
+  <div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code>      <span class="k">select</span> <span class="n">jp</span><span class="p">.</span><span class="n">name</span><span class="p">,</span> <span class="n">jp</span><span class="p">.</span><span class="n">value</span>  <span class="k">from</span> <span class="n">job_parameter</span> <span class="n">jp</span>
+          <span class="k">where</span> <span class="n">name</span> <span class="o">=</span> <span class="s1">'iterate'</span><span class="nv">`
+</span></code></pre></div>  </div>
+
+  <div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code>      <span class="k">select</span> <span class="n">u</span><span class="p">.</span><span class="n">email</span><span class="p">,</span> <span class="n">jp</span><span class="p">.</span><span class="n">name</span><span class="p">,</span> <span class="n">jp</span><span class="p">.</span><span class="n">value</span>
+          <span class="k">from</span> <span class="n">job_parameter</span> <span class="n">jp</span><span class="p">,</span> <span class="n">job</span> <span class="n">j</span><span class="p">,</span> <span class="n"><span class="notranslate">galaxy</span>_user</span> <span class="n">u</span>
+          <span class="k">where</span> <span class="n">jp</span><span class="p">.</span><span class="n">name</span> <span class="o">=</span> <span class="s1">'iterate'</span>
+          <span class="k">and</span> <span class="n">j</span><span class="p">.</span><span class="n">tool_id</span> <span class="o">=</span> <span class="s1">'addValue'</span>
+          <span class="k">and</span> <span class="n">jp</span><span class="p">.</span><span class="n">job_id</span> <span class="o">=</span> <span class="n">j</span><span class="p">.</span><span class="n">id</span>
+          <span class="k">and</span> <span class="n">j</span><span class="p">.</span><span class="n">user_id</span> <span class="o">=</span> <span class="n">u</span><span class="p">.</span><span class="n">id</span><span class="p">;</span>
+</code></pre></div>  </div>
+
+</blockquote>
+
+<h2 id="close-postgresql-client-and-quit-docker">Close PostgreSQL client and quit docker</h2>
+
+<blockquote class="notranslate hands_on">
+  <h3 id="hands_on-hands-on-13"><i class="fas fa-pencil-alt" aria-hidden="true"></i><span class="visually-hidden">hands_on</span> Hands-on:</h3>
+  <p>Close the PostgreSQL client</p>
+
+  <div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code>      <span class="err">\</span><span class="n">q</span>
+</code></pre></div>  </div>
+
+  <p>Quit the interactive docker (change back to root first)</p>
+
+  <div class="language-sh highlighter-rouge"><div class="highlight"><pre class="highlight"><code>      <span class="nb">exit
+      exit</span>
+</code></pre></div>  </div>
+</blockquote>
+
+<h2 id="other-topics">Other Topics</h2>
+
+<h4 id="how-to-move-from-mysql-to-postgresql">How to move from MySQL to PostgreSQL</h4>
+
+<p>Slides: https://docs.google.com/presentation/d/1N3BDNQT3s7eQEO3BO89TQbTYwKp92fxHDRWQwC-T1kA</p>
+
+<p>https://wiki.<span class="notranslate">galaxy</span>project.org/Community/Log/2015/MySQL2PostgreSQL</p>
+
+<h4 id="is-there-ever-a-need-to-manually-change-the-contents-of-a-table">Is there ever a need to manually change the contents of a table</h4>
+
+<p>Slides:
+https://docs.google.com/presentation/d/1l4DD0IaJjuvk1zAT1Sjv26bLyrSOg3VUm7rD-TQl_Zs</p>
+
+<h4 id="run-schemaspy-in-this-container">Run SchemaSpy in this container</h4>
+
+<p>To run SchemaSpy in your container you’ll need to get it, and also install some required software packages.</p>
+
+<blockquote class="notranslate hands_on">
+  <h3 id="hands_on-hands-on-schema-spy"><i class="fas fa-pencil-alt" aria-hidden="true"></i><span class="visually-hidden">hands_on</span> Hands-on: Schema Spy</h3>
+  <div class="language-sh highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  wget https://github.com/schemaspy/schemaspy/releases/download/v6.1.0/schemaspy-6.1.0.jar
+  apt-get update
+  apt-get <span class="nb">install </span>libpostgresql-jdbc-java
+  apt-get <span class="nb">install </span>graphviz
+</code></pre></div>  </div>
+
+  <p>To run SchemaSpy:</p>
+  <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  java -jar schemaspy-6.1.0.jar -t pgsql -db <span class="notranslate">galaxy</span> -u <span class="notranslate">galaxy</span> -host localhost -s public -dp /usr/share/java/postgresql-jdbc4-9.2.jar -o SpyOut
+</code></pre></div>  </div>
+
+</blockquote>
+
+<p>The SpyOut directory will contain the generated reports and diagrams, anchored at index.html.</p>
+
+<h1 id="conclusion">Conclusion</h1>
+
+<p>There is a lot of information stored in the <span class="notranslate">Galaxy</span> database. Use this information for trouble shooting when necessary and use it as a source for extended user statistics.</p>
+
+
+                    
+                    <blockquote class="key_points">
+                        <h3><i class="fas fa-key" aria-hidden="true"></i><span class="visually-hidden">keypoints</span> Key points</h3>
+                        <ul>
+                            
+                            <li><p>Be careful, when you interact with the Galaxy database. And make sure you always have a backup!</p>
+</li>
+                            
+                        </ul>
+                    </blockquote>
+                    
+
+                    
+
+                    
+
+                    <h1>Feedback</h1>
+                    <p class="text-muted">Did you use this material as an instructor? Feel free to give us feedback on <a href="https://github.com/galaxyproject/training-material/issues/1452" target="_blank">how it went</a>.</p>
+
+                    <div id="feedback-button">
+                        <img src="/training-material/shared/images/feedback.png" title="Click to activate" alt="Click here to load Google feedback frame" />
+                    </div>
+                    <div id="feedback-form">
+                    </div>
+                    <script type="text/javascript">
+                        (function (window, document) {
+                            function onDocumentReady(fn) {
+                                if (document.attachEvent ? document.readyState === "complete" : document.readyState !== "loading") {
+                                    fn();
+                                } else {
+                                    document.addEventListener('DOMContentLoaded', fn);
+                                }
+                            }
+
+                            onDocumentReady(function () {
+                                $("#feedback-button").click(function(evt){
+                                    var e = $(evt.target)
+                                    e.hide();
+
+                                    $("#feedback-form").html(`
+                                        <iframe id="feedback-google" class="google-form" src="https://docs.google.com/forms/d/e/1FAIpQLSd4VZptFTQ03kHkMz0JyW9b6_S8geU5KjNE_tLM0dixT3ZQmA/viewform?embedded=true&entry.1235803833=Galaxy Database schema (Galaxy Server administration)">Loading...</iframe>
+                                    `)
+                                })
+                            });
+                        })(window, document);
+                    </script>
+
+
+
+                    <h1>Citing this Tutorial</h1>
+                    <p>
+                        <ol>
+                            <li id="citation-text">Hans-Rudolf Hotz, Björn Grüning, 2020 <b>Galaxy Database schema (Galaxy Training Materials)</b>. <a href="/training-material/topics/admin/tutorials/database-schema/tutorial.html">/training-material/topics/admin/tutorials/database-schema/tutorial.html</a> Online; accessed TODAY
+                            </li>
+                            <li>
+                            Batut et al., 2018 <b>Community-Driven Data Analysis Training for Biology</b> Cell Systems <a href="https://doi.org/10.1016%2Fj.cels.2018.05.012">10.1016/j.cels.2018.05.012</a>
+                            </li>
+                        </ol>
+                    </p>
+
+
+                    <blockquote class="details">
+                      <h3><i class="fa fa-info-circle" aria-hidden="true"></i><span class="visually-hidden">details</span> BibTeX</h3>
+                      <p style="display: none;">
+
+                    <div class="highlighter-rouge"><div class="highlight"><pre class="highlight">
+<code id="citation-code">@misc{admin-database-schema,
+    author = "Hans-Rudolf Hotz and Björn Grüning",
+    title = "Galaxy Database schema (Galaxy Training Materials)",
+    year = "2020",
+    month = "11",
+    day = "26"
+    url = "\url{/training-material/topics/admin/tutorials/database-schema/tutorial.html}",
+    note = "[Online; accessed TODAY]"
+}
+@article{Batut_2018,
+        doi = {10.1016/j.cels.2018.05.012},
+        url = {https://doi.org/10.1016%2Fj.cels.2018.05.012},
+        year = 2018,
+        month = {jun},
+        publisher = {Elsevier {BV}},
+        volume = {6},
+        number = {6},
+        pages = {752--758.e1},
+        author = {B{\'{e}}r{\'{e}}nice Batut and Saskia Hiltemann and Andrea Bagnacani and Dannon Baker and Vivek Bhardwaj and Clemens Blank and Anthony Bretaudeau and Loraine Brillet-Gu{\'{e}}guen and Martin {\v{C}}ech and John Chilton and Dave Clements and Olivia Doppelt-Azeroual and Anika Erxleben and Mallory Ann Freeberg and Simon Gladman and Youri Hoogstrate and Hans-Rudolf Hotz and Torsten Houwaart and Pratik Jagtap and Delphine Larivi{\`{e}}re and Gildas Le Corguill{\'{e}} and Thomas Manke and Fabien Mareuil and Fidel Ram{\'{\i}}rez and Devon Ryan and Florian Christoph Sigloch and Nicola Soranzo and Joachim Wolff and Pavankumar Videm and Markus Wolfien and Aisanjiang Wubuli and Dilmurat Yusuf and James Taylor and Rolf Backofen and Anton Nekrutenko and Björn Grüning},
+        title = {Community-Driven Data Analysis Training for Biology},
+        journal = {Cell Systems}
+}</code>
+                    </pre></div></div>
+                    </p>
+                    </blockquote>
+
+
+<script type="text/javascript">
+// update the date on load, or leave fallback of 'today'
+d = new Date();
+document.getElementById("citation-code").innerHTML = document.getElementById("citation-code").innerHTML.replace("TODAY", d.toDateString());
+document.getElementById("citation-text").innerHTML = document.getElementById("citation-text").innerHTML.replace("TODAY", d.toDateString());
+</script>
+
+                </div>
+            </div>
+        </div>
+
+        <h3><i class="far fa-thumbs-up" aria-hidden="true"></i><span class="visually-hidden">congratulations</span> Congratulations on successfully completing this tutorial!</h3>
+
+        
+
+        
+    </section>
+</div>
+
+
+<footer>
+    <div class="container">
+        <p>
+            This material is the result of a collaborative work. Thanks to the
+            <a href="https://wiki.galaxyproject.org/Teach/GTN">Galaxy Training Network</a>
+            and all the <a href="/training-material/hall-of-fame">contributors</a> (Hans-Rudolf Hotz, Björn Grüning)!
+        </p>
+        <p>
+            Found a typo? Something is wrong in this tutorial? Edit it on
+            <a href="https://github.com/galaxyproject/training-material/tree/master/topics/admin/tutorials/database-schema/tutorial.md">GitHub</a>.
+        </p>
+        <p>
+    The content of the tutorials and website is licensed under the <a rel="license" href="https://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0 International License</a>.
+</p>
+    </div>
+</footer>
+
+    </body>
+    <script type="text/javascript" src="/training-material/assets/js/jquery.slim.min.js"></script>
+    <script type="text/javascript" src="/training-material/assets/js/popper.min.js"></script>
+    <script type="text/javascript" src="/training-material/assets/js/bootstrap.min.js?v=3"></script>
+    <script type="text/javascript" src="/training-material/assets/js/details-element-polyfill.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript" src="/training-material/assets/js/bootstrap-toc.min.js"></script>
+    <script type="text/javascript" src="/training-material/assets/js/main.js"></script>
+    <script type="text/javascript" src="/training-material/assets/js/theme.js"></script>
+
+    <script type="text/javascript" src="/training-material/assets/js/clipboard.min.js"></script>
+    <script type="text/javascript">
+    var snippets=document.querySelectorAll('div.highlight');
+    [].forEach.call(snippets,function(snippet){
+        snippet.firstChild.insertAdjacentHTML('beforebegin','<button class="btn btn-light" data-clipboard-snippet><i class="fa fa-copy"></i>&nbsp;Copy</button>');
+    });
+
+    var clipboardSnippets=new ClipboardJS('[data-clipboard-snippet]',{
+        target:function(trigger){return trigger.nextElementSibling;
+    }});
+    </script>
+    
+
+    <script type="text/javascript">
+        if(window.location.hostname === "galaxyproject.github.io") {
+            // Redirect
+            var redirect = "https://training.galaxyproject.org" + window.location.pathname + window.location.search;
+            $('div.container.main-content').prepend("<div class='alert alert-warning'><strong>Note: </strong>This content has a new home at <a href=\"" + redirect + "\">" + redirect + "</a>, which you will be redirected to in 5 seconds.</div>");
+
+            window.setTimeout(function(){
+                window.location.href = redirect;
+            }, 5000)
+
+        }
+    </script>
+</html>
