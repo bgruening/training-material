@@ -46,29 +46,79 @@
                             <i class="fas fa-users" aria-hidden="true"></i><span class="visually-hidden">hall-of-fame</span> Contributors
                         </a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="https://github.com/galaxyproject/training-material" title="View on GitHub">
-                            <i class="fab fa-github" aria-hidden="true"></i><span class="visually-hidden">github</span> View on GitHub
-                        </a>
-                    </li>
                     <li class="nav-item dropdown">
     <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" aria-expanded="false" title="Help">
         <i class="far fa-question-circle" aria-hidden="true"></i><span class="visually-hidden">help</span> Help
     </a>
     <div class="dropdown-menu dropdown-menu-right">
+        <!-- disable Tess for now
         <form method="get" action="https://tess.elixir-europe.org/materials">
             <input type="text" id="search" name="q" value="" style="margin-left: 0.5em;/*! border-radius: 0px; */">
             <input type="hidden" value="Galaxy Training" name="content_provider">
             <input type="submit" value="Search on TeSS" style="width: 92%;border-radius: 0px;margin: 0.5em;background: #f47d20;border: 0px;padding: 0.25em;" class="">
         </form>
+        -->
 
-        <div class="dropdown-divider"></div>
         <a class="dropdown-item" href="/training-material/faq" title="Check our FAQ">
-            FAQ
+           <i class="far fa-question-circle" aria-hidden="true"></i><span class="visually-hidden">question</span> FAQ
         </a>
         <a class="dropdown-item" href="https://help.galaxyproject.org/" title="Discuss on Galaxy Help">
-            Discuss on Galaxy Help
+            <i class="far fa-comments" aria-hidden="true"></i><span class="visually-hidden">feedback</span> Galaxy Help Forum
         </a>
+        <a class="dropdown-item" href="https://gitter.im/Galaxy-Training-Network/Lobby" title="Discuss on gitter">
+           <i class="fab fa-gitter" aria-hidden="true"></i><span class="visually-hidden">gitter</span> Discuss on Gitter
+        </a>
+    </div>
+</li>
+
+
+                    <li class="nav-item dropdown">
+    <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" aria-expanded="false" title="Extras">
+        <i class="far fa-star" aria-hidden="true"></i><span class="visually-hidden">galaxy-star</span> Extras
+    </a>
+    <div class="dropdown-menu dropdown-menu-right">
+
+        
+        <a class="dropdown-item" href="https://github.com/galaxyproject/training-material" title="Edit on GitHub">
+          <i class="fab fa-github" aria-hidden="true"></i><span class="visually-hidden">github</span> Edit on GitHub
+        </a>
+
+        <a class="dropdown-item" href="https://plausible.galaxyproject.eu/training.galaxyproject.org?period=12mo&page=/training-material/" title="Show view statistics of this page">
+            <i class="fas fa-chart-bar" aria-hidden="true"></i><span class="visually-hidden">galaxy-barchart</span> Page Metrics
+        </a>
+
+        <div class="dropdown-item">
+            <div>
+                <i class="fas fa-language" aria-hidden="true"></i><span class="visually-hidden">language</span> Translate this page
+            </div>
+
+            <div id="lang-selector">
+                
+                <a class="btn btn-info" href="https://translate.google.com/translate?hl=jp&sl=en&tl=fr&u=https%3A%2F%2Ftraining.galaxyproject.org/&edit-text=&act=url">
+                Français
+                </a>
+                
+                <a class="btn btn-info" href="https://translate.google.com/translate?hl=jp&sl=en&tl=ja&u=https%3A%2F%2Ftraining.galaxyproject.org/&edit-text=&act=url">
+                日本語
+                </a>
+                
+                <a class="btn btn-info" href="https://translate.google.com/translate?hl=jp&sl=en&tl=es&u=https%3A%2F%2Ftraining.galaxyproject.org/&edit-text=&act=url">
+                Español
+                </a>
+                
+                <a class="btn btn-info" href="https://translate.google.com/translate?hl=jp&sl=en&tl=pt&u=https%3A%2F%2Ftraining.galaxyproject.org/&edit-text=&act=url">
+                Português
+                </a>
+                
+                <a class="btn btn-info" href="https://translate.google.com/translate?hl=jp&sl=en&tl=ar&u=https%3A%2F%2Ftraining.galaxyproject.org/&edit-text=&act=url">
+                العربية
+                </a>
+                
+                <a class="btn btn-info" href="https://translate.google.com/translate?hl=jp&sl=en&tl=&u=https%3A%2F%2Ftraining.galaxyproject.org%2Ftopics%2F%2Ftutorials%2F%2Ftutorial.html&edit-text=&act=url" title="">
+                And more!
+                </a>
+            </div>
+        </div>
 
         <div class="dropdown-item">
             <div>
@@ -509,32 +559,25 @@
             </div>
         </div>
 
-        <h2>Acknowledgment and Funding</h2>
-        <p>
-            More information about this project can be found in our <a href="https://doi.org/10.1016/j.cels.2018.05.012">publication in Cell Systems</a>.
-            We would like to thank all <a href="/training-material/hall-of-fame">contributors</a> to our Galaxy
-            training materials, the Galaxy community for their constant support, and our funding sources:
-        </p>
-
-        <p>
-            <a href="https://www.denbi.de/"><img src="https://raw.githubusercontent.com/bgruening/rbc_docs/master/logo/deNBI_Logo_rgb.png" alt="de.NBI" width="15%" style="max-width:100%;"></a>
-            <a href="https://www.nih.gov"><img src="/training-material/shared/images/nih.png" alt="National Institutes of Health" width="7%" style="max-width:100%;"></a>
-            <a href="https://www.sfb992.uni-freiburg.de/"><img src="https://raw.githubusercontent.com/bgruening/presentations/bce348bb606c312d531c479e63a66efc2bc38d44/shared/resources/img/MEDEP.jpg" alt="Collaborative Research Centre 992" width="15%" style="max-width:100%;"></a>
-            <a href="https://www.ie-freiburg.mpg.de"><img src="https://raw.githubusercontent.com/bgruening/presentations/master/shared/resources/img/14_MPI_IE_logo_mit_180.gif" alt="Max Planck Institute of Immunology and Epigenetics" width="15%" style="max-width:100%;"></a>
-            <a href="https://www.uni-freiburg.de/"><img src="https://raw.githubusercontent.com/bgruening/presentations/a2e38e4b007994af798320db3a0131c4bb891c0e/shared/resources/img/logo_freiburg.jpg" alt="University of Freiburg" width="15%" style="max-width:100%;"></a>
-            <a href="http://www.psu.edu"><img src="/training-material/shared/images/psu.png" alt="The Pennsylvania State University" width="5%" style="max-width:100%;"></a>
-            <a href="https://wiki.galaxyproject.org/Teach/GTN"><img src="/training-material/shared/images/GTNLogo1000.png" alt="Galaxy Training Network" width="15%" style="max-width:100%;"></a>
-			<a href="https://www.france-bioinformatique.fr/"><img src="/training-material/shared/images/ifb.png" alt="Institut Français de Bioinformatique" width="15%" style="max-width:100%;"></a>
-            <a href="https://www.elixir-europe.org/"><img src="/training-material/shared/images/elixir.png" alt="Elixir" width="10%" style="max-width:100%;"></a>
-            <a href="https://www.elixir-europe.org/excelerate/"><img src="/training-material/shared/images/Excelerate_whitebackground.png" alt="Elixir Excelerate" width="15%" style="max-width:100%;"></a>
-            <a href="https://www.nsf.gov"><img src="/training-material/shared/images/nsf.gif" alt="National Science Foundation" width="7%" style="max-width:100%;"></a>
-            <a href="https://www.erasmusmc.nl"><img src="/training-material/shared/images/logo-erasmusmc.png" alt="Erasmus Mecial Center" width="15%" style="max-width:100%;"></a>
-            <a href="https://cineca-project.eu"><img src="/training-material/shared/images/CINECA_logo.png" alt="CINECA project" width="15%" style="max-width:100%;"></a>
-            <a href="https://gallantries.github.io/"><img src="/training-material/shared/images/Gallantries_logo.png" alt="Gallantries Project" width="15%" style="max-width:100%;"></a>
-            <a href="https://ec.europa.eu/programmes/erasmus-plus/node_en"><img src="/training-material/shared/images/EU-logo-beneficaires-gallantries.jpg" alt="EU Erasmus+ programme" width="15%" style="max-width:100%;"></a>
-        </p>
-
         <div class="row">
+
+            <!-- GTN video -->
+            <div class="col-md-6">
+                 <h3>Welcome to the GTN!</h3>
+                 <p> New to the GTN? This video gives an introduction to what it's all about </p>
+                 <iframe width="100%" height="314" src="https://www.youtube.com/embed/lDqWxzWNk1k" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                 <p>Video created by Geert Bonamie.</p>
+            </div>
+
+            <!-- Galaxy community video  -->
+            <div class="col-md-6">
+                 <h3>Meet & Join the Galaxy Community! </h3>
+                 <p> Find out how you can become part of the Galaxy community</p>
+                 <iframe width="100%" height="314" src="https://www.youtube.com/embed/-1MPdxmRs8U" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                 <p> Video created by Beatriz Serrano-Solano</p>
+            </div>
+
+
             <div class="col-md-6">
                 <h2>Contributor Hall of Fame</h2>
                 <p>
@@ -620,10 +663,6 @@
                               
                                 
                                   
-                                  </div>
-
-                                  <div class="carousel-item ">
-                                
                                   
                                   
                                   <div class="hall-of-fame-hero">
@@ -684,10 +723,6 @@
                               
                                 
                                   
-                                  </div>
-
-                                  <div class="carousel-item ">
-                                
                                   
                                   
                                   <div class="hall-of-fame-hero">
@@ -718,6 +753,10 @@
                               
                                 
                                   
+                                  </div>
+
+                                  <div class="carousel-item ">
+                                
                                   
                                   
                                   <div class="hall-of-fame-hero">
@@ -748,10 +787,6 @@
                               
                                 
                                   
-                                  </div>
-
-                                  <div class="carousel-item ">
-                                
                                   
                                   
                                   <div class="hall-of-fame-hero">
@@ -812,10 +847,6 @@
                               
                                 
                                   
-                                  </div>
-
-                                  <div class="carousel-item ">
-                                
                                   
                                   
                                   <div class="hall-of-fame-hero">
@@ -940,10 +971,6 @@
                               
                                 
                                   
-                                  </div>
-
-                                  <div class="carousel-item ">
-                                
                                   
                                   
                                   <div class="hall-of-fame-hero">
@@ -1004,10 +1031,6 @@
                               
                                 
                                   
-                                  </div>
-
-                                  <div class="carousel-item ">
-                                
                                   
                                   
                                   <div class="hall-of-fame-hero">
@@ -1038,6 +1061,10 @@
                               
                                 
                                   
+                                  </div>
+
+                                  <div class="carousel-item ">
+                                
                                   
                                   
                                   <div class="hall-of-fame-hero">
@@ -1068,10 +1095,6 @@
                               
                                 
                                   
-                                  </div>
-
-                                  <div class="carousel-item ">
-                                
                                   
                                   
                                   <div class="hall-of-fame-hero">
@@ -1132,10 +1155,6 @@
                               
                                 
                                   
-                                  </div>
-
-                                  <div class="carousel-item ">
-                                
                                   
                                   
                                   <div class="hall-of-fame-hero">
@@ -1260,10 +1279,6 @@
                               
                                 
                                   
-                                  </div>
-
-                                  <div class="carousel-item ">
-                                
                                   
                                   
                                   <div class="hall-of-fame-hero">
@@ -1324,10 +1339,6 @@
                               
                                 
                                   
-                                  </div>
-
-                                  <div class="carousel-item ">
-                                
                                   
                                   
                                   <div class="hall-of-fame-hero">
@@ -1358,6 +1369,10 @@
                               
                                 
                                   
+                                  </div>
+
+                                  <div class="carousel-item ">
+                                
                                   
                                   
                                   <div class="hall-of-fame-hero">
@@ -1388,10 +1403,6 @@
                               
                                 
                                   
-                                  </div>
-
-                                  <div class="carousel-item ">
-                                
                                   
                                   
                                   <div class="hall-of-fame-hero">
@@ -1452,10 +1463,6 @@
                               
                                 
                                   
-                                  </div>
-
-                                  <div class="carousel-item ">
-                                
                                   
                                   
                                   <div class="hall-of-fame-hero">
@@ -1580,10 +1587,6 @@
                               
                                 
                                   
-                                  </div>
-
-                                  <div class="carousel-item ">
-                                
                                   
                                   
                                   <div class="hall-of-fame-hero">
@@ -1644,10 +1647,6 @@
                               
                                 
                                   
-                                  </div>
-
-                                  <div class="carousel-item ">
-                                
                                   
                                   
                                   <div class="hall-of-fame-hero">
@@ -1678,6 +1677,10 @@
                               
                                 
                                   
+                                  </div>
+
+                                  <div class="carousel-item ">
+                                
                                   
                                   
                                   <div class="hall-of-fame-hero">
@@ -1708,10 +1711,6 @@
                               
                                 
                                   
-                                  </div>
-
-                                  <div class="carousel-item ">
-                                
                                   
                                   
                                   <div class="hall-of-fame-hero">
@@ -1772,10 +1771,6 @@
                               
                                 
                                   
-                                  </div>
-
-                                  <div class="carousel-item ">
-                                
                                   
                                   
                                   <div class="hall-of-fame-hero">
@@ -1900,10 +1895,6 @@
                               
                                 
                                   
-                                  </div>
-
-                                  <div class="carousel-item ">
-                                
                                   
                                   
                                   <div class="hall-of-fame-hero">
@@ -1964,10 +1955,6 @@
                               
                                 
                                   
-                                  </div>
-
-                                  <div class="carousel-item ">
-                                
                                   
                                   
                                   <div class="hall-of-fame-hero">
@@ -1998,6 +1985,10 @@
                               
                                 
                                   
+                                  </div>
+
+                                  <div class="carousel-item ">
+                                
                                   
                                   
                                   <div class="hall-of-fame-hero">
@@ -2028,10 +2019,6 @@
                               
                                 
                                   
-                                  </div>
-
-                                  <div class="carousel-item ">
-                                
                                   
                                   
                                   <div class="hall-of-fame-hero">
@@ -2092,10 +2079,6 @@
                               
                                 
                                   
-                                  </div>
-
-                                  <div class="carousel-item ">
-                                
                                   
                                   
                                   <div class="hall-of-fame-hero">
@@ -2220,10 +2203,6 @@
                               
                                 
                                   
-                                  </div>
-
-                                  <div class="carousel-item ">
-                                
                                   
                                   
                                   <div class="hall-of-fame-hero">
@@ -2284,10 +2263,6 @@
                               
                                 
                                   
-                                  </div>
-
-                                  <div class="carousel-item ">
-                                
                                   
                                   
                                   <div class="hall-of-fame-hero">
@@ -2318,6 +2293,10 @@
                               
                                 
                                   
+                                  </div>
+
+                                  <div class="carousel-item ">
+                                
                                   
                                   
                                   <div class="hall-of-fame-hero">
@@ -2348,10 +2327,6 @@
                               
                                 
                                   
-                                  </div>
-
-                                  <div class="carousel-item ">
-                                
                                   
                                   
                                   <div class="hall-of-fame-hero">
@@ -2412,10 +2387,6 @@
                               
                                 
                                   
-                                  </div>
-
-                                  <div class="carousel-item ">
-                                
                                   
                                   
                                   <div class="hall-of-fame-hero">
@@ -2540,10 +2511,6 @@
                               
                                 
                                   
-                                  </div>
-
-                                  <div class="carousel-item ">
-                                
                                   
                                   
                                   <div class="hall-of-fame-hero">
@@ -2604,10 +2571,6 @@
                               
                                 
                                   
-                                  </div>
-
-                                  <div class="carousel-item ">
-                                
                                   
                                   
                                   <div class="hall-of-fame-hero">
@@ -2638,6 +2601,10 @@
                               
                                 
                                   
+                                  </div>
+
+                                  <div class="carousel-item ">
+                                
                                   
                                   
                                   <div class="hall-of-fame-hero">
@@ -2668,10 +2635,6 @@
                               
                                 
                                   
-                                  </div>
-
-                                  <div class="carousel-item ">
-                                
                                   
                                   
                                   <div class="hall-of-fame-hero">
@@ -2732,10 +2695,6 @@
                               
                                 
                                   
-                                  </div>
-
-                                  <div class="carousel-item ">
-                                
                                   
                                   
                                   <div class="hall-of-fame-hero">
@@ -2860,10 +2819,6 @@
                               
                                 
                                   
-                                  </div>
-
-                                  <div class="carousel-item ">
-                                
                                   
                                   
                                   <div class="hall-of-fame-hero">
@@ -2924,10 +2879,6 @@
                               
                                 
                                   
-                                  </div>
-
-                                  <div class="carousel-item ">
-                                
                                   
                                   
                                   <div class="hall-of-fame-hero">
@@ -2958,6 +2909,10 @@
                               
                                 
                                   
+                                  </div>
+
+                                  <div class="carousel-item ">
+                                
                                   
                                   
                                   <div class="hall-of-fame-hero">
@@ -2988,10 +2943,6 @@
                               
                                 
                                   
-                                  </div>
-
-                                  <div class="carousel-item ">
-                                
                                   
                                   
                                   <div class="hall-of-fame-hero">
@@ -3052,10 +3003,6 @@
                               
                                 
                                   
-                                  </div>
-
-                                  <div class="carousel-item ">
-                                
                                   
                                   
                                   <div class="hall-of-fame-hero">
@@ -3180,10 +3127,6 @@
                               
                                 
                                   
-                                  </div>
-
-                                  <div class="carousel-item ">
-                                
                                   
                                   
                                   <div class="hall-of-fame-hero">
@@ -3244,10 +3187,6 @@
                               
                                 
                                   
-                                  </div>
-
-                                  <div class="carousel-item ">
-                                
                                   
                                   
                                   <div class="hall-of-fame-hero">
@@ -3288,6 +3227,14 @@
                 <p>Do you want to help with this project and join our Hall of Fame? Please see our <a href="/training-material/topics/contributing/">dedicated tutorials</a> or our <a href="/training-material/faq">Frequently Asked Questions</a> to get you started.</p>
 
             </div>
+
+
+            <div class="col-md-6">
+                <h3>GTN Tweets</h3>
+                <a class="twitter-timeline" data-height="500" href="https://twitter.com/gxytraining?ref_src=twsrc%5Etfw">Tweets by gxytraining</a> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+            </div>
+
+
             <div class="col-md-6">
                 <h2>The Galaxy Training Network<h2>
                 <div class="embed-responsive embed-responsive-4by3">
@@ -3295,6 +3242,33 @@
                 </div>
             </div>
         </div>
+
+         <h2>Acknowledgment and Funding</h2>
+        <p>
+            More information about this project can be found in our <a href="https://doi.org/10.1016/j.cels.2018.05.012">publication in Cell Systems</a>.
+            We would like to thank all <a href="/training-material/hall-of-fame">contributors</a> to our Galaxy
+            training materials, the Galaxy community for their constant support, and our funding sources:
+        </p>
+
+        <p>
+            <a href="https://www.denbi.de/"><img src="https://raw.githubusercontent.com/bgruening/rbc_docs/master/logo/deNBI_Logo_rgb.png" alt="de.NBI" width="15%" style="max-width:100%;"></a>
+            <a href="https://www.nih.gov"><img src="/training-material/shared/images/nih.png" alt="National Institutes of Health" width="7%" style="max-width:100%;"></a>
+            <a href="https://www.sfb992.uni-freiburg.de/"><img src="https://raw.githubusercontent.com/bgruening/presentations/bce348bb606c312d531c479e63a66efc2bc38d44/shared/resources/img/MEDEP.jpg" alt="Collaborative Research Centre 992" width="15%" style="max-width:100%;"></a>
+            <a href="https://www.ie-freiburg.mpg.de"><img src="https://raw.githubusercontent.com/bgruening/presentations/master/shared/resources/img/14_MPI_IE_logo_mit_180.gif" alt="Max Planck Institute of Immunology and Epigenetics" width="15%" style="max-width:100%;"></a>
+            <a href="https://www.uni-freiburg.de/"><img src="https://raw.githubusercontent.com/bgruening/presentations/a2e38e4b007994af798320db3a0131c4bb891c0e/shared/resources/img/logo_freiburg.jpg" alt="University of Freiburg" width="15%" style="max-width:100%;"></a>
+            <a href="http://www.psu.edu"><img src="/training-material/shared/images/psu.png" alt="The Pennsylvania State University" width="5%" style="max-width:100%;"></a>
+            <a href="https://wiki.galaxyproject.org/Teach/GTN"><img src="/training-material/shared/images/GTNLogo1000.png" alt="Galaxy Training Network" width="15%" style="max-width:100%;"></a>
+			<a href="https://www.france-bioinformatique.fr/"><img src="/training-material/shared/images/ifb.png" alt="Institut Français de Bioinformatique" width="15%" style="max-width:100%;"></a>
+            <a href="https://www.elixir-europe.org/"><img src="/training-material/shared/images/elixir.png" alt="Elixir" width="10%" style="max-width:100%;"></a>
+            <a href="https://www.elixir-europe.org/excelerate/"><img src="/training-material/shared/images/Excelerate_whitebackground.png" alt="Elixir Excelerate" width="15%" style="max-width:100%;"></a>
+            <a href="https://www.nsf.gov"><img src="/training-material/shared/images/nsf.gif" alt="National Science Foundation" width="7%" style="max-width:100%;"></a>
+            <a href="https://www.erasmusmc.nl"><img src="/training-material/shared/images/logo-erasmusmc.png" alt="Erasmus Mecial Center" width="15%" style="max-width:100%;"></a>
+            <a href="https://cineca-project.eu"><img src="/training-material/shared/images/CINECA_logo.png" alt="CINECA project" width="15%" style="max-width:100%;"></a>
+            <a href="https://gallantries.github.io/"><img src="/training-material/shared/images/Gallantries_logo.png" alt="Gallantries Project" width="15%" style="max-width:100%;"></a>
+            <a href="https://ec.europa.eu/programmes/erasmus-plus/node_en"><img src="/training-material/shared/images/EU-logo-beneficaires-gallantries.jpg" alt="EU Erasmus+ programme" width="15%" style="max-width:100%;"></a>
+        </p>
+
+
     </section>
 </div>
 
@@ -3315,7 +3289,7 @@
         <p>
     The content of the tutorials and website is licensed under the <a rel="license" href="https://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0 International License</a>.
 </p>
-        <p>This is revision <a href="https://github.com/galaxyproject/training-material/commit/0de8cefd91d20993cc63d1c114f83f34c939bb50">0de8cefd91d20993cc63d1c114f83f34c939bb50</a></p>
+        <p>This is revision <a href="https://github.com/galaxyproject/training-material/commit/035e137335f44d29077e8c7ac431e0de3b91e7ed">035e137335f44d29077e8c7ac431e0de3b91e7ed</a></p>
     </div>
 </footer>
 

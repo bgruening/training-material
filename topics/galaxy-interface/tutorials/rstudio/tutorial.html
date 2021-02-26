@@ -70,55 +70,78 @@
                     </li>
 
                     <li class="nav-item dropdown">
-                        <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" aria-expanded="false" title="Language Selector">
-                            <i class="fas fa-language" aria-hidden="true"></i><span class="visually-hidden">language</span> Language
-                        </a>
-                        <div class="dropdown-menu">
-                            
-                            <a class="dropdown-item" href="https://translate.google.com/translate?hl=jp&sl=en&tl=fr&u=https%3A%2F%2Ftraining.galaxyproject.org%2Ftopics%2Fgalaxy-interface%2Ftutorials%2Frstudio%2Ftutorial.html&edit-text=&act=url" title="">
-                                Français
-                            </a>
-                            
-                            <a class="dropdown-item" href="https://translate.google.com/translate?hl=jp&sl=en&tl=ja&u=https%3A%2F%2Ftraining.galaxyproject.org%2Ftopics%2Fgalaxy-interface%2Ftutorials%2Frstudio%2Ftutorial.html&edit-text=&act=url" title="">
-                                日本語
-                            </a>
-                            
-                            <a class="dropdown-item" href="https://translate.google.com/translate?hl=jp&sl=en&tl=es&u=https%3A%2F%2Ftraining.galaxyproject.org%2Ftopics%2Fgalaxy-interface%2Ftutorials%2Frstudio%2Ftutorial.html&edit-text=&act=url" title="">
-                                Español
-                            </a>
-                            
-                            <a class="dropdown-item" href="https://translate.google.com/translate?hl=jp&sl=en&tl=pt&u=https%3A%2F%2Ftraining.galaxyproject.org%2Ftopics%2Fgalaxy-interface%2Ftutorials%2Frstudio%2Ftutorial.html&edit-text=&act=url" title="">
-                                Português
-                            </a>
-                            
-                            <a class="dropdown-item" href="https://translate.google.com/translate?hl=jp&sl=en&tl=ar&u=https%3A%2F%2Ftraining.galaxyproject.org%2Ftopics%2Fgalaxy-interface%2Ftutorials%2Frstudio%2Ftutorial.html&edit-text=&act=url" title="">
-                                العربية
-                            </a>
-                            
-                            <a class="dropdown-item" href="https://translate.google.com/translate?hl=jp&sl=en&tl=&u=https%3A%2F%2Ftraining.galaxyproject.org%2Ftopics%2Fgalaxy-interface%2Ftutorials%2Frstudio%2Ftutorial.html&edit-text=&act=url" title="">
-                                And more!
-                            </a>
-                        </div>
-                    </li>
-
-                    <li class="nav-item dropdown">
     <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" aria-expanded="false" title="Help">
         <i class="far fa-question-circle" aria-hidden="true"></i><span class="visually-hidden">help</span> Help
     </a>
     <div class="dropdown-menu dropdown-menu-right">
+        <!-- disable Tess for now
         <form method="get" action="https://tess.elixir-europe.org/materials">
             <input type="text" id="search" name="q" value="" style="margin-left: 0.5em;/*! border-radius: 0px; */">
             <input type="hidden" value="Galaxy Training" name="content_provider">
             <input type="submit" value="Search on TeSS" style="width: 92%;border-radius: 0px;margin: 0.5em;background: #f47d20;border: 0px;padding: 0.25em;" class="">
         </form>
+        -->
 
-        <div class="dropdown-divider"></div>
         <a class="dropdown-item" href="/training-material/faq" title="Check our FAQ">
-            FAQ
+           <i class="far fa-question-circle" aria-hidden="true"></i><span class="visually-hidden">question</span> FAQ
         </a>
         <a class="dropdown-item" href="https://help.galaxyproject.org/" title="Discuss on Galaxy Help">
-            Discuss on Galaxy Help
+            <i class="far fa-comments" aria-hidden="true"></i><span class="visually-hidden">feedback</span> Galaxy Help Forum
         </a>
+        <a class="dropdown-item" href="https://gitter.im/Galaxy-Training-Network/Lobby" title="Discuss on gitter">
+           <i class="fab fa-gitter" aria-hidden="true"></i><span class="visually-hidden">gitter</span> Discuss on Gitter
+        </a>
+    </div>
+</li>
+
+
+                    <li class="nav-item dropdown">
+    <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" aria-expanded="false" title="Extras">
+        <i class="far fa-star" aria-hidden="true"></i><span class="visually-hidden">galaxy-star</span> Extras
+    </a>
+    <div class="dropdown-menu dropdown-menu-right">
+
+        
+        <a class="dropdown-item" href="https://github.com/galaxyproject/training-material/edit/master/topics/galaxy-interface/tutorials/rstudio/tutorial.md" title="Edit on GitHub">
+          <i class="fab fa-github" aria-hidden="true"></i><span class="visually-hidden">github</span> Edit on GitHub
+        </a>
+
+        <a class="dropdown-item" href="https://plausible.galaxyproject.eu/training.galaxyproject.org?period=12mo&page=/training-material/topics/galaxy-interface/tutorials/rstudio/tutorial.html" title="Show view statistics of this page">
+            <i class="fas fa-chart-bar" aria-hidden="true"></i><span class="visually-hidden">galaxy-barchart</span> Page Metrics
+        </a>
+
+        <div class="dropdown-item">
+            <div>
+                <i class="fas fa-language" aria-hidden="true"></i><span class="visually-hidden">language</span> Translate this page
+            </div>
+
+            <div id="lang-selector">
+                
+                <a class="btn btn-info" href="https://translate.google.com/translate?hl=jp&sl=en&tl=fr&u=https%3A%2F%2Ftraining.galaxyproject.org/topics/galaxy-interface/tutorials/rstudio/tutorial.html&edit-text=&act=url">
+                Français
+                </a>
+                
+                <a class="btn btn-info" href="https://translate.google.com/translate?hl=jp&sl=en&tl=ja&u=https%3A%2F%2Ftraining.galaxyproject.org/topics/galaxy-interface/tutorials/rstudio/tutorial.html&edit-text=&act=url">
+                日本語
+                </a>
+                
+                <a class="btn btn-info" href="https://translate.google.com/translate?hl=jp&sl=en&tl=es&u=https%3A%2F%2Ftraining.galaxyproject.org/topics/galaxy-interface/tutorials/rstudio/tutorial.html&edit-text=&act=url">
+                Español
+                </a>
+                
+                <a class="btn btn-info" href="https://translate.google.com/translate?hl=jp&sl=en&tl=pt&u=https%3A%2F%2Ftraining.galaxyproject.org/topics/galaxy-interface/tutorials/rstudio/tutorial.html&edit-text=&act=url">
+                Português
+                </a>
+                
+                <a class="btn btn-info" href="https://translate.google.com/translate?hl=jp&sl=en&tl=ar&u=https%3A%2F%2Ftraining.galaxyproject.org/topics/galaxy-interface/tutorials/rstudio/tutorial.html&edit-text=&act=url">
+                العربية
+                </a>
+                
+                <a class="btn btn-info" href="https://translate.google.com/translate?hl=jp&sl=en&tl=&u=https%3A%2F%2Ftraining.galaxyproject.org%2Ftopics%2Fgalaxy-interface%2Ftutorials%2Frstudio%2Ftutorial.html&edit-text=&act=url" title="">
+                And more!
+                </a>
+            </div>
+        </div>
 
         <div class="dropdown-item">
             <div>
@@ -150,12 +173,27 @@
     </div>
 </li>
 
-
+                    <!--
                     <li class="nav-item">
                         <a class="nav-link" href="https://github.com/galaxyproject/training-material/edit/master/topics/galaxy-interface/tutorials/rstudio/tutorial.md">
                             <i class="fab fa-github" aria-hidden="true"></i><span class="visually-hidden">github</span> Edit
                         </a>
                     </li>
+                    -->
+
+                     <!-- Search bar-->
+                    <li class="nav-item">
+                      <div id="navbarSupportedContent">
+                        <!-- Search form -->
+                        <form class="form-inline mr-auto" method="GET" action="/training-material/search">
+                          <i class="fas fa-search nav-link" aria-hidden="true"></i>
+                          <div class="md-form mb-2">
+                            <input name="query" class="form-control nicer" type="text" placeholder="Search Tutorials" aria-label="Search">
+                          </div>
+                        </form>
+                      </div>
+                    </li>
+
                 </ul>
             </div>
         </div>
@@ -325,7 +363,7 @@
 
             
 
-            <p><strong> <i class="far fa-calendar" aria-hidden="true"></i><span class="visually-hidden">last_modification</span> Last modification:</strong> Jun 15, 2020 </p>
+            <p><strong> <i class="far fa-calendar" aria-hidden="true"></i><span class="visually-hidden">last_modification</span> Last modification:</strong> Feb 25, 2021 </p>
         </blockquote>
 
         <div class="container">
@@ -371,34 +409,7 @@
 
 <h2 id="opening-up-rstudio">Opening up RStudio</h2>
 
-<blockquote class="notranslate hands_on">
-  <h3 id="hands_on-hands-on-launch-rstudio"><i class="fas fa-pencil-alt" aria-hidden="true"></i><span class="visually-hidden">hands_on</span> Hands-on: Launch RStudio</h3>
-
-  <p>Depending on which server you are using, you may be able to run RStudio directly in <span class="notranslate">Galaxy</span>. If that is not available, RStudio Cloud can be an alte<span class="notranslate">rna</span>tive.</p>
-
-  <blockquote class="tip">
-    <h3 id="tip-tip-launch-rstudio-in-galaxy"><i class="far fa-lightbulb" aria-hidden="true"></i><span class="visually-hidden">tip</span> Tip: Launch RStudio in <span class="notranslate">Galaxy</span></h3>
-    <p>Currently RStudio in <span class="notranslate">Galaxy</span> is only available on <a href="https://usegalaxy.eu">Use<span class="notranslate">Galaxy</span>.eu</a> and <a href="https://usegalaxy.org">Use<span class="notranslate">Galaxy</span>.org</a></p>
-
-    <ol>
-      <li>Open the Rstudio tool <i class="fas fa-wrench" aria-hidden="true"></i><span class="visually-hidden">tool</span> by clicking <a href="https://usegalaxy.eu/?tool_id=interactive_tool_rstudio">here</a></li>
-      <li>Click Execute</li>
-      <li>The tool will start running and will stay running permanently</li>
-      <li>Click on the “User” menu at the top and go to “Active InteractiveTools” and locate the RStudio instance you started.</li>
-    </ol>
-  </blockquote>
-
-  <blockquote class="tip">
-    <h3 id="tip-tip-launch-rstudio-cloud-if-not-available-on-galaxy"><i class="far fa-lightbulb" aria-hidden="true"></i><span class="visually-hidden">tip</span> Tip: Launch RStudio Cloud if not available on <span class="notranslate">Galaxy</span></h3>
-
-    <p>If RStudio is not available on the <span class="notranslate">Galaxy</span> instance:</p>
-    <ol>
-      <li>Register for <a href="https://client.login.rstudio.cloud/oauth/login?show_auth=0&amp;show_login=1&amp;show_setup=1">RStudio Cloud</a>, or login if you already have an account</li>
-      <li>Create a new project</li>
-    </ol>
-  </blockquote>
-
-</blockquote>
+<blockquote class="notranslate hands_on">  <h3 id="hands_on-hands-on-launch-rstudio"><i class="fas fa-pencil-alt" aria-hidden="true"></i><span class="visually-hidden">hands_on</span> Hands-on: Launch RStudio</h3>  <p>Depending on which server you are using, you may be able to run RStudio directly in <span class="notranslate">Galaxy</span>. If that is not available, RStudio Cloud can be an alte<span class="notranslate">rna</span>tive.</p>  <blockquote class="tip">    <h3 id="tip-tip-launch-rstudio-in-galaxy"><i class="far fa-lightbulb" aria-hidden="true"></i><span class="visually-hidden">tip</span> Tip: Launch RStudio in <span class="notranslate">Galaxy</span></h3>    <p>Currently RStudio in <span class="notranslate">Galaxy</span> is only available on <a href="https://usegalaxy.eu">Use<span class="notranslate">Galaxy</span>.eu</a> and <a href="https://usegalaxy.org">Use<span class="notranslate">Galaxy</span>.org</a></p>    <ol>      <li>Open the Rstudio tool <i class="fas fa-wrench" aria-hidden="true"></i><span class="visually-hidden">tool</span> by clicking <a href="https://usegalaxy.eu/?tool_id=interactive_tool_rstudio">here</a></li>      <li>Click Execute</li>      <li>The tool will start running and will stay running permanently</li>      <li>Click on the “User” menu at the top and go to “Active InteractiveTools” and locate the RStudio instance you started.</li>    </ol>  </blockquote>  <blockquote class="tip">    <h3 id="tip-tip-launch-rstudio-cloud-if-not-available-on-galaxy"><i class="far fa-lightbulb" aria-hidden="true"></i><span class="visually-hidden">tip</span> Tip: Launch RStudio Cloud if not available on <span class="notranslate">Galaxy</span></h3>    <p>If RStudio is not available on the <span class="notranslate">Galaxy</span> instance:</p>    <ol>      <li>Register for <a href="https://client.login.rstudio.cloud/oauth/login?show_auth=0&amp;show_login=1&amp;show_setup=1">RStudio Cloud</a>, or login if you already have an account</li>      <li>Create a new project</li>    </ol>  </blockquote></blockquote>
 
 <p>You should now be looking at a page with the RStudio interface:</p>
 
@@ -785,27 +796,7 @@ find:</p>
 you should save the work you did within RStudio by exporting any files you created back to your <span class="notranslate">Galaxy</span> history, as well as the log describing all the commands you ran.
 Then you can safely shut down RStudio.</p>
 
-<blockquote class="notranslate hands_on">
-  <h3 id="hands_on-hands-on-stop-rstudio"><i class="fas fa-pencil-alt" aria-hidden="true"></i><span class="visually-hidden">hands_on</span> Hands-on: Stop RStudio</h3>
-
-  <p>When you have finished your R analysis, it’s time to stop RStudio.</p>
-
-  <ol>
-    <li>First, save your work into <span class="notranslate">Galaxy</span>, to ensure reproducibility:
-      <ol>
-        <li>You can use <code class="language-plaintext highlighter-rouge">gx_put(filename)</code> to save individual files by supplying the filename</li>
-        <li>You can use <code class="language-plaintext highlighter-rouge">gx_save()</code> to save the entire analysis transcript and any data objects loaded into your environment.</li>
-      </ol>
-    </li>
-    <li>Once you have saved your data, you can proceed in 2 different ways:
-      <ul>
-        <li>Deleting the corresponding history dataset named <code class="language-plaintext highlighter-rouge">RStudio</code> and showing a “in progress state”, so yellow, OR</li>
-        <li>Clicking on the “User” menu at the top and go to “Active InteractiveTools” and locate the RStudio instance you started, selecting the corresponding box, and finally clicking on the “Stop” button at the bottom.</li>
-      </ul>
-    </li>
-  </ol>
-
-</blockquote>
+<blockquote class="notranslate hands_on">  <h3 id="hands_on-hands-on-stop-rstudio"><i class="fas fa-pencil-alt" aria-hidden="true"></i><span class="visually-hidden">hands_on</span> Hands-on: Stop RStudio</h3>  <p>When you have finished your R analysis, it’s time to stop RStudio.</p>  <ol>    <li>First, save your work into <span class="notranslate">Galaxy</span>, to ensure reproducibility:      <ol>        <li>You can use <code class="language-plaintext highlighter-rouge">gx_put(filename)</code> to save individual files by supplying the filename</li>        <li>You can use <code class="language-plaintext highlighter-rouge">gx_save()</code> to save the entire analysis transcript and any data objects loaded into your environment.</li>      </ol>    </li>    <li>Once you have saved your data, you can proceed in 2 different ways:      <ul>        <li>Deleting the corresponding history dataset named <code class="language-plaintext highlighter-rouge">RStudio</code> and showing a “in progress state”, so yellow, OR</li>        <li>Clicking on the “User” menu at the top and go to “Active InteractiveTools” and locate the RStudio instance you started, selecting the corresponding box, and finally clicking on the “Stop” button at the bottom.</li>      </ul>    </li>  </ol></blockquote>
 
 <h1 id="interaction-between-rstudio-and-galaxy">Interaction between RStudio and <span class="notranslate">Galaxy</span></h1>
 
@@ -866,7 +857,7 @@ Then you can safely shut down RStudio.</p>
                     <h1>Citing this Tutorial</h1>
                     <p>
                         <ol>
-                            <li id="citation-text">Bérénice Batut, Fotis E. Psomopoulos, Toby Hodges, 2020 <b>RStudio in Galaxy (Galaxy Training Materials)</b>. <a href="/training-material/topics/galaxy-interface/tutorials/rstudio/tutorial.html">/training-material/topics/galaxy-interface/tutorials/rstudio/tutorial.html</a> Online; accessed TODAY
+                            <li id="citation-text">Bérénice Batut, Fotis E. Psomopoulos, Toby Hodges, 2021 <b>RStudio in Galaxy (Galaxy Training Materials)</b>. <a href="/training-material/topics/galaxy-interface/tutorials/rstudio/tutorial.html">/training-material/topics/galaxy-interface/tutorials/rstudio/tutorial.html</a> Online; accessed TODAY
                             </li>
                             <li>
                             Batut et al., 2018 <b>Community-Driven Data Analysis Training for Biology</b> Cell Systems <a href="https://doi.org/10.1016%2Fj.cels.2018.05.012">10.1016/j.cels.2018.05.012</a>
@@ -883,9 +874,9 @@ Then you can safely shut down RStudio.</p>
 <code id="citation-code">@misc{galaxy-interface-rstudio,
     author = "Bérénice Batut and Fotis E. Psomopoulos and Toby Hodges",
     title = "RStudio in Galaxy (Galaxy Training Materials)",
-    year = "2020",
-    month = "06",
-    day = "15"
+    year = "2021",
+    month = "02",
+    day = "25"
     url = "\url{/training-material/topics/galaxy-interface/tutorials/rstudio/tutorial.html}",
     note = "[Online; accessed TODAY]"
 }
